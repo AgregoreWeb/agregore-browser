@@ -1,0 +1,37 @@
+{
+  "name": "dweb-browser",
+  "version": "1.0.0",
+  "description": "A minimal web browser for",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "electron-rebuild": "electron-rebuild"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RangerMauve/dweb-browser.git"
+  },
+  "keywords": [
+    "dat",
+    "hypercore",
+    "hyper",
+    "hyperdrive",
+    "ipfs",
+    "browser"
+  ],
+  "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/RangerMauve/dweb-browser/issues"
+  },
+  "homepage": "https://github.com/RangerMauve/dweb-browser#readme",
+  "devDependencies": {
+    "electron": "^9.0.4",
+    "electron-rebuild": "^1.11.0"
+  },
+  "dependencies": {
+    "dat-fetch": "^2.2.0",
+    "dat-sdk": "^2.1.0"
+  }
+}

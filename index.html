@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<title>Dweb Browser</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<style>
+	html, body {
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+	}
+  #view {
+  	flex:1
+  }
+</style>
+
+<header>
+
+</header>
+<webview id="view" src="hyper://94f0cab7f60fcc2a711df11c85db5e0594d11e8a3efd04a06f46a3c34d03c418/"></webview>
+
+<script>
+const webview = document.querySelector('webview')
+
+webview.addEventListener('dom-ready', () => {
+	webview.openDevTools()
+})
+</script>
