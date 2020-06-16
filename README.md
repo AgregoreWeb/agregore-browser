@@ -51,6 +51,7 @@ PRs for more protocols are welcome.
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
+- [ ] WebXR - Make sure it's working!
 - [ ] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
 	- [ ] Somewhere to render badges
 	- [ ] Developer options page
