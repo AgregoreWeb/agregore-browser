@@ -1,5 +1,8 @@
 const { app, BrowserWindow, protocol } = require('electron')
-const createHandler = require('./protocol')
+const createHyperHandler = require('./hyper-protocol')
+// const createIPFSHandler = require('./ipfs-protocol')
+const createBrowserHandler = require('./browser-protocol')
+const createDatHandler = require('./dat-protocol')
 
 function createWindow () {
   // Create the browser window.
@@ -51,6 +54,19 @@ async function onready () {
 
 async function setupProtocol () {
   app.setAsDefaultProtocolClient('hyper')
-  const protocolHandler = await createHandler()
-  protocol.registerStreamProtocol('hyper', protocolHandler)
+  const hyperProtocolHandler = await createHyperHandler()
+  protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+
+  const browserProtocolHandler = await createBrowserHandler()
+  protocol.registerStreamProtocol('dweb-browser', browserProtocolHandler)
+
+  const datProtocolHandler = await createDatHandler()
+  protocol.registerStreamProtocol('dat', datProtocolHandler)
+
+/*
+  app.setAsDefaultProtocolClient('ipfs')
+  const ipfsProtocolHandler = await createIPFSHandler()
+  protocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
+
+  */
 }

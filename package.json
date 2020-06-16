@@ -31,7 +31,10 @@
     "electron-rebuild": "^1.11.0"
   },
   "dependencies": {
+    "@geut/hyperdrive-promise": "^3.0.1",
     "dat-fetch": "^2.2.0",
-    "dat-sdk": "^2.1.0"
+    "dat-sdk": "^2.1.0",
+    "dat-sdk-old": "^1.0.0",
+    "ipfs": "^0.46.0"
   }
 }

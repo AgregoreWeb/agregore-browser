@@ -20,17 +20,33 @@
   #view {
   	flex:1
   }
+
+	header {
+		display: flex;
+		flex-direction: row;
+	}
+	#urlform {
+		display: flex;
+		flex-direction: row;
+		flex:1;
+	}
+	#urlbar {
+		flex: 1;
+	}
+
+	.hidden {
+		display: none;
+	}
 </style>
 
 <header>
-
+	<button id="backbutton" class="hidden">⬅</button>
+	<button id="frontbutton" class="hidden">➡</button>
+	<form id="urlform">
+		<input id="urlbar" />
+		<button id="urlsubmit">◉</button>
+	</form>
 </header>
-<webview id="view" src="hyper://94f0cab7f60fcc2a711df11c85db5e0594d11e8a3efd04a06f46a3c34d03c418/"></webview>
+<webview id="view" src="dweb-browser://welcome"></webview>
 
-<script>
-const webview = document.querySelector('webview')
-
-webview.addEventListener('dom-ready', () => {
-	webview.openDevTools()
-})
-</script>
+<script src="script.js"></script>

@@ -1,11 +1,24 @@
+const hyperdrivePromise = require('@geut/hyperdrive-promise')
 const datFetch = require('dat-fetch')
-const SDK = require('dat-sdk')
+const SDK = require('dat-sdk-old')
 
 module.exports = async function createHandler () {
-  const sdk = await SDK()
-  const fetch = datFetch(sdk)
+  const sdk = SDK()
+  const Hyperdrive = (key) => hyperdrivePromise(sdk.Hyperdrive(key))
+  function resolveName (name) {
+    return new Promise((resolve, reject) => {
+      sdk.resolveName(name, (err, url) => {
+        if (err) reject(err)
+        else resolve(url)
+      })
+    })
+  }
+  const fetch = datFetch({
+    Hyperdrive,
+    resolveName
+  })
   return async function protocolHandler ({ url }, sendResponse) {
-    console.log('Loading', url)
+    // console.log('Loading', url)
     const response = await fetch(url)
 
     const { status: statusCode, body: data, headers: responseHeaders } = response
