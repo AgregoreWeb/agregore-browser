@@ -31,6 +31,11 @@ PRs for more protocols are welcome.
 	- [x] Welcome page
 - [x] Basic hypercore-protocol / dat support
 - [ ] Basic IPFS support
+	- [ ] Loading files
+	- [ ] Directory listing
+	- [ ] Loading pretty urls with index.html
+	- [ ] IPNS?
+- [ ] Basic BitTorrent support (loading)
 - [ ] Keyboard shortcuts
 	- [ ] Dev tools
 	- [ ] Navigation
