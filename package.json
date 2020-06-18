@@ -2,11 +2,55 @@
   "name": "dweb-browser",
   "version": "1.0.0",
   "description": "A minimal web browser for",
-  "main": "index.js",
+  "main": "app/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "electron-rebuild": "electron-rebuild"
+    "electron-rebuild": "electron-rebuild",
+    "build": "electron-builder build --publish never"
+  },
+  "build": {
+  	"productName": "DWeb Browser",
+		"appId": "dweb.mauve.moe",
+		"files": [
+			"app/**/*",
+			"node_modules/**/*",
+			"package.json"
+		],
+		"directories": {
+			"output": "release"
+		},
+		"protocols": {
+			"name": "hypercore-protocol",
+			"schemes": ["hyper", "dat"]
+		},
+		 "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "linux": {
+      "target": [
+        "deb",
+        "rpm",
+        "AppImage"
+      ],
+      "category": "Development"
+    }
   },
   "repository": {
     "type": "git",
@@ -28,6 +72,7 @@
   "homepage": "https://github.com/RangerMauve/dweb-browser#readme",
   "devDependencies": {
     "electron": "^9.0.4",
+    "electron-builder": "^22.7.0",
     "electron-rebuild": "^1.11.0"
   },
   "dependencies": {

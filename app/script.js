@@ -1,4 +1,4 @@
-const webview = $('webview')
+const webview = $('#view')
 
 webview.addEventListener('dom-ready', () => {
   webview.openDevTools()
@@ -18,12 +18,13 @@ frontbutton.addEventListener('click', () => {
   webview.goForward()
 })
 
-webview.addEventListener('load-commit', ({ url, isMainFrame }) => {
-  if (!isMainFrame) return
+webview.addEventListener('did-start-navigation', ({ detail }) => {
+  console.log('Navigating', detail)
+  const url = webview.getURL()
   urlbar.value = url
-
-  updateButtons()
 })
+
+webview.addEventListener('did-navigate', updateButtons)
 
 urlform.addEventListener('submit', (e) => {
   e.preventDefault(true)

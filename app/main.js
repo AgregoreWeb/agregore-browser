@@ -1,14 +1,27 @@
 const { app, BrowserWindow, protocol } = require('electron')
+const { join } = require('path')
+
 const createHyperHandler = require('./hyper-protocol')
 // const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
 const createDatHandler = require('./dat-protocol')
+
+const P2P_PRIVILEDGES = {
+	standard: true,
+	secure: true,
+	allowServiceWorkers: true,
+	supportFetchAPI: true,
+	bypassCSP: true
+}
+
+const MAIN_PAGE = join(__dirname, 'index.html')
 
 function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
     height: 600,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       webviewTag: true
@@ -16,11 +29,16 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  win.loadFile('index.html')
+  win.loadFile(MAIN_PAGE)
 
   // Open the DevTools.
   win.webContents.openDevTools()
 }
+
+protocol.registerSchemesAsPrivileged([
+  { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
+  { scheme: 'dat', privileges: P2P_PRIVILEDGES }
+])
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -54,6 +72,7 @@ async function onready () {
 
 async function setupProtocol () {
   app.setAsDefaultProtocolClient('hyper')
+
   const hyperProtocolHandler = await createHyperHandler()
   protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 

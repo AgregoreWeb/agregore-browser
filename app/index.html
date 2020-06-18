@@ -39,14 +39,29 @@
 	}
 </style>
 
+<script src="./electron-browser-view.js"></script>
+
 <header>
 	<button id="backbutton" class="hidden">⬅</button>
 	<button id="frontbutton" class="hidden">➡</button>
 	<form id="urlform">
-		<input id="urlbar" />
+		<input id="urlbar" value="browser://welcome" />
 		<button id="urlsubmit">◉</button>
 	</form>
 </header>
-<webview id="view" src="dweb-browser://welcome"></webview>
+
+<browser-view
+	id="view"
+	src="dweb-browser://welcome"
+></browser-view>
+
+<!--
+<webview
+	id="view"
+	src="dweb-browser://welcome"
+	enableremotemodule="false"
+	enableblinkfeatures="WebXR"
+></webview>
+-->
 
 <script src="script.js"></script>
