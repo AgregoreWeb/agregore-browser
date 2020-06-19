@@ -186,25 +186,12 @@ class BrowserViewElement extends HTMLElement {
         this.dispatchEvent(new CustomEvent(event, { detail }))
       })
     }
-
-    const src = this.getAttribute('src')
-    if (src) this.loadURL(src)
   }
 
   disconnectedCallback () {
     this.observer.unobserve(this)
     this.view.destroy()
     this.view = null
-  }
-
-  attributeChangedCallback (name, oldValue, newValue) {
-    this.loadURL(newValue)
-  }
-
-  loadURL (url) {
-    if (!this.view) throw new TypeError('View not loaded')
-
-    this.view.webContents.loadURL(url)
   }
 
   resizeView () {

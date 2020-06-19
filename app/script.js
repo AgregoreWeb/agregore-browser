@@ -7,6 +7,9 @@ webview.addEventListener('dom-ready', () => {
 const urlform = $('#urlform')
 const urlbar = $('#urlbar')
 
+webview.loadURL(urlbar.value)
+webview.focus()
+
 const backbutton = $('#backbutton')
 const frontbutton = $('#frontbutton')
 
@@ -20,21 +23,20 @@ frontbutton.addEventListener('click', () => {
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {
   console.log('Navigating', detail)
-  const url = webview.getURL()
-  urlbar.value = url
 })
 
 webview.addEventListener('did-navigate', updateButtons)
 
 urlform.addEventListener('submit', (e) => {
   e.preventDefault(true)
-  webview.src = urlbar.value
+  webview.loadURL(urlbar.value)
   webview.focus()
 })
 
 function updateButtons () {
   backbutton.classList.toggle('hidden', !webview.canGoBack())
   frontbutton.classList.toggle('hidden', !webview.canGoForward())
+  urlbar.value = webview.getURL()
 }
 
 function $ (query) {
