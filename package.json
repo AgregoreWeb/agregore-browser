@@ -1,17 +1,17 @@
 {
-  "name": "dweb-browser",
-  "version": "1.0.1-0",
-  "description": "A minimal web browser for",
+  "name": "agregore-browser",
+  "version": "1.0.0-0",
+  "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "electron-rebuild": "electron-rebuild",
-    "build": "electron-builder build --publish never"
+    "build": "electron-builder build -mwl --publish never"
   },
   "build": {
-    "productName": "DWeb Browser",
-    "appId": "dweb.mauve.moe",
+    "productName": "Agregore Browser",
+    "appId": "agregore.mauve.moe",
     "files": [
       "app/**/*",
       "node_modules/**/*",
@@ -57,7 +57,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RangerMauve/dweb-browser.git"
+    "url": "git+https://github.com/RangerMauve/agregore-browser.git"
   },
   "keywords": [
     "dat",
@@ -65,14 +65,15 @@
     "hyper",
     "hyperdrive",
     "ipfs",
-    "browser"
+    "browser",
+    "dweb"
   ],
   "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/RangerMauve/dweb-browser/issues"
+    "url": "https://github.com/RangerMauve/agregore-browser/issues"
   },
-  "homepage": "https://github.com/RangerMauve/dweb-browser#readme",
+  "homepage": "https://github.com/RangerMauve/agregore-browser#readme",
   "devDependencies": {
     "electron": "^9.0.4",
     "electron-builder": "^22.7.0",

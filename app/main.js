@@ -77,7 +77,7 @@ async function setupProtocol () {
   protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
   const browserProtocolHandler = await createBrowserHandler()
-  protocol.registerStreamProtocol('dweb-browser', browserProtocolHandler)
+  protocol.registerStreamProtocol('agregore-browser', browserProtocolHandler)
 
   const datProtocolHandler = await createDatHandler()
   protocol.registerStreamProtocol('dat', datProtocolHandler)

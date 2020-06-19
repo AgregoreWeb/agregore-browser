@@ -1,5 +1,9 @@
-# dweb-browser
+# Agregore Browser
 A minimal web browser for the distributed web
+
+<p align="center">
+	<img src="./build/icon.png" width="111px">
+</p>
 
 ## Running
 
@@ -40,8 +44,11 @@ PRs for more protocols are welcome.
 	- [ ] Dev tools
 	- [ ] Navigation
 	- [ ] Customization?
-- [ ] Make sure protocol handlers open correct URL
-- [ ] Multiple windows
+- [ ] Better navigation UX
+	- [ ] Multiple windows
+	- [ ] Only allow single instance of the app (reuse the protocol handlers across windows)
+	- [ ] Make sure protocol handlers open correct URL
+	- [ ] Make sure page titles update the window title
 - [ ] Better browser history
 	- [ ] Save history to a DB
 	- [ ] Search through history?
