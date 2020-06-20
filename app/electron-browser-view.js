@@ -154,6 +154,8 @@ class BrowserViewElement extends HTMLElement {
     ]
   }
 
+  static get observedAttributes () { return ['src'] }
+
   constructor () {
     super()
 
@@ -169,7 +171,6 @@ class BrowserViewElement extends HTMLElement {
   }
 
   connectedCallback () {
-    console.log('Connected', this)
     this.observer.observe(this)
 
     const remote = require('electron').remote
@@ -198,13 +199,8 @@ class BrowserViewElement extends HTMLElement {
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
+    if (!this.view) return
     this.loadURL(newValue)
-  }
-
-  loadURL (url) {
-    if (!this.view) throw new TypeError('View not loaded')
-
-    this.view.webContents.loadURL(url)
   }
 
   resizeView () {

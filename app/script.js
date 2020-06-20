@@ -1,9 +1,5 @@
 const webview = $('#view')
 
-webview.addEventListener('dom-ready', () => {
-  webview.openDevTools()
-})
-
 const urlform = $('#urlform')
 const urlbar = $('#urlbar')
 
@@ -19,7 +15,6 @@ frontbutton.addEventListener('click', () => {
 })
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {
-  console.log('Navigating', detail)
   const url = webview.getURL()
   urlbar.value = url
 })
@@ -28,8 +23,7 @@ webview.addEventListener('did-navigate', updateButtons)
 
 urlform.addEventListener('submit', (e) => {
   e.preventDefault(true)
-  webview.src = urlbar.value
-  webview.focus()
+  navigateTo(urlbar.value)
 })
 
 function updateButtons () {
@@ -39,4 +33,9 @@ function updateButtons () {
 
 function $ (query) {
   return document.querySelector(query)
+}
+
+function navigateTo (url) {
+  webview.src = url
+  webview.focus()
 }
