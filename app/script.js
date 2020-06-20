@@ -6,6 +6,12 @@ const urlbar = $('#urlbar')
 const backbutton = $('#backbutton')
 const frontbutton = $('#frontbutton')
 
+const searchParams = new URL(window.location.href).searchParams
+
+const toNavigate = searchParams.has('url') ? searchParams.get('url') : 'agregore-browser://welcome'
+
+webview.src = toNavigate
+
 backbutton.addEventListener('click', () => {
   webview.goBack()
 })

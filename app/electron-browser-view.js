@@ -154,8 +154,6 @@ class BrowserViewElement extends HTMLElement {
     ]
   }
 
-  static get observedAttributes () { return ['src'] }
-
   constructor () {
     super()
 
@@ -198,6 +196,10 @@ class BrowserViewElement extends HTMLElement {
     this.view = null
   }
 
+  static get observedAttributes () {
+    return ['src']
+  }
+
   attributeChangedCallback (name, oldValue, newValue) {
     if (!this.view) return
     this.loadURL(newValue)
@@ -211,6 +213,9 @@ class BrowserViewElement extends HTMLElement {
     console.log('New rect', rect)
     this.view.setBounds(rect)
   }
+
+  get src () { return this.getAttribute('src') }
+  set src (url) { this.setAttribute('src', url) }
 
   get audioMuted () { return this.view.webContents.audioMuted }
   set audioMuted (audioMuted) { this.view.webContents.audioMuted = audioMuted }
