@@ -20,8 +20,6 @@ frontbutton.addEventListener('click', () => {
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {
   console.log('Navigating', detail)
-  const url = webview.getURL()
-  urlbar.value = url
 })
 
 webview.addEventListener('did-navigate', updateButtons)
@@ -35,6 +33,7 @@ urlform.addEventListener('submit', (e) => {
 function updateButtons () {
   backbutton.classList.toggle('hidden', !webview.canGoBack())
   frontbutton.classList.toggle('hidden', !webview.canGoForward())
+  urlbar.value = webview.getURL()
 }
 
 function $ (query) {
