@@ -23,7 +23,7 @@ exports.headerContextMenu = function (event, params) {
   {
     label: 'Copy',
     enabled: params.editFlags.canCopy,
-    visible: params.isEditable || params.selectionText.trim().length > 0,
+    visible: params.isEditable || hasText(params),
     accelerator: 'CommandOrControl+C',
     role: 'copy'
   },
@@ -45,10 +45,15 @@ exports.headerContextMenu = function (event, params) {
   },
   {
     label: 'Select All',
-    enabled: params.isEditable || params.selectionText.trim().length > 0,
+    enabled: params.editFlags.canSelectAll,
+    visible: params.isEditable || hasText(params),
     accelerator: 'CommandOrControl+A',
     role: 'selectAll'
   }
   ])
   menu.popup(this)
+}
+
+function hasText (params) {
+  return params.selectionText.trim().length > 0
 }
