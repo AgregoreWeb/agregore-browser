@@ -1,8 +1,8 @@
 # Agregore Browser
 A minimal web browser for the distributed web
 
-<p align="center">
-	<img src="./build/icon.png">
+<p align="center" style="float: right">
+	<img src="./build/icon.png" width="333px">
 </p>
 
 ## Running
@@ -40,15 +40,15 @@ PRs for more protocols are welcome.
 	- [ ] Loading pretty urls with index.html
 	- [ ] IPNS?
 - [ ] Basic BitTorrent support (loading)
-- [ ] Keyboard shortcuts
-	- [ ] Dev tools
-	- [ ] Navigation
-	- [ ] Customization?
 - [ ] Better navigation UX
-	- [ ] Multiple windows
-	- [ ] Only allow single instance of the app (reuse the protocol handlers across windows)
-	- [ ] Make sure protocol handlers open correct URL
+	- [x] Multiple windows
+	- [ ] Shortcuts for window creation
+	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
+	- [x] Make sure protocol handlers open correct URL
 	- [ ] Make sure page titles update the window title
+	- [ ] Keyboard shortcuts
+		- [x] Dev tools
+		- [ ] Navigation
 - [ ] Better browser history
 	- [ ] Save history to a DB
 	- [ ] Search through history?
@@ -58,7 +58,7 @@ PRs for more protocols are welcome.
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
-- [ ] WebXR - Make sure it's working!
+- [x] WebXR - Make sure it's working!
 - [ ] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
 	- [ ] Somewhere to render badges
 	- [ ] Developer options page
