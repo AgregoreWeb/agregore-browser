@@ -197,14 +197,13 @@ class BrowserViewElement extends HTMLElement {
     this.view = null
   }
 
-  attributeChangedCallback (name, oldValue, newValue) {
-    this.loadURL(newValue)
+  static get observedAttributes () {
+    return [ 'src' ]
   }
 
-  loadURL (url) {
-    if (!this.view) throw new TypeError('View not loaded')
-
-    this.view.webContents.loadURL(url)
+  attributeChangedCallback (name, oldValue, newValue) {
+    if (!this.view) return
+    this.loadURL(newValue)
   }
 
   resizeView () {
@@ -215,6 +214,9 @@ class BrowserViewElement extends HTMLElement {
     console.log('New rect', rect)
     this.view.setBounds(rect)
   }
+
+  get src () { return this.getAttribute('src') }
+  set src (url) { this.setAttribute('src', url) }
 
   get audioMuted () { return this.view.webContents.audioMuted }
   set audioMuted (audioMuted) { this.view.webContents.audioMuted = audioMuted }
