@@ -2,7 +2,7 @@
 A minimal web browser for the distributed web
 
 <p align="center">
-	<img src="./build/icon.png" width="111px">
+	<img src="./build/icon.png">
 </p>
 
 ## Running
