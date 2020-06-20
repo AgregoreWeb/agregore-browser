@@ -169,7 +169,6 @@ class BrowserViewElement extends HTMLElement {
   }
 
   connectedCallback () {
-    console.debug('Connected', this)
     this.observer.observe(this)
 
     const remote = require('electron').remote
@@ -198,7 +197,7 @@ class BrowserViewElement extends HTMLElement {
   }
 
   static get observedAttributes () {
-    return [ 'src' ]
+    return ['src']
   }
 
   attributeChangedCallback (name, oldValue, newValue) {

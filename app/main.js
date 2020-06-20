@@ -7,16 +7,16 @@ const createBrowserHandler = require('./browser-protocol')
 const createDatHandler = require('./dat-protocol')
 
 const P2P_PRIVILEDGES = {
-	standard: true,
-	secure: true,
-	allowServiceWorkers: true,
-	supportFetchAPI: true,
-	bypassCSP: true
+  standard: true,
+  secure: true,
+  allowServiceWorkers: true,
+  supportFetchAPI: true,
+  bypassCSP: true
 }
 
 const MAIN_PAGE = join(__dirname, 'index.html')
 
-function createWindow () {
+function createWindow (url) {
   // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
@@ -28,13 +28,28 @@ function createWindow () {
     }
   })
 
-  // and load the index.html of the app.
-  win.loadFile(MAIN_PAGE)
+  const toLoad = new URL(MAIN_PAGE, 'file:')
 
+  if (url) toLoad.searchParams.set('url', url)
+
+  // and load the index.html of the app.
+  win.loadURL(toLoad.href)
+  
   // Open the DevTools.
   if (process.env.MODE == 'debug') {
     win.webContents.openDevTools()
   }
+}
+
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, argv) => {
+    const urls = argv.filter((arg) => arg.includes('://'))
+    urls.map(createWindow)
+  })
 }
 
 protocol.registerSchemesAsPrivileged([
@@ -66,7 +81,9 @@ app.on('activate', () => {
 
 async function onready () {
   await setupProtocol()
-  createWindow()
+  const urls = process.argv.filter((arg) => arg.includes('://'))
+  if (urls.length) urls.map(createWindow)
+  else createWindow()
 }
 
 // In this file you can include the rest of your app's specific main process
@@ -74,6 +91,7 @@ async function onready () {
 
 async function setupProtocol () {
   app.setAsDefaultProtocolClient('hyper')
+  app.setAsDefaultProtocolClient('dat')
 
   const hyperProtocolHandler = await createHyperHandler()
   protocol.registerStreamProtocol('hyper', hyperProtocolHandler)

@@ -21,13 +21,19 @@
     "directories": {
       "output": "release"
     },
-    "protocols": {
+    "nsis": {
+      "oneClick" : false ,
+      "allowToChangeInstallationDirectory": true,
+      "include" : "dist/installer.nsh" ,
+      "perMachine" : true
+    },
+    "protocols": [{
       "name": "hypercore-protocol",
       "schemes": [
         "hyper",
         "dat"
       ]
-    },
+    }],
     "dmg": {
       "contents": [
         {
