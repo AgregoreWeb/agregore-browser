@@ -4,7 +4,7 @@ const { Menu, MenuItem } = remote
 const webview = $('#view')
 
 webview.addEventListener('dom-ready', () => {
-  if (process.env.MODE == 'debug') {
+  if (process.env.MODE === 'debug') {
     webview.openDevTools()
   }
 })
