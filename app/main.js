@@ -32,7 +32,9 @@ function createWindow () {
   win.loadFile(MAIN_PAGE)
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  if (process.env.MODE == 'debug') {
+    win.webContents.openDevTools()
+  }
 }
 
 protocol.registerSchemesAsPrivileged([

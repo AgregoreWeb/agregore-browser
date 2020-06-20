@@ -157,7 +157,7 @@ class BrowserViewElement extends HTMLElement {
   constructor () {
     super()
 
-    console.log('Initializng', this)
+    console.debug('Initializng', this)
 
     this.view = null
 
@@ -169,7 +169,7 @@ class BrowserViewElement extends HTMLElement {
   }
 
   connectedCallback () {
-    console.log('Connected', this)
+    console.debug('Connected', this)
     this.observer.observe(this)
 
     const remote = require('electron').remote
@@ -211,7 +211,7 @@ class BrowserViewElement extends HTMLElement {
 
     const rect = this.getBoundingClientRect()
 
-    console.log('New rect', rect)
+    console.debug('New rect', rect)
     this.view.setBounds(rect)
   }
 

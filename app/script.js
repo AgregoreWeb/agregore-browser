@@ -1,7 +1,9 @@
 const webview = $('#view')
 
 webview.addEventListener('dom-ready', () => {
-  webview.openDevTools()
+  if (process.env.MODE == 'debug') {
+    webview.openDevTools()
+  }
 })
 
 const urlform = $('#urlform')
@@ -19,7 +21,7 @@ frontbutton.addEventListener('click', () => {
 })
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {
-  console.log('Navigating', detail)
+  console.debug('Navigating', detail)
 })
 
 webview.addEventListener('did-navigate', updateButtons)
