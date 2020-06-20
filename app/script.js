@@ -1,3 +1,6 @@
+const { remote } = require('electron')
+const { Menu, MenuItem } = remote
+
 const webview = $('#view')
 
 const urlform = $('#urlform')
@@ -12,6 +15,22 @@ const toNavigate = searchParams.has('url') ? searchParams.get('url') : 'agregore
 
 webview.src = toNavigate
 
+const openDevTools = new MenuItem({
+  label: 'Toggle Developer Tools For Frame',
+  click: () => webview.openDevTools(),
+  accelerator: 'CommandOrControl+Shift+I'
+})
+
+const menu = Menu.getApplicationMenu()
+
+const viewMenu = menu.items[2]
+
+viewMenu.submenu.insert(3, openDevTools)
+
+const existingDevtools = viewMenu.submenu.items[2]
+
+existingDevtools.registerAccelerator = false
+
 backbutton.addEventListener('click', () => {
   webview.goBack()
 })
@@ -21,7 +40,7 @@ frontbutton.addEventListener('click', () => {
 })
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {
-  const url = webview.getURL()
+  const url = detail[1]
   urlbar.value = url
 })
 
