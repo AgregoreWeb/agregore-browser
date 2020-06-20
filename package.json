@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -23,18 +23,20 @@
       "output": "release"
     },
     "nsis": {
-      "oneClick" : false ,
+      "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "include" : "dist/installer.nsh" ,
-      "perMachine" : true
+      "include": "dist/installer.nsh",
+      "perMachine": true
     },
-    "protocols": [{
-      "name": "hypercore-protocol",
-      "schemes": [
-        "hyper",
-        "dat"
-      ]
-    }],
+    "protocols": [
+      {
+        "name": "hypercore-protocol",
+        "schemes": [
+          "hyper",
+          "dat"
+        ]
+      }
+    ],
     "dmg": {
       "contents": [
         {
