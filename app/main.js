@@ -1,6 +1,7 @@
 const { app, BrowserWindow, protocol } = require('electron')
 const { join } = require('path')
 
+const { headerContextMenu } = require('./context-menus')
 const createHyperHandler = require('./hyper-protocol')
 // const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
@@ -34,7 +35,9 @@ function createWindow (url) {
 
   // and load the index.html of the app.
   win.loadURL(toLoad.href)
-  
+
+  win.webContents.on('context-menu', headerContextMenu.bind(win))
+
   // Open the DevTools.
   if (process.env.MODE == 'debug') {
     win.webContents.openDevTools()
