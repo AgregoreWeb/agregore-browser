@@ -157,7 +157,7 @@ class BrowserViewElement extends HTMLElement {
   constructor () {
     super()
 
-    console.log('Initializng', this)
+    console.debug('Initializng', this)
 
     this.view = null
 
@@ -210,7 +210,7 @@ class BrowserViewElement extends HTMLElement {
 
     const rect = this.getBoundingClientRect()
 
-    console.log('New rect', rect)
+    console.debug('New rect', rect)
     this.view.setBounds(rect)
   }
 

@@ -34,6 +34,11 @@ function createWindow (url) {
 
   // and load the index.html of the app.
   win.loadURL(toLoad.href)
+  
+  // Open the DevTools.
+  if (process.env.MODE == 'debug') {
+    win.webContents.openDevTools()
+  }
 }
 
 const gotTheLock = app.requestSingleInstanceLock()
