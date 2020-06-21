@@ -1,34 +1,8 @@
 const { app, BrowserWindow } = require('electron')
-const { resolve } = require('path')
 
 const protocols = require('./protocols')
-
-const MAIN_PAGE = resolve(__dirname, './ui/index.html')
-
-function createWindow (url) {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: true,
-      webviewTag: true
-    }
-  })
-
-  const toLoad = new URL(MAIN_PAGE, 'file:')
-
-  if (url) toLoad.searchParams.set('url', url)
-
-  // and load the index.html of the app.
-  win.loadURL(toLoad.href)
-
-  // Open the DevTools.
-  if (process.env.MODE === 'debug') {
-    win.webContents.openDevTools()
-  }
-}
+const { registerMenu } = require('./menu')
+const { createWindow } = require('./windows')
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -37,7 +11,7 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     const urls = argv.filter((arg) => arg.includes('://'))
-    urls.map(createWindow)
+    urls.map((url) => createWindow(url))
   })
 }
 
@@ -67,6 +41,7 @@ app.on('activate', () => {
 
 async function onready () {
   await protocols.setupProtocols()
+  await registerMenu()
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)
   else createWindow()

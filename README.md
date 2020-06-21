@@ -54,14 +54,14 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] `bt://` protocol for loading individual files
 - [ ] Better navigation UX
 	- [x] Multiple windows
-	- [ ] Shortcuts for window creation
+	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
 	- [x] Make sure protocol handlers open correct URL
-	- [ ] Make sure page titles update the window title
+	- [x] Make sure page titles update the window title
 	- [ ] Keyboard shortcuts (use Menu bar with accelerator keys)
 		- [x] Dev tools
-		- `ctrl+[` and `ctrl+]` for navigating history
-		- `ctrl+l` for selecting the navigation bar
+		- [ ] `ctrl+[` and `ctrl+]` for navigating history
+		- [ ] `ctrl+l` for selecting the navigation bar
 - [ ] Better browser history
 	- [ ] Save history to a DB
 	- [ ] Search through history?
