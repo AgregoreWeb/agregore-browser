@@ -1,5 +1,6 @@
 const { remote } = require('electron')
 const { Menu, MenuItem } = remote
+const { pageContextMenu } = require('./context-menus')
 
 const webview = $('#view')
 
@@ -51,6 +52,8 @@ webview.addEventListener('did-start-navigation', ({ detail }) => {
 })
 
 webview.addEventListener('did-navigate', updateButtons)
+
+webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
 urlform.addEventListener('submit', (e) => {
   e.preventDefault(true)
