@@ -15,7 +15,8 @@ exports.pageContextMenu = function (event, params) {
   showContextMenu(this, [
     navigationGroup(this.webContents, params),
     historyBufferGroup(params),
-    editGroup(params)
+    editGroup(params),
+    developmentGroup(this.webContents, params)
   ])
 }
 
@@ -113,6 +114,18 @@ function navigationGroup (wc, { mediaType, isEditable }) {
       label: 'Hard Reload',
       accelerator: 'CommandOrControl+Shift+R',
       click: wc.reloadIgnoringCache
+    })
+  ]
+}
+
+function developmentGroup (wc, { x, y }) {
+  return [
+    new MenuItem({
+      label: 'Inspect',
+      click() {
+        wc.inspectElement(x, y)
+        if (wc.isDevToolsOpened()) wc.devToolsWebContents.focus()
+      }
     })
   ]
 }
