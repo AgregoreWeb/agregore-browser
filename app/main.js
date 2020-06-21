@@ -1,20 +1,9 @@
-const { app, BrowserWindow, protocol } = require('electron')
-const { join } = require('path')
+const { app, BrowserWindow } = require('electron')
+const { resolve } = require('path')
 
-const createHyperHandler = require('./hyper-protocol')
-// const createIPFSHandler = require('./ipfs-protocol')
-const createBrowserHandler = require('./browser-protocol')
-const createDatHandler = require('./dat-protocol')
+const protocols = require('./protocols')
 
-const P2P_PRIVILEDGES = {
-  standard: true,
-  secure: true,
-  allowServiceWorkers: true,
-  supportFetchAPI: true,
-  bypassCSP: true
-}
-
-const MAIN_PAGE = join(__dirname, 'index.html')
+const MAIN_PAGE = resolve(__dirname, './ui/index.html')
 
 function createWindow (url) {
   // Create the browser window.
@@ -52,10 +41,7 @@ if (!gotTheLock) {
   })
 }
 
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-  { scheme: 'dat', privileges: P2P_PRIVILEDGES }
-])
+protocols.registerPriviledges()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -80,32 +66,8 @@ app.on('activate', () => {
 })
 
 async function onready () {
-  await setupProtocol()
+  await protocols.setupProtocols()
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)
   else createWindow()
-}
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-async function setupProtocol () {
-  app.setAsDefaultProtocolClient('hyper')
-  app.setAsDefaultProtocolClient('dat')
-
-  const hyperProtocolHandler = await createHyperHandler()
-  protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-
-  const browserProtocolHandler = await createBrowserHandler()
-  protocol.registerStreamProtocol('agregore-browser', browserProtocolHandler)
-
-  const datProtocolHandler = await createDatHandler()
-  protocol.registerStreamProtocol('dat', datProtocolHandler)
-
-/*
-  app.setAsDefaultProtocolClient('ipfs')
-  const ipfsProtocolHandler = await createIPFSHandler()
-  protocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
-
-  */
 }

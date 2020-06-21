@@ -208,7 +208,14 @@ class BrowserViewElement extends HTMLElement {
   resizeView () {
     if (!this.view) return
 
-    const rect = this.getBoundingClientRect()
+    const { x, y, width, height } = this.getBoundingClientRect()
+
+    const rect = {
+      x: Math.trunc(x),
+      y: Math.trunc(y),
+      width: Math.trunc(width),
+      height: Math.trunc(height)
+    }
 
     console.debug('New rect', rect)
     this.view.setBounds(rect)
