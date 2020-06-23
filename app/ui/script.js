@@ -1,3 +1,5 @@
+const { pageContextMenu } = require('./context-menus')
+
 const webview = $('#view')
 
 webview.addEventListener('dom-ready', () => {
@@ -34,6 +36,8 @@ webview.addEventListener('did-start-navigation', ({ detail }) => {
 })
 
 webview.addEventListener('did-navigate', updateButtons)
+
+webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
 webview.addEventListener('page-title-updated', ({detail}) => {
 	const title = detail[1]

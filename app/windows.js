@@ -1,5 +1,6 @@
 const { BrowserWindow } = require('electron')
 const { resolve } = require('path')
+const { headerContextMenu } = require('./ui/context-menus')
 
 const MAIN_PAGE = resolve(__dirname, './ui/index.html')
 
@@ -29,6 +30,8 @@ function createWindow (url, options = {}) {
   win.loadURL(toLoad.href)
 
   win.once('ready-to-show', () => win.show())
+
+  win.webContents.on('context-menu', headerContextMenu.bind(win))
 
   // Open the DevTools.
   if (process.env.MODE === 'debug') {
