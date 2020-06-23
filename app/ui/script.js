@@ -39,9 +39,9 @@ webview.addEventListener('did-navigate', updateButtons)
 
 webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 
-webview.addEventListener('page-title-updated', ({detail}) => {
-	const title = detail[1]
-	pageTitle.innerText = title + ' - Agregore Browser'
+webview.addEventListener('page-title-updated', ({ detail }) => {
+  const title = detail[1]
+  pageTitle.innerText = title + ' - Agregore Browser'
 })
 
 urlform.addEventListener('submit', (e) => {

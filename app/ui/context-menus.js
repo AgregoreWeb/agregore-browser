@@ -95,23 +95,19 @@ function navigationGroup (wc, { mediaType, isEditable }) {
     new MenuItem({
       label: 'Back',
       enabled: wc.canGoBack(),
-      accelerator: 'Alt+Left',
       click: wc.goBack
     }),
     new MenuItem({
       label: 'Forward',
       enabled: wc.canGoForward(),
-      accelerator: 'Alt+Right',
       click: wc.goForward
     }),
     new MenuItem({
       label: 'Reload',
-      accelerator: 'CommandOrControl+R',
       click: wc.reload
     }),
     new MenuItem({
       label: 'Hard Reload',
-      accelerator: 'CommandOrControl+Shift+R',
       click: wc.reloadIgnoringCache
     })
   ]
@@ -121,7 +117,7 @@ function developmentGroup (wc, { x, y }) {
   return [
     new MenuItem({
       label: 'Inspect',
-      click() {
+      click () {
         wc.inspectElement(x, y)
         if (wc.isDevToolsOpened()) wc.devToolsWebContents.focus()
       }

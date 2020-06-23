@@ -58,19 +58,23 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
 	- [x] Make sure protocol handlers open correct URL
 	- [x] Make sure page titles update the window title
-	- [ ] Keyboard shortcuts (use Menu bar with accelerator keys)
+	- [x] Keyboard shortcuts (use Menu bar with accelerator keys)
 		- [x] Dev tools
-		- [ ] `ctrl+[` and `ctrl+]` for navigating history
-		- [ ] `ctrl+l` for selecting the navigation bar
-- [ ] Better browser history
-	- [ ] Save history to a DB
-	- [ ] Search through history?
-	- [ ] Provide history suggestions when typing in URL bar
+		- [x] `ctrl+[` and `ctrl+]` for navigating history
+		- [x] `ctrl+l` for selecting the navigation bar
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive (scoped to page origin)
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
+- [ ] Better browser history
+	- [ ] As an extension?
+	- [ ] Save history to a DB
+	- [ ] Search through history?
+	- [ ] Provide history suggestions when typing in URL bar
+- [ ] Bookmarks
+	- [ ] As an extension?
+	- [ ] Sync with Hyperdrive API
 - [ ] fetch API for IPFS (look at how their proxy works?)
 - [x] WebXR - Make sure it's working!
 - [ ] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)

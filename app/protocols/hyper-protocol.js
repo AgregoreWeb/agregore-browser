@@ -5,7 +5,7 @@ module.exports = async function createHandler () {
   const sdk = await SDK()
   const fetch = datFetch(sdk)
   return async function protocolHandler ({ url }, sendResponse) {
-    // console.log('Loading', url)
+    console.log('Loading', url)
     const response = await fetch(url)
 
     const { status: statusCode, body: data, headers: responseHeaders } = response
@@ -23,6 +23,10 @@ module.exports = async function createHandler () {
       statusCode,
       headers,
       data
+    })
+
+    process.nextTick(() => {
+      data.resume()
     })
   }
 }
