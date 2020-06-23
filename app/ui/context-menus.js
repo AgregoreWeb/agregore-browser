@@ -25,7 +25,6 @@ function showContextMenu (browserWindow, groups) {
   groups
     .filter(group => group != null)
     .flatMap((group, index, array) => {
-      console.debug(group)
       if (index + 1 < array.length) {
         const seperator = new MenuItem({ type: 'separator' })
         group.push(seperator)

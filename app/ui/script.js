@@ -1,11 +1,9 @@
-const { remote } = require('electron')
-const { Menu, MenuItem } = remote
 const { pageContextMenu } = require('./context-menus')
 
 const webview = $('#view')
 
 webview.addEventListener('dom-ready', () => {
-  if (process.env.MODE == 'debug') {
+  if (process.env.MODE === 'debug') {
     webview.openDevTools()
   }
 })
@@ -16,27 +14,13 @@ const urlbar = $('#urlbar')
 const backbutton = $('#backbutton')
 const frontbutton = $('#frontbutton')
 
+const pageTitle = $('title')
+
 const searchParams = new URL(window.location.href).searchParams
 
 const toNavigate = searchParams.has('url') ? searchParams.get('url') : 'agregore-browser://welcome'
 
 webview.src = toNavigate
-
-const openDevTools = new MenuItem({
-  label: 'Toggle Developer Tools For Frame',
-  click: () => webview.openDevTools(),
-  accelerator: 'CommandOrControl+Shift+I'
-})
-
-const menu = Menu.getApplicationMenu()
-
-const viewMenu = menu.items[2]
-
-viewMenu.submenu.insert(3, openDevTools)
-
-const existingDevtools = viewMenu.submenu.items[2]
-
-existingDevtools.registerAccelerator = false
 
 backbutton.addEventListener('click', () => {
   webview.goBack()
@@ -54,6 +38,11 @@ webview.addEventListener('did-start-navigation', ({ detail }) => {
 webview.addEventListener('did-navigate', updateButtons)
 
 webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
+
+webview.addEventListener('page-title-updated', ({detail}) => {
+	const title = detail[1]
+	pageTitle.innerText = title + ' - Agregore Browser'
+})
 
 urlform.addEventListener('submit', (e) => {
   e.preventDefault(true)

@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -8,7 +8,8 @@
     "start": "electron .",
     "debug": "env MODE=debug electron .",
     "electron-rebuild": "electron-rebuild",
-    "build": "electron-builder build -mwl --publish never"
+    "build": "electron-builder build -mwl --publish never",
+    "lint": "standard --fix"
   },
   "build": {
     "productName": "Agregore Browser",
@@ -21,19 +22,15 @@
     "directories": {
       "output": "release"
     },
-    "nsis": {
-      "oneClick" : false ,
-      "allowToChangeInstallationDirectory": true,
-      "include" : "dist/installer.nsh" ,
-      "perMachine" : true
-    },
-    "protocols": [{
-      "name": "hypercore-protocol",
-      "schemes": [
-        "hyper",
-        "dat"
-      ]
-    }],
+    "protocols": [
+      {
+        "name": "hypercore-protocol",
+        "schemes": [
+          "hyper",
+          "dat"
+        ]
+      }
+    ],
     "dmg": {
       "contents": [
         {
@@ -91,6 +88,7 @@
     "dat-fetch": "^2.2.0",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
+    "fs-extra": "^9.0.1",
     "ipfs": "^0.46.0"
   }
 }

@@ -7,6 +7,10 @@ A minimal web browser for the distributed web
 
 ## Running
 
+Download an installer from the [releases page](https://github.com/RangerMauve/agregore-browser/releases)
+
+**OR**
+
 - Clone the repo
 - `npm install`
 - `bash ./rebuild.sh`
@@ -27,6 +31,12 @@ A minimal web browser for the distributed web
 
 PRs for more protocols are welcome.
 
+## Contributing
+
+Feel free to open a Github issue if you wish to tackle one of the items on the roadmap, or message @RangerMauve directly on whatever platform you can find them on.
+
+This project uses the [StandardJS](https://standardjs.com/) code style. Please format your code with `standard --fix` or run `npm run lint`.
+
 ## Roadmap
 
 - [x] Basic browser features
@@ -40,15 +50,18 @@ PRs for more protocols are welcome.
 	- [ ] Loading pretty urls with index.html
 	- [ ] IPNS?
 - [ ] Basic BitTorrent support (loading)
+	- [ ] Load web page when opening magnet link
+	- [ ] `bt://` protocol for loading individual files
 - [ ] Better navigation UX
 	- [x] Multiple windows
-	- [ ] Shortcuts for window creation
+	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
 	- [x] Make sure protocol handlers open correct URL
-	- [ ] Make sure page titles update the window title
-	- [ ] Keyboard shortcuts
+	- [x] Make sure page titles update the window title
+	- [ ] Keyboard shortcuts (use Menu bar with accelerator keys)
 		- [x] Dev tools
-		- [ ] Navigation
+		- [ ] `ctrl+[` and `ctrl+]` for navigating history
+		- [ ] `ctrl+l` for selecting the navigation bar
 - [ ] Better browser history
 	- [ ] Save history to a DB
 	- [ ] Search through history?
@@ -58,6 +71,7 @@ PRs for more protocols are welcome.
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
+- [ ] fetch API for IPFS (look at how their proxy works?)
 - [x] WebXR - Make sure it's working!
 - [ ] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
 	- [ ] Somewhere to render badges

@@ -1,48 +1,8 @@
-const { app, BrowserWindow, protocol } = require('electron')
-const { join } = require('path')
+const { app, BrowserWindow } = require('electron')
 
-const { headerContextMenu } = require('./context-menus')
-const createHyperHandler = require('./hyper-protocol')
-// const createIPFSHandler = require('./ipfs-protocol')
-const createBrowserHandler = require('./browser-protocol')
-const createDatHandler = require('./dat-protocol')
-
-const P2P_PRIVILEDGES = {
-  standard: true,
-  secure: true,
-  allowServiceWorkers: true,
-  supportFetchAPI: true,
-  bypassCSP: true
-}
-
-const MAIN_PAGE = join(__dirname, 'index.html')
-
-function createWindow (url) {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: true,
-      webviewTag: true
-    }
-  })
-
-  const toLoad = new URL(MAIN_PAGE, 'file:')
-
-  if (url) toLoad.searchParams.set('url', url)
-
-  // and load the index.html of the app.
-  win.loadURL(toLoad.href)
-
-  win.webContents.on('context-menu', headerContextMenu.bind(win))
-
-  // Open the DevTools.
-  if (process.env.MODE == 'debug') {
-    win.webContents.openDevTools()
-  }
-}
+const protocols = require('./protocols')
+const { registerMenu } = require('./menu')
+const { createWindow } = require('./windows')
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -51,14 +11,11 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     const urls = argv.filter((arg) => arg.includes('://'))
-    urls.map(createWindow)
+    urls.map((url) => createWindow(url))
   })
 }
 
-protocol.registerSchemesAsPrivileged([
-  { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-  { scheme: 'dat', privileges: P2P_PRIVILEDGES }
-])
+protocols.registerPriviledges()
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -83,32 +40,9 @@ app.on('activate', () => {
 })
 
 async function onready () {
-  await setupProtocol()
+  await protocols.setupProtocols()
+  await registerMenu()
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)
   else createWindow()
-}
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
-
-async function setupProtocol () {
-  app.setAsDefaultProtocolClient('hyper')
-  app.setAsDefaultProtocolClient('dat')
-
-  const hyperProtocolHandler = await createHyperHandler()
-  protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-
-  const browserProtocolHandler = await createBrowserHandler()
-  protocol.registerStreamProtocol('agregore-browser', browserProtocolHandler)
-
-  const datProtocolHandler = await createDatHandler()
-  protocol.registerStreamProtocol('dat', datProtocolHandler)
-
-/*
-  app.setAsDefaultProtocolClient('ipfs')
-  const ipfsProtocolHandler = await createIPFSHandler()
-  protocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
-
-  */
 }
