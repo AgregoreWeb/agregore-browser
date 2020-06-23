@@ -31,6 +31,13 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 
 PRs for more protocols are welcome.
 
+## Features / Keyboard shortcuts
+
+- Navigate web pages (back and forward with `ctrl+[` and `ctrl+]`)
+- Open multiple windows (`ctrl+n`)
+- Basic navigation bar (`ctrl+l` to bring into focus)
+- Dev tools (`ctrl+shift+i`)
+
 ## Contributing
 
 Feel free to open a Github issue if you wish to tackle one of the items on the roadmap, or message @RangerMauve directly on whatever platform you can find them on.
