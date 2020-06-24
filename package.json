@@ -88,6 +88,7 @@
     "dat-fetch": "^2.2.2",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
+    "electron-extensions": "^6.0.4",
     "fs-extra": "^9.0.1",
     "ipfs": "^0.46.0"
   }

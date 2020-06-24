@@ -1,4 +1,4 @@
-const { app, protocol } = require('electron')
+const { app, protocol: globalProtocol } = require('electron')
 
 const P2P_PRIVILEDGES = {
   standard: true,
@@ -19,13 +19,13 @@ module.exports = {
 }
 
 function registerPriviledges () {
-  protocol.registerSchemesAsPrivileged([
+  globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
     { scheme: 'dat', privileges: P2P_PRIVILEDGES }
   ])
 }
 
-async function setupProtocols () {
+async function setupProtocols ({ protocol }) {
   app.setAsDefaultProtocolClient('hyper')
   app.setAsDefaultProtocolClient('dat')
 

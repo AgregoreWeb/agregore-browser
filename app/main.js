@@ -1,8 +1,11 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, session } = require('electron')
 
 const protocols = require('./protocols')
 const { registerMenu } = require('./menu')
 const { createWindow } = require('./windows')
+const { registerExtensions } = require('./extensions')
+
+const WEB_PARTITION = 'persist:web-content'
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -40,8 +43,13 @@ app.on('activate', () => {
 })
 
 async function onready () {
-  await protocols.setupProtocols()
+  const webSession = session.fromPartition(WEB_PARTITION)
+
+  await protocols.setupProtocols(webSession)
   await registerMenu()
+
+  await registerExtensions(webSession)
+
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)
   else createWindow()

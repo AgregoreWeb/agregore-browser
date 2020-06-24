@@ -175,7 +175,15 @@ class BrowserViewElement extends HTMLElement {
     const currentWindow = remote.getCurrentWindow()
 
     const { BrowserView } = remote
-    this.view = new BrowserView()
+    this.view = new BrowserView({
+      webPreferences: {
+        sandbox: true,
+        safeDialogs: true,
+        navigateOnDragDrop: true,
+        enableRemoteModule: false,
+        partition: this.getAttribute('partition')
+      }
+    })
 
     currentWindow.setBrowserView(this.view)
     this.resizeView()

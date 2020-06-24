@@ -105,3 +105,6 @@ dist
 
 # Ignore releases folder
 release/
+
+# Ignore debug extensions
+app/extensions/web-palette/

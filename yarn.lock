@@ -2732,6 +2732,13 @@ electron-builder@^22.7.0:
     update-notifier "^4.1.0"
     yargs "^15.3.1"
 
+electron-extensions@^6.0.4:
+  version "6.0.4"
+  resolved "https://registry.yarnpkg.com/electron-extensions/-/electron-extensions-6.0.4.tgz#96d2768c097daed73d90ba4bd51b76055c493da5"
+  integrity sha512-m8t4vqbcSpmOerObqimSXfs/NS7KPTz5MTzbpyOKcrxb2ondsVvsrKDYAoSEQ6DVmPXXMRpWigAdoGbFwZ1lYg==
+  dependencies:
+    file-type "^14.1.2"
+
 electron-publish@22.7.0:
   version "22.7.0"
   resolved "https://registry.yarnpkg.com/electron-publish/-/electron-publish-22.7.0.tgz#d92ba7c4007c9ac1dd070593e48028184fb2dc19"
@@ -3196,7 +3203,7 @@ fetch-headers@^2.0.0:
   resolved "https://registry.yarnpkg.com/fetch-headers/-/fetch-headers-2.0.0.tgz#bab7531c39b3d72d21ac189f179756f08541cf55"
   integrity sha1-urdTHDmz1y0hrBifF5dW8IVBz1U=
 
-file-type@^14.1.4:
+file-type@^14.1.2, file-type@^14.1.4:
   version "14.6.2"
   resolved "https://registry.yarnpkg.com/file-type/-/file-type-14.6.2.tgz#5bf69c0d8c39de525d3d9de23d81a3b6e81cf69a"
   integrity sha512-kSZTAJxPXBdBgJyoC7TexkBWoMI/D1Gas6aTtAn9VIRFwCehwiluGV5O8O2GwqO5zIqeEvXxEKl/xfcaAKB0Yg==
