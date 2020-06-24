@@ -108,3 +108,4 @@ release/
 
 # Ignore debug extensions
 app/extensions/web-palette/
+app/extensions/uBlock0.chromium/

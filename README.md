@@ -59,7 +59,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 - [ ] Basic BitTorrent support (loading)
 	- [ ] Load web page when opening magnet link
 	- [ ] `bt://` protocol for loading individual files
-- [ ] Better navigation UX
+- [x] Better navigation UX
 	- [x] Multiple windows
 	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
@@ -81,10 +81,11 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] Provide history suggestions when typing in URL bar
 - [ ] Bookmarks
 	- [ ] As an extension?
-	- [ ] Sync with Hyperdrive API
+	- [ ] Sync with Hyperdrive API?
 - [ ] fetch API for IPFS (look at how their proxy works?)
 - [x] WebXR - Make sure it's working!
-- [ ] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
+- [x] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
+	- [x] Load extensions from `app/extensions/` folder
 	- [ ] Somewhere to render badges
 	- [ ] Developer options page
 	- [ ] Track extensions in a DB

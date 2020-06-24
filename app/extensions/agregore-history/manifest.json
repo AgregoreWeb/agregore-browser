@@ -1,0 +1,11 @@
+{
+	"manifest_version": 2,
+	"name": "agregore-history",
+	"version": "1.0",
+
+	"description": "The history tracking functionality for the Agregore Browser",
+
+	"background": {
+		"page": "background.html"
+	}
+}
