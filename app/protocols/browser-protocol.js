@@ -1,26 +1,81 @@
 const path = require('path')
-const fs = require('fs-extra')
+const mime = require('mime/lite')
+const ScopedFS = require('scoped-fs')
+const fs = new ScopedFS(path.join(__dirname, '../pages'))
 
-const WELCOME_LOCATION = path.join(__dirname, '../pages/welcome.html')
+const CHECK_PATHS = [
+  (path) => path,
+  (path) => path + 'index.html',
+  (path) => path + 'index.md',
+  (path) => path + '/index.html',
+  (path) => path + '/index.md',
+  (path) => path + '.html',
+  (path) => path + '.md'
+]
 
 module.exports = async function createHandler () {
   return async function protocolHandler ({ url }, sendResponse) {
+    const parsed = new URL(url)
     console.debug('Rendering browser page', url)
-    const statusCode = 200
 
-    const data = fs.createReadStream(WELCOME_LOCATION)
+		const {pathname, hostname} = parsed
+		const toResolve = path.join(hostname, pathname)
+    try {
+      const resolvedPath = await resolveFile(toResolve)
+      const statusCode = 200
 
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Allow-CSP-From': '*',
-      'Cache-Control': 'no-cache',
-      'Content-Type': 'text/html'
+      const contentType = mime.getType(resolvedPath) || 'text/plain'
+
+      const data = fs.createReadStream(resolvedPath)
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Allow-CSP-From': '*',
+        'Cache-Control': 'no-cache',
+        'Content-Type': contentType
+      }
+
+      sendResponse({
+        statusCode,
+        headers,
+        data
+      })
+    } catch (e) {
+      const statusCode = 404
+
+      const data = fs.createReadStream('404.html')
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Allow-CSP-From': '*',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/html'
+      }
+
+      sendResponse({
+        statusCode,
+        headers,
+        data
+      })
     }
-
-    sendResponse({
-      statusCode,
-      headers,
-      data
-    })
   }
+}
+
+async function resolveFile (path) {
+  for (const toTry of CHECK_PATHS) {
+    const tryPath = toTry(path)
+    if (await exists(tryPath)) return tryPath
+  }
+  throw new Error('Not Found')
+}
+
+function exists (path) {
+  return new Promise((resolve, reject) => {
+    fs.stat(path, (err, stat) => {
+      if (err) {
+        if (err.code === 'ENOENT') resolve(false)
+        else reject(err)
+      } else resolve(stat.isFile())
+    })
+  })
 }

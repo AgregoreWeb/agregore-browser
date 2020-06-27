@@ -1,6 +1,6 @@
 const electron = require('electron')
 const { remote, clipboard } = electron
-const { Menu, MenuItem } = remote ? remote : electron
+const { Menu, MenuItem } = remote || electron
 
 exports.headerContextMenu = function (event, params) {
   if (params.inputFieldType === 'plainText') {

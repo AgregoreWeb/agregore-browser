@@ -117,7 +117,7 @@ urlbar.addEventListener('input', async () => {
 
   if (urlbar.value !== query) return console.debug('Urlbar changed since query finished', urlbar.value, query)
 
-  let finalItems = []
+  const finalItems = []
 
   if (isURL(query)) {
     finalItems.push(makeNavItem(query, `Go to ${query}`))
@@ -133,9 +133,9 @@ urlbar.addEventListener('input', async () => {
   finalItems.push(...results
     .map(({ title, url }) => makeNavItem(url, `${title} - ${url}`)))
 
-	for(let item of finalItems) {
+  for (const item of finalItems) {
     navOptions.appendChild(item)
-	}
+  }
 
   getNavItem().setAttribute('data-selected', 'selected')
 })
@@ -149,10 +149,10 @@ urlbar.addEventListener('keydown', ({ keyCode }) => {
 })
 
 function makeNavItem (url, text) {
-	const element = document.createElement('button')
-	element.dataset.url = url
-	element.innerText = text
-	return element
+  const element = document.createElement('button')
+  element.dataset.url = url
+  element.innerText = text
+  return element
 }
 
 function updateButtons () {
