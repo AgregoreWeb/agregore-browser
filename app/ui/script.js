@@ -106,10 +106,10 @@ function selectPreviousNavItem () {
 }
 
 urlbar.addEventListener('input', async () => {
+  navOptions.innerHTML = ''
   const query = urlbar.value
 
   if (!query) {
-    navOptions.innerHTML = ''
     return
   }
 
@@ -117,31 +117,30 @@ urlbar.addEventListener('input', async () => {
 
   if (urlbar.value !== query) return console.debug('Urlbar changed since query finished', urlbar.value, query)
 
-  let finalItems = ''
+  let finalItems = []
 
   if (isURL(query)) {
-    finalItems += makeNavItem(query, `Go to ${query}`)
+    finalItems.push(makeNavItem(query, `Go to ${query}`))
   } else if (looksLikeDomain(query)) {
-    finalItems += makeNavItem(`https://${query}`, `Go to https://${query}`)
+    finalItems.push(makeNavItem(`https://${query}`, `Go to https://${query}`))
   } else {
-    finalItems += makeNavItem(
+    finalItems.push(makeNavItem(
       `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
       `Search for "${query}" on DuckDuckGo`
-    )
+    ))
   }
 
-  finalItems += results
-    .map(({ title, url }) => makeNavItem(url, `${title} - ${url}`))
-    .join('\n')
+  finalItems.push(...results
+    .map(({ title, url }) => makeNavItem(url, `${title} - ${url}`)))
 
-  // TODO: Don't use inner HTML, constuct a DOM element. 😂
-  navOptions.innerHTML = finalItems
+	for(let item of finalItems) {
+    navOptions.appendChild(item)
+	}
 
   getNavItem().setAttribute('data-selected', 'selected')
 })
 
 urlbar.addEventListener('keydown', ({ keyCode }) => {
-  console.log('Key pressed down')
   // Pressed down arrow
   if (keyCode === 40) selectNextNavItem()
 
@@ -150,7 +149,10 @@ urlbar.addEventListener('keydown', ({ keyCode }) => {
 })
 
 function makeNavItem (url, text) {
-  return `<button data-url="${url}">${text}</button>`
+	const element = document.createElement('button')
+	element.dataset.url = url
+	element.innerText = text
+	return element
 }
 
 function updateButtons () {

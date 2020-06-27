@@ -157,8 +157,6 @@ class BrowserViewElement extends HTMLElement {
   constructor () {
     super()
 
-    console.debug('Initializng', this)
-
     this.view = null
 
     this.observer = new ResizeObserver(() => this.resizeView())
@@ -225,7 +223,6 @@ class BrowserViewElement extends HTMLElement {
       height: Math.trunc(height)
     }
 
-    console.debug('New rect', rect)
     this.view.setBounds(rect)
   }
 

@@ -1,7 +1,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 
-const WELCOME_LOCATION = path.join(__dirname, '../ui/welcome.html')
+const WELCOME_LOCATION = path.join(__dirname, '../pages/welcome.html')
 
 module.exports = async function createHandler () {
   return async function protocolHandler ({ url }, sendResponse) {

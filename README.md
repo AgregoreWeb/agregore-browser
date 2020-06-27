@@ -59,7 +59,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 - [ ] Basic BitTorrent support (loading)
 	- [ ] Load web page when opening magnet link
 	- [ ] `bt://` protocol for loading individual files
-- [x] Better navigation UX
+- [ ] Better navigation UX
 	- [x] Multiple windows
 	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
@@ -69,16 +69,18 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 		- [x] Dev tools
 		- [x] `ctrl+[` and `ctrl+]` for navigating history
 		- [x] `ctrl+l` for selecting the navigation bar
+	- [ ] saveAs context menu (using fetch and fs.createWriteStream())
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive (scoped to page origin)
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
 - [ ] Better browser history
-	- [ ] As an extension?
-	- [ ] Save history to a DB
-	- [ ] Search through history?
-	- [ ] Provide history suggestions when typing in URL bar
+	- [x] As an extension?
+	- [x] Save history to a DB
+	- [x] Search through history?
+	- [x] Provide history suggestions when typing in URL bar
+	- [ ] View history page
 - [ ] Bookmarks
 	- [ ] As an extension?
 	- [ ] Sync with Hyperdrive API?
