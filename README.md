@@ -41,6 +41,8 @@ PRs for more protocols are welcome.
 - Autocomplete URLs from history (type in the URL bar)
 - Basic Chrome Extension support (hardcoded into the source for now)
 
+![Agregore demo](agregore-demo-1.gif)
+
 ## Contributing
 
 Feel free to open a Github issue if you wish to tackle one of the items on the roadmap, or message @RangerMauve directly on whatever platform you can find them on.
