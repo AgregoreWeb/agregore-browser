@@ -4,6 +4,7 @@ const protocols = require('./protocols')
 const { registerMenu } = require('./menu')
 const { createWindow } = require('./windows')
 const { registerExtensions } = require('./extensions')
+const history = require('./history')
 
 const WEB_PARTITION = 'persist:web-content'
 
@@ -48,7 +49,10 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu()
 
-  await registerExtensions(webSession)
+  const extensions = await registerExtensions(webSession)
+
+  const historyExtension = extensions.extensions['agregore-history']
+  history.setExtension(historyExtension)
 
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)

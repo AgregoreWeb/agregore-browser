@@ -29,13 +29,40 @@
 		display: flex;
 		flex-direction: row;
 		flex:1;
+		border:none;
 	}
 	#urlbar {
 		flex: 1;
+		border:none;
+	}
+
+	#backbutton, #frontbutton, #urlsubmit {
+		border:none;
 	}
 
 	.hidden {
 		display: none;
+	}
+
+	#navoptions {
+		display: flex;
+		flex-direction: column;
+		margin: 0px;
+		padding: 0px;
+	}
+
+	#navoptions [data-selected] {
+		border: 1px solid black;
+	}
+
+	#navoptions button {
+		background: none;
+		border: 1px solid rgba(0,0,0,0);
+		display: flex;
+		flex-direction: row;
+		overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 	}
 </style>
 
@@ -49,6 +76,7 @@
 		<button id="urlsubmit">◉</button>
 	</form>
 </header>
+<section id="navoptions" aria-live="polite"></section>
 
 <browser-view id="view" partition="persist:web-content"></browser-view>
 

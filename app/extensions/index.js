@@ -38,4 +38,6 @@ async function registerExtensions (session) {
       console.error('Error loading extension', folder, e)
     }
   }
+
+  return extensions
 }
