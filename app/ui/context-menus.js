@@ -1,6 +1,6 @@
 const electron = require('electron')
-const Menu = electron.Menu || electron.remote.Menu
-const MenuItem = electron.MenuItem || electron.remote.MenuItem
+const { remote, clipboard } = electron
+const { Menu, MenuItem } = remote ? remote : electron
 
 exports.headerContextMenu = function (event, params) {
   if (params.inputFieldType === 'plainText') {
@@ -15,6 +15,7 @@ exports.pageContextMenu = function (event, params) {
   showContextMenu(this, [
     navigationGroup(this.webContents, params),
     historyBufferGroup(params),
+    linkGroup(params),
     editGroup(params),
     developmentGroup(this.webContents, params)
   ])
@@ -121,6 +122,19 @@ function developmentGroup (wc, { x, y }) {
         wc.inspectElement(x, y)
         if (wc.isDevToolsOpened()) wc.devToolsWebContents.focus()
       }
+    })
+  ]
+}
+
+function linkGroup ({ linkURL }) {
+  return !linkURL.length ? null : [
+    new MenuItem({
+      label: 'Open link in new window',
+      click: () => remote.require('./windows').createWindow(linkURL)
+    }),
+    new MenuItem({
+      label: 'Copy link address',
+      click: () => clipboard.writeText(linkURL)
     })
   ]
 }
