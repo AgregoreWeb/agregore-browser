@@ -35,8 +35,11 @@ PRs for more protocols are welcome.
 
 - Navigate web pages (back and forward with `ctrl+[` and `ctrl+]`)
 - Open multiple windows (`ctrl+n`)
+- Open links in new windows (right click on element)
 - Basic navigation bar (`ctrl+l` to bring into focus)
 - Dev tools (`ctrl+shift+i`)
+- Autocomplete URLs from history (type in the URL bar)
+- Basic Chrome Extension support (hardcoded into the source for now)
 
 ## Contributing
 
