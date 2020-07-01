@@ -5,6 +5,14 @@ A minimal web browser for the distributed web
 	<img src="./build/icon.png" width="333px">
 </p>
 
+## Goals
+
+- Enable people to make and use local first apps using the web
+- Be minimal (fewer built-in features, leave more to the OS)
+- Be open to anything p2p / decentralized / local-first
+- Rely on extensions for extra functionality
+- Eventually work with mesh networks / BT somehow
+
 ## Running
 
 Download an installer from the [releases page](https://github.com/RangerMauve/agregore-browser/releases)
@@ -56,14 +64,6 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Back / Forward
 	- [x] Welcome page
 - [x] Basic hypercore-protocol / dat support
-- [ ] Basic IPFS support
-	- [ ] Loading files
-	- [ ] Directory listing
-	- [ ] Loading pretty urls with index.html
-	- [ ] IPNS?
-- [ ] Basic BitTorrent support (loading)
-	- [ ] Load web page when opening magnet link
-	- [ ] `bt://` protocol for loading individual files
 - [ ] Better navigation UX
 	- [x] Multiple windows
 	- [x] Shortcuts for window creation
@@ -89,6 +89,14 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 - [ ] Bookmarks
 	- [ ] As an extension?
 	- [ ] Sync with Hyperdrive API?
+- [ ] Basic IPFS support
+	- [ ] Loading files
+	- [ ] Directory listing
+	- [ ] Loading pretty urls with index.html
+	- [ ] IPNS?
+- [ ] Basic BitTorrent support
+	- [ ] Load web page when opening magnet link
+	- [ ] `bt://` protocol for loading individual files
 - [ ] fetch API for IPFS (look at how their proxy works?)
 - [x] WebXR - Make sure it's working!
 - [x] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
@@ -97,5 +105,8 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] Developer options page
 	- [ ] Track extensions in a DB
 	- [ ] Drag and drop extension folder
+- [ ] PWA support
+	- [x] Service Workers (Free with Electron)
+	- [ ] Install web page to desktop
 - [ ] Persist browser settings / history to Hyperdrive
 - [ ] Load extensions from p2p protocols.
