@@ -18,8 +18,8 @@ module.exports = async function createHandler () {
     const parsed = new URL(url)
     console.debug('Rendering browser page', url)
 
-		const {pathname, hostname} = parsed
-		const toResolve = path.join(hostname, pathname)
+    const { pathname, hostname } = parsed
+    const toResolve = path.join(hostname, pathname)
     try {
       const resolvedPath = await resolveFile(toResolve)
       const statusCode = 200

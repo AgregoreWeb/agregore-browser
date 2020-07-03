@@ -2,7 +2,7 @@ const { app, BrowserWindow, session } = require('electron')
 
 const protocols = require('./protocols')
 const { registerMenu } = require('./menu')
-const { createWindow } = require('./windows')
+const { createWindow, saveOpen, loadFromHistory } = require('./windows')
 const { registerExtensions } = require('./extensions')
 const history = require('./history')
 
@@ -43,6 +43,10 @@ app.on('activate', () => {
   }
 })
 
+app.on('before-quit', () => {
+  saveOpen()
+})
+
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
 
@@ -56,5 +60,8 @@ async function onready () {
 
   const urls = process.argv.filter((arg) => arg.includes('://'))
   if (urls.length) urls.map(createWindow)
-  else createWindow()
+  else {
+    const opened = await loadFromHistory()
+    if (!opened.length) createWindow()
+  }
 }

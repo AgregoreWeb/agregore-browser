@@ -46,7 +46,7 @@ frontbutton.addEventListener('click', () => {
 webview.addEventListener('did-start-navigation', ({ detail }) => {
   const url = detail[1]
   const isMainFrame = detail[3]
-  if(!isMainFrame) return
+  if (!isMainFrame) return
   urlbar.value = url
   if (firstLoad && (toNavigate === DEFAULT_PAGE)) {
     urlbar.focus()

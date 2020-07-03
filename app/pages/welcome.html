@@ -8,45 +8,42 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <style>
-	body {
-		margin: 0 auto;
-		max-width: 666px;
-		padding: 1em;
-	}
-	header {
-		text-align: center;
+	body, html {
+		display: flex;
+		flex: 1;
+		margin: 0px;
+		padding: 0px;
+		width: 100%;
+		height: 100%;
+		flex-direction: column;
+    justify-content: center;
+    align-items: center;
 	}
 	img {
-		width: 8em;
+		width: 40vmin;
+	}
+	a::before, a::after {
+    content: " ⟐ "
+	}
+	a {
+    margin: 0.1em;
 	}
 </style>
 
-<header>
 <img src="agregore-browser://icon.svg" />
 
 <h1>
 Agregore
 </h1>
 
-</header>
-
 <p>
-Check out some of these dweb links.
-</p>
-
-<ul>
- <li>
-	 <a href="hyper://94f0cab7f60fcc2a711df11c85db5e0594d11e8a3efd04a06f46a3c34d03c418/">
+	<a href="hyper://94f0cab7f60fcc2a711df11c85db5e0594d11e8a3efd04a06f46a3c34d03c418/">
 		Mauve's Blog
-	 </a>
- </li>
- <li>
-	 <a href="dat://dat.foundation/">
-		Dat Foundation Blog
-	 </a>
- </li>
-</ul>
-
-<p>
-	Otherwise, try entering a <code>hyper://</code> or <code>dat://</code> URL in the address bar.
+	</a>
+	<a href="dat://dat.foundation/">
+		Dat Foundation
+	</a>
+	<a href="hyper://a8109b835d27c30ad4d55b321dd7c4032c037eaf1f6f2b00de7b03b5a6cc504a/">
+		Hypercore Protocol
+	</a>
 </p>
