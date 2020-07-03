@@ -75,6 +75,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 		- [x] `ctrl+[` and `ctrl+]` for navigating history
 		- [x] `ctrl+l` for selecting the navigation bar
 	- [ ] saveAs context menu (using fetch and fs.createWriteStream())
+	- [ ] Persist windows on application quit
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive (scoped to page origin)
 	- [ ] PUT/DELETE methods for files / folders
