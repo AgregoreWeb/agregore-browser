@@ -58,7 +58,12 @@ async function onready () {
   const historyExtension = extensions.extensions['agregore-history']
   history.setExtension(historyExtension)
 
-  const urls = process.argv.filter((arg) => arg.includes('://'))
+  const rootURL = new URL(process.cwd(), 'file://')
+
+  const urls = process.argv
+    .slice(2)
+    .filter((arg) => arg.includes('/'))
+    .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
   if (urls.length) urls.map(createWindow)
   else {
     const opened = await loadFromHistory()
