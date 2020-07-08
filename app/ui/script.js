@@ -179,6 +179,11 @@ function looksLikeDomain (string) {
 }
 
 function navigateTo (url) {
-  webview.src = url
-  webview.focus()
+  if (webview.getURL() === url) {
+    console.log('Reloading')
+    webview.reload()
+  } else {
+    webview.src = url
+    webview.focus()
+  }
 }

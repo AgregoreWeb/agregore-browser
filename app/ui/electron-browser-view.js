@@ -164,6 +164,10 @@ class BrowserViewElement extends HTMLElement {
     for (const name of BrowserViewElement.METHODS()) {
       this[name] = (...args) => this.view.webContents[name](...args)
     }
+
+    this.addEventListener('focus', () => {
+      if (this.view) this.view.webContents.focus()
+    })
   }
 
   connectedCallback () {

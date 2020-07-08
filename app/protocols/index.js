@@ -25,18 +25,22 @@ function registerPriviledges () {
   ])
 }
 
-async function setupProtocols ({ protocol }) {
+async function setupProtocols (session) {
+  const { protocol: sessionProtocol } = session
+
   app.setAsDefaultProtocolClient('hyper')
   app.setAsDefaultProtocolClient('dat')
 
   const hyperProtocolHandler = await createHyperHandler()
-  protocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+  sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+  globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
   const browserProtocolHandler = await createBrowserHandler()
-  protocol.registerStreamProtocol('agregore-browser', browserProtocolHandler)
+  sessionProtocol.registerStreamProtocol('agregore-browser', browserProtocolHandler)
 
   const datProtocolHandler = await createDatHandler()
-  protocol.registerStreamProtocol('dat', datProtocolHandler)
+  sessionProtocol.registerStreamProtocol('dat', datProtocolHandler)
+  globalProtocol.registerStreamProtocol('dat', datProtocolHandler)
 
 /*
   app.setAsDefaultProtocolClient('ipfs')

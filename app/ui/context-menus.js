@@ -16,6 +16,8 @@ exports.pageContextMenu = function (event, params) {
     navigationGroup(this.webContents, params),
     historyBufferGroup(params),
     linkGroup(params),
+    linkGroup(params),
+    saveGroup(params),
     editGroup(params),
     developmentGroup(this.webContents, params)
   ])
@@ -137,4 +139,50 @@ function linkGroup ({ linkURL }) {
       click: () => clipboard.writeText(linkURL)
     })
   ]
+}
+
+function saveGroup ({ srcURL }) {
+  return !srcURL.length ? null : [
+    new MenuItem({
+      label: 'Save As',
+      click: (_, browserWindow) => saveAs(srcURL, browserWindow)
+    })
+  ]
+}
+
+async function saveAs (link, browserWindow) {
+  const fs = remote.require('fs')
+  const path = remote.require('path').posix
+  const pump = require('pump')
+  const { dialog } = remote
+  const { Readable } = require('stream')
+
+  const name = path.basename(link)
+
+  const response = await window.fetch(link)
+
+  const { filePath } = await dialog.showSaveDialog(browserWindow, {
+    defaultPath: name
+  })
+
+  if (!filePath) return
+
+  pump(
+    Readable.from(consumeBody(response.body)),
+    fs.createWriteStream(filePath)
+  )
+}
+
+async function * consumeBody (body) {
+  const reader = body.getReader()
+
+  try {
+    const { done, value } = await reader.read()
+
+    if (done) return
+
+    yield value
+  } finally {
+    reader.releaseLock()
+  }
 }

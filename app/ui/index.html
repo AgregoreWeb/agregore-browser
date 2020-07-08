@@ -8,6 +8,13 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <style>
+  :root {
+    --ag-color-purple: #6e2de5;
+    --ag-color-black: #111;
+    --ag-color-white: #F2F2F2;
+    --ag-color-green: #2de56e;
+  }
+
 	html, body {
 		width: 100%;
 		height: 100%;
@@ -16,6 +23,8 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
+		background: var(--ag-color-white);
+		font-family: system-ui;
 	}
   #view {
   	flex:1
@@ -24,20 +33,25 @@
 	header {
 		display: flex;
 		flex-direction: row;
+		border: 2px solid var(--ag-color-purple);
+		background: var(--ag-color-black);
+		color: var(--ag-color-white);
 	}
+
 	#urlform {
 		display: flex;
 		flex-direction: row;
 		flex:1;
-		border:none;
+		border: none;
 	}
 	#urlbar {
 		flex: 1;
 		border:none;
-	}
-
-	#backbutton, #frontbutton, #urlsubmit {
-		border:none;
+		background: none;
+		padding: 0.5em;
+		color: inherit;
+		font-size: inherit;
+		font-family: inherit;
 	}
 
 	.hidden {
@@ -49,20 +63,39 @@
 		flex-direction: column;
 		margin: 0px;
 		padding: 0px;
+		border: 2px solid var(--ag-color-purple);
+		background: var(--ag-color-black);
+		color: var(--ag-color-white);
 	}
 
 	#navoptions [data-selected] {
-		border: 1px solid black;
+		border: 1px solid var(--ag-color-green);
+	}
+
+	#navoptions:empty {
+    display: none;
+	}
+
+	button {
+    color: inherit;
+    font-size: inherit;
+    padding: 0.5em;
+    border: none;
+    background: none;
+    font-family: inherit;
 	}
 
 	#navoptions button {
-		background: none;
-		border: 1px solid rgba(0,0,0,0);
+		border: 1px solid var(--ag-color-purple);
 		display: flex;
 		flex-direction: row;
 		overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+	}
+
+	*:focus {
+    outline: 2px solid var(--ag-color-green);
 	}
 </style>
 
@@ -78,6 +111,6 @@
 </header>
 <section id="navoptions" aria-live="polite"></section>
 
-<browser-view id="view" partition="persist:web-content"></browser-view>
+<browser-view tabindex="0" id="view" partition="persist:web-content"></browser-view>
 
 <script src="script.js"></script>

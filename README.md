@@ -49,6 +49,7 @@ PRs for more protocols are welcome.
 - Autocomplete URLs from history (type in the URL bar)
 - Persist open windows when quitting
 - Basic Chrome Extension support (hardcoded into the source for now)
+- Save files from pages (any protocol)
 
 ![Agregore demo](agregore-demo-1.gif)
 
@@ -58,7 +59,7 @@ Feel free to open a Github issue if you wish to tackle one of the items on the r
 
 This project uses the [StandardJS](https://standardjs.com/) code style. Please format your code with `standard --fix` or run `npm run lint`.
 
-## Roadmap
+## Roadmap / TODOs
 
 - [x] Basic browser features
 	- [x] Navigate to URL
@@ -75,7 +76,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 		- [x] Dev tools
 		- [x] `ctrl+[` and `ctrl+]` for navigating history
 		- [x] `ctrl+l` for selecting the navigation bar
-	- [ ] saveAs context menu (using fetch and fs.createWriteStream())
+	- [x] saveAs context menu (using fetch and fs.createWriteStream())
 	- [x] Persist windows on application quit
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive (scoped to page origin)
@@ -110,6 +111,9 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] Developer options page
 	- [ ] Track extensions in a DB
 	- [ ] Drag and drop extension folder
+- [ ] Configure top-level page to load from URL
+	- [ ] Give access to Electron APIs
+	- [ ] Shortcut to agregore libraries like `electron-browser-view.js'
 - [ ] Password / Account management for web pages [using native OS APIs](https://github.com/atom/node-keytar)
 - [ ] Private browsing mode
 - [ ] PWA support
