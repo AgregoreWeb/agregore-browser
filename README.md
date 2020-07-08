@@ -51,7 +51,7 @@ PRs for more protocols are welcome.
 - Basic Chrome Extension support (hardcoded into the source for now)
 - Save files from pages (any protocol)
 
-![Agregore demo](agregore-demo-1.gif)
+![Agregore demo](agregore-demo-2.gif)
 
 ## Contributing
 
