@@ -66,7 +66,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Back / Forward
 	- [x] Welcome page
 - [x] Basic hypercore-protocol / dat support
-- [ ] Better navigation UX
+- [x] Better navigation UX
 	- [x] Multiple windows
 	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)

@@ -3,7 +3,7 @@ const { remote } = require('electron')
 
 const history = remote.require('./history')
 
-const DEFAULT_PAGE = 'agregore-browser://welcome'
+const DEFAULT_PAGE = 'agregore://welcome'
 
 const webview = $('#view')
 

@@ -14,10 +14,10 @@ const CHECK_PATHS = [
 ]
 
 module.exports = async function createHandler () {
-  return async function protocolHandler ({ url }, sendResponse) {
-    const parsed = new URL(url)
-    console.debug('Rendering browser page', url)
+  return async function protocolHandler (req, sendResponse) {
+    const { url } = req
 
+    const parsed = new URL(url)
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)
     try {
@@ -30,7 +30,7 @@ module.exports = async function createHandler () {
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Allow-CSP-From': '*',
+        'Allow-CSP-From': 'agregore://welcome',
         'Cache-Control': 'no-cache',
         'Content-Type': contentType
       }

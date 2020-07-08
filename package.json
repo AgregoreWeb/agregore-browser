@@ -80,7 +80,7 @@
   },
   "homepage": "https://github.com/RangerMauve/agregore-browser#readme",
   "devDependencies": {
-    "electron": "^9.0.4",
+    "electron": "^9.1.0",
     "electron-builder": "^22.7.0",
     "electron-rebuild": "^1.11.0"
   },
