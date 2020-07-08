@@ -95,6 +95,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 - [ ] Bookmarks
 	- [ ] As an extension?
 	- [ ] Sync with Hyperdrive API?
+	- [ ] Save to folder?
 - [ ] Basic IPFS support
 	- [ ] Loading files
 	- [ ] Directory listing
@@ -116,6 +117,8 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] Shortcut to agregore libraries like `electron-browser-view.js'
 - [ ] Password / Account management for web pages [using native OS APIs](https://github.com/atom/node-keytar)
 - [ ] Private browsing mode
+	- [ ] Option to create page in new "private" session.
+	- [ ] Configure multiple containers? :o
 - [ ] PWA support
 	- [x] Service Workers (Free with Electron)
 	- [ ] Install web page to desktop

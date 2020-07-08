@@ -154,15 +154,18 @@ async function saveAs (link, browserWindow) {
   const fs = remote.require('fs')
   const path = remote.require('path').posix
   const pump = require('pump')
-  const { dialog } = remote
+  const { dialog, app } = remote
   const { Readable } = require('stream')
+  const downloads = app.getPath('downloads')
 
   const name = path.basename(link)
+
+  const defaultPath = path.join(downloads, name)
 
   const response = await window.fetch(link)
 
   const { filePath } = await dialog.showSaveDialog(browserWindow, {
-    defaultPath: name
+    defaultPath
   })
 
   if (!filePath) return
