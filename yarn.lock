@@ -2085,10 +2085,10 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-fetch@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-2.2.2.tgz#944afa14cbbb93894a9f86035fcee48dc0bd94df"
-  integrity sha512-BDMB9JennLNEAlUVua5ZT+1GYlP/P39zr4gTNVJHcuN+cbxNbDvDUBxi+SncvdkR/RycEuF8TrnlY052/WXsLw==
+dat-fetch@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-2.3.0.tgz#49ba04e837cc16227b0f12de11ab0ea096a1060d"
+  integrity sha512-SKn2r6Jbg5fQ5E6Go70vrunvFV0yLBZro4pl/0/nKb8hF1fsI4NrICX2BW1Dsqnx3BAwNEf+tBUccmFbqVIVSQ==
   dependencies:
     concat-stream "^2.0.0"
     dat-node "^3.5.15"
@@ -2097,7 +2097,8 @@ dat-fetch@^2.2.2:
     fetch-headers "^2.0.0"
     mime "^2.4.4"
     node-fetch "^2.6.0"
-    resolve-dat-path "^1.1.0"
+    range-parser "^1.2.1"
+    resolve-dat-path "^1.2.0"
 
 dat-ignore@^2.1.2:
   version "2.1.2"
@@ -7742,7 +7743,7 @@ randomize-array@^1.2.0:
   resolved "https://registry.yarnpkg.com/randomize-array/-/randomize-array-1.2.0.tgz#36255233deebdc1125fb7ea8468027f9e8a58b36"
   integrity sha512-3utyf30rF+wc1ZPgl+lTn8WMMGyMNN0uQkyuWo3N/vVT3J2Olt1ymCk3J8+zl4dsvYnplLFd+CLnYlCLT1W0iw==
 
-range-parser@^1.2.0, range-parser@~1.2.1:
+range-parser@^1.2.0, range-parser@^1.2.1, range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
@@ -7932,10 +7933,12 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
-resolve-dat-path@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/resolve-dat-path/-/resolve-dat-path-1.1.0.tgz#809af79d03429a5b6517f7f5f53886e4e15d8feb"
-  integrity sha512-MxPP5p/UJXOwolkAS+2Er5qmFkxFOI1XvjVeWFzP0O8xu2lHvrIFFleNf8z2oBzRukgtiuMu9oms8QjARowqcQ==
+resolve-dat-path@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/resolve-dat-path/-/resolve-dat-path-1.2.0.tgz#3d4e0a0bb324cc9111071c233d11c756d36f3c7c"
+  integrity sha512-qSTDUgB5BbeDiOKdJ1NYfP1kUurPTOn44a3yJsWSUORPaVUOlIRyYAd3mrhDmyKwxuit63okpV/wowpgz0j47Q==
+  dependencies:
+    "@geut/hyperdrive-promise" "^3.0.1"
 
 resolve-url@^0.2.1:
   version "0.2.1"

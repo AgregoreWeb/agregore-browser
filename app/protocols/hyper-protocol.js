@@ -4,8 +4,12 @@ const SDK = require('dat-sdk')
 module.exports = async function createHandler () {
   const sdk = await SDK()
   const fetch = datFetch(sdk)
-  return async function protocolHandler ({ url }, sendResponse) {
-    const response = await fetch(url)
+  return async function protocolHandler (req, sendResponse) {
+    const { url, headers: requestHeaders, method } = req
+
+    console.log(req)
+
+    const response = await fetch(url, { headers: requestHeaders, method })
 
     const { status: statusCode, body: data, headers: responseHeaders } = response
     const headers = {

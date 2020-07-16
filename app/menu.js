@@ -5,8 +5,7 @@ const { createWindow } = require('./windows')
 const isMac = process.platform === 'darwin'
 
 const FOCUS_URL_BAR_SCRIPT = `
-document.getElementById('urlbar').focus()
-document.getElementById('urlbar').select()
+document.getElementById('search').focus()
 `
 
 module.exports = {

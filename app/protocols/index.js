@@ -6,7 +6,7 @@ const P2P_PRIVILEDGES = {
   allowServiceWorkers: true,
   supportFetchAPI: true,
   bypassCSP: false,
-  corsEnabled: true,
+  corsEnabled: true
 }
 
 const BROWSER_PRIVILEDGES = {
@@ -15,7 +15,7 @@ const BROWSER_PRIVILEDGES = {
   allowServiceWorkers: false,
   supportFetchAPI: true,
   bypassCSP: false,
-  corsEnabled: true,
+  corsEnabled: true
 }
 
 const createHyperHandler = require('./hyper-protocol')
@@ -32,7 +32,7 @@ function registerPriviledges () {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
     { scheme: 'dat', privileges: P2P_PRIVILEDGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES}
+    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES }
   ])
 }
 

@@ -46,7 +46,7 @@ PRs for more protocols are welcome.
 - Open links in new windows (right click on element)
 - Basic navigation bar (`ctrl+l` to bring into focus)
 - Dev tools (`ctrl+shift+i`)
-- Autocomplete URLs from history (type in the URL bar)
+- Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
 - Persist open windows when quitting
 - Basic Chrome Extension support (hardcoded into the source for now)
 - Save files from pages (any protocol)
@@ -66,7 +66,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Back / Forward
 	- [x] Welcome page
 - [x] Basic hypercore-protocol / dat support
-- [x] Better navigation UX
+- [ ] Better navigation UX
 	- [x] Multiple windows
 	- [x] Shortcuts for window creation
 	- [x] Only allow single instance of the app (reuse the protocol handlers across windows)
@@ -78,6 +78,10 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 		- [x] `ctrl+l` for selecting the navigation bar
 	- [x] saveAs context menu (using fetch and fs.createWriteStream())
 	- [x] Persist windows on application quit
+	- [ ] Find in page [API](https://www.electronjs.org/docs/api/web-contents#contentsfindinpagetext-options)
+	- [x] Clicking on suggested URL navigates to it
+	- [x] Hitting tab when selecting a suggestion sets the URL without navigating
+	- [ ] Apply context menu handlers to all created windows
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive (scoped to page origin)
 	- [ ] PUT/DELETE methods for files / folders
