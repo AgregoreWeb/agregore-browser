@@ -8,6 +8,10 @@ const FOCUS_URL_BAR_SCRIPT = `
 document.getElementById('search').focus()
 `
 
+const OPEN_FIND_BAR_SCRIPT = `
+document.getElementById('find').show()
+`
+
 module.exports = {
   registerMenu
 }
@@ -82,6 +86,11 @@ function registerMenu () {
           click: onFocusURlBar,
           accelerator: 'CommandOrControl+L'
         },
+        {
+          label: 'Find in Page',
+          click: onFindInPage,
+          accelerator: 'CommandOrControl+F'
+        },
         { type: 'separator' },
         { role: 'resetzoom' },
         { role: 'zoomin' },
@@ -139,6 +148,11 @@ function registerMenu () {
   function onFocusURlBar (event, focusedWindow) {
     focusedWindow.webContents.focus()
     focusedWindow.webContents.executeJavaScript(FOCUS_URL_BAR_SCRIPT, true)
+  }
+
+  function onFindInPage(event, focusedWindow) {
+    focusedWindow.webContents.focus()
+    focusedWindow.webContents.executeJavaScript(OPEN_FIND_BAR_SCRIPT, true)
   }
 
   function onReload (event, focusedWindow, focusedWebContents) {

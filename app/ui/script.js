@@ -4,6 +4,7 @@ const DEFAULT_PAGE = 'agregore://welcome'
 
 const webview = $('#view')
 const search = $('#search')
+const find = $('#find')
 
 webview.addEventListener('dom-ready', () => {
   if (process.env.MODE === 'debug') {
@@ -47,6 +48,22 @@ webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
 webview.addEventListener('page-title-updated', ({ detail }) => {
   const title = detail[1]
   pageTitle.innerText = title + ' - Agregore Browser'
+})
+
+find.addEventListener('next', ({detail}) => {
+  const {value, findNext} = detail
+
+  webview.findInPage(value, {findNext})
+})
+
+find.addEventListener('previous', ({detail}) => {
+  const {value, findNext} = detail
+
+  webview.findInPage(value, {forward: false, findNext})
+})
+
+find.addEventListener('hide', () => {
+  webview.stopFindInPage('clearSelection')
 })
 
 function updateButtons () {

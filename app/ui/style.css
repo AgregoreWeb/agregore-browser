@@ -21,6 +21,15 @@ html, body {
 	flex:1
 }
 
+#top {
+  display: flex;
+  flex-direction: row;
+}
+
+#search {
+  flex: 1;
+}
+
 .hidden {
 	display: none;
 }
@@ -37,14 +46,14 @@ omni-box {
 	color: var(--ag-color-white);
 }
 
-.omni-box-form {
+.omni-box-form, .find-menu-form {
 	display: flex;
 	flex-direction: row;
 	flex:1;
 	border: none;
 }
 
-.omni-box-input {
+.omni-box-input, .find-menu-input {
 	flex: 1;
 	border:none;
 	background: none;
@@ -72,7 +81,7 @@ omni-box {
   display: none;
 }
 
-.omni-box-button {
+.omni-box-button, .find-menu-button {
   color: inherit;
   font-size: inherit;
   padding: 0.5em;
@@ -89,6 +98,16 @@ omni-box {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+find-menu {
+	border: 2px solid var(--ag-color-purple);
+	display: flex;
+	flex-direction: row;
+	background: var(--ag-color-black);
+	color: var(--ag-color-white);
+}
+
+
 
 *:focus {
   outline: 2px solid var(--ag-color-green);

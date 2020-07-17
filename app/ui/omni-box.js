@@ -12,14 +12,14 @@ class OmniBox extends HTMLElement {
 
   connectedCallback () {
     this.innerHTML = `
-      <header class="omni-box-header">
-        <button class="hidden omni-box-button omni-box-back">⬅</button>
-        <button class="hidden omni-box-button omni-box-forward">➡</button>
+      <section class="omni-box-header">
+        <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
+        <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
         <form class="omni-box-form">
-          <input class="omni-box-input">
-          <button class="omni-box-button" type="submit">⊚</button>
+          <input class="omni-box-input" title="Enter search params">
+          <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
-      </header>
+      </section>
       <section class="omni-box-nav-options" aria-live="polite"></section>
     `
     this.backButton = this.$('.omni-box-back')
@@ -172,9 +172,9 @@ class OmniBox extends HTMLElement {
         this.focus()
       }
     } if (name === 'back') {
-      this.backButton.toggleAttribute('hidden', newValue === 'visible')
+      this.backButton.classList.toggle('hidden', newValue === 'hidden')
     } else if (name === 'forward') {
-      this.forwardButton.toggleAttribute('hidden', newValue === 'visible')
+      this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
     }
   }
 

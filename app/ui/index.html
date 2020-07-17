@@ -13,9 +13,14 @@
 
 <script src="./electron-browser-view.js"></script>
 <script src="./omni-box.js"></script>
+<script src="./find-menu.js"></script>
 
-<omni-box id="search"></omni-box>
+<header id="top">
+  <find-menu id="find" class="hidden"></find-menu>
+  <omni-box id="search"></omni-box>
+</header>
 
 <browser-view tabindex="0" id="view" partition="persist:web-content"></browser-view>
+
 
 <script src="script.js"></script>
