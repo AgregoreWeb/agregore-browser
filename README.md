@@ -82,9 +82,10 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Find in page [API](https://www.electronjs.org/docs/api/web-contents#contentsfindinpagetext-options)
 	- [x] Clicking on suggested URL navigates to it
 	- [x] Hitting tab when selecting a suggestion sets the URL without navigating
-	- [ ] Apply context menu handlers to all created windows
+	- [ ] Apply context menu handlers to all created windows, use `app.on('browser-window-created')`
+	- [ ] Hit ctlr+shift+n to reopen the most recently closed window
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
-	- [ ] Creating an archive (scoped to page origin)
+	- [ ] Creating an archive
 	- [ ] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
