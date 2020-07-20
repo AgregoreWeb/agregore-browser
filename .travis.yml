@@ -3,9 +3,6 @@ sudo: false
 language: node_js
 node_js: "9.11.1"
 
-before_install:
-  - cd app
-
 cache:
   directories:
     - node_modules
