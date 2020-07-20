@@ -167,7 +167,7 @@ class OmniBox extends HTMLElement {
     console.log('Change', arguments)
     if (name === 'src') {
       this.input.value = newValue
-      if (this.firstLoad && (newValue === DEFAULT_PAGE)) {
+      if (this.firstLoad && (newValue === window.DEFAULT_PAGE)) {
         this.firstLoad = false
         this.focus()
       }

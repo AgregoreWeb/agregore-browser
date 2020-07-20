@@ -50,16 +50,16 @@ webview.addEventListener('page-title-updated', ({ detail }) => {
   pageTitle.innerText = title + ' - Agregore Browser'
 })
 
-find.addEventListener('next', ({detail}) => {
-  const {value, findNext} = detail
+find.addEventListener('next', ({ detail }) => {
+  const { value, findNext } = detail
 
-  webview.findInPage(value, {findNext})
+  webview.findInPage(value, { findNext })
 })
 
-find.addEventListener('previous', ({detail}) => {
-  const {value, findNext} = detail
+find.addEventListener('previous', ({ detail }) => {
+  const { value, findNext } = detail
 
-  webview.findInPage(value, {forward: false, findNext})
+  webview.findInPage(value, { forward: false, findNext })
 })
 
 find.addEventListener('hide', () => {
