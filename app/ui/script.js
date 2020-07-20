@@ -34,6 +34,10 @@ search.addEventListener('navigate', ({ detail }) => {
   navigateTo(url)
 })
 
+search.addEventListener('unfocus', () => {
+  webview.focus()
+})
+
 webview.addEventListener('did-start-navigation', ({ detail }) => {
   const url = detail[1]
   const isMainFrame = detail[3]

@@ -114,7 +114,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Hitting tab when selecting a suggestion sets the URL without navigating
 	- [ ] Apply context menu handlers to all created windows, use `app.on('browser-window-created')`
 	- [ ] Hit ctlr+shift+n to reopen the most recently closed window
-	- [ ] Hitting escape in URL bar should clear the search options and focus the content
+	- [x] Hitting escape in URL bar should clear the search options and focus the content
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
 	- [ ] Creating an archive
 	- [ ] PUT/DELETE methods for files / folders

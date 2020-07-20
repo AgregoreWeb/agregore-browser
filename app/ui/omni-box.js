@@ -29,7 +29,7 @@ class OmniBox extends HTMLElement {
     this.options = this.$('.omni-box-nav-options')
 
     this.input.addEventListener('focus', () => {
-      this.input.focus()
+      this.input.select()
     })
     this.form.addEventListener('submit', (e) => {
       e.preventDefault(true)
@@ -43,7 +43,7 @@ class OmniBox extends HTMLElement {
     this.input.addEventListener('input', () => {
       this.updateOptions()
     })
-    this.input.addEventListener('keydown', ({ keyCode }) => {
+    this.input.addEventListener('keydown', ({ keyCode, key }) => {
       // Pressed down arrow
       if (keyCode === 40) this.selectNext()
 
@@ -54,6 +54,10 @@ class OmniBox extends HTMLElement {
         const { selectionStart, selectionEnd, value } = this.input
         const isAtEnd = (selectionStart === value.length) && (selectionEnd === value.length)
         if (isAtEnd) this.fillWithSelected()
+      }
+
+      if(key === 'Escape') {
+        this.dispatchEvent(new CustomEvent('unfocus'))
       }
     })
 
@@ -164,7 +168,6 @@ class OmniBox extends HTMLElement {
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
-    console.log('Change', arguments)
     if (name === 'src') {
       this.input.value = newValue
       if (this.firstLoad && (newValue === window.DEFAULT_PAGE)) {
