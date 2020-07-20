@@ -24,6 +24,22 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 - `bash ./rebuild.sh`
 - `npm run start`
 
+## Features / Keyboard shortcuts
+
+- Navigate web pages (back and forward with `ctrl+[` and `ctrl+]`)
+- Open multiple windows (`ctrl+n`)
+- Open links in new windows (right click on element)
+- Basic navigation bar (`ctrl+l` to bring into focus)
+- Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
+- Dev tools (`ctrl+shift+i`)
+- Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
+- Persist open windows when quitting
+- Basic Chrome Extension support (hardcoded into the source for now)
+- Save files from pages (any protocol, right click it)
+- Set as default browser (click Set As Default in the Help menu)
+
+![Agregore demo](agregore-demo-2.gif)
+
 ## Supported protocols
 
 - [x] `hyper://`
@@ -38,21 +54,6 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 	- Working on reading from URLs
 
 PRs for more protocols are welcome.
-
-## Features / Keyboard shortcuts
-
-- Navigate web pages (back and forward with `ctrl+[` and `ctrl+]`)
-- Open multiple windows (`ctrl+n`)
-- Open links in new windows (right click on element)
-- Basic navigation bar (`ctrl+l` to bring into focus)
-- Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
-- Dev tools (`ctrl+shift+i`)
-- Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
-- Persist open windows when quitting
-- Basic Chrome Extension support (hardcoded into the source for now)
-- Save files from pages (any protocol, right click it)
-
-![Agregore demo](agregore-demo-2.gif)
 
 ## Configuring keyboard shortcuts
 
