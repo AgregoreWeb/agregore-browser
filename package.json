@@ -90,7 +90,8 @@
   "devDependencies": {
     "electron": "^9.1.0",
     "electron-builder": "^22.7.0",
-    "electron-rebuild": "^1.11.0"
+    "electron-rebuild": "^1.11.0",
+    "standard": "^14.3.4"
   },
   "dependencies": {
     "@geut/hyperdrive-promise": "^3.0.1",
