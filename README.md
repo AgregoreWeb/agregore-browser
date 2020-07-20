@@ -5,6 +5,8 @@ A minimal web browser for the distributed web
 	<img src="./build/icon.png" width="333px">
 </p>
 
+[![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)
+
 ## Goals
 
 - Enable people to make and use local first apps using the web
