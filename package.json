@@ -8,7 +8,8 @@
     "start": "electron .",
     "debug": "env MODE=debug electron .",
     "electron-rebuild": "electron-rebuild",
-    "build": "electron-builder build -mwl --publish never",
+    "build": "electron-builder build --publish never",
+    "build-all": "electron-builder build -mwl",
     "lint": "standard --fix"
   },
   "build": {
