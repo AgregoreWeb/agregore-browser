@@ -36,6 +36,7 @@ search.addEventListener('navigate', ({ detail }) => {
 
 search.addEventListener('unfocus', () => {
   webview.focus()
+  search.src = webview.getURL()
 })
 
 webview.addEventListener('did-start-navigation', ({ detail }) => {

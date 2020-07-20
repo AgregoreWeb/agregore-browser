@@ -36,7 +36,7 @@ class OmniBox extends HTMLElement {
 
       const url = this.getURL()
 
-      this.options.innerHTML = ''
+      this.clearOptions()
 
       this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
     })
@@ -57,6 +57,7 @@ class OmniBox extends HTMLElement {
       }
 
       if(key === 'Escape') {
+        this.clearOptions()
         this.dispatchEvent(new CustomEvent('unfocus'))
       }
     })
@@ -67,6 +68,10 @@ class OmniBox extends HTMLElement {
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
     })
+  }
+
+  clearOptions() {
+    this.options.innerHTML = ''
   }
 
   getURL () {
@@ -116,7 +121,7 @@ class OmniBox extends HTMLElement {
   }
 
   async updateOptions () {
-    this.options.innerHTML = ''
+    this.clearOptions()
     const query = this.input.value
 
     if (!query) {
