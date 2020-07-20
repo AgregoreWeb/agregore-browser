@@ -32,7 +32,7 @@
         ]
       },
       {
-        "name": "http",
+        "name": "webpages",
         "schemes": [
           "http",
           "https"
