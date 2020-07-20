@@ -56,7 +56,7 @@ class OmniBox extends HTMLElement {
         if (isAtEnd) this.fillWithSelected()
       }
 
-      if(key === 'Escape') {
+      if (key === 'Escape') {
         this.clearOptions()
         this.dispatchEvent(new CustomEvent('unfocus'))
       }
@@ -70,7 +70,7 @@ class OmniBox extends HTMLElement {
     })
   }
 
-  clearOptions() {
+  clearOptions () {
     this.options.innerHTML = ''
   }
 

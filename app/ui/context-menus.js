@@ -16,7 +16,6 @@ exports.pageContextMenu = function (event, params) {
     navigationGroup(this.webContents, params),
     historyBufferGroup(params),
     linkGroup(params),
-    linkGroup(params),
     saveGroup(params),
     editGroup(params),
     developmentGroup(this.webContents, params)

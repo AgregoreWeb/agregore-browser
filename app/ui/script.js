@@ -55,6 +55,14 @@ webview.addEventListener('page-title-updated', ({ detail }) => {
   pageTitle.innerText = title + ' - Agregore Browser'
 })
 
+webview.addEventListener('new-window', ({ detail }) => {
+  const options = detail[4]
+
+  if (options && options.webContents) {
+    options.webContents.on('context-menu', pageContextMenu.bind(webview.view))
+  }
+})
+
 find.addEventListener('next', ({ detail }) => {
   const { value, findNext } = detail
 
