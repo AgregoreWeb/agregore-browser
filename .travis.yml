@@ -25,7 +25,7 @@ jobs:
       os: linux
       dist: trusty
       script:
-        - npm run build -- --win --linux - -p always
+        - npm run build -- --win --linux -p always
     - stage: Deploy Mac
       os: osx
       osx_image: xcode10.1
