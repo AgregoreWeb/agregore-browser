@@ -21,15 +21,15 @@ jobs:
     - stage: Test
       script:
         - npm test
-    - stage: Deploy Windows & Mac
-      os: osx
-      osx_image: xcode10.1
-      script:
-        - npm run build -- --mac --win -p always
-      before_cache:
-        - rm -rf $HOME/.cache/electron-builder/wine
-    - stage: Deploy linux
+    - stage: Deploy Linux and Windows
       os: linux
       dist: trusty
       script:
-        - npm run build -- -p always
+        - npm run build -- --win --linux - -p always
+    - stage: Deploy Mac
+      os: osx
+      osx_image: xcode10.1
+      script:
+        - npm run build -- --mac -p always
+      before_cache:
+        - rm -rf $HOME/.cache/electron-builder/wine
