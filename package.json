@@ -7,7 +7,6 @@
     "test": "npm run lint",
     "start": "electron .",
     "debug": "env MODE=debug electron .",
-    "electron-rebuilddd": "cd node_modules/sodium-native && node ./preinstall && cd - && electron-rebuild",
     "build": "electron-builder build --publish never",
     "build-all": "electron-builder build -mwl",
     "lint": "standard --fix"
