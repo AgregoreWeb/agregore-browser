@@ -10,7 +10,8 @@
     "electron-rebuild": "electron-rebuild",
     "build": "electron-builder build --publish never",
     "build-all": "electron-builder build -mwl",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "postinstall": "npm run electron-rebuild"
   },
   "build": {
     "productName": "Agregore Browser",
