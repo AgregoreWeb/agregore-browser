@@ -13,6 +13,7 @@
     "lint": "standard --fix"
   },
   "build": {
+    "npmRebuild": false,
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
