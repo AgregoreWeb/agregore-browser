@@ -168,6 +168,10 @@ class BrowserViewElement extends HTMLElement {
     this.addEventListener('focus', () => {
       if (this.view) this.view.webContents.focus()
     })
+
+    window.addEventListener('beforeunload', () => {
+      if(this.view) this.view.destroy()
+    })
   }
 
   connectedCallback () {

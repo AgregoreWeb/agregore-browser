@@ -3,13 +3,19 @@ const SDK = require('dat-sdk')
 
 module.exports = async function createHandler () {
   const sdk = await SDK()
-  const fetch = datFetch(sdk)
+  const {Hyperdrive, resovleName} = sdk
+  const fetch = datFetch({Hyperdrive, resovleName, writable: true})
+
   return async function protocolHandler (req, sendResponse) {
-    const { url, headers: requestHeaders, method } = req
+    const { url, headers: requestHeaders, method, uploadData } = req
 
     console.log(req)
 
-    const response = await fetch(url, { headers: requestHeaders, method })
+    const body = uploadData ? (
+      uploadData.length > 1 ? uploadData : uploadData[0]
+    ) : null
+
+    const response = await fetch(url, { headers: requestHeaders, method, body })
 
     const { status: statusCode, body: data, headers: responseHeaders } = response
     const headers = {

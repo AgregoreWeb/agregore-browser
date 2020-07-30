@@ -15,10 +15,11 @@ module.exports = async function createHandler () {
   }
   const fetch = datFetch({
     Hyperdrive,
-    resolveName
+    resolveName,
+    // Even though we could make it mutable, lets keep the legacy code immutable
+    writable: false
   })
   return async function protocolHandler ({ url }, sendResponse) {
-    // console.log('Loading', url)
     const response = await fetch(url)
 
     const { status: statusCode, body: data, headers: responseHeaders } = response

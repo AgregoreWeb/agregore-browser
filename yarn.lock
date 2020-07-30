@@ -2195,18 +2195,17 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-fetch@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-2.3.0.tgz#49ba04e837cc16227b0f12de11ab0ea096a1060d"
-  integrity sha512-SKn2r6Jbg5fQ5E6Go70vrunvFV0yLBZro4pl/0/nKb8hF1fsI4NrICX2BW1Dsqnx3BAwNEf+tBUccmFbqVIVSQ==
+dat-fetch@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-3.0.0.tgz#ce257aaf60c0590bba36c084c83834f5fa1d65ec"
+  integrity sha512-qyT5B6YFAlN8LH7RH1Z/1nCdWgOLwwmUavo3GJp/9eYaJWcw3uexnpg13OflVkZkvnzkFek/NY0pPOe39aRGlA==
   dependencies:
     concat-stream "^2.0.0"
-    dat-node "^3.5.15"
-    dat-sdk "^2.0.0"
     end-of-stream-promise "^1.0.0"
     fetch-headers "^2.0.0"
+    fetch-request-body-to-stream "^1.0.0"
     mime "^2.4.4"
-    node-fetch "^2.6.0"
+    pump-promise "^1.0.0"
     range-parser "^1.2.1"
     resolve-dat-path "^1.2.0"
 
@@ -2227,7 +2226,7 @@ dat-link-resolve@^2.3.0:
     debug "^4.1.1"
     simple-get "^3.0.3"
 
-dat-node@^3.5.15, dat-node@^3.5.3:
+dat-node@^3.5.3:
   version "3.5.15"
   resolved "https://registry.yarnpkg.com/dat-node/-/dat-node-3.5.15.tgz#8dd07ef353003ab1b2214487ffce486bd286cc0e"
   integrity sha512-hL7JlZr17x25t+RHJN5saBEOn/fZFt6d8FyS2p+XxnVIQug9bGjnbAXdWbRVO9UJLfnZyKfB23wjvHND1015+g==
@@ -2280,7 +2279,7 @@ dat-sdk@^1.0.3:
     universal-prompt "^1.0.0"
     url-parse "^1.4.7"
 
-dat-sdk@^2.0.0, dat-sdk@^2.1.0:
+dat-sdk@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dat-sdk/-/dat-sdk-2.1.0.tgz#23af231f02b5f9d09f74d32977d14dec74326e2c"
   integrity sha512-AZDKfCjSQu2Exb3J1P4MK2zg+zordeMbOmSCexKdMpKnOafin/nAbHoPQ/74JKi+PXKs4f66+mEmcoqAYla0sw==
@@ -3603,6 +3602,11 @@ fetch-headers@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/fetch-headers/-/fetch-headers-2.0.0.tgz#bab7531c39b3d72d21ac189f179756f08541cf55"
   integrity sha1-urdTHDmz1y0hrBifF5dW8IVBz1U=
+
+fetch-request-body-to-stream@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fetch-request-body-to-stream/-/fetch-request-body-to-stream-1.0.0.tgz#9c65db075d909c9dec20d6f2cc041d61a795896b"
+  integrity sha512-CuB3VWmpgb5nRS4K6OJ7ybQJBUM79G6Q6cm3kj+U/UvPV3Jxl6gupdpIF9r3YfLe05BEFKnT0MtOhjGYNTZ3Nw==
 
 figures@^3.0.0:
   version "3.2.0"
@@ -8386,7 +8390,14 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
-pump@^1.0.2, pump@^1.0.3:
+pump-promise@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/pump-promise/-/pump-promise-1.0.0.tgz#1a10f3fcb9382fbdcddb21b3b52d5340a5f1f9f7"
+  integrity sha1-GhDz/Lk4L73N2yGztS1TQKXx+fc=
+  dependencies:
+    pump "^1.0.1"
+
+pump@^1.0.1, pump@^1.0.2, pump@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/pump/-/pump-1.0.3.tgz#5dfe8311c33bbf6fc18261f9f34702c47c08a954"
   integrity sha512-8k0JupWme55+9tCVE+FS5ULT3K6AbgqrGa58lTT49RpyfwwcGedHqaC5LlQNdEAumn/wFsu6aPwkuPMioy8kqw==

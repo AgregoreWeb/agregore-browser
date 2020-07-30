@@ -47,11 +47,11 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 - [x] `hyper://`
 	- Able to read from archives
 	- Able to resolve `dat-dns` domains
+	- Able to write create and modify archives
 - [x] `dat://`
 	- Able to read from archives
 	- Able to resovle `dat-dns` domains
-	- 😢 No `DatArchive` support.
-	- A bunch of websites are probably broken.
+	- No `DatArchive` support.
 - [ ] ipfs
 	- Working on reading from URLs
 
@@ -85,6 +85,53 @@ The accelerators section maps names of actions to [keyboard shortcuts](https://w
 You can set these to whatever you want and it will override the defaults listed above.
 
 Check out `app/actions.js` for a full list of action names since some of them don't have keyboard shortcuts by default.
+
+## Fetch API for `hyper://`
+
+### `fetch('hyper://NAME/example.txt', {method: 'GET'})`
+
+This will attempt to load `example.txt` from the archive labeled by `NAME`.
+
+It will also load `index.html` files automatically for a folder.
+You can find the details about how resolution works in the [resolve-dat-path](https://github.com/RangerMauve/resolve-dat-path/blob/master/index.js#L3) module.
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+### `fetch('hyper://NAME/index.json', {method: 'GET'})`
+
+The `index.json` file is special in that it will be modified to contain some extra parameters in the JSON content.
+
+This extends from the [Index.json Manifest](https://docs.beakerbrowser.com/developers/index.json-manifest) spec in Beaker.
+
+`url` will get set to the `hyper://` URL of the archive. This will resolve the `NAME` to always be the 64 character hex key.
+
+### `fetch('hyper://NAME/example/', {method: 'GET'})`
+
+When doing a `GET` on a directory, you will get a directory listing.
+
+By default it will render out an HTML page with links to files within that directory.
+
+You can set the `Accept` header to `application/json` in order to have it return a JSON array with file names.
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+### `fetch('hyper://NAME/example.txt', {method: 'PUT', body: 'Hello World'})`
+
+You can add files to archives using a `PUT` method along with a `body`.
+
+The `body` can be either a `String`, an `ArrayBuffer`, a `Blob`, a WHATWG `ReadableStream`, a Node.js `Stream`, or electron's [UploadData](https://www.electronjs.org/docs/api/structures/upload-data) object (make sure to specify the `session` argument in the `makeFetch` function for electron support).
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+Your `NAME` will likely be a `name` in most cases to ensure you have a writeable archive.
+
+### `fetch('hyper://NAME/example.txt', {method: 'DELETE'})`
+
+You can delete a file in an archive by using the `DELETE` method.
+
+You cannot delete directories if they are not empty.
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
 
 ## Contributing
 
