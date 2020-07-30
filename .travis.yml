@@ -22,11 +22,13 @@ jobs:
       script:
         - npm test
     - stage: Deploy Linux
+      if: tag IS present
       os: linux
       dist: trusty
       script:
         - npm run build -- --linux -p always
     - stage: Deploy Mac and Windows
+      if: tag IS present
       os: osx
       osx_image: xcode10.1
       script:
