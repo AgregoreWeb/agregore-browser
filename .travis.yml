@@ -5,11 +5,11 @@ node_js: "12.16.2"
 
 cache:
   directories:
-    - node_modules
-    - app/node_modules
+#    - node_modules
+#    - app/node_modules
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
-    - $HOME/.npm/_prebuilds
+#    - $HOME/.npm/_prebuilds
 
 env:
   global:
