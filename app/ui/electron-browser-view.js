@@ -170,7 +170,7 @@ class BrowserViewElement extends HTMLElement {
     })
 
     window.addEventListener('beforeunload', () => {
-      if(this.view) this.view.destroy()
+      if (this.view) this.view.destroy()
     })
   }
 

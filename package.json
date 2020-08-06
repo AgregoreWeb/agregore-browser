@@ -95,7 +95,7 @@
   },
   "dependencies": {
     "@geut/hyperdrive-promise": "^3.0.1",
-    "dat-fetch": "^3.0.0",
+    "dat-fetch": "^4.0.0",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
     "electron-extensions": "^6.0.4",

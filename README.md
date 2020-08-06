@@ -165,8 +165,8 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Hitting escape in URL bar should clear the search options and focus the content
 	- [ ] Hit ctlr+shift+n to reopen the most recently closed window
 - [ ] fetch API for hyperdrives [GH issue](https://github.com/cliqz-oss/dat-webext/issues/159)
-	- [ ] Creating an archive
-	- [ ] PUT/DELETE methods for files / folders
+	- [x] Creating an archive
+	- [x] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
 	- [ ] Access control prompt for writing to origin
 - [ ] Sync folder with hyperdrive
@@ -178,10 +178,15 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Search through history?
 	- [x] Provide history suggestions when typing in URL bar
 	- [ ] View history page
+	- [ ] Preserve history more agressively to avoid crashes
 - [ ] Bookmarks
 	- [ ] As an extension?
 	- [ ] Sync with Hyperdrive API?
 	- [ ] Save to folder?
+- [ ] Basic EarthStar support
+	- [ ] Read from workspace (GET/PUT)
+	- [ ] Identity management
+	- [ ] PUT/DELETE to workspace
 - [ ] Basic IPFS support
 	- [ ] Loading files
 	- [ ] Directory listing

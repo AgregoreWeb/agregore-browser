@@ -8,6 +8,7 @@ class OmniBox extends HTMLElement {
     const { remote } = require('electron')
 
     this.history = remote.require('./history')
+    this.lastSearch = 0
   }
 
   connectedCallback () {
@@ -121,8 +122,10 @@ class OmniBox extends HTMLElement {
   }
 
   async updateOptions () {
-    this.clearOptions()
     const query = this.input.value
+
+    const searchID = Date.now()
+    this.lastSearch = searchID
 
     if (!query) {
       return
@@ -130,7 +133,11 @@ class OmniBox extends HTMLElement {
 
     const results = await this.history.search(query)
 
-    if (this.input.value !== query) return console.debug('Urlbar changed since query finished', this.input.value, query)
+    if (this.lastSearch !== searchID) {
+      return console.debug('Urlbar changed since query finished', this.input.value, query)
+    }
+
+    this.clearOptions()
 
     const finalItems = []
 
