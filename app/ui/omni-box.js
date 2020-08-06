@@ -169,8 +169,9 @@ class OmniBox extends HTMLElement {
     element.dataset.url = url
     element.innerText = text
     element.onclick = () => {
-      this.input.value = url
-      this.form.submit()
+      this.clearOptions()
+
+      this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
     }
     return element
   }
