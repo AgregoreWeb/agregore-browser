@@ -50,7 +50,8 @@ app.on('before-quit', () => {
 })
 
 async function onready () {
-  new Tray(LOGO_FILE)
+  const tray = new Tray(LOGO_FILE)
+  tray.setToolTip('Agregore')
   const webSession = session.fromPartition(WEB_PARTITION)
 
   await protocols.setupProtocols(webSession)
