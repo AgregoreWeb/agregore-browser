@@ -2195,15 +2195,16 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-fetch@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-4.0.0.tgz#6c127f43cbc5d3e00f6bd59aac1654410b3cb084"
-  integrity sha512-DK6ze5JDG+bM+JZkOAUfzlZTUGh4WQE3NoiilGUj5O12Scw0WZg9lxf4C4uAOdilhYLIHCj9JRpB/c5pQelnZQ==
+dat-fetch@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-5.0.0.tgz#81a890d835d23ebcb9bc1284ea745db3f68b4901"
+  integrity sha512-ir0hVJwRnebsolTWlKDGFJytcgxcrMPXlqdeWNLFNe9sI7Lv7JQOcGrczCcqHpHRjIs2wF8ZNk6dwt/lWTDV2A==
   dependencies:
     concat-stream "^2.0.0"
     end-of-stream-promise "^1.0.0"
     fetch-headers "^2.0.0"
     fetch-request-body-to-stream "^1.0.0"
+    make-dir "^3.1.0"
     mime "^2.4.4"
     pump-promise "^1.0.0"
     range-parser "^1.2.1"
@@ -6739,7 +6740,7 @@ make-dir@^1.0.0:
   dependencies:
     pify "^3.0.0"
 
-make-dir@^3.0.0:
+make-dir@^3.0.0, make-dir@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-3.1.0.tgz#415e967046b3a7f1d185277d84aa58203726a13f"
   integrity sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==

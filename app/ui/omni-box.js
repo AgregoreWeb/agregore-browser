@@ -127,6 +127,8 @@ class OmniBox extends HTMLElement {
     const searchID = Date.now()
     this.lastSearch = searchID
 
+    this.clearOptions()
+
     if (!query) {
       return
     }
@@ -136,8 +138,6 @@ class OmniBox extends HTMLElement {
     if (this.lastSearch !== searchID) {
       return console.debug('Urlbar changed since query finished', this.input.value, query)
     }
-
-    this.clearOptions()
 
     const finalItems = []
 

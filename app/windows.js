@@ -7,6 +7,7 @@ const path = require('path')
 
 const MAIN_PAGE = resolve(__dirname, './ui/index.html')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
+const LOGO_FILE = path.join(__dirname, '../build/icon.png')
 
 module.exports = {
   createWindow,
@@ -24,6 +25,7 @@ function createWindow (url, options = {}) {
       nodeIntegration: true,
       webviewTag: false
     },
+    icon: LOGO_FILE,
     show: false,
     ...options
   })
