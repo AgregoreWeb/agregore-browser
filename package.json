@@ -9,7 +9,8 @@
     "debug": "env MODE=debug electron .",
     "build": "electron-builder build --publish never",
     "build-all": "electron-builder build -mwl",
-    "lint": "standard --fix"
+    "lint": "standard --fix",
+    "preversion": "npm run test"
   },
   "build": {
     "npmRebuild": false,
