@@ -32,6 +32,7 @@ jobs:
       os: osx
       osx_image: xcode10.1
       script:
-        - npm run build -- --mac --win -p always
+        - npm run build -- --mac -p always
+        - npm run build -- --win -p always
       before_cache:
         - rm -rf $HOME/.cache/electron-builder/wine
