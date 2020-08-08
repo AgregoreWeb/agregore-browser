@@ -208,6 +208,10 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Save history to a DB
 	- [x] Search through history?
 	- [x] Provide history suggestions when typing in URL bar
+	- [ ] Take history out of extension and into leveldb
+	- [ ] Add debounce to history search
+	- [ ] Add cancellation to history search
+	- [ ] Make sure you can always do a direct navigation or duckduckgo search while history is loading
 	- [ ] View history page
 	- [ ] Preserve history more agressively to avoid crashes
 - [ ] Bookmarks
