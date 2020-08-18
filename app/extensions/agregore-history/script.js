@@ -1,4 +1,4 @@
-/* global idb, browser, IDBKeyRange */
+/* global idb, browser, IDBKeyRange, AbortController */
 
 if (!window.browser) window.browser = window.chrome
 
@@ -16,11 +16,19 @@ async function main () {
     upgrade
   })
 
+  let aborter = null
+
   browser.webNavigation.onCompleted.addListener(onCompleted)
   window.db = db
   window.search = search
 
-  async function * search (query = '', maxResults = MAX_RESULTS) {
+  async function * search (query = '', maxResults = MAX_RESULTS, _signal) {
+    let signal = _signal
+    if (!signal) {
+      if (aborter) aborter.abort()
+      aborter = new AbortController()
+      signal = aborter.signal
+    }
     let sent = 0
     const seen = new Set()
 
@@ -40,6 +48,10 @@ async function main () {
         yield value
         sent++
         if (sent >= MAX_RESULTS) break
+      }
+      if (signal && signal.aborted) {
+        console.debug('Aborted search')
+        break
       }
     }
   }
