@@ -55,6 +55,13 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 	- No `DatArchive` support.
 - [ ] ipfs
 	- Working on reading from URLs
+- [ ] EarthStar
+  - Defining URL spec
+- [ ] BitTorrent
+  - [ ] Magnet links
+  - [ ] `GET bt://`
+- [ ] [Gemini](https://gemini.circumlunar.space/)
+- [ ] [Pigeon Protocol](https://tildegit.org/PigeonProtocolConsortium/protocol_spec)
 
 PRs for more protocols are welcome.
 
