@@ -101,6 +101,8 @@
     "dat-sdk-old": "^1.0.0",
     "electron-extensions": "^6.0.4",
     "fs-extra": "^9.0.1",
+    "gemini-fetch": "^1.0.0",
+    "gemini-to-html": "^1.0.0",
     "ipfs": "^0.46.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",

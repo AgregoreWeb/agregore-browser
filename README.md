@@ -53,14 +53,13 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 	- Able to read from archives
 	- Able to resovle `dat-dns` domains
 	- No `DatArchive` support.
+- [x] [Gemini](https://gemini.circumlunar.space/)
+  - Able to read from gemini servers
+  - Render Gemini pages as HTML
+  - No certificate management code yet
 - [ ] ipfs
-	- Working on reading from URLs
-- [ ] EarthStar
-  - Defining URL spec
+- [ ] [EarthStar](https://github.com/earthstar-project/earthstar)
 - [ ] BitTorrent
-  - [ ] Magnet links
-  - [ ] `GET bt://`
-- [ ] [Gemini](https://gemini.circumlunar.space/)
 - [ ] [Pigeon Protocol](https://tildegit.org/PigeonProtocolConsortium/protocol_spec)
 
 PRs for more protocols are welcome.
@@ -169,7 +168,15 @@ You cannot delete directories if they are not empty.
 
 `NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
 
+## Fetch API for `gemini://`
 
+### `fetch('gemini://hostname/path')`
+
+You can currently fetch pages from Gemini.
+The status codes from requests are multiplied by `10`.
+When the interface returns a `text/gemini` page, it will be rendered to HTML with agregore-provided styling.
+`100` and `110` status codes mean that you should be supplying data in the query string of the URL.
+There's currently no support for certificate management stuff.
 
 ## Contributing
 
@@ -225,6 +232,9 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [ ] As an extension?
 	- [ ] Sync with Hyperdrive API?
 	- [ ] Save to folder?
+- [ ] Gemini support
+  - [x] Get data from Gemini servers
+  - [ ] Enable dialogs for managing certificates
 - [ ] Basic EarthStar support
 	- [ ] Read from workspace (GET/PUT)
 	- [ ] Identity management
