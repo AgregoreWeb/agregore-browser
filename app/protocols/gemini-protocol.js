@@ -2,6 +2,7 @@ const fetch = require('gemini-fetch')()
 const render = require('gemini-to-html/render')
 const parse = require('gemini-to-html/parse')
 const { Readable } = require('stream')
+const MIMEType = require('whatwg-mimetype')
 
 module.exports = async function createHandler () {
   return async function protocolHandler (req, sendResponse) {
@@ -26,14 +27,18 @@ module.exports = async function createHandler () {
       headers[key] = value
     }
 
+    const contentType = MIMEType.parse(headers['content-type'])
     // Rewrite gemini pages to use custom renderer
-    if (headers['content-type'] === 'text/gemini') {
+    if (contentType && contentType.essence === 'text/gemini') {
       const pageText = await response.text()
       const tokens = parse(pageText)
 
       const content = render(tokens)
 
-      headers['content-type'] = 'text/html'
+      // Update the content type header to text/html while preserving parameters
+      contentType.type = 'text'
+      contentType.subtype = 'html'
+      headers['content-type'] = contentType.toString()
 
       return sendResponse({
         statusCode,
