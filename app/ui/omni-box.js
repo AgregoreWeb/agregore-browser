@@ -35,7 +35,9 @@ class OmniBox extends HTMLElement {
     this.form.addEventListener('submit', (e) => {
       e.preventDefault(true)
 
-      const url = this.getURL()
+      const rawURL = this.getURL()
+
+      const url = isURL(rawURL) ? rawURL : (looksLikeDomain(rawURL) ? makeHttps(rawURL) : makeDuckDuckGo(rawURL))
 
       this.clearOptions()
 
@@ -144,10 +146,10 @@ class OmniBox extends HTMLElement {
     if (isURL(query)) {
       finalItems.push(this.makeNavItem(query, `Go to ${query}`))
     } else if (looksLikeDomain(query)) {
-      finalItems.push(this.makeNavItem(`https://${query}`, `Go to https://${query}`))
+      finalItems.push(this.makeNavItem(makeHttps(query), `Go to https://${query}`))
     } else {
       finalItems.push(this.makeNavItem(
-      `https://duckduckgo.com/?q=${encodeURIComponent(query)}`,
+        makeDuckDuckGo(query),
       `Search for "${query}" on DuckDuckGo`
       ))
     }
@@ -210,6 +212,14 @@ class OmniBox extends HTMLElement {
   $ (query) {
     return this.querySelector(query)
   }
+}
+
+function makeHttps (query) {
+  return `https://${query}`
+}
+
+function makeDuckDuckGo (query) {
+  return `https://duckduckgo.com/?q=${encodeURIComponent(query)}`
 }
 
 function isURL (string) {
