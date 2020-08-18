@@ -41,6 +41,9 @@ class OmniBox extends HTMLElement {
 
       this.clearOptions()
 
+      const searchID = Date.now()
+      this.lastSearch = searchID
+
       this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
     })
     this.input.addEventListener('input', () => {
