@@ -1,5 +1,4 @@
-const { app, BrowserWindow, session, Tray } = require('electron')
-const path = require('path')
+const { app, BrowserWindow, session } = require('electron')
 
 const protocols = require('./protocols')
 const { registerMenu } = require('./menu')
@@ -7,7 +6,6 @@ const { createWindow, saveOpen, loadFromHistory } = require('./windows')
 const { registerExtensions } = require('./extensions')
 const history = require('./history')
 
-const LOGO_FILE = path.join(__dirname, '../build/icon.png')
 const WEB_PARTITION = 'persist:web-content'
 
 const gotTheLock = app.requestSingleInstanceLock()
@@ -50,8 +48,6 @@ app.on('before-quit', () => {
 })
 
 async function onready () {
-  const tray = new Tray(LOGO_FILE)
-  tray.setToolTip('Agregore')
   const webSession = session.fromPartition(WEB_PARTITION)
 
   await protocols.setupProtocols(webSession)
