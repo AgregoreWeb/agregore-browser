@@ -3,7 +3,7 @@ const { app, BrowserWindow, session } = require('electron')
 const protocols = require('./protocols')
 const { registerMenu } = require('./menu')
 const { createWindow, saveOpen, loadFromHistory } = require('./windows')
-const { registerExtensions } = require('./extensions')
+const Extensions = require('./extensions')
 const history = require('./history')
 
 const WEB_PARTITION = 'persist:web-content'
@@ -53,9 +53,9 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu()
 
-  const extensions = await registerExtensions(webSession)
+  await Extensions.init(webSession)
 
-  const historyExtension = extensions.extensions['agregore-history']
+  const historyExtension = await Extensions.getExtension('agregore-history')
   history.setExtension(historyExtension)
 
   const rootURL = new URL(process.cwd(), 'file://')

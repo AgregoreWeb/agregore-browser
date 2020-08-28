@@ -18,6 +18,10 @@ const searchParams = new URL(window.location.href).searchParams
 
 const toNavigate = searchParams.has('url') ? searchParams.get('url') : DEFAULT_PAGE
 
+const rawFrame = searchParams.get('rawFrame') === 'true'
+
+if (rawFrame) $('#top').classList.toggle('hidden', true)
+
 webview.src = toNavigate
 
 search.addEventListener('back', () => {

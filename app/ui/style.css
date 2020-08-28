@@ -31,7 +31,7 @@ html, body {
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 omni-box {
@@ -81,7 +81,7 @@ omni-box {
   display: none;
 }
 
-.omni-box-button, .find-menu-button {
+.omni-box-button, .find-menu-button, .browser-actions-button {
   color: inherit;
   font-size: inherit;
   padding: 0.5em;
@@ -107,7 +107,23 @@ find-menu {
 	color: var(--ag-color-white);
 }
 
+browser-actions {
+	border: 2px solid var(--ag-color-purple);
+	display: flex;
+	flex-direction: row;
+	background: var(--ag-color-black);
+	color: var(--ag-color-white);
+	justify-content: center;
+  align-items: center;
+}
 
+.browser-actions-button {
+  padding: 0 0.25em;
+}
+
+browser-actions:empty {
+  display: none;
+}
 
 *:focus {
   outline: 2px solid var(--ag-color-green);

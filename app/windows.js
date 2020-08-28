@@ -22,6 +22,7 @@ function createWindow (url, options = {}) {
   const win = new BrowserWindow({
     autoHideMenuBar: true,
     webPreferences: {
+      session: 'persist:web-content',
       nodeIntegration: true,
       webviewTag: false
     },
@@ -30,16 +31,19 @@ function createWindow (url, options = {}) {
     ...options
   })
 
-  const toLoad = new URL(MAIN_PAGE, 'file:')
-
-  if (url) toLoad.searchParams.set('url', url)
-
-  // and load the index.html of the app.
-  win.loadURL(toLoad.href)
-
   win.once('ready-to-show', () => win.show())
 
   win.webContents.on('context-menu', headerContextMenu.bind(win))
+
+  const { rawFrame } = options
+
+  const toLoad = new URL(MAIN_PAGE, 'file:')
+
+  if (url) toLoad.searchParams.set('url', url)
+  if (rawFrame) toLoad.searchParams.set('rawFrame', 'true')
+
+  // and load the index.html of the app.
+  win.loadURL(toLoad.href)
 
   // Open the DevTools.
   if (process.env.MODE === 'debug') {

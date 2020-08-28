@@ -109,6 +109,8 @@ release/
 # Ignore debug extensions
 app/extensions/web-palette/
 app/extensions/uBlock0.chromium/
+app/extensions/darkreader/
+app/extensions/adblocker-chrome-extension/
 
 # Ignore RC file used for testing the config
 .agregorerc
