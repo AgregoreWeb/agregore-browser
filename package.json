@@ -105,6 +105,7 @@
     "gemini-to-html": "^1.0.0",
     "ipfs": "^0.46.0",
     "mime": "^2.4.6",
+    "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "rc": "^1.2.8",
     "scoped-fs": "^1.4.1"
   }

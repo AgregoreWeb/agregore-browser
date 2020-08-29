@@ -70,7 +70,7 @@ Agregore uses the [rc](https://www.npmjs.com/package/rc#standards) module for lo
 
 There's a bunch of functionality in there, but the short of it is that you can use the following as a starting point for your configuration.
 
-Save this as a file called `agregorerc` in your "home" or "user" folder. 
+Save this as a file called `.agregorerc` in your "home" or "user" folder. 
 
 ```json
 {
@@ -82,7 +82,7 @@ Save this as a file called `agregorerc` in your "home" or "user" folder.
     "FocusURLBar": "CommandOrControl+L",
     "FindInPage": "CommandOrControl+F",
     "Reload": "CommandOrControl+R",
-    "HardReload": "CommandOrControl+Shift+R",
+    "HardReload": "CommandOrControl+Shift+R"
   }
 }
 ```
