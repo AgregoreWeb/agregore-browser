@@ -4,10 +4,6 @@ class OmniBox extends HTMLElement {
   constructor () {
     super()
     this.firstLoad = true
-
-    const { remote } = require('electron')
-
-    this.history = remote.require('./history')
     this.lastSearch = 0
   }
 
@@ -32,6 +28,7 @@ class OmniBox extends HTMLElement {
     this.input.addEventListener('focus', () => {
       this.input.select()
     })
+
     this.form.addEventListener('submit', (e) => {
       e.preventDefault(true)
 
@@ -138,10 +135,12 @@ class OmniBox extends HTMLElement {
       return
     }
 
-    const results = await this.history.search(query)
+    this.dispatchEvent(new CustomEvent('search', { detail: { query, searchID } }))
+  }
 
+  async setSearchResults (results, query, searchID) {
     if (this.lastSearch !== searchID) {
-      return console.debug('Urlbar changed since query finished', this.input.value, query)
+      return console.debug('Urlbar changed since query finished', this.lastSearch, searchID, query)
     }
 
     const finalItems = []

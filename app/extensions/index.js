@@ -1,8 +1,8 @@
 const path = require('path')
 const fs = require('fs-extra')
 
-const { ExtensibleSession } = require('electron-extensions/main')
-const { createWindow } = require('../windows')
+const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
+//const { createWindow } = require('../windows')
 const { webContents } = require('electron')
 
 let extensions = null

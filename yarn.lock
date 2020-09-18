@@ -76,6 +76,11 @@
     global-agent "^2.0.2"
     global-tunnel-ng "^2.7.1"
 
+"@electron/remote@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@electron/remote/-/remote-1.0.0.tgz#f663fe52c06e883c2adb1466920c15416eb8cb8a"
+  integrity sha512-c64kgxi/ZynORfrwGKhzPTyPUhgPjEQfTMnoPqct+0CrV/+VveIARwzVNulWhaODfacS5Ln20sBU5j3CgQM4vQ==
+
 "@geut/discovery-swarm-webrtc@^2.2.4":
   version "2.2.7"
   resolved "https://registry.yarnpkg.com/@geut/discovery-swarm-webrtc/-/discovery-swarm-webrtc-2.2.7.tgz#74def64fc31734ade251f522bfc9d7552fdb5212"
@@ -3046,10 +3051,10 @@ electron-rebuild@^1.11.0:
     spawn-rx "^3.0.0"
     yargs "^14.2.0"
 
-electron@^9.1.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-9.2.0.tgz#d9fc8c8c9e5109669c366bd7b9ba83b06095d7a4"
-  integrity sha512-4ecZ3rcGg//Gk4fAK3Jo61T+uh36JhU6HHR/PTujQqQiBw1g4tNPd4R2hGGth2d+7FkRIs5GdRNef7h64fQEMw==
+electron@11.0.0-beta.1:
+  version "11.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.0.0-beta.1.tgz#f4a3b3e0783c7ef2c70a4e5232e9cc0ef8f98974"
+  integrity sha512-+dYLXqFmLWOCSlwfzMec4CpcpHenpB9cjWRiiKc2CDwc3Esp5fZ+dU/nX/kIbdrlj7FaOBn0Wf6RjCSif4ebmg==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"

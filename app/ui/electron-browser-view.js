@@ -177,7 +177,7 @@ class BrowserViewElement extends HTMLElement {
   connectedCallback () {
     this.observer.observe(this)
 
-    const remote = require('electron').remote
+    const remote = require('@electron/remote')
     const currentWindow = remote.getCurrentWindow()
 
     const { BrowserView } = remote
