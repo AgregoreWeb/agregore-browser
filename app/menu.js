@@ -2,24 +2,24 @@ const { Menu, app } = require('electron')
 
 const isMac = process.platform === 'darwin'
 
-const {
-  OpenDevTools,
-  NewWindow,
-  Forward,
-  Back,
-  FocusURLBar,
-  FindInPage,
-  Reload,
-  HardReload,
-  LearnMore,
-  SetAsDefault
-} = require('./actions')
-
 module.exports = {
   registerMenu
 }
 
-function registerMenu () {
+function registerMenu (actions) {
+  const {
+    OpenDevTools,
+    NewWindow,
+    Forward,
+    Back,
+    FocusURLBar,
+    FindInPage,
+    Reload,
+    HardReload,
+    LearnMore,
+    SetAsDefault
+  } = actions
+
   const template = [
     // { role: 'appMenu' }
     ...(isMac ? [{

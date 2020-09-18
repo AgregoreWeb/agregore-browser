@@ -1,16 +1,10 @@
-const { pageContextMenu } = require('./context-menus')
-
 const DEFAULT_PAGE = 'agregore://welcome'
 
 const webview = $('#view')
 const search = $('#search')
 const find = $('#find')
 
-webview.addEventListener('dom-ready', () => {
-  if (process.env.MODE === 'debug') {
-    webview.openDevTools()
-  }
-})
+const currentWindow = window.getCurrentWindow()
 
 const pageTitle = $('title')
 
@@ -22,14 +16,18 @@ const rawFrame = searchParams.get('rawFrame') === 'true'
 
 if (rawFrame) $('#top').classList.toggle('hidden', true)
 
-webview.src = toNavigate
+window.addEventListener('load', () => {
+  console.log('toNavigate', toNavigate)
+  currentWindow.loadURL(toNavigate)
+  webview.emitResize()
+})
 
 search.addEventListener('back', () => {
-  webview.goBack()
+  currentWindow.goBack()
 })
 
 search.addEventListener('forward', () => {
-  webview.goForward()
+  currentWindow.goForward()
 })
 
 search.addEventListener('navigate', ({ detail }) => {
@@ -38,66 +36,69 @@ search.addEventListener('navigate', ({ detail }) => {
   navigateTo(url)
 })
 
-search.addEventListener('unfocus', () => {
-  webview.focus()
-  search.src = webview.getURL()
+search.addEventListener('unfocus', async () => {
+  await currentWindow.focus()
+  search.src = await webview.getURL()
 })
 
-webview.addEventListener('did-start-navigation', ({ detail }) => {
-  const url = detail[1]
-  const isMainFrame = detail[3]
-  if (!isMainFrame) return
+search.addEventListener('search', async ({ detail }) => {
+  const { query, searchID } = detail
+
+  const results = await currentWindow.searchHistory(query, searchID)
+
+  search.setSearchResults(results, query, searchID)
+})
+
+webview.addEventListener('focus', () => {
+  currentWindow.focus()
+})
+
+webview.addEventListener('resize', ({ detail: rect }) => {
+  currentWindow.setBounds(rect)
+})
+
+currentWindow.on('navigating', (url) => {
   search.src = url
 })
 
-webview.addEventListener('did-navigate', updateButtons)
+currentWindow.on('history-buttons-change', updateButtons)
 
-webview.view.webContents.on('context-menu', pageContextMenu.bind(webview.view))
-
-webview.addEventListener('page-title-updated', ({ detail }) => {
-  const title = detail[1]
+currentWindow.on('page-title-updated', (title) => {
   pageTitle.innerText = title + ' - Agregore Browser'
-})
-
-webview.addEventListener('new-window', ({ detail }) => {
-  const options = detail[4]
-
-  if (options && options.webContents) {
-    options.webContents.on('context-menu', pageContextMenu.bind(webview.view))
-  }
 })
 
 find.addEventListener('next', ({ detail }) => {
   const { value, findNext } = detail
 
-  webview.findInPage(value, { findNext })
+  currentWindow.findInPage(value, { findNext })
 })
 
 find.addEventListener('previous', ({ detail }) => {
   const { value, findNext } = detail
 
-  webview.findInPage(value, { forward: false, findNext })
+  currentWindow.findInPage(value, { forward: false, findNext })
 })
 
 find.addEventListener('hide', () => {
-  webview.stopFindInPage('clearSelection')
+  currentWindow.stopFindInPage('clearSelection')
 })
 
-function updateButtons () {
-  search.setAttribute('back', webview.canGoBack() ? 'visible' : 'hidden')
-  search.setAttribute('forward', webview.canGoForward() ? 'visible' : 'hidden')
+function updateButtons ({ canGoBack, canGoForward }) {
+  search.setAttribute('back', canGoBack ? 'visible' : 'hidden')
+  search.setAttribute('forward', canGoForward ? 'visible' : 'hidden')
 }
 
 function $ (query) {
   return document.querySelector(query)
 }
 
-function navigateTo (url) {
-  if (webview.getURL() === url) {
+async function navigateTo (url) {
+  const currentURL = await currentWindow.getURL()
+  if (currentURL === url) {
     console.log('Reloading')
-    webview.reload()
+    currentWindow.reload()
   } else {
-    webview.src = url
-    webview.focus()
+    currentWindow.loadURL(url)
+    currentWindow.focus()
   }
 }

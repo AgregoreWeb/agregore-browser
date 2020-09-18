@@ -11,18 +11,16 @@
   @import url('style.css'); 
 </style>
 
-<script src="./electron-browser-view.js"></script>
 <script src="./omni-box.js"></script>
 <script src="./find-menu.js"></script>
-<script src="./browser-actions.js"></script>
+<script src="./tracked-box.js"></script>
+<script src="./current-window.js"></script>
 
 <header id="top">
   <find-menu id="find" class="hidden"></find-menu>
   <omni-box id="search"></omni-box>
-  <browser-actions></browser-actions>
 </header>
 
-<browser-view tabindex="0" id="view" partition="persist:web-content"></browser-view>
-
+<tracked-box tabindex="0" id="view"></tracked-box>
 
 <script src="script.js"></script>

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run lint",
     "start": "electron .",
-    "debug": "env MODE=debug electron .",
+    "debug": "env NODE_ENV=debug electron --trace-uncaught .",
     "build": "electron-builder build --publish never",
     "build-all": "electron-builder build -mwl",
     "lint": "standard --fix",
@@ -89,14 +89,14 @@
   },
   "homepage": "https://github.com/RangerMauve/agregore-browser#readme",
   "devDependencies": {
-    "electron": "^9.1.0",
+    "electron": "11.0.0-beta.1",
     "electron-builder": "^21",
     "electron-rebuild": "^1.11.0",
     "standard": "^14.3.4"
   },
   "dependencies": {
     "@geut/hyperdrive-promise": "^3.0.1",
-    "dat-fetch": "^5.0.0",
+    "dat-fetch": "^5.0.1",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
     "electron-extensions": "^6.0.4",
@@ -105,8 +105,8 @@
     "gemini-to-html": "^1.0.0",
     "ipfs": "^0.46.0",
     "mime": "^2.4.6",
-    "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "rc": "^1.2.8",
-    "scoped-fs": "^1.4.1"
+    "scoped-fs": "^1.4.1",
+    "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
   }
 }

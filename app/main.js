@@ -1,8 +1,10 @@
 const { app, BrowserWindow, session } = require('electron')
 
 const protocols = require('./protocols')
+const { createActions } = require('./actions')
 const { registerMenu } = require('./menu')
-const { createWindow, saveOpen, loadFromHistory } = require('./windows')
+const { attachContextMenus } = require('./context-menus')
+const { WindowManager } = require('./window')
 const Extensions = require('./extensions')
 const history = require('./history')
 
@@ -15,11 +17,21 @@ if (!gotTheLock) {
 } else {
   app.on('second-instance', (event, argv) => {
     const urls = argv.filter((arg) => arg.includes('://'))
-    urls.map((url) => createWindow(url))
+    urls.map((url) => windowManager.open({ url }))
   })
 }
 
+const windowManager = new WindowManager({
+  onSearch: (...args) => history.search(...args)
+})
+
 protocols.registerPriviledges()
+
+const actions = createActions({
+  createWindow
+})
+
+windowManager.on('open', (window) => attachContextMenus({ window, createWindow }))
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -39,34 +51,38 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
+    windowManager.open()
   }
 })
 
 app.on('before-quit', () => {
-  saveOpen()
+  windowManager.saveOpened()
 })
 
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
 
   await protocols.setupProtocols(webSession)
-  await registerMenu()
+  await registerMenu(actions)
 
-  await Extensions.init(webSession)
+  await Extensions.init({ partition: WEB_PARTITION, createWindow })
 
   const historyExtension = await Extensions.getExtension('agregore-history')
   history.setExtension(historyExtension)
 
   const rootURL = new URL(process.cwd(), 'file://')
 
+  const opened = await windowManager.openSaved()
+
   const urls = process.argv
     .slice(2)
     .filter((arg) => arg.includes('/'))
     .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
-  if (urls.length) urls.map(createWindow)
-  else {
-    const opened = await loadFromHistory()
-    if (!opened.length) createWindow()
-  }
+  if (urls.length) {
+    urls.map((url) => {
+      windowManager.open({ url })
+    })
+  } else if (!opened.length) windowManager.open()
 }
+
+function createWindow (url, options = {}) { windowManager.open({ url, ...options }) }

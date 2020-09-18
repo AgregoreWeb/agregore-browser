@@ -6,7 +6,8 @@ const P2P_PRIVILEDGES = {
   allowServiceWorkers: true,
   supportFetchAPI: true,
   bypassCSP: false,
-  corsEnabled: true
+  corsEnabled: true,
+  stream: true
 }
 
 const BROWSER_PRIVILEDGES = {

@@ -2320,10 +2320,10 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-fetch@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-5.0.0.tgz#81a890d835d23ebcb9bc1284ea745db3f68b4901"
-  integrity sha512-ir0hVJwRnebsolTWlKDGFJytcgxcrMPXlqdeWNLFNe9sI7Lv7JQOcGrczCcqHpHRjIs2wF8ZNk6dwt/lWTDV2A==
+dat-fetch@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-5.0.1.tgz#b9fe6f47bd35002219c4de2b8a4939fa2370cf5e"
+  integrity sha512-T5+LY9nE/if3dCBEHVebomw+QS4dlD7wdUdpIi21ka0W24vDnbfWUOwIoKtTSFRBBDNelDBWZlxAKw65VpA+bA==
   dependencies:
     concat-stream "^2.0.0"
     end-of-stream-promise "^1.0.0"
@@ -3046,10 +3046,10 @@ electron-rebuild@^1.11.0:
     spawn-rx "^3.0.0"
     yargs "^14.2.0"
 
-electron@^9.1.0:
-  version "9.2.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-9.2.0.tgz#d9fc8c8c9e5109669c366bd7b9ba83b06095d7a4"
-  integrity sha512-4ecZ3rcGg//Gk4fAK3Jo61T+uh36JhU6HHR/PTujQqQiBw1g4tNPd4R2hGGth2d+7FkRIs5GdRNef7h64fQEMw==
+electron@11.0.0-beta.1:
+  version "11.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.0.0-beta.1.tgz#f4a3b3e0783c7ef2c70a4e5232e9cc0ef8f98974"
+  integrity sha512-+dYLXqFmLWOCSlwfzMec4CpcpHenpB9cjWRiiKc2CDwc3Esp5fZ+dU/nX/kIbdrlj7FaOBn0Wf6RjCSif4ebmg==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"

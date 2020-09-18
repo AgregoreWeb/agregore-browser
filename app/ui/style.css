@@ -41,7 +41,7 @@ omni-box {
 .omni-box-header {
 	display: flex;
 	flex-direction: row;
-	border: 2px solid var(--ag-color-purple);
+	border-bottom: 2px solid var(--ag-color-purple);
 	background: var(--ag-color-black);
 	color: var(--ag-color-white);
 }
@@ -101,6 +101,7 @@ omni-box {
 
 find-menu {
 	border: 2px solid var(--ag-color-purple);
+	border-top: none;
 	display: flex;
 	flex-direction: row;
 	background: var(--ag-color-black);

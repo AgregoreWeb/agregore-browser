@@ -2,7 +2,8 @@
 
 class BrowserActions extends HTMLElement {
   async connectedCallback () {
-    const { remote } = require('electron')
+  /*
+    const remote = require('@electron/remote')
     const Extensions = remote.require('./extensions')
 
     const actions = await Extensions.listActions()
@@ -18,7 +19,7 @@ class BrowserActions extends HTMLElement {
         <img src=${icon} class="browser-actions-icon" />
       `
       this.appendChild(button)
-    }
+    } */
   }
 
   get tabId () {
