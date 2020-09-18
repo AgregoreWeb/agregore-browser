@@ -13,7 +13,6 @@ module.exports = {
 }
 
 function attachContextMenus ({ window, createWindow }) {
-  console.log('attaching context menus')
   window.webContents.on('context-menu', headerContextMenu)
   window.web.on('context-menu', pageContextMenu)
 

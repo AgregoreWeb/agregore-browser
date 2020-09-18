@@ -2,10 +2,12 @@ const path = require('path')
 const fs = require('fs-extra')
 
 const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
-//const { createWindow } = require('../windows')
 const { webContents } = require('electron')
 
+const DEFAULT_PARTITION = 'persist:web-content'
+
 let extensions = null
+let createWindow = null
 
 module.exports = {
   init,
@@ -43,9 +45,11 @@ function getExtension (name) {
   return extensions.extensions[name]
 }
 
-async function init () {
+async function init ({ partition = DEFAULT_PARTITION, createWindow: _createWindow } = {}) {
+  createWindow = _createWindow
+
   extensions = new ExtensibleSession({
-    partition: 'persist:web-content',
+    partition,
     blacklist: ['agregore-browser://*/*', 'file://*/*']
   })
 

@@ -65,12 +65,14 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu(actions)
 
-  await Extensions.init(webSession)
+  await Extensions.init({ partition: WEB_PARTITION, createWindow })
 
   const historyExtension = await Extensions.getExtension('agregore-history')
   history.setExtension(historyExtension)
 
   const rootURL = new URL(process.cwd(), 'file://')
+
+  const opened = await windowManager.openSaved()
 
   const urls = process.argv
     .slice(2)
@@ -80,10 +82,7 @@ async function onready () {
     urls.map((url) => {
       windowManager.open({ url })
     })
-  } else {
-    const opened = await windowManager.openSaved()
-    if (!opened.length) windowManager.open()
-  }
+  } else if (!opened.length) windowManager.open()
 }
 
 function createWindow (url, options = {}) { windowManager.open({ url, ...options }) }

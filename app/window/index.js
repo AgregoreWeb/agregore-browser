@@ -157,7 +157,7 @@ class Window extends EventEmitter {
     this.window = new BrowserWindow({
       autoHideMenuBar: true,
       webPreferences: {
-        //partition: 'persist:web-content',
+        // partition: 'persist:web-content',
         nodeIntegration: true,
         webviewTag: false,
         contextIsolation: false
