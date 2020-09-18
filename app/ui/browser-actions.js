@@ -2,24 +2,22 @@
 
 class BrowserActions extends HTMLElement {
   async connectedCallback () {
-  /*
-    const remote = require('@electron/remote')
-    const Extensions = remote.require('./extensions')
+    const current = window.getCurrentWindow()
 
-    const actions = await Extensions.listActions()
+    const actions = await current.listExtensionActions()
 
-    for (const { title, icon, onClick } of actions) {
+    for (const { title, icon, id } of actions) {
       const button = document.createElement('button')
       button.setAttribute('class', 'browser-actions-button')
       button.setAttribute('title', title)
       button.addEventListener('click', () => {
-        onClick(this.tabId)
+        current.clickExtensionAction(id)
       })
       button.innerHTML = `
         <img src=${icon} class="browser-actions-icon" />
       `
       this.appendChild(button)
-    } */
+    }
   }
 
   get tabId () {

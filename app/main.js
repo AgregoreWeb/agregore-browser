@@ -5,7 +5,7 @@ const { createActions } = require('./actions')
 const { registerMenu } = require('./menu')
 const { attachContextMenus } = require('./context-menus')
 const { WindowManager } = require('./window')
-const Extensions = require('./extensions')
+const { createExtensions } = require('./extensions')
 const history = require('./history')
 
 const WEB_PARTITION = 'persist:web-content'
@@ -21,17 +21,23 @@ if (!gotTheLock) {
   })
 }
 
+const extensions = createExtensions({ partition: WEB_PARTITION, createWindow })
+
 const windowManager = new WindowManager({
-  onSearch: (...args) => history.search(...args)
+  onSearch: (...args) => history.search(...args),
+  listActions: (...args) => extensions.listActions(...args)
 })
 
 protocols.registerPriviledges()
 
-const actions = createActions({
-  createWindow
+windowManager.on('open', (window) => {
+  attachContextMenus({ window, createWindow })
+  if (!window.rawFrame) {
+    const asBrowserView = BrowserWindow.fromBrowserView(window.view)
+    extensions.addWindow(asBrowserView)
+    asBrowserView.on('focus', () => extensions.setActiveTab(window.web.id))
+  }
 })
-
-windowManager.on('open', (window) => attachContextMenus({ window, createWindow }))
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -62,12 +68,16 @@ app.on('before-quit', () => {
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
 
+  const actions = createActions({
+    createWindow
+  })
+
   await protocols.setupProtocols(webSession)
   await registerMenu(actions)
 
-  await Extensions.init({ partition: WEB_PARTITION, createWindow })
+  await extensions.registerAll()
 
-  const historyExtension = await Extensions.getExtension('agregore-history')
+  const historyExtension = await extensions.get('agregore-history')
   history.setExtension(historyExtension)
 
   const rootURL = new URL(process.cwd(), 'file://')

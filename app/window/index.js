@@ -26,21 +26,29 @@ const WINDOW_METHODS = [
   'findInPage',
   'stopFindInPage',
   'setBounds',
-  'searchHistory'
+  'searchHistory',
+  'listExtensionActions',
+  'clickExtensionAction'
 ]
 
 async function DEFAULT_SEARCH () {
   return []
 }
 
+async function DEFAULT_LIST_ACTIONS () {
+  return []
+}
+
 class WindowManager extends EventEmitter {
   constructor ({
     onSearch = DEFAULT_SEARCH,
+    listActions = DEFAULT_LIST_ACTIONS,
     persistTo = PERSIST_FILE
   } = {}) {
     super()
     this.windows = new Set()
     this.onSearch = onSearch
+    this.listActions = listActions
     this.persistTo = persistTo
 
     for (const method of WINDOW_METHODS) {
@@ -49,8 +57,8 @@ class WindowManager extends EventEmitter {
   }
 
   open (opts = {}) {
-    const { onSearch } = this
-    const window = new Window({ ...opts, onSearch })
+    const { onSearch, listActions } = this
+    const window = new Window({ ...opts, onSearch, listActions })
 
     console.log('created window', window.id)
     this.windows.add(window)
@@ -147,12 +155,16 @@ class Window extends EventEmitter {
   constructor ({
     url = DEFAULT_PAGE,
     rawFrame = false,
+    noAutoFocus = false,
     onSearch,
+    listActions,
     ...opts
   } = {}) {
     super()
 
     this.onSearch = onSearch
+    this.listActions = listActions
+    this.rawFrame = rawFrame
 
     this.window = new BrowserWindow({
       autoHideMenuBar: true,
@@ -253,6 +265,19 @@ class Window extends EventEmitter {
 
   async setBounds (rect) {
     return this.view.setBounds(rect)
+  }
+
+  async listExtensionActions () {
+    const actions = await this.listActions()
+    return actions.map(({ title, id, icon }) => ({ title, id, icon }))
+  }
+
+  async clickExtensionAction (actionId) {
+    await this.focus()
+    for (const { id, onClick } of await this.listActions()) {
+      if (actionId !== id) continue
+      await onClick(this.id)
+    }
   }
 
   send (name, ...args) {

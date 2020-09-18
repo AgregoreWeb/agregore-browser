@@ -58,6 +58,14 @@ window.getCurrentWindow = function getCurrentWindow () {
       return this.invoke('searchHistory', query, limit)
     }
 
+    async listExtensionActions () {
+      return this.invoke('listExtensionActions')
+    }
+
+    async clickExtensionAction (id) {
+      return this.invoke('clickExtensionAction', id)
+    }
+
     async invoke (name, ...args) {
       return ipcRenderer.invoke(`agregore-window-${name}`, ...args)
     }

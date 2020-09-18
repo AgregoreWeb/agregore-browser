@@ -1,86 +1,112 @@
 const path = require('path')
 const fs = require('fs-extra')
+const EventEmitter = require('events')
 
 const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
 const { webContents } = require('electron')
 
 const DEFAULT_PARTITION = 'persist:web-content'
-
-let extensions = null
-let createWindow = null
+const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*']
+const DEFAULT_EXTENSION_LOCATION = __dirname
 
 module.exports = {
-  init,
-  registerExtensions,
-  getExtension,
-  listActions
+  createExtensions
 }
 
-async function listActions () {
-  /* eslint-disable camelcase */
-  return Object.keys(extensions.extensions)
-    .map(getExtension)
-    .filter(({ manifest }) => manifest.browser_action)
-    .map(({ popupPage, backgroundPage, manifest, id, path: extensionPath }) => {
-      const { browser_action, name } = manifest
-      const title = browser_action.default_title || name
-      const onClick = popupPage ? () => {
-        createWindow(popupPage, { rawFrame: true })
-      } : (tabId) => {
-        const tab = webContents.fromId(tabId)
-        backgroundPage.webContents.send('api-emit-event-browserAction-onClicked', tab)
-      }
-      const { default_icon } = browser_action
-      const iconRelative = (typeof default_icon === 'string') ? default_icon : (default_icon[19] || default_icon[38])
-      const icon = new URL(path.join(extensionPath, iconRelative), 'file:///').href
-      return {
-        title,
-        icon,
-        onClick
-      }
+class Extensions extends EventEmitter {
+  constructor ({
+    partition = DEFAULT_PARTITION,
+    blacklist = DEFAULT_BLACKLIST,
+    createWindow,
+    location = DEFAULT_EXTENSION_LOCATION
+  }) {
+    super()
+    this.partition = partition
+    this.blacklist = blacklist
+    this.createWindow = createWindow
+    this.location = location
+
+    this.extensions = new ExtensibleSession({
+      partition,
+      blacklist
     })
-}
+  }
 
-function getExtension (name) {
-  return extensions.extensions[name]
-}
+  async listActions () {
+    /* eslint-disable camelcase */
+    return Object.keys(this.all)
+      .map((name) => this.get(name))
+      .filter(({ manifest }) => manifest.browser_action)
+      .map(({ popupPage, backgroundPage, manifest, id, path: extensionPath }) => {
+        const { browser_action, name } = manifest
+        const title = browser_action.default_title || name
+        const onClick = popupPage ? () => {
+          this.createWindow(popupPage, { rawFrame: true })
+        } : (tabId) => {
+          const tab = webContents.fromId(tabId)
+          backgroundPage.webContents.send('api-emit-event-browserAction-onClicked', tab)
+        }
+        const { default_icon } = browser_action
+        const iconRelative = (typeof default_icon === 'string') ? default_icon : (default_icon[19] || default_icon[38])
+        const icon = new URL(path.join(extensionPath, iconRelative), 'file:///').href
+        return {
+          id: name,
+          title,
+          icon,
+          onClick
+        }
+      })
+  }
 
-async function init ({ partition = DEFAULT_PARTITION, createWindow: _createWindow } = {}) {
-  createWindow = _createWindow
+  get all () {
+    return this.extensions.extensions
+  }
 
-  extensions = new ExtensibleSession({
-    partition,
-    blacklist: ['agregore-browser://*/*', 'file://*/*']
-  })
+  get (name) {
+    return this.all[name]
+  }
 
-  await registerExtensions()
-}
-async function registerExtensions () {
-  const rawNames = await fs.readdir(__dirname)
-  const stats = await Promise.all(
-    rawNames.map(
-      (name) => fs.stat(
-        path.join(__dirname, name)
+  async loadExtension (path) {
+    return this.extensions.loadExtension(path)
+  }
+
+  async registerAll () {
+    const rawNames = await fs.readdir(this.location)
+    const stats = await Promise.all(
+      rawNames.map(
+        (name) => fs.stat(
+          path.join(this.location, name)
+        )
       )
     )
-  )
 
-  const extensionFolders = rawNames.filter((name, index) => stats[index].isDirectory())
+    const extensionFolders = rawNames.filter((name, index) => stats[index].isDirectory())
 
-  console.log('Loading extensions', extensionFolders)
+    console.log('Loading extensions', extensionFolders)
 
-  for (const folder of extensionFolders) {
-    try {
-      const extension = await extensions.loadExtension(path.join(__dirname, folder))
-      console.log('Loaded extension', extension)
+    for (const folder of extensionFolders) {
+      try {
+        const extension = await this.loadExtension(path.join(this.location, folder))
+        console.log('Loaded extension', extension)
 
-      if (process.env.MODE === 'debug') {
-        if (extension.backgroundPage) extension.backgroundPage.webContents.openDevTools()
+        if (process.env.NODE_ENV === 'debug') {
+          if (extension.backgroundPage) extension.backgroundPage.webContents.openDevTools()
+        }
+      } catch (e) {
+        console.error('Error loading extension', folder, e)
       }
-    } catch (e) {
-      console.error('Error loading extension', folder, e)
     }
   }
 
-  return extensions
+  setActiveTab (tabId) {
+    this.extensions.activeTab = tabId
+  }
+
+  addWindow (window) {
+    this.extensions.addWindow(window)
+  }
+}
+
+function createExtensions (opts) {
+  return new Extensions(opts)
 }
