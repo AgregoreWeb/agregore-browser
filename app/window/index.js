@@ -190,17 +190,16 @@ class Window extends EventEmitter {
     })
     this.window.setBrowserView(this.view)
 
-    this.web.on('did-navigate', (event, url, isMainFrame) => {
-      console.log('Navigating', url, isMainFrame)
-      if (!isMainFrame) return
-      this.send('navigating', url)
+    this.web.on('did-start-navigation', (event, url, isInPlace, isMainFrame) => {
+      this.emitNavigate(url, isMainFrame)
     })
-    this.web.on('did-navigate', () => {
-      const canGoBack = this.web.canGoBack()
-      const canGoForward = this.web.canGoForward()
+    this.web.on('did-navigate', (event, url) => {
+      this.emitNavigate(url, true)
+    })
+    this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
+      this.emitNavigate(url, isMainFrame)
+    })
 
-      this.send('history-buttons-change', { canGoBack, canGoForward })
-    })
     this.web.on('page-title-updated', (event, title) => {
       this.send('page-title-updated', title)
     })
@@ -225,6 +224,16 @@ class Window extends EventEmitter {
 
   load () {
     return this.window.loadURL(this.toLoad)
+  }
+
+  emitNavigate (url, isMainFrame) {
+    if (!isMainFrame) return
+    console.log('Navigating', url)
+    const canGoBack = this.web.canGoBack()
+    const canGoForward = this.web.canGoForward()
+
+    this.send('navigating', url)
+    this.send('history-buttons-change', { canGoBack, canGoForward })
   }
 
   async goBack () {
