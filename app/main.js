@@ -41,6 +41,14 @@ windowManager.on('open', (window) => {
     extensions.addWindow(asBrowserView)
     asBrowserView.on('focus', () => extensions.setActiveTab(window.web.id))
   }
+  window.on('new-window', (event, url, frameName, disposition, options) => {
+    console.log('New window', url, disposition)
+    if(disposition === 'foreground-tab') {
+      event.preventDefault()
+      const window = createWindow(url)
+      event.newGuest = window.window
+    } else if (options && options.webContents) attachContextMenus({ window: options, createWindow })
+  })
 })
 
 // This method will be called when Electron has finished
@@ -107,4 +115,4 @@ async function onready () {
   } else if (!opened.length) windowManager.open()
 }
 
-function createWindow (url, options = {}) { windowManager.open({ url, ...options }) }
+function createWindow (url, options = {}) { return windowManager.open({ url, ...options }) }

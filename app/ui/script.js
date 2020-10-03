@@ -13,10 +13,12 @@ const searchParams = new URL(window.location.href).searchParams
 const toNavigate = searchParams.has('url') ? searchParams.get('url') : DEFAULT_PAGE
 
 const rawFrame = searchParams.get('rawFrame') === 'true'
+const noNav = searchParams.get('noNav') === 'true'
 
 if (rawFrame) $('#top').classList.toggle('hidden', true)
 
 window.addEventListener('load', () => {
+  if (noNav) return
   console.log('toNavigate', toNavigate)
   currentWindow.loadURL(toNavigate)
   webview.emitResize()

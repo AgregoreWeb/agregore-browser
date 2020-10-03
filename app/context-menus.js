@@ -13,8 +13,22 @@ module.exports = {
 }
 
 function attachContextMenus ({ window, createWindow }) {
-  window.webContents.on('context-menu', headerContextMenu)
-  window.web.on('context-menu', pageContextMenu)
+  if (window.web) {
+    window.webContents.on('context-menu', headerContextMenu)
+    window.web.on('context-menu', pageContextMenu)
+  } else {
+    window.webContents.on('context-menu', rawWindowContextMenu)
+  }
+
+  function rawWindowContextMenu (event, params) {
+    showContextMenu([
+      navigationGroup(window.web || window.webContents, params),
+      historyBufferGroup(params),
+      linkGroup(params),
+      editGroup(params),
+      developmentGroup(window.web || window.webContents, params)
+    ])
+  }
 
   function headerContextMenu (event, params) {
     if (params.inputFieldType === 'plainText') {
@@ -27,12 +41,12 @@ function attachContextMenus ({ window, createWindow }) {
 
   function pageContextMenu (event, params) {
     showContextMenu([
-      navigationGroup(window.web, params),
+      navigationGroup(window.web || window.webContents, params),
       historyBufferGroup(params),
       linkGroup(params),
       saveGroup(params),
       editGroup(params),
-      developmentGroup(window.web, params)
+      developmentGroup(window.web || window.webContents, params)
     ])
   }
 

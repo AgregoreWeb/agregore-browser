@@ -155,9 +155,11 @@ class Window extends EventEmitter {
   constructor ({
     url = DEFAULT_PAGE,
     rawFrame = false,
+    noNav = false,
     noAutoFocus = false,
     onSearch,
     listActions,
+    view,
     ...opts
   } = {}) {
     super()
@@ -178,8 +180,7 @@ class Window extends EventEmitter {
       icon: LOGO_FILE,
       ...opts
     })
-
-    this.view = new BrowserView({
+    this.view = view || new BrowserView({
       webPreferences: {
         partition: 'persist:web-content',
         nodeIntegration: false,
@@ -199,7 +200,9 @@ class Window extends EventEmitter {
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
     })
-
+    this.web.on('new-window', (...args) => {
+      this.emit('new-window', ...args)
+    })
     this.web.on('page-title-updated', (event, title) => {
       this.send('page-title-updated', title)
     })
@@ -213,6 +216,7 @@ class Window extends EventEmitter {
 
     if (url) toLoad.searchParams.set('url', url)
     if (rawFrame) toLoad.searchParams.set('rawFrame', 'true')
+    if (noNav) toLoad.searchParams.set('noNav', 'true')
 
     this.toLoad = toLoad.href
 
