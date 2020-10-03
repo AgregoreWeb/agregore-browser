@@ -1,5 +1,6 @@
 const { app, BrowserWindow, session } = require('electron')
 const fs = require('fs-extra')
+const { sep } = require('path')
 
 const protocols = require('./protocols')
 const { createActions } = require('./actions')
@@ -19,8 +20,8 @@ const gotTheLock = app.requestSingleInstanceLock()
 if (!gotTheLock) {
   app.quit()
 } else {
-  app.on('second-instance', (event, argv) => {
-    const urls = argv.filter((arg) => arg.includes('://'))
+  app.on('second-instance', (event, argv, workingDirectory) => {
+    const urls = urlsFromArgs(argv.slice(1), workingDirectory)
     urls.map((url) => windowManager.open({ url }))
   })
 }
@@ -100,14 +101,9 @@ async function onready () {
   const historyExtension = await extensions.get('agregore-history')
   history.setExtension(historyExtension)
 
-  const rootURL = new URL(process.cwd(), 'file://')
-
   const opened = await windowManager.openSaved()
 
-  const urls = process.argv
-    .slice(2)
-    .filter((arg) => arg.includes('/'))
-    .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
+  const urls = urlsFromArgs(process.argv.slice(1), process.cwd())
   if (urls.length) {
     urls.map((url) => {
       windowManager.open({ url })
@@ -116,3 +112,10 @@ async function onready () {
 }
 
 function createWindow (url, options = {}) { return windowManager.open({ url, ...options }) }
+
+function urlsFromArgs (argv, workingDir) {
+  const rootURL = new URL(workingDir + sep, 'file://')
+  return argv
+    .filter((arg) => arg.includes('/'))
+    .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
+}
