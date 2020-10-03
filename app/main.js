@@ -43,7 +43,7 @@ windowManager.on('open', (window) => {
   }
   window.on('new-window', (event, url, frameName, disposition, options) => {
     console.log('New window', url, disposition)
-    if(disposition === 'foreground-tab') {
+    if (disposition === 'foreground-tab') {
       event.preventDefault()
       const window = createWindow(url)
       event.newGuest = window.window
