@@ -7,6 +7,7 @@ A minimal web browser for the distributed web
 
 [![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)
 [Watch the intro video](https://www.youtube.com/watch?v=TnYKvOQB0ts&list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&index=14)
+[Download the installer](https://github.com/RangerMauve/agregore-browser/releases)
 
 ## Goals
 
@@ -36,21 +37,15 @@ A minimal web browser for the distributed web
 
 Check out the [documentation](./docs).
 
-## Running
-
-Download an installer from the [releases page](https://github.com/RangerMauve/agregore-browser/releases)
-
-**OR**
-
-- Clone the repo
-- `npm install`
-- `bash ./rebuild.sh`
-- `npm run start`
-
 ## Contributing
 
 Feel free to open a Github issue if you wish to tackle one of the items on the roadmap, or message @RangerMauve directly on whatever platform you can find them on.
 
 This project uses the [StandardJS](https://standardjs.com/) code style. Please format your code with `standard --fix` or run `npm run lint`.
 
+To build from source do the following:
 
+- Set up node.js, git, and yarn
+- Clone the repo
+- `yarn`
+- `yarn start`
