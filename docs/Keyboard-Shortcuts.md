@@ -6,6 +6,8 @@ There's a bunch of functionality in there, but the short of it is that you can u
 
 Save this as a file called `.agregorerc` in your "home" or "user" folder. 
 
+You can open this file by navigating to `Help > Edit Configuration File`.
+
 ```json
 {
   "accelerators": {

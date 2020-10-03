@@ -1,5 +1,7 @@
 const { app, shell } = require('electron')
 const fs = require('fs-extra')
+const os = require('os')
+const { join } = require('path')
 
 const { accelerators, extensions } = require('./config')
 
@@ -10,6 +12,8 @@ document.getElementById('search').focus()
 const OPEN_FIND_BAR_SCRIPT = `
 document.getElementById('find').show()
 `
+
+const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 
 module.exports = { createActions }
 
@@ -63,7 +67,7 @@ function createActions ({
       click: onLearMore
     },
     SetAsDefault: {
-      label: 'Set as default browser',
+      label: 'Set as Default Browser',
       accelerator: accelerators.SetAsDefault,
       click: onSetAsDefault
     },
@@ -71,6 +75,11 @@ function createActions ({
       label: 'Open Extensions Folder',
       accelerator: accelerators.OpenExtensionFolder,
       click: onOpenExtensionFolder
+    },
+    EditConfigFile: {
+      label: 'Edit Coniguration File',
+      accelerators: accelerators.EditConfigFile,
+      click: onEditConfigFile
     }
   }
   async function onSetAsDefault () {
@@ -141,5 +150,15 @@ function createActions ({
     await fs.ensureDir(dir)
 
     await shell.openPath(dir)
+  }
+
+  async function onEditConfigFile () {
+    const file = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
+
+    const exists = await fs.pathExists(file)
+
+    if(!exists) await fs.writeJson(file, {})
+
+    await shell.openPath(file)
   }
 }
