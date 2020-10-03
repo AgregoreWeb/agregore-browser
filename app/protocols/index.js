@@ -19,6 +19,22 @@ const BROWSER_PRIVILEDGES = {
   corsEnabled: true
 }
 
+/*
+TODO: Refactor protocol registration code
+class Protocols {
+  constructor () {
+    this.fetches = new Map()
+  }
+
+  register (name, fetch) {
+    this.fetches
+  }
+
+  async getFetch (name) {
+  }
+}
+*/
+
 const createHyperHandler = require('./hyper-protocol')
 // const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')

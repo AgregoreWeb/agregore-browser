@@ -37,7 +37,7 @@ Download an installer from the [releases page](https://github.com/RangerMauve/ag
 - Dev tools (`ctrl+shift+i`)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
 - Persist open windows when quitting
-- Basic Chrome Extension support (hardcoded into the source for now)
+- Web Extension support
 - Save files from pages (any protocol, right click it)
 - Set as default browser (click Set As Default in the Help menu)
 
@@ -92,6 +92,18 @@ The accelerators section maps names of actions to [keyboard shortcuts](https://w
 You can set these to whatever you want and it will override the defaults listed above.
 
 Check out `app/actions.js` for a full list of action names since some of them don't have keyboard shortcuts by default.
+
+## Installing extenions
+
+Agregore doesn't yet support loading extensions from app stores or zip files, but you can place the extracted extensions inside a folder for it to load.
+
+Click on `Help > Open Extension Folder` in the application menu on any window to open up your extensions folder.
+
+You can drop folders in here to have them load when Agregore starts up.
+
+For a list of APIs that are supported, please look at the [Electron Extensions](https://github.com/sentialx/electron-extensions/issues/14) module.
+
+Agregore comes with two built-in extensions. A basic ad blocker, and the history tracking extension.
 
 ## Fetch API for `hyper://`
 
@@ -213,7 +225,7 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Creating an archive
 	- [x] PUT/DELETE methods for files / folders
 	- [ ] Track created archives for origin in a DB
-	- [ ] Access control prompt for writing to origin
+	- [ ] Access control prompt for writing per origin
 - [ ] Sync folder with hyperdrive
 	- [ ] Sync from folder to hyperdrive
 	- [ ] Sync to folder from hyperdrive
@@ -222,10 +234,9 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 	- [x] Save history to a DB
 	- [x] Search through history?
 	- [x] Provide history suggestions when typing in URL bar
-	- [ ] Take history out of extension and into leveldb
-	- [ ] Add debounce to history search
-	- [ ] Add cancellation to history search
-	- [ ] Make sure you can always do a direct navigation or duckduckgo search while history is loading
+	- [x] Add debounce to history search
+	- [x] Add cancellation to history search
+	- [x] Make sure you can always do a direct navigation or duckduckgo search while history is loading
 	- [ ] View history page
 	- [ ] Preserve history more agressively to avoid crashes
 - [ ] Bookmarks
@@ -250,10 +261,10 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 - [ ] fetch API for IPFS (look at how their proxy works?)
 - [x] WebXR - Make sure it's working!
 - [x] Web extension support via [electron-extensions](https://github.com/sentialx/electron-extensions)
-	- [x] Load extensions from `app/extensions/` folder
-	- [ ] Somewhere to render badges
+	- [x] Load internal extensions from `app/extensions/` folder
+	- [x] Load external extensions from user data folder
+	- [x] Somewhere to render badges
 	- [ ] Developer options page
-	- [ ] Track extensions in a DB
 	- [ ] Drag and drop extension folder
 - [ ] Configure top-level page to load from URL
 	- [ ] Give access to Electron APIs

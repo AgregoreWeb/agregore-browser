@@ -1,6 +1,7 @@
-const { app } = require('electron')
+const { app, shell } = require('electron')
+const fs = require('fs-extra')
 
-const { accelerators } = require('./config')
+const { accelerators, extensions } = require('./config')
 
 const FOCUS_URL_BAR_SCRIPT = `
 document.getElementById('search').focus()
@@ -65,6 +66,11 @@ function createActions ({
       label: 'Set as default browser',
       accelerator: accelerators.SetAsDefault,
       click: onSetAsDefault
+    },
+    OpenExtensionFolder: {
+      label: 'Open Extensions Folder',
+      accelerator: accelerators.OpenExtensionFolder,
+      click: onOpenExtensionFolder
     }
   }
   async function onSetAsDefault () {
@@ -128,5 +134,12 @@ function createActions ({
     const views = focusedWindow.getBrowserViews()
     if (!views.length) return [focusedWindow.webContents]
     return views.map(({ webContents }) => webContents)
+  }
+
+  async function onOpenExtensionFolder () {
+    const { dir } = extensions
+    await fs.ensureDir(dir)
+
+    await shell.openPath(dir)
   }
 }

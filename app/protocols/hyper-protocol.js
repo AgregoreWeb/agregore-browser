@@ -34,8 +34,8 @@ module.exports = async function createHandler () {
       data
     })
 
-    process.nextTick(() => {
-      data.resume()
-    })
+    // process.nextTick(() => {
+    // data.resume()
+    // })
   }
 }

@@ -17,7 +17,8 @@ function registerMenu (actions) {
     Reload,
     HardReload,
     LearnMore,
-    SetAsDefault
+    SetAsDefault,
+    OpenExtensionFolder
   } = actions
 
   const template = [
@@ -112,6 +113,7 @@ function registerMenu (actions) {
       role: 'help',
       submenu: [
         LearnMore,
+        OpenExtensionFolder,
         SetAsDefault
       ]
     }

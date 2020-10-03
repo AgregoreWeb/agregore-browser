@@ -5,6 +5,9 @@ const EventEmitter = require('events')
 const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
 const { webContents } = require('electron')
 
+const { extensions: config } = require('../config')
+const { dir, remote } = config
+
 const DEFAULT_PARTITION = 'persist:web-content'
 const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*']
 const DEFAULT_EXTENSION_LOCATION = __dirname
@@ -66,16 +69,34 @@ class Extensions extends EventEmitter {
     return this.all[name]
   }
 
+  async loadRemote () {
+    if (!remote) return
+    for (const url of remote) {
+      // TODO: Implement this for different protocols
+      this.loadFromURL(url)
+    }
+  }
+
   async loadExtension (path) {
     return this.extensions.loadExtension(path)
   }
 
-  async registerAll () {
-    const rawNames = await fs.readdir(this.location)
+  async registerExternal () {
+    const existsExtensions = await fs.pathExists(dir)
+
+    if (existsExtensions) await this.registerAll(dir)
+  }
+
+  async registerInternal () {
+    await this.registerAll(this.location)
+  }
+
+  async registerAll (extensionsFolder = this.location) {
+    const rawNames = await fs.readdir(extensionsFolder)
     const stats = await Promise.all(
       rawNames.map(
         (name) => fs.stat(
-          path.join(this.location, name)
+          path.join(extensionsFolder, name)
         )
       )
     )
@@ -86,7 +107,7 @@ class Extensions extends EventEmitter {
 
     for (const folder of extensionFolders) {
       try {
-        const extension = await this.loadExtension(path.join(this.location, folder))
+        const extension = await this.loadExtension(path.join(extensionsFolder, folder))
         console.log('Loaded extension', extension)
 
         if (process.env.NODE_ENV === 'debug') {

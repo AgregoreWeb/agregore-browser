@@ -1,4 +1,5 @@
 const { app, BrowserWindow, session } = require('electron')
+const fs = require('fs-extra')
 
 const protocols = require('./protocols')
 const { createActions } = require('./actions')
@@ -7,6 +8,9 @@ const { attachContextMenus } = require('./context-menus')
 const { WindowManager } = require('./window')
 const { createExtensions } = require('./extensions')
 const history = require('./history')
+
+const { extensions: extensionsConfig } = require('./config')
+const { dir: extensionsDir } = extensionsConfig
 
 const WEB_PARTITION = 'persist:web-content'
 
@@ -75,7 +79,15 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu(actions)
 
-  await extensions.registerAll()
+  // Register extensions that came bundled with the browser
+  await extensions.registerInternal()
+
+  // Register extensions that users installed externally
+  await extensions.registerExternal()
+
+  const existsExtensions = await fs.pathExists(extensionsDir)
+
+  if (existsExtensions) await extensions.registerAll(extensionsDir)
 
   const historyExtension = await extensions.get('agregore-history')
   history.setExtension(historyExtension)

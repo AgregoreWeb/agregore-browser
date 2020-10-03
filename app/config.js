@@ -1,3 +1,9 @@
+
+const { app } = require('electron')
+const path = require('path')
+
+const DEFAULT_EXTENSIONS_DIR = path.join(app.getPath('userData'), 'extensions')
+
 module.exports = require('rc')('agregore', {
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
@@ -8,6 +14,12 @@ module.exports = require('rc')('agregore', {
     FindInPage: 'CommandOrControl+F',
     Reload: 'CommandOrControl+R',
     HardReload: 'CommandOrControl+Shift+R',
-    LearnMore: null
+    LearnMore: null,
+    OpenExtensionsFolder: null
+  },
+  extensions: {
+    dir: DEFAULT_EXTENSIONS_DIR,
+    // TODO: This will be for loading extensions from remote URLs
+    remote: []
   }
 })
