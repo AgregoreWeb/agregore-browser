@@ -208,7 +208,7 @@ class Window extends EventEmitter {
     })
     this.window.once('ready-to-show', () => this.window.show())
     this.window.on('close', () => {
-      if (this.view.destroy) this.view.destroy()
+      this.web.destroy()
       this.emit('close')
     })
 

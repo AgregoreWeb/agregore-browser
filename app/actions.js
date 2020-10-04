@@ -157,7 +157,7 @@ function createActions ({
 
     const exists = await fs.pathExists(file)
 
-    if(!exists) await fs.writeJson(file, {})
+    if (!exists) await fs.writeJson(file, {})
 
     await shell.openPath(file)
   }
