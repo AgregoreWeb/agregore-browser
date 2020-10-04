@@ -77,7 +77,7 @@ function createActions ({
       click: onOpenExtensionFolder
     },
     EditConfigFile: {
-      label: 'Edit Coniguration File',
+      label: 'Edit Configuration File',
       accelerators: accelerators.EditConfigFile,
       click: onEditConfigFile
     }
