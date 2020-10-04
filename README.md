@@ -8,6 +8,7 @@ A minimal web browser for the distributed web
 [![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)
 [Watch the intro video](https://www.youtube.com/watch?v=TnYKvOQB0ts&list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&index=14)
 [Download the installer](https://github.com/RangerMauve/agregore-browser/releases)
+[Discord](https://discord.gg/nq2jkM)
 
 ## Goals
 
