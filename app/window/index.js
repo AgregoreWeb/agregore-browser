@@ -277,6 +277,12 @@ class Window extends EventEmitter {
   }
 
   async setBounds (rect) {
+    Object.keys(rect).forEach(key => {
+      rect[key] = Math.floor(rect[key])
+    })
+    // Fix non-integer heights causing draw break.
+    // TODO: This should be fixed wherever rect is sent from, not sure where that is.
+
     return this.view.setBounds(rect)
   }
 
