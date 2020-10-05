@@ -214,7 +214,7 @@ class Window extends EventEmitter {
       this.send('leave-html-full-screen')
     })
     this.window.on('close', () => {
-      if (this.view.destroy) this.view.destroy()
+      this.web.destroy()
       this.emit('close')
     })
 
