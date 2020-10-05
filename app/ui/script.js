@@ -1,6 +1,8 @@
 const DEFAULT_PAGE = 'agregore://welcome'
 
 const webview = $('#view')
+// Kyran: Using variable name "top" causes issues for some reason? I would assume it's because of another one of the UI scripts but it doesn't seem like that's the case.
+const nav = $('#top')
 const search = $('#search')
 const find = $('#find')
 
@@ -15,7 +17,7 @@ const toNavigate = searchParams.has('url') ? searchParams.get('url') : DEFAULT_P
 const rawFrame = searchParams.get('rawFrame') === 'true'
 const noNav = searchParams.get('noNav') === 'true'
 
-if (rawFrame) $('#top').classList.toggle('hidden', true)
+if (rawFrame) nav.classList.toggle('hidden', true)
 
 window.addEventListener('load', () => {
   if (noNav) return
@@ -67,6 +69,13 @@ currentWindow.on('history-buttons-change', updateButtons)
 
 currentWindow.on('page-title-updated', (title) => {
   pageTitle.innerText = title + ' - Agregore Browser'
+})
+
+currentWindow.on('enter-html-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', true)
+})
+currentWindow.on('leave-html-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', false)
 })
 
 find.addEventListener('next', ({ detail }) => {
