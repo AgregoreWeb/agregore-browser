@@ -203,16 +203,19 @@ class Window extends EventEmitter {
     this.web.on('new-window', (...args) => {
       this.emit('new-window', ...args)
     })
+
+    // Send to UI
     this.web.on('page-title-updated', (event, title) => {
       this.send('page-title-updated', title)
     })
-    this.window.once('ready-to-show', () => this.window.show())
     this.window.on('enter-html-full-screen', () => {
       this.send('enter-html-full-screen')
     })
     this.window.on('leave-html-full-screen', () => {
       this.send('leave-html-full-screen')
     })
+
+    this.window.once('ready-to-show', () => this.window.show())
     this.window.on('close', () => {
       this.web.destroy()
       this.emit('close')
