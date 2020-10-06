@@ -169,7 +169,6 @@ class Window extends EventEmitter {
     this.rawFrame = rawFrame
 
     this.window = new BrowserWindow({
-      frame: false,
       autoHideMenuBar: true,
       webPreferences: {
         // partition: 'persist:web-content',

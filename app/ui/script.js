@@ -9,7 +9,6 @@ const find = $('#find')
 const currentWindow = window.getCurrentWindow()
 
 const pageTitle = $('title')
-const pageTitleDisplay = $('#title')
 
 const searchParams = new URL(window.location.href).searchParams
 
@@ -27,31 +26,25 @@ window.addEventListener('load', () => {
   webview.emitResize()
 })
 
-$('#minimize').addEventListener('click', () => {
-  window.minimize() // Kyran: Doesn't work for some reason
-})
-$('#maximize').addEventListener('click', () => {
-  window.maximize() // Kyran: Doesn't work for some reason
-})
-$('#close').addEventListener('click', () => {
-  window.close()
-})
-
 search.addEventListener('back', () => {
   currentWindow.goBack()
 })
+
 search.addEventListener('forward', () => {
   currentWindow.goForward()
 })
+
 search.addEventListener('navigate', ({ detail }) => {
   const { url } = detail
 
   navigateTo(url)
 })
+
 search.addEventListener('unfocus', async () => {
   await currentWindow.focus()
   search.src = await webview.getURL()
 })
+
 search.addEventListener('search', async ({ detail }) => {
   const { query, searchID } = detail
 
@@ -75,9 +68,7 @@ currentWindow.on('navigating', (url) => {
 currentWindow.on('history-buttons-change', updateButtons)
 
 currentWindow.on('page-title-updated', (title) => {
-  title += ' - Agregore Browser'
-  pageTitle.innerText = title
-  pageTitleDisplay.innerHTML = title
+  pageTitle.innerText = title + ' - Agregore Browser'
 })
 
 currentWindow.on('enter-html-full-screen', () => {
