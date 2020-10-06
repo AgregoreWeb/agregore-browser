@@ -36,6 +36,9 @@ $('#maximize').addEventListener('click', () => {
 $('#close').addEventListener('click', () => {
   window.close()
 })
+$('#new').addEventListener('click', () => {
+  window.open('agregore://welcome')
+})
 
 search.addEventListener('back', () => {
   currentWindow.goBack()
