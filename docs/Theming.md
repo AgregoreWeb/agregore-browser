@@ -1,4 +1,4 @@
-# Changing the Theme
+# Theming
 
 Agregore provides CSS variables for themeing the browser at the URL `agregore://theme/vars.css`.
 
@@ -29,6 +29,8 @@ You can also make use of the `agregore://theme/style.css` which adds some defaul
 
 This is useful for styling markdown pages or other pages with basic HTML. You probably shouldn't include this if you're doing something fancy with styling as the styles may change over time.
 
+## Customization
+
 The `--ag-theme-*` variables can me modified in the `.agregorerc` file by clicking `Help > Edit Configuration File` and adding the following content:
 
 ```
@@ -46,3 +48,9 @@ The `--ag-theme-*` variables can me modified in the `.agregorerc` file by clicki
 You can replace the various values with any valid CSS values like Hex codes: `#FFAABB`, or `rgb()`.
 
 More styles will be added here as needed. If you feel we should standardize on some sort of style, feel free to open an issue talking about what it is and why it should be added.
+
+## Highlight.js
+
+For convenience, Agregore bundles [highlight.js](https://highlightjs.org/) and a default theme for it.
+
+You can load it up using `agregore://theme/highlight.js` and `agregore://theme/highlight.css`.
