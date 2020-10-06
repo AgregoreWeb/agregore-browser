@@ -1,0 +1,3 @@
+[submodule "app/extensions/agregore-md-render"]
+	path = app/extensions/agregore-md-render
+	url = git@github.com:RangerMauve/agregore-md-render.git
