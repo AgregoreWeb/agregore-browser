@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const path = require('path')//.posix /* Kyran: Fix: Might just be for Windows. Using .posix breaks with errno -2 */
+=======
+const path = require('path')
+>>>>>>> source/master
 const mime = require('mime/lite')
 const ScopedFS = require('scoped-fs')
 const { Readable } = require('stream')
@@ -24,7 +28,11 @@ module.exports = async function createHandler () {
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)
 
+<<<<<<< HEAD
     if (toResolve === 'theme/vars.css' || toResolve === 'theme\\vars.css'/* Kyran: Fix: Might just be for Windows. toResolve has a backslash not a forwardslash */) {
+=======
+    if ((hostname === 'theme') && (pathname === '/vars.css')) {
+>>>>>>> source/master
       const statusCode = 200
 
       const themes = Object
