@@ -48,6 +48,7 @@ html, body {
   border: none;
   background: inherit;
   color: inherit;
+  transition: background 0.25s;
 }
 .control-button:hover {
   background: var(--ag-theme-primary);
