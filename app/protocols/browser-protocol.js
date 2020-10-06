@@ -1,4 +1,4 @@
-const path = require('path').posix
+const path = require('path')
 const mime = require('mime/lite')
 const ScopedFS = require('scoped-fs')
 const { Readable } = require('stream')
@@ -24,7 +24,7 @@ module.exports = async function createHandler () {
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)
 
-    if (toResolve === 'theme/vars.css') {
+    if ((hostname === 'theme') && (pathname === '/vars.css')) {
       const statusCode = 200
 
       const themes = Object
