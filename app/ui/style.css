@@ -1,9 +1,4 @@
-:root {
-  --ag-color-purple: #6e2de5;
-  --ag-color-black: #111;
-  --ag-color-white: #F2F2F2;
-  --ag-color-green: #2de56e;
-}
+@import url("agregore://theme/vars.css");
 
 html, body {
 	width: 100%;
@@ -14,7 +9,7 @@ html, body {
 	flex: 1;
 	flex-direction: column;
 	background: var(--ag-color-white);
-	font-family: system-ui;
+	font-family: var(--ag-theme-font-family);
 }
 
 #view {
@@ -41,9 +36,9 @@ omni-box {
 .omni-box-header {
 	display: flex;
 	flex-direction: row;
-	border-bottom: 2px solid var(--ag-color-purple);
-	background: var(--ag-color-black);
-	color: var(--ag-color-white);
+	border-bottom: 2px solid var(--ag-theme-primary);
+	background: var(--ag-theme-background);
+	color: var(--ag-theme-text);
 }
 
 .omni-box-form, .find-menu-form {
@@ -68,13 +63,13 @@ omni-box {
 	flex-direction: column;
 	margin: 0px;
 	padding: 0px;
-	border: 2px solid var(--ag-color-purple);
-	background: var(--ag-color-black);
-	color: var(--ag-color-white);
+	border: 2px solid var(--ag-theme-primary);
+	background: var(--ag-theme-background);
+	color: var(--ag-theme-text);
 }
 
 .omni-box-nav-options [data-selected] {
-	border: 1px solid var(--ag-color-green);
+	border: 1px solid var(--ag-theme-secondary);
 }
 
 .omni-box-nav-options:empty {
@@ -91,7 +86,7 @@ omni-box {
 }
 
 .omni-box-nav-item {
-	border: 1px solid var(--ag-color-purple);
+	border: 1px solid var(--ag-theme-primary);
 	display: flex;
 	flex-direction: row;
 	overflow: hidden;
@@ -100,20 +95,20 @@ omni-box {
 }
 
 find-menu {
-	border: 2px solid var(--ag-color-purple);
+	border: 2px solid var(--ag-theme-primary);
 	border-top: none;
 	display: flex;
 	flex-direction: row;
-	background: var(--ag-color-black);
-	color: var(--ag-color-white);
+	background: var(--ag-theme-background);
+	color: var(--ag-theme-text);
 }
 
 browser-actions {
-	border: 2px solid var(--ag-color-purple);
+	border: 2px solid var(--ag-theme-primary);
 	display: flex;
 	flex-direction: row;
-	background: var(--ag-color-black);
-	color: var(--ag-color-white);
+	background: var(--ag-theme-background);
+	color: var(--ag-theme-text);
 	justify-content: center;
   align-items: center;
 }
@@ -127,5 +122,5 @@ browser-actions:empty {
 }
 
 *:focus {
-  outline: 2px solid var(--ag-color-green);
+  outline: 2px solid var(--ag-theme-secondary);
 }

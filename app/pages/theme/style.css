@@ -1,0 +1,41 @@
+@import url("agregore://theme/vars.css");
+
+html, body {
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+  font-family: var(--ag-theme-font-family);
+}
+
+a {
+  color: var(--ag-theme-primary);
+  text-decoration: none;
+  margin: 0.1em;
+  display: block;
+}
+
+br {
+  display: none;
+}
+
+li {
+  list-style-type: " ⟐ ";
+}
+
+a:visited {
+  color: var(--ag-theme-secondary);
+}
+
+*:focus {
+  outline: 2px solid var(--ag-theme-secondary);
+}
+
+h1 {
+  font-weight: bold;
+  color: var(--ag-theme-primary);
+}
+
+h2,h3,h4 {
+  text-decoration: underline;
+  text-decoration-color: var(--ag-theme-primary);
+}
+

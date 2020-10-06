@@ -22,5 +22,12 @@ module.exports = require('rc')('agregore', {
     dir: DEFAULT_EXTENSIONS_DIR,
     // TODO: This will be for loading extensions from remote URLs
     remote: []
+  },
+  theme: {
+    'font-family': 'system-ui',
+    background: 'var(--ag-color-black)',
+    text: 'var(--ag-color-white)',
+    primary: 'var(--ag-color-purple)',
+    secondary: 'var(--ag-color-green)'
   }
 })

@@ -66,51 +66,7 @@ function generatePage (url, tokens, content) {
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <style>
-:root {
-  --ag-color-purple: #6e2de5;
-  --ag-color-black: #111;
-  --ag-color-white: #F2F2F2;
-  --ag-color-green: #2de56e;
-}
-
-html, body {
-  background: var(--ag-color-black);
-  color: var(--ag-color-white);
-  font-family: system-ui;
-}
-
-a {
-  color: var(--ag-color-purple);
-  text-decoration: none;
-  margin: 0.1em;
-  display: block;
-}
-
-br {
-  display: none;
-}
-
-li {
-  list-style-type: " ⟐ ";
-}
-
-a:visited {
-  color: var(--ag-color-green);
-}
-
-*:focus {
-  outline: 2px solid var(--ag-color-green);
-}
-
-h1 {
-  font-weight: bold;
-  color: var(--ag-color-purple);
-}
-
-h2,h3,h4 {
-  text-decoration: underline;
-  text-decoration-color: var(--ag-color-purple);
-}
+@import url("agregore://theme/style.css");
 </style>
 
 ${content}
