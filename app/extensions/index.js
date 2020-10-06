@@ -9,7 +9,7 @@ const { extensions: config } = require('../config')
 const { dir, remote } = config
 
 const DEFAULT_PARTITION = 'persist:web-content'
-const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*']
+const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*', 'devtools://*/*', 'chrome-devtools://*/*']
 const DEFAULT_EXTENSION_LOCATION = __dirname
 
 module.exports = {
