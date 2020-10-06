@@ -9,7 +9,7 @@ html, body {
 
 body {
   padding: 1em;
-  max-width: 666px;
+  max-width: var(--ag-theme-max-width);
   margin: 0 auto;
 }
 
@@ -21,11 +21,6 @@ a {
 
 a:visited {
 	color: var(--ag-theme-primary);
-}
-
-.agregore-header-anchor {
-  color: inherit;
-  text-decoration: none;
 }
 
 code {
@@ -46,17 +41,26 @@ li {
   outline: 2px solid var(--ag-theme-secondary);
 }
 
-h1 {
+h1 a {
   font-weight: bold;
-  color: var(--ag-theme-primary) !important;
+  color: var(--ag-theme-primary);
   text-decoration: none;
 }
 
-h2,h3,h4 {
-  text-decoration: underline !important;
-  text-decoration-color: var(--ag-theme-primary) !important;
+h2 a,h3 a,h4 a {
+  color: inherit;
+  text-decoration: none;
 }
 
 h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {
   content: " 🔗";
+  text-decoration: none !important;
+}
+
+.depth1 {
+  padding-left: calc(var(--ag-theme-indent) * 1)
+} .depth2 {
+  padding-left: calc(var(--ag-theme-indent) * 2)
+} .depth3 {
+  padding-left: calc(var(--ag-theme-indent) * 3)
 }

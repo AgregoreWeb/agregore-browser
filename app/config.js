@@ -24,10 +24,12 @@ module.exports = require('rc')('agregore', {
     remote: []
   },
   theme: {
-    'font-family': 'system-ui',
-    background: 'var(--ag-color-black)',
-    text: 'var(--ag-color-white)',
-    primary: 'var(--ag-color-purple)',
-    secondary: 'var(--ag-color-green)'
+    'font-family': 'system-ui', // Default system-ui
+    background: 'var(--ag-color-black)', // Default var(--ag-color-black)
+    text: 'var(--ag-color-white)', // Default var(--ag-color-white)
+    primary: 'var(--ag-color-purple)', // Default var(--ag-color-purple)
+    secondary: 'var(--ag-color-green)', // Default var(--ag-color-green)
+    indent: '16px', // Default 16px
+    'max-width': '666px' // Default 666px
   }
 })
