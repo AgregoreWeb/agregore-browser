@@ -27,9 +27,6 @@ window.addEventListener('load', () => {
   webview.emitResize()
 })
 
-$('#new').addEventListener('click', () => {
-  window.open('agregore://welcome')
-})
 $('#minimize').addEventListener('click', () => {
   window.minimize() // Kyran: Doesn't work for some reason
 })
