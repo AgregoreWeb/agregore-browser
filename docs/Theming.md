@@ -29,6 +29,8 @@ You can also make use of the `agregore://theme/style.css` which adds some defaul
 
 This is useful for styling markdown pages or other pages with basic HTML. You probably shouldn't include this if you're doing something fancy with styling as the styles may change over time.
 
+The style includes a class called `agregore-header-anchor` which can be used on anchors within headers for linking to headings. Checkout the markdown extension 
+
 ## Customization
 
 The `--ag-theme-*` variables can me modified in the `.agregorerc` file by clicking `Help > Edit Configuration File` and adding the following content:

@@ -1,9 +1,16 @@
+@charset "utf-8";
 @import url("agregore://theme/vars.css");
 
 html, body {
   background: var(--ag-theme-background);
   color: var(--ag-theme-text);
   font-family: var(--ag-theme-font-family);
+}
+
+body {
+  padding: 1em;
+  max-width: 666px;
+  margin: 0 auto;
 }
 
 a {
@@ -14,6 +21,17 @@ a {
 
 a:visited {
 	color: var(--ag-theme-primary);
+}
+
+.agregore-header-anchor {
+  color: inherit;
+  text-decoration: none;
+}
+
+code {
+  background: var(--ag-theme-primary);
+  font-weight: bold;
+  padding: 0.25em;
 }
 
 br {
@@ -30,11 +48,15 @@ li {
 
 h1 {
   font-weight: bold;
-  color: var(--ag-theme-primary);
+  color: var(--ag-theme-primary) !important;
+  text-decoration: none;
 }
 
 h2,h3,h4 {
-  text-decoration: underline;
-  text-decoration-color: var(--ag-theme-primary);
+  text-decoration: underline !important;
+  text-decoration-color: var(--ag-theme-primary) !important;
 }
 
+h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {
+  content: " 🔗";
+}
