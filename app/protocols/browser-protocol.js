@@ -24,7 +24,7 @@ module.exports = async function createHandler () {
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)
 
-    if (toResolve === 'theme\\vars.css'/* Kyran: Fix: Might just be for Windows. toResolve has a backslash not a forwardslash */) {
+    if (toResolve === 'theme/vars.css' || toResolve === 'theme\\vars.css'/* Kyran: Fix: Might just be for Windows. toResolve has a backslash not a forwardslash */) {
       const statusCode = 200
 
       const themes = Object
