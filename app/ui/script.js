@@ -27,6 +27,9 @@ window.addEventListener('load', () => {
   webview.emitResize()
 })
 
+$('#new').addEventListener('click', () => {
+  window.open('agregore://welcome')
+})
 $('#minimize').addEventListener('click', () => {
   window.minimize() // Kyran: Doesn't work for some reason
 })
@@ -35,9 +38,6 @@ $('#maximize').addEventListener('click', () => {
 })
 $('#close').addEventListener('click', () => {
   window.close()
-})
-$('#new').addEventListener('click', () => {
-  window.open('agregore://welcome')
 })
 
 search.addEventListener('back', () => {
