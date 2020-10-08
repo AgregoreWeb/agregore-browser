@@ -57,10 +57,10 @@ h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {
   text-decoration: none !important;
 }
 
-.depth1 {
+.agregore-depth1 {
   padding-left: calc(var(--ag-theme-indent) * 1)
-} .depth2 {
+} .agregore-depth2 {
   padding-left: calc(var(--ag-theme-indent) * 2)
-} .depth3 {
+} .agregore-depth3 {
   padding-left: calc(var(--ag-theme-indent) * 3)
 }
