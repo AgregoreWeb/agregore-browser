@@ -111,7 +111,7 @@ async function onready () {
   } else if (!opened.length) windowManager.open()
 }
 
-function createWindow (url, options = {}) { return windowManager.open({ url, ...options }) }
+function createWindow (url, options = {}) { return windowManager.open({ url, ...options })}
 
 function urlsFromArgs (argv, workingDir) {
   const rootURL = new URL(workingDir + sep, 'file://')

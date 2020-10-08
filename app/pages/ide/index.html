@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Agregore IDE</title>
+		<script src="src-min/ace.js"></script>
+		<script src="script.js"></script>
+		<link rel="stylesheet" href="style.css"/>
+	</head>
+	<body onload="setup()">
+		<div id="URLBar">
+			<input id="URL" type="URL" placeholder="protocol://address"/>
+			<button onclick="window.open('help.md')">&#63;</button>
+			<button onclick="load()">LOAD</button>
+			<button id="save" onclick="save()">SAVE</button>
+		</div>
+		<div id="body"></div>
+	</body>
+</html>
