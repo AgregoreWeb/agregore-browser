@@ -14,6 +14,7 @@ module.exports = require('rc')('agregore', {
     FindInPage: 'CommandOrControl+F',
     Reload: 'CommandOrControl+R',
     HardReload: 'CommandOrControl+Shift+R',
+    CreateShortcut: null,
     LearnMore: null,
     OpenExtensionsFolder: null,
     EditConfigFile: 'CommandOrControl+.'

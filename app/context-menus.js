@@ -5,6 +5,7 @@ const {
   app,
   clipboard
 } = require('electron')
+const createDesktopShortcut = require('create-desktop-shortcuts');
 
 const path = require('path').posix
 
@@ -42,6 +43,7 @@ function attachContextMenus ({ window, createWindow }) {
   function pageContextMenu (event, params) {
     showContextMenu([
       navigationGroup(window.web || window.webContents, params),
+      pageGroup(window.web || window.webContents),
       historyBufferGroup(params),
       linkGroup(params),
       saveGroup(params),
@@ -139,6 +141,47 @@ function attachContextMenus ({ window, createWindow }) {
       new MenuItem({
         label: 'Hard Reload',
         click: wc.reloadIgnoringCache
+      })
+    ]
+  }
+
+  function pageGroup (wc) {
+    return [
+      new MenuItem({
+        label: 'Create shortcut',
+        click: async () => {
+          console.log(app.getAppPath());
+          let outputPath = (await dialog.showOpenDialog({
+              properties: ['openDirectory']
+          })).filePaths[0];
+          console.log(outputPath);
+          let appPath = app.getAppPath();
+          appPath = 'C:\\Users\\kyran.SYRIS\\AppData\\Local\\Programs\\agregore-browser\\' //testing
+          appPath += 'Agregore Browser.exe'
+          let URL = wc.getURL();
+          let shortcutsCreated = createDesktopShortcut({
+            windows: {
+              filePath: appPath,
+              outputPath: outputPath,
+              arguments: URL,
+              name: wc.getTitle()
+            },
+            linux: {
+              filePath: '/home/path/to/executable',
+              arguments: URL
+            },
+            osx: {
+              filePath: '/home/path/to/executable',
+              arguments: URL
+            }
+          });
+
+          if (shortcutsCreated) {
+            console.log('Everything worked correctly!');
+          } else {
+            console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
+          }
+        }
       })
     ]
   }

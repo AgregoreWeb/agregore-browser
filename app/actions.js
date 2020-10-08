@@ -61,6 +61,11 @@ function createActions ({
       accelerator: accelerators.HardReload,
       click: onHardReload
     },
+    CreateShortcut: {
+      label: 'Create shortcut',
+      accelerator: accelerators.CreateShortcut,
+      click: onCreateShortcut
+    },
     LearnMore: {
       label: 'Learn More',
       accelerator: accelerators.LearnMore,
@@ -125,6 +130,10 @@ function createActions ({
     for (const webContents of getContents(focusedWindow)) {
       webContents.reloadIgnoringCache()
     }
+  }
+
+  function onCreateShortcut (event, focusedWindow, focusedWebContents) {
+    console.log(focusedWindow);
   }
 
   function onGoForward (event, focusedWindow) {
