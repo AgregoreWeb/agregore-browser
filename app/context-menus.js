@@ -150,31 +150,48 @@ function attachContextMenus ({ window, createWindow }) {
       new MenuItem({
         label: 'Create shortcut',
         click: async () => {
-          console.log(app.getAppPath());
           let outputPath = (await dialog.showOpenDialog({
               properties: ['openDirectory']
-          })).filePaths[0];
+          })).filePaths[0]
           console.log(outputPath);
           let appPath = app.getAppPath();
-          appPath = 'C:\\Users\\kyran.SYRIS\\AppData\\Local\\Programs\\agregore-browser\\' //testing
+          appPath = 'C:\\Users\\kyran.SYRIS\\AppData\\Local\\Programs\\agregore-browser\\' //testing (will try to get source executable if not used (doesn't exist))
           appPath += 'Agregore Browser.exe'
+
           let URL = wc.getURL();
-          let shortcutsCreated = createDesktopShortcut({
-            windows: {
-              filePath: appPath,
-              outputPath: outputPath,
-              arguments: URL,
-              name: wc.getTitle()
-            },
-            linux: {
-              filePath: '/home/path/to/executable',
-              arguments: URL
-            },
-            osx: {
-              filePath: '/home/path/to/executable',
-              arguments: URL
-            }
+
+          var windows = {}, linux; // Kyran: OSX doesn't have arguments option, this is pointless there... Not sure what to do for them.
+          shortcutOptions = [windows, linux]; 
+          windows.filePath = appPath;
+          windows.outputPath = outputPath;
+          windows.name = wc.getTitle().replace(/[\/|\\:*?"<>]/g, " ").replace("  ", " "); // Kyran: Normalise into possible file name
+          windows.arguments = URL;
+          let faviconURL;
+          try {
+            faviconURL = await wc.executeJavaScript(`document.querySelector("link[rel*='icon']").href`);
+          } catch {}
+          if(faviconURL != undefined) {
+            wc.session.on('will-download', (event, item, webContents) => {
+              if(item.getURL() === faviconURL) {
+                let savePath = outputPath + '\\' + item.getFilename();
+                item.setSavePath(savePath);
+                windows.icon = savePath;
+                console.log(windows);
+                item.once('done', () =>
+                  createDesktopShortcut({
+                    windows: windows,
+                    linux: linux
+                  })
+                );
+              }
+            })
+            wc.downloadURL(faviconURL);
+          } else createDesktopShortcut({
+            windows: windows,
+            linux: linux
           });
+
+          
 
           if (shortcutsCreated) {
             console.log('Everything worked correctly!');
