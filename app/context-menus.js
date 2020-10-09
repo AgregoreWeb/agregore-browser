@@ -8,6 +8,12 @@ const {
 
 const path = require('path').posix
 
+const createDesktopShortcut = require('create-desktop-shortcuts');
+
+/*const fs = require('fs');
+const pngToIco = require('png-to-ico');
+// Kyran: Surely needing both of these is overkill... Can't find a better way though.*/
+
 module.exports = {
   attachContextMenus
 }
@@ -46,6 +52,7 @@ function attachContextMenus ({ window, createWindow }) {
       linkGroup(params),
       saveGroup(params),
       editGroup(params),
+      pageGroup(window.web || window.webContents),
       developmentGroup(window.web || window.webContents, params)
     ])
   }
@@ -139,6 +146,73 @@ function attachContextMenus ({ window, createWindow }) {
       new MenuItem({
         label: 'Hard Reload',
         click: wc.reloadIgnoringCache
+      })
+    ]
+  }
+
+  function pageGroup (wc) {
+    return [
+      new MenuItem({
+        label: 'Create shortcut',
+        click: async () => {
+          let outputPath = (await dialog.showOpenDialog({
+              properties: ['openDirectory']
+          })).filePaths[0]
+          console.log(outputPath);
+          let appPath = process.argv[0];
+
+          let URL = wc.getURL();
+
+          let shortcutName = wc.getTitle().replace(/[\/|\\:*?"<>]/g, " ").replace("  ", " "); // Kyran: Normalise into possible file name
+ 
+          let shortcut = {
+            filePath: appPath,
+            outputPath: outputPath,
+            name: shortcutName,
+            arguments: URL
+          }
+
+          let windowsIcon, linuxIcon;
+          createShortcut = () => {
+            if (createDesktopShortcut({
+              windows: {icon: windowsIcon, ...shortcut},
+              linux: {icon: linuxIcon, ...shortcut}
+              // Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
+            })) {
+              console.log('Everything worked correctly!');
+            } else {
+              console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
+            }
+          }
+
+          let faviconURL;
+          try {
+            faviconURL = await wc.executeJavaScript(`document.querySelector("link[rel*='icon']").href`);
+          } catch {}
+          /*if(faviconURL != undefined) {
+            wc.session.on('will-download', (event, item, webContents) => {
+              if(item.getURL() === faviconURL) {
+                console.log(app.getPath('userData'));
+                //let savePath = path.join(app.getPath('userData'), 'PWAs', shortcutName, item.getFilename());
+                let savePath = path.join(outputPath, item.getFilename());
+                item.setSavePath(savePath);
+                windowsIcon = savePath;
+                item.once('done', () => {
+                  console.log('test');
+                  //var icon = nativeImage.createFromPath(savePath);
+                  //icon.toPNG()
+                  createShortcut();
+                });
+              }
+            })
+            wc.downloadURL(faviconURL);
+            let location = path.join(outputPath, 'icon'),
+            jimp.read(faviconURL).then(image => {
+              image.write(location + 'png')
+            })
+            fs.writeFileSync(location + '.ico', await pngToIco(location + '.png'));
+          } else*/ createShortcut();
+        }
       })
     ]
   }
