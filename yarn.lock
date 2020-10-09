@@ -4033,9 +4033,9 @@ gemini-fetch@^1.0.0:
     make-fetch "^1.1.0"
 
 gemini-to-html@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/gemini-to-html/-/gemini-to-html-1.0.0.tgz#021629e8af34b8700591c425bddfaf8be7324894"
-  integrity sha512-Gl0fQgF7ln+xXRBUpcc5U7m9mUN6/rNmcymU2XkDeBmbsWgF91JXLzq3sKKWaNucdbUu5Z+9nSHyYYUv/vqsyg==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/gemini-to-html/-/gemini-to-html-1.1.1.tgz#c797dad7893375acf2f154bc5b0619c53fde316d"
+  integrity sha512-FCC92fcyWlkxWnMl1BLRJwADfgSYTsRxCcEMDexBj3q5YFNb7SUJe4b57vem1xzo7yoPYEMbBsZiHDSt42loog==
   dependencies:
     escape-goat "^3.0.0"
 
