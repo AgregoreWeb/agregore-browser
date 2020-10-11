@@ -1,6 +1,4 @@
 const fetch = require('gemini-fetch')()
-const { Readable } = require('stream')
-const MIMEType = require('whatwg-mimetype')
 
 module.exports = async function createHandler () {
   return async function protocolHandler (req, sendResponse) {
@@ -31,13 +29,4 @@ module.exports = async function createHandler () {
       data
     })
   }
-}
-
-function intoStream (data) {
-  return new Readable({
-    read () {
-      this.push(data)
-      this.push(null)
-    }
-  })
 }
