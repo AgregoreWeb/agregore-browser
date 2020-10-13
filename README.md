@@ -65,5 +65,12 @@ To build from source do the following:
 
 - Set up node.js, git, and yarn
 - Clone the repo
-- `yarn`
-- `yarn start`
+- Pull your clone
+- Run `yarn` or `npm install`
+- Run `yarn start` or `npm start`
+- After coding, when ready to submit, run `standard --fix` or `npm run lint`
+- Push to your clone
+- Submit a pull request
+
+Other notes:
+- To debug extensions, run `yarn debug`
