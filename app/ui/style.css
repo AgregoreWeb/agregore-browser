@@ -1,8 +1,8 @@
 @import url("agregore://theme/vars.css");
 
 :root {
-  --top-height: 40px;
-  --border-width: 2px;
+  --top-height: 2.5em;
+  --border-width: 0.125em;
 }
 
 html, body {
