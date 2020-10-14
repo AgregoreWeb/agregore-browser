@@ -21,7 +21,7 @@ html, body {
   flex:1
 }
 
-#top {
+#toptop {
   display: flex;
   flex-direction: row;
   height: var(--top-height);
@@ -64,7 +64,7 @@ omni-box {
   font-family: inherit;
 }
 
-.omni-box-nav-options {
+.nav-options {
   display: flex;
   flex-direction: column;
   margin: 0px;
@@ -74,11 +74,11 @@ omni-box {
   color: var(--ag-theme-text);
 }
 
-.omni-box-nav-options [data-selected] {
+.nav-options [data-selected] {
   border: 1px solid var(--ag-theme-secondary);
 }
 
-.omni-box-nav-options:empty {
+.nav-options:empty {
   display: none;
 }
 
