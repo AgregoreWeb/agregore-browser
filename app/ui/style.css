@@ -2,7 +2,7 @@
 
 :root {
   --top-height: 2.5em;
-  --border-width: 0.125em;
+  --border-width: 1px;
 }
 
 html, body {
@@ -24,7 +24,6 @@ html, body {
 #toptop {
   display: flex;
   flex-direction: row;
-  height: var(--top-height);
 }
 
 #search {
