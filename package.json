@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.0.0-22",
+  "version": "1.0.0-23",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -13,7 +13,9 @@
     "preversion": "npm run test"
   },
   "standard": {
-    "ignore": ["bundle.js"]
+    "ignore": [
+      "bundle.js"
+    ]
   },
   "build": {
     "npmRebuild": false,
