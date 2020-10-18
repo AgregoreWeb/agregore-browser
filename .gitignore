@@ -111,9 +111,6 @@ app/extensions/web-palette/
 app/extensions/uBlock0.chromium/
 app/extensions/darkreader/
 app/extensions/adblocker-chrome-extension/
-# Ignore extensions aquired elsewhere
-app/extensions/agregore-md-render/
-app/extensions/agregore-gemini-render/
 
 # Ignore RC file used for testing the config
 .agregorerc
