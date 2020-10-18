@@ -7,7 +7,7 @@ class OmniBox extends HTMLElement {
     this.lastSearch = 0
   }
 
-  get options() {
+  get options () {
     return document.querySelector('#' + this.getAttribute('nav-options-id'))
   }
 

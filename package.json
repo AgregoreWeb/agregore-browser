@@ -12,6 +12,9 @@
     "lint": "standard --fix",
     "preversion": "npm run test"
   },
+  "standard": {
+    "ignore": ["bundle.js"]
+  },
   "build": {
     "npmRebuild": false,
     "asar": false,
