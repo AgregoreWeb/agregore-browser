@@ -7,8 +7,8 @@
     "test": "npm run lint",
     "start": "electron .",
     "debug": "env NODE_ENV=debug electron --trace-uncaught .",
-    "build": "electron-builder build --publish never",
-    "build-all": "electron-builder build -mwl",
+    "builder": "electron-builder build --publish never",
+    "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test"
   },
