@@ -44,6 +44,7 @@ omni-box {
   border-bottom: var(--border-width) solid var(--ag-theme-primary);
   background: var(--ag-theme-background);
   color: var(--ag-theme-text);
+  height: calc(100% - var(--border-width));
 }
 
 .omni-box-form, .find-menu-form {
