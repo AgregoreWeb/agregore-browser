@@ -3765,6 +3765,13 @@ fetch-headers@^2.0.0:
   resolved "https://registry.yarnpkg.com/fetch-headers/-/fetch-headers-2.0.0.tgz#bab7531c39b3d72d21ac189f179756f08541cf55"
   integrity sha1-urdTHDmz1y0hrBifF5dW8IVBz1U=
 
+fetch-request-body-to-async-iterator@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fetch-request-body-to-async-iterator/-/fetch-request-body-to-async-iterator-1.0.0.tgz#d8e11eafcc77b5683189ce615845e596c87a08c3"
+  integrity sha512-6QxYErU8VReyFxNvtAXgtjgK8B7iRPjxIQVAJ+sfopJUU/j6mjtl3RxnR8Jlg7CxKusL+Nj64nLVao4fLiRJdA==
+  dependencies:
+    stream-to-iterator "^3.0.3"
+
 fetch-request-body-to-stream@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fetch-request-body-to-stream/-/fetch-request-body-to-stream-1.0.0.tgz#9c65db075d909c9dec20d6f2cc041d61a795896b"
@@ -5972,6 +5979,14 @@ joycon@^2.2.5:
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
   integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
 
+js-ipfs-fetch@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-1.0.1.tgz#0e5e24fb5c0df8be6309a023cf3c9eebd3a7c169"
+  integrity sha512-jh/KTsEPsiEwOTPGD+N5Uht5hPnM2CsoUxPMARPSDupFCSn7/3U+DVB8NennARKvtJ1jxpkqbpxAJuQjuHZORQ==
+  dependencies:
+    make-fetch "^2.1.2"
+    range-parser "^1.2.1"
+
 js-sha3@^0.8.0, js-sha3@~0.8.0:
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/js-sha3/-/js-sha3-0.8.0.tgz#b9b7a5da73afad7dedd0f8c463954cbde6818840"
@@ -6965,6 +6980,17 @@ make-fetch@^1.1.0:
   dependencies:
     concat-stream "^2.0.0"
     fetch-headers "^2.0.0"
+    fetch-request-body-to-stream "^1.0.0"
+    statuses "^2.0.0"
+
+make-fetch@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-2.1.2.tgz#a22e660216ff6dbf5f849bb0f8fe40368a4c4162"
+  integrity sha512-jrne+3XyXwwuKABcnVzb8HuwdxiTfMR7+aR9b85xrpmXmM8NVrNr+P1cCdCvxIq3nXzq0VsigPgrOMVha3fa3Q==
+  dependencies:
+    concat-stream "^2.0.0"
+    fetch-headers "^2.0.0"
+    fetch-request-body-to-async-iterator "^1.0.0"
     fetch-request-body-to-stream "^1.0.0"
     statuses "^2.0.0"
 
@@ -9956,6 +9982,14 @@ stream-to-it@^0.2.0, stream-to-it@^0.2.2:
   integrity sha512-waULBmQpVdr6TkDzci6t1P7dIaSZ0bHC1TaPXDUeJC5PpSK7U3T0H0Zeo/LWUnd6mnhXOmGGDKAkjUCHw5IOng==
   dependencies:
     get-iterator "^1.0.2"
+
+stream-to-iterator@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/stream-to-iterator/-/stream-to-iterator-3.0.3.tgz#1cd7350675ccb2112de2a0f1f70f0656fe6bc356"
+  integrity sha512-KT1EWa9Wug83efjIRA8fGaCEFblgU9yNSwoE/uXfuEb0g2LL0vbayn8p6gQ2iuxVUnrIepH0soWBjN8oUShvfg==
+  dependencies:
+    p-defer "^3.0.0"
+    pump "^3.0.0"
 
 streaming-iterables@^4.1.0, streaming-iterables@^4.1.1:
   version "4.1.2"
