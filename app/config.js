@@ -3,6 +3,7 @@ const { app } = require('electron')
 const path = require('path')
 
 const DEFAULT_EXTENSIONS_DIR = path.join(app.getPath('userData'), 'extensions')
+const DEFAULT_IPFS_DIR = path.join(app.getPath('userData'), 'ipfs')
 
 module.exports = require('rc')('agregore', {
   accelerators: {
@@ -31,5 +32,9 @@ module.exports = require('rc')('agregore', {
     secondary: 'var(--ag-color-green)',
     indent: '16px',
     'max-width': '666px'
+  },
+  ipfsOptions: {
+    repo: DEFAULT_IPFS_DIR,
+    silent: true
   }
 })

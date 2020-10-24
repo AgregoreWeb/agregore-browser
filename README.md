@@ -66,6 +66,7 @@ To build from source do the following:
 - Set up node.js, git, and yarn
 - Clone the repo
 - Pull your clone
+- Load submodules with `git submodule update --init --recursive`
 - Run `yarn` or `npm install`
 - Run `yarn start` or `npm start`
 - After coding, when ready to submit, run `standard --fix` or `npm run lint`
