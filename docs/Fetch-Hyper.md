@@ -1,5 +1,7 @@
 # Fetch API for `hyper://`
 
+This API is implemented in [dat-fetch](https://github.com/RangerMauve/dat-fetch)
+
 ### Common Headers
 
 Each response will contain a header for the canonical URL represented as a `Link` header with `rel=canonical`.
