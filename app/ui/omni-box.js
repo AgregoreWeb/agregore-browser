@@ -86,7 +86,7 @@ class OmniBox extends HTMLElement {
   }
 
   getSelected () {
-    return this.$('[data-selected]') || this.options.firstElementChild
+    return this.options.querySelector('[data-selected]') || this.options.firstElementChild
   }
 
   selectNext () {
