@@ -13,11 +13,8 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v1
-
-      - name: Checkout submodules
-        uses: srt32/git-actions@v0.0.3
         with:
-          args: git submodule update --init --recursive
+          submodules: true
 
       - name: Install Node.js, NPM and Yarn
         uses: actions/setup-node@v1
