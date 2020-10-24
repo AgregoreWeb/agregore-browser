@@ -5984,10 +5984,10 @@ joycon@^2.2.5:
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
   integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
 
-js-ipfs-fetch@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-1.1.0.tgz#6f9f7cf98e76ca91b71a12d3aeaee3725d09d2c6"
-  integrity sha512-eJi++1XrppT7DcYr+xNdXpOXiIZB1sq+J+gXk79MpzSJVyt/r4UhMVEey3ndJpwSTzVtCOhPjkJSgWmMebNCXA==
+js-ipfs-fetch@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-1.2.0.tgz#83eb89286a823886f3cd13a00c8bef8a0180e545"
+  integrity sha512-aju8YGUfXL4MOCK3iJUpf2k+6zqHomHcy+8ZhPa7ABsvrjdOFfcQ8EuhUYx5HTkbE1+p+BZ9Dlk1nkS0GlkHvA==
   dependencies:
     make-fetch "^2.1.2"
     mime "^2.4.6"
