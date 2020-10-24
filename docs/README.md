@@ -6,3 +6,4 @@
 - [Details about the protocols Agregore supports and will support](Protocols.md)
 - [Using the fetch API with the `hyper://` protocol](Fetch-Hyper.md)
 - [Using the fetch API with the `gemini://` protocol](Fetch-Gemini.md)
+- [Using the fetch API with the `ipfs://` protocol](Fetch-IPFS.md)
