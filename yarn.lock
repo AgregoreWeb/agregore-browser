@@ -2329,10 +2329,10 @@ dat-encoding@^5.0.1:
   dependencies:
     safe-buffer "^5.0.1"
 
-dat-fetch@^5.0.4:
-  version "5.0.4"
-  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-5.0.4.tgz#3e5b393cdb03bdb6be5b33fde9732c57d9e0855c"
-  integrity sha512-4621w1K7FZKQmppvhaCOLCOmRvFceVVDDWXOvD6NukZZMYiEWGDDJa/HA9oU1XiTWwvCmf+0HfFRncoHkgTzaA==
+dat-fetch@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/dat-fetch/-/dat-fetch-5.1.0.tgz#9b201abafecec99b38e5b9b408bd20e0af551b1d"
+  integrity sha512-bBULFJDcHw6BAkftJRRmZi2z05qfvYMmVM/ZW9Eu/T3vSCHu/mhNmDnxKIrI7eqyxxr65wJ/Bm+CAOeCWIorjg==
   dependencies:
     concat-stream "^2.0.0"
     end-of-stream-promise "^1.0.0"
