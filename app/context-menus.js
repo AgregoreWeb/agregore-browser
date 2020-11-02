@@ -8,11 +8,13 @@ const {
 
 const path = require('path').posix
 
-const createDesktopShortcut = require('create-desktop-shortcuts');
+const createDesktopShortcut = require('create-desktop-shortcuts')
 
-/*const fs = require('fs');
-const pngToIco = require('png-to-ico');
-// Kyran: Surely needing both of these is overkill... Can't find a better way though.*/
+const faviconFinder = require('favicon')
+const webPConverter = require('webp-converter')
+const pngToIco = require('png-to-ico')
+const fs = require('fs')
+// Kyran: Surely needing both of these is overkill... Can't find a better way though.
 
 module.exports = {
   attachContextMenus
@@ -155,63 +157,57 @@ function attachContextMenus ({ window, createWindow }) {
       new MenuItem({
         label: 'Create shortcut',
         click: async () => {
-          let outputPath = (await dialog.showOpenDialog({
-              properties: ['openDirectory']
+          const outputPath = (await dialog.showOpenDialog({
+            properties: ['openDirectory']
           })).filePaths[0]
-          console.log(outputPath);
-          let appPath = process.argv[0];
+          console.log(outputPath)
+          const appPath = process.argv[0]
 
-          let URL = wc.getURL();
+          const URL = wc.getURL()
 
-          let shortcutName = wc.getTitle().replace(/[\/|\\:*?"<>]/g, " ").replace("  ", " "); // Kyran: Normalise into possible file name
- 
-          let shortcut = {
+          const shortcutName = wc.getTitle().replace(/[\/|\\:*?"<>| ]/g, '') // Kyran: Normalise into possible file name, maybe we can do this nicer. We get rid of spaces because FS issues.
+
+          const shortcut = {
             filePath: appPath,
             outputPath: outputPath,
             name: shortcutName,
+            comment: 'Agregore Browser',
             arguments: URL
           }
 
-          let windowsIcon, linuxIcon;
-          createShortcut = () => {
-            if (createDesktopShortcut({
-              windows: {icon: windowsIcon, ...shortcut},
-              linux: {icon: linuxIcon, ...shortcut}
-              // Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
-            })) {
-              console.log('Everything worked correctly!');
-            } else {
-              console.log('Could not create the icon or set its permissions (in Linux if "chmod" is set to true, or not set)');
-            }
-          }
+          createShortcut = (icons) => createDesktopShortcut({
+            windows: { icon: icons.windows, ...shortcut },
+            linux: { icon: icons.linux, ...shortcut }
+            // TODO: Kyran: Use Agregore icon if no icon provided.
+            // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
+          })
 
-          let faviconURL;
+          let faviconURL
           try {
-            faviconURL = await wc.executeJavaScript(`document.querySelector("link[rel*='icon']").href`);
+            faviconURL = await wc.executeJavaScript('document.querySelector("link[rel*=\'icon\']").href')
           } catch {}
-          /*if(faviconURL != undefined) {
+          if (faviconURL) {
             wc.session.on('will-download', (event, item, webContents) => {
-              if(item.getURL() === faviconURL) {
-                console.log(app.getPath('userData'));
-                //let savePath = path.join(app.getPath('userData'), 'PWAs', shortcutName, item.getFilename());
-                let savePath = path.join(outputPath, item.getFilename());
-                item.setSavePath(savePath);
-                windowsIcon = savePath;
-                item.once('done', () => {
-                  console.log('test');
-                  //var icon = nativeImage.createFromPath(savePath);
-                  //icon.toPNG()
-                  createShortcut();
-                });
+              if (item.getURL() === faviconURL) {
+                // Kyran: !!! path.join is broken it keeps outputting using / on Windows; not sure why.
+                const slash = (process.platform === 'win32') ? '\\' : '/'
+                const savePath = `${app.getPath('userData')}${slash}PWAs${slash}${shortcutName}${slash}` // TODO: Kyran: Join with path.join
+                const savePathNamed = savePath + 'favicon'
+                const savePathDownload = savePath + item.getFilename()
+
+                item.setSavePath(savePathDownload)
+                item.once('done', async () => {
+                  // TODO: SVGs aren't working
+                  await webPConverter.cwebp(savePathDownload, savePathNamed + '.webp') // TODO: Kyran: Delete when done
+                  await webPConverter.dwebp(savePathNamed + '.webp', savePathNamed + '.png', '-o') // TODO: Kyran: Delete when done if Windows
+                  const buffer = await pngToIco(savePathNamed + '.png') // TODO: Kyran: Don't do if not Windows
+                  fs.writeFileSync(savePathNamed + '.ico', buffer)
+                  createShortcut({ windows: savePathNamed + '.ico', linux: savePathNamed + '.png' })
+                })
               }
             })
-            wc.downloadURL(faviconURL);
-            let location = path.join(outputPath, 'icon'),
-            jimp.read(faviconURL).then(image => {
-              image.write(location + 'png')
-            })
-            fs.writeFileSync(location + '.ico', await pngToIco(location + '.png'));
-          } else*/ createShortcut();
+            wc.downloadURL(faviconURL)
+          } else createShortcut()
         }
       })
     ]

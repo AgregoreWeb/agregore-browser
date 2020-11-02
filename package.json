@@ -101,13 +101,16 @@
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
     "electron-extensions": "^6.0.4",
+    "favicon": "^0.0.2",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
     "ipfs": "^0.46.0",
     "mime": "^2.4.6",
+    "png-to-ico": "^2.1.1",
     "rc": "^1.2.8",
     "scoped-fs": "^1.4.1",
+    "webp-converter": "^2.3.0",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
   }
 }
