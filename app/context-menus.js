@@ -175,18 +175,22 @@ function attachContextMenus ({ window, createWindow }) {
             arguments: URL
           }
 
-          createShortcut = (icons) => createDesktopShortcut({
-            windows: { icon: icons.windows, ...shortcut },
-            linux: { icon: icons.linux, ...shortcut }
+          createShortcut = icon => {
+            shortcut.icon = icon
             // TODO: Kyran: Use Agregore icon if no icon provided.
             // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
-          })
+            createDesktopShortcut({
+              windows: shortcut,
+              linux: shortcut
+            })
+          }
 
           let faviconURL
           try {
             faviconURL = await wc.executeJavaScript('document.querySelector("link[rel*=\'icon\']").href')
           } catch {}
-          if (faviconURL) {
+          try {
+            if (!faviconURL) throw 'No favicon'
             wc.session.on('will-download', (event, item, webContents) => {
               if (item.getURL() === faviconURL) {
                 // Kyran: !!! path.join is broken it keeps outputting using / on Windows; not sure why.
@@ -197,17 +201,25 @@ function attachContextMenus ({ window, createWindow }) {
 
                 item.setSavePath(savePathDownload)
                 item.once('done', async () => {
-                  // TODO: SVGs aren't working
-                  await webPConverter.cwebp(savePathDownload, savePathNamed + '.webp') // TODO: Kyran: Delete when done
-                  await webPConverter.dwebp(savePathNamed + '.webp', savePathNamed + '.png', '-o') // TODO: Kyran: Delete when done if Windows
-                  const buffer = await pngToIco(savePathNamed + '.png') // TODO: Kyran: Don't do if not Windows
-                  fs.writeFileSync(savePathNamed + '.ico', buffer)
-                  createShortcut({ windows: savePathNamed + '.ico', linux: savePathNamed + '.png' })
+                  try {
+                    // TODO: SVGs aren't working
+                    await webPConverter.cwebp(savePathDownload, savePathNamed + '.webp') // TODO: Kyran: Delete when done
+                    await webPConverter.dwebp(savePathNamed + '.webp', savePathNamed + '.png', '-o') // TODO: Kyran: Delete when done if Windows
+                    const buffer = await pngToIco(savePathNamed + '.png') // TODO: Kyran: Don't do if not Windows
+                    fs.writeFileSync(savePathNamed + '.ico', buffer)
+                    createShortcut(savePathNamed + (process.platform === 'win32' ? '.ico' : '.png'))
+                  } catch (error) {
+                    console.log(error)
+                    createShortcut()
+                  }
                 })
               }
             })
             wc.downloadURL(faviconURL)
-          } else createShortcut()
+          } catch (error) {
+            console.log(error)
+            createShortcut()
+          }
         }
       })
     ]
