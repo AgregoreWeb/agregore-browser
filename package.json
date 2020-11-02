@@ -110,6 +110,8 @@
     "png-to-ico": "^2.1.1",
     "rc": "^1.2.8",
     "scoped-fs": "^1.4.1",
+    "sharp": "^0.26.2",
+    "svg-to-png": "^4.0.0",
     "webp-converter": "^2.3.0",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
   }
