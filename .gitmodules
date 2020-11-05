@@ -1,3 +1,6 @@
 [submodule "app/extensions/agregore-md-render"]
 	path = app/extensions/agregore-md-render
 	url = https://github.com/RangerMauve/agregore-md-render.git
+[submodule "app/extensions/agregore-gemini-render"]
+	path = app/extensions/agregore-gemini-render
+	url = https://github.com/RangerMauve/agregore-gemini-render.git

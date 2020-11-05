@@ -56,6 +56,18 @@ h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {
   content: " 🔗";
   text-decoration: none !important;
 }
+h2::before {
+  content: "## ";
+  color: var(--ag-theme-secondary)
+}
+h3::before {
+  content: "### ";
+  color: var(--ag-theme-secondary)
+}
+h4::before {
+  content: "#### ";
+  color: var(--ag-theme-secondary)
+}
 
 .agregore-depth1 {
   padding-left: calc(var(--ag-theme-indent) * 1)

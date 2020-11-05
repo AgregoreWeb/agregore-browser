@@ -1,18 +1,24 @@
-const IPFS = require('ipfs')
 const { Readable } = require('stream')
 
-module.exports = async function createHandler () {
-  const node = await IPFS.create()
+const IPFS = require('ipfs')
+const makeFetch = require('js-ipfs-fetch')
 
-  return async function protocolHandler ({ url }, sendResponse) {
-    let data = null
-    let statusCode = 200
-    try {
-      data = Readable.from(node.cat(url))
-    } catch (e) {
-      statusCode = 500
-      data = Readable.from([Buffer.from(e.stack)])
-    }
+module.exports = async function createHandler (options) {
+  const ipfs = await IPFS.create(options)
+  const fetch = makeFetch({ ipfs })
+
+  return async function protocolHandler (req, sendResponse) {
+    const { url, headers: requestHeaders, method, uploadData } = req
+
+    console.log(req)
+
+    const body = uploadData ? (
+      uploadData.length > 1 ? uploadData : uploadData[0]
+    ) : null
+
+    const response = await fetch(url, { headers: requestHeaders, method, body })
+
+    const { status: statusCode, body: resBody, headers: responseHeaders } = response
 
     const headers = {
       'Access-Control-Allow-Origin': '*',
@@ -20,10 +26,14 @@ module.exports = async function createHandler () {
       'Cache-Control': 'no-cache'
     }
 
+    for (const [key, value] of responseHeaders) {
+      headers[key] = value
+    }
+
     sendResponse({
       statusCode,
       headers,
-      data
+      data: Readable.from(resBody)
     })
   }
 }

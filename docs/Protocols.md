@@ -12,7 +12,10 @@
   - Able to read from gemini servers
   - Render Gemini pages as HTML
   - No certificate management code yet
-- [ ] ipfs
+- [x] ipfs
+  - Able to read from `ipfs://` and `ipns://` URLs
+  - Able to `POST` data into `IPFS`
+  - Able to `PUBLISH` an infohash to IPNS
 - [ ] [EarthStar](https://github.com/earthstar-project/earthstar)
 - [ ] BitTorrent
 - [ ] [Pigeon Protocol](https://tildegit.org/PigeonProtocolConsortium/protocol_spec)

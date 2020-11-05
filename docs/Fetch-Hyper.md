@@ -1,5 +1,7 @@
 # Fetch API for `hyper://`
 
+This API is implemented in [dat-fetch](https://github.com/RangerMauve/dat-fetch)
+
 ### Common Headers
 
 Each response will contain a header for the canonical URL represented as a `Link` header with `rel=canonical`.
@@ -72,3 +74,45 @@ You can delete a file in an archive by using the `DELETE` method.
 You cannot delete directories if they are not empty.
 
 `NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+### `fetch('hyper://NAME/example.txt', {method: 'DOWNLOAD'})`
+
+You can download a file or an entire folder using the `DOWNLOAD` method.
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+You can use `/` for the path to download the entire contents
+
+### `fetch('hyper://NAME/example.txt', {method: 'CLEAR'})`
+
+You can clear the data stored for a file using the `CLEAR` method.
+
+This is like the opposite of the `DOWNLOAD` method.
+
+This does not delete data, it only deletes the cached data from disk.
+
+`NAME` can either be the 64 character hex key for an archive, a domain to parse with [dat-dns](https://www.npmjs.com/package/dat-dns), or a name for an archive which allows you to write to it.
+
+You can use `/` for the path to clear all data for the archive.
+
+### `fetch('hyper://NAME/`, {method: 'TAG', body: 'Tag name here'})`
+
+You can add a tag a version of the archive with a human readable name (like SPAGHETTI).
+
+You can place the name of the tag into the `body` of the request.
+
+Afterwards you can load the archive at that given version with `hyper://NAME+TAG_NAME`. E.g. `hyper://123kjh213kjh123+v4.20/example.txt`
+
+### `fetch('hyper://NAME/', {method: 'TAGS'})`
+
+You can get a list of all tags using the `TAGS` method.
+
+The response will be a JSON object which maps tag names to archive versions.
+
+Use `await response.json()` to get the data out.
+
+### `fetch('hyper://NAME+TAG_NAME/', {method: 'TAG-DELETE'})`
+
+You can delete a given tag with the `TAG-DELETE` method.
+
+Specify the tag you want in the URL, and it'll be removed from the tags list.

@@ -7,6 +7,10 @@ class OmniBox extends HTMLElement {
     this.lastSearch = 0
   }
 
+  get options () {
+    return document.querySelector('#' + this.getAttribute('nav-options-id'))
+  }
+
   connectedCallback () {
     this.innerHTML = `
       <section class="omni-box-header">
@@ -17,13 +21,11 @@ class OmniBox extends HTMLElement {
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
       </section>
-      <section class="omni-box-nav-options" aria-live="polite"></section>
     `
     this.backButton = this.$('.omni-box-back')
     this.forwardButton = this.$('.omni-box-forward')
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
-    this.options = this.$('.omni-box-nav-options')
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -84,7 +86,7 @@ class OmniBox extends HTMLElement {
   }
 
   getSelected () {
-    return this.$('[data-selected]') || this.options.firstElementChild
+    return this.options.querySelector('[data-selected]') || this.options.firstElementChild
   }
 
   selectNext () {

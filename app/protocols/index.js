@@ -19,6 +19,8 @@ const BROWSER_PRIVILEDGES = {
   corsEnabled: true
 }
 
+const { ipfsOptions } = require('../config')
+
 /*
 TODO: Refactor protocol registration code
 class Protocols {
@@ -36,7 +38,7 @@ class Protocols {
 */
 
 const createHyperHandler = require('./hyper-protocol')
-// const createIPFSHandler = require('./ipfs-protocol')
+const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
 const createDatHandler = require('./dat-protocol')
 const createGeminiHandler = require('./gemini-protocol')
@@ -51,6 +53,8 @@ function registerPriviledges () {
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
     { scheme: 'dat', privileges: P2P_PRIVILEDGES },
     { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
+    { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
+    { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES }
   ])
 }
@@ -62,6 +66,8 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('dat')
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('gemini')
+  app.setAsDefaultProtocolClient('ipfs')
+  app.setAsDefaultProtocolClient('ipns')
 
   const hyperProtocolHandler = await createHyperHandler()
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
@@ -79,10 +85,9 @@ async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
   globalProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
 
-/*
-  app.setAsDefaultProtocolClient('ipfs')
-  const ipfsProtocolHandler = await createIPFSHandler()
-  protocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
-
-  */
+  const ipfsProtocolHandler = await createIPFSHandler(ipfsOptions)
+  sessionProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
+  globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
+  sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
+  globalProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
 }

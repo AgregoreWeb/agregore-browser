@@ -1,22 +1,27 @@
 @import url("agregore://theme/vars.css");
 
+:root {
+  --top-height: 2.5em;
+  --border-width: 1px;
+}
+
 html, body {
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	margin: 0;
-	display: flex;
-	flex: 1;
-	flex-direction: column;
-	background: var(--ag-color-white);
-	font-family: var(--ag-theme-font-family);
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: var(--ag-color-white);
+  font-family: var(--ag-theme-font-family);
 }
 
 #view {
-	flex:1
+  flex:1
 }
 
-#top {
+#toptop {
   display: flex;
   flex-direction: row;
 }
@@ -26,7 +31,7 @@ html, body {
 }
 
 .hidden {
-	display: none !important;
+  display: none !important;
 }
 
 omni-box {
@@ -34,45 +39,46 @@ omni-box {
 }
 
 .omni-box-header {
-	display: flex;
-	flex-direction: row;
-	border-bottom: 2px solid var(--ag-theme-primary);
-	background: var(--ag-theme-background);
-	color: var(--ag-theme-text);
+  display: flex;
+  flex-direction: row;
+  border-bottom: var(--border-width) solid var(--ag-theme-primary);
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+  height: calc(100% - var(--border-width));
 }
 
 .omni-box-form, .find-menu-form {
-	display: flex;
-	flex-direction: row;
-	flex:1;
-	border: none;
+  display: flex;
+  flex-direction: row;
+  flex:1;
+  border: none;
 }
 
 .omni-box-input, .find-menu-input {
-	flex: 1;
-	border:none;
-	background: none;
-	padding: 0.5em;
-	color: inherit;
-	font-size: inherit;
-	font-family: inherit;
+  flex: 1;
+  border:none;
+  background: none;
+  padding: 0.5em;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 
-.omni-box-nav-options {
-	display: flex;
-	flex-direction: column;
-	margin: 0px;
-	padding: 0px;
-	border: 2px solid var(--ag-theme-primary);
-	background: var(--ag-theme-background);
-	color: var(--ag-theme-text);
+.nav-options {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+  padding: 0px;
+  border: var(--border-width) solid var(--ag-theme-primary);
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
 }
 
-.omni-box-nav-options [data-selected] {
-	border: 1px solid var(--ag-theme-secondary);
+.nav-options [data-selected] {
+  border: 1px solid var(--ag-theme-secondary);
 }
 
-.omni-box-nav-options:empty {
+.nav-options:empty {
   display: none;
 }
 
@@ -86,35 +92,42 @@ omni-box {
 }
 
 .omni-box-nav-item {
-	border: 1px solid var(--ag-theme-primary);
-	display: flex;
-	flex-direction: row;
-	overflow: hidden;
+  border: 1px solid var(--ag-theme-primary);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 find-menu {
-	border: 2px solid var(--ag-theme-primary);
-	border-top: none;
-	display: flex;
-	flex-direction: row;
-	background: var(--ag-theme-background);
-	color: var(--ag-theme-text);
+  border: var(--border-width) solid var(--ag-theme-primary);
+  border-top: none;
+  display: flex;
+  flex-direction: row;
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
 }
 
 browser-actions {
-	border: 2px solid var(--ag-theme-primary);
-	display: flex;
-	flex-direction: row;
-	background: var(--ag-theme-background);
-	color: var(--ag-theme-text);
-	justify-content: center;
+  height: calc(var(--top-height) - calc(var(--border-width) * 3));
+  border-bottom: var(--border-width) solid var(--ag-theme-primary);
+  border-left: var(--border-width) solid var(--ag-theme-primary);
+  display: flex;
+  flex-direction: row;
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+  justify-content: center;
   align-items: center;
+  padding: var(--border-width);
 }
-
 .browser-actions-button {
-  padding: 0 0.25em;
+  padding: 0 calc(var(--border-width) * 2);
+  height: calc(100% - calc(var(--border-width) * 2));
+  width: auto;
+} .browser-actions-button>img {
+  height: 100%;
+  width: auto;
 }
 
 browser-actions:empty {
@@ -122,5 +135,5 @@ browser-actions:empty {
 }
 
 *:focus {
-  outline: 2px solid var(--ag-theme-secondary);
+  outline: var(--border-width) solid var(--ag-theme-secondary);
 }
