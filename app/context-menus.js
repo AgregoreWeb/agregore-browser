@@ -7,6 +7,7 @@ const {
 } = require('electron')
 
 const path = require('path')
+const pathPosix = path.posix
 
 // For desktop shortcuts
 const createDesktopShortcut = require('create-desktop-shortcuts')
@@ -163,10 +164,7 @@ function attachContextMenus ({ window, createWindow }) {
           const outputPath = (await dialog.showOpenDialog({
             properties: ['openDirectory']
           })).filePaths[0]
-          console.log(outputPath)
           const appPath = process.argv[0]
-
-          const URL = wc.getURL()
 
           const shortcutName = wc.getTitle().replace(/[\/|\\:*?"<>| ]/g, '') // Kyran: Normalise into possible file name, maybe we can do this nicer. We get rid of spaces because FS issues.
 
@@ -175,11 +173,11 @@ function attachContextMenus ({ window, createWindow }) {
             outputPath: outputPath,
             name: shortcutName,
             comment: 'Agregore Browser',
-            arguments: URL
+            arguments: wc.getURL()
           }
 
           createShortcut = icon => {
-            shortcut.icon = icon
+            if(icon) shortcut.icon = icon
             // TODO: Kyran: Use Agregore icon if no icon provided.
             // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
             createDesktopShortcut({
@@ -268,8 +266,8 @@ function attachContextMenus ({ window, createWindow }) {
 
   async function saveAs (link, browserWindow) {
     const downloads = app.getPath('downloads')
-    const name = path.basename(link)
-    const defaultPath = path.join(downloads, name)
+    const name = pathPosix.basename(link)
+    const defaultPath = pathPosix.join(downloads, name)
     const { filePath } = await dialog.showSaveDialog(browserWindow, {
       defaultPath
     })
