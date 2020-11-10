@@ -196,7 +196,7 @@ function createActions ({
       }
 
       createShortcut = icon => {
-        if(icon) shortcut.icon = icon
+        if (icon) shortcut.icon = icon
         // TODO: Kyran: Use Agregore icon if no icon provided.
         // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
         createDesktopShortcut({
@@ -208,7 +208,7 @@ function createActions ({
       let faviconURL
       try {
         faviconURL = await webContents.executeJavaScript('document.querySelector("link[rel*=\'icon\']").href')
-      } catch (error) {console.error(error)}
+      } catch (error) { console.error(error) }
       try {
         if (!faviconURL) throw 'No favicon'
         webContents.session.on('will-download', (event, item, webContents) => {
