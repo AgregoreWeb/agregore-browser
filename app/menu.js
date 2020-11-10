@@ -19,7 +19,8 @@ function registerMenu (actions) {
     LearnMore,
     SetAsDefault,
     OpenExtensionFolder,
-    EditConfigFile
+    EditConfigFile,
+    CreateBookmark
   } = actions
 
   const template = [
@@ -116,6 +117,7 @@ function registerMenu (actions) {
         LearnMore,
         OpenExtensionFolder,
         EditConfigFile,
+        CreateBookmark,
         SetAsDefault
       ]
     }

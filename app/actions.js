@@ -1,7 +1,8 @@
-const { app, shell } = require('electron')
+const { app, shell, dialog } = require('electron')
 const fs = require('fs-extra')
 const os = require('os')
-const { join } = require('path')
+const path = require('path')
+const { join } = path
 
 const { accelerators, extensions } = require('./config')
 
@@ -14,6 +15,16 @@ document.getElementById('find').show()
 `
 
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
+
+// For desktop shortcuts
+const createDesktopShortcut = require('create-desktop-shortcuts')
+
+const faviconFinder = require('favicon')
+const webPConverter = require('webp-converter')
+const svgToPng = require('svg-to-png')
+const pngToIco = require('png-to-ico')
+const sharp = require('sharp')
+// Kyran: I don't like the number of packages we're using just to make shortcuts
 
 module.exports = { createActions }
 
@@ -78,8 +89,13 @@ function createActions ({
     },
     EditConfigFile: {
       label: 'Edit Configuration File',
-      accelerators: accelerators.EditConfigFile,
+      accelerator: accelerators.EditConfigFile,
       click: onEditConfigFile
+    },
+    CreateBookmark: {
+      label: 'Create Bookmark',
+      accelerator: accelerators.CreateBookmark,
+      click: onCreateBookmark
     }
   }
   async function onSetAsDefault () {
@@ -160,5 +176,74 @@ function createActions ({
     if (!exists) await fs.writeJson(file, {})
 
     await shell.openPath(file)
+  }
+
+  async function onCreateBookmark (event, focusedWindow) {
+    for (const webContents of getContents(focusedWindow)) {
+      const outputPath = (await dialog.showOpenDialog({
+        properties: ['openDirectory']
+      })).filePaths[0]
+      const appPath = process.argv[0]
+
+      const shortcutName = webContents.getTitle().replace(/[\/|\\:*?"<>| ]/g, '') // Kyran: Normalise into possible file name, maybe we can do this nicer. We get rid of spaces because FS issues.
+
+      const shortcut = {
+        filePath: appPath,
+        outputPath: outputPath,
+        name: shortcutName,
+        comment: 'Agregore Browser',
+        arguments: webContents.getURL()
+      }
+
+      createShortcut = icon => {
+        if(icon) shortcut.icon = icon
+        // TODO: Kyran: Use Agregore icon if no icon provided.
+        // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
+        createDesktopShortcut({
+          windows: shortcut,
+          linux: shortcut
+        })
+      }
+
+      let faviconURL
+      try {
+        faviconURL = await webContents.executeJavaScript('document.querySelector("link[rel*=\'icon\']").href')
+      } catch (error) {console.error(error)}
+      try {
+        if (!faviconURL) throw 'No favicon'
+        webContents.session.on('will-download', (event, item, webContents) => {
+          if (item.getURL() === faviconURL) {
+            const savePath = path.join(app.getPath('userData'), 'PWAs', shortcutName, '/')
+            const savePathNamed = savePath + 'favicon'
+            const savePathDownload = savePathNamed + item.getFilename().replace(/.*(\.[a-z]*)/i, '$1')
+
+            item.setSavePath(savePathDownload)
+            item.once('done', async () => {
+              try {
+                try {
+                  await sharp(savePathDownload).png().resize(256, 256).toFile(savePathNamed + '.png')
+                } catch {
+                  await webPConverter.cwebp(savePathDownload, savePathNamed + '.webp') // TODO: Kyran: Delete when done
+                  await webPConverter.dwebp(savePathNamed + '.webp', savePathNamed + '.png', '-o') // TODO: Kyran: Delete when done if Windows
+                }
+                const iconType = (process.platform === 'win32') ? '.ico' : '.png'
+                if (iconType === '.ico') {
+                  const buffer = await pngToIco(savePathNamed + '.png')
+                  fs.writeFileSync(savePathNamed + '.ico', buffer)
+                }
+                createShortcut(savePathNamed + iconType)
+              } catch (error) {
+                console.log(error)
+                createShortcut()
+              }
+            })
+          }
+        })
+        webContents.downloadURL(faviconURL)
+      } catch (error) {
+        console.log(error)
+        createShortcut()
+      }
+    }
   }
 }
