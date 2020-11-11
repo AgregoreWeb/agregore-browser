@@ -99,6 +99,9 @@ function registerMenu (actions) {
       submenu: [
         Reload,
         HardReload,
+        ...(isMac ? [] : [
+          CreateBookmark
+        ]),
         { role: 'minimize' },
         { role: 'zoom' },
         ...(isMac ? [
@@ -117,7 +120,6 @@ function registerMenu (actions) {
         LearnMore,
         OpenExtensionFolder,
         EditConfigFile,
-        CreateBookmark,
         SetAsDefault
       ]
     }

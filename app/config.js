@@ -18,7 +18,7 @@ module.exports = require('rc')('agregore', {
     LearnMore: null,
     OpenExtensionsFolder: null,
     EditConfigFile: 'CommandOrControl+.',
-    CreateBookmark: 'CommandOrControl+B'
+    CreateBookmark: 'CommandOrControl+D'
   },
   extensions: {
     dir: DEFAULT_EXTENSIONS_DIR,
