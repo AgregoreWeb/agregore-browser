@@ -177,7 +177,7 @@ function createActions ({
         properties: ['openDirectory']
       })).filePaths[0]
 
-      const appPath = process.argv[0]
+      const appPath = process.argv[0] // If testing from source find and use installed Agregore location
 
       const title = webContents.getTitle()
       const shortcutName = sanitize(title, { replacement: ' ' })
@@ -188,7 +188,7 @@ function createActions ({
         outputPath: outputPath,
         name: shortcutName,
         comment: `Agregore Browser - ${url}`,
-        arguments: [url]
+        arguments: url
       }
 
       const createShortcut = icon => {
@@ -206,7 +206,7 @@ function createActions ({
         const buffer = dataUriToBuffer(faviconDataURI)
 
         const savePath = path.join(app.getPath('userData'), 'PWAs', shortcutName)
-        const faviconPath = path.join(savePath, 'favicon.png')
+        const faviconPath = path.join(savePath, `favicon${process.platform === 'win32' ? '.ico' : '.png'}`)
 
         await fs.ensureDir(savePath)
         await fs.writeFile(faviconPath, buffer)
@@ -221,10 +221,99 @@ function createActions ({
   }
 }
 
+const blobToIco = `
+  (pngData => {
+    var MyBlobBuilder = function() {
+      this.parts = [];
+    }
+
+    MyBlobBuilder.prototype.append = function(part) {
+      this.parts.push(part);
+      this.blob = undefined; // Invalidate the blob
+    };
+
+    MyBlobBuilder.prototype.write = function(part) {
+      this.append(part);
+    }
+
+    MyBlobBuilder.prototype.getBlob = function(atype) {
+      if (!this.blob) {
+        this.blob = new Blob(this.parts, {
+          type: !atype ? "text/plain" : atype
+        });
+      }
+      return this.blob;
+    };
+
+    let file = new MyBlobBuilder(),
+      buff;
+
+    // Write out the .ico header [00, 00]
+    // Reserved space
+    buff = new Uint8Array([0, 0]).buffer;
+    file.write(buff, 'binary');
+
+    // Indiciate ico file [01, 00]
+    buff = new Uint8Array([1, 0]).buffer;
+    file.write(buff, 'binary');
+
+    // Indiciate 1 image [01, 00]
+    buff = new Uint8Array([1, 0]).buffer;
+    file.write(buff, 'binary');
+
+    // Image is 50 px wide [32]
+    // Kyran: Just use 0
+    buff = new Uint8Array([0]).buffer;
+    file.write(buff, 'binary');
+
+    // Image is 50 px tall [32]
+    // Kyran: Just use 0
+    buff = new Uint8Array([0]).buffer;
+    file.write(buff, 'binary');
+
+    // Specify no color palette [00]
+    // TODO: Not sure if this is appropriate
+    buff = new Uint8Array([0]).buffer;
+    file.write(buff, 'binary');
+
+    // Reserved space [00]
+    // TODO: Not sure if this is appropriate
+    buff = new Uint8Array([0]).buffer;
+    file.write(buff, 'binary');
+
+    // Specify 1 color plane [01, 00]
+    // TODO: Not sure if this is appropriate
+    buff = new Uint8Array([1, 0]).buffer;
+    file.write(buff, 'binary');
+
+    // Specify 32 bits per pixel (bit depth) [20, 00]
+    // TODO: Quite confident in this one
+    buff = new Uint8Array([32, 0]).buffer;
+    file.write(buff, 'binary');
+
+    // Specify image size in bytes
+    // DEV: Assuming LE means little endian [84, 01, 00, 00] = 388 byte
+    // TODO: Semi-confident in this one
+    // Kyran: Use blob size
+    buff = new Uint32Array([pngData.size]).buffer;
+    file.write(buff, 'binary');
+
+    // Specify image offset in bytes
+    // TODO: Not that confident in this one [16]
+    buff = new Uint32Array([22]).buffer;
+    file.write(buff, 'binary');
+
+    // Dump the .png
+    file.write(pngData, 'binary');
+
+    return file.getBlob('image/vnd.microsoft.icon');
+  })
+` // Source: https://stackoverflow.com/questions/63558462/how-to-parse-image-to-ico-format-in-javascript-client-side/63700962#63700962 Note: A few changes have been made
+
 async function getFaviconDataURL (webContents) {
   return webContents.executeJavaScript(`
-    (async () => {
-    const link = document.querySelector('link[rel*=\\'icon\\']')
+    new Promise(async resolve => {
+    const link = document.querySelector("link[rel*='icon']")
     const {href} = link
     const image = new Image()
 
@@ -242,7 +331,16 @@ async function getFaviconDataURL (webContents) {
 
     context.drawImage(image, 0,0, 256, 256)
 
-    return canvas.toDataURL('image/png')
-    })()
+    ${process.platform === 'win32'
+    ? `
+      canvas.toBlob(blob => {
+        const reader = new FileReader()
+        reader.onload = () => resolve(reader.result)
+        reader.readAsDataURL(${blobToIco}(blob))
+      })
+    `
+    : "resolve(canvas.toDataURL('image/png'))"}
+    })
   `)
 }
+//
