@@ -222,25 +222,6 @@ function createActions ({
   }
 }
 
-const blobToIco = `
-  (pngData => new Blob([].concat([
-    [0, 0], // ICO header
-    [1, 0], // Is ICO
-    [1, 0], // Number of images
-    [0], // Width (0 seems to work)
-    [0], // Height (0 seems to work)
-    [0], // Color palette (none)
-    [0], // Reserved space
-    [1, 0], // Color planes (1)
-    [32, 0], // Bit depth (32)
-  ].map(part => new Uint8Array(part).buffer), [
-    [pngData.size], // Image size
-    [22], // Image offset
-  ].map(part => new Uint32Array(part).buffer), [
-    pngData, // Give image
-  ]), {type: 'image/vnd.microsoft.icon'}))
-` // Original source: https://stackoverflow.com/questions/63558462/how-to-parse-image-to-ico-format-in-javascript-client-side/63700962#63700962
-
 async function getFaviconDataURL (webContents, type) {
   return webContents.executeJavaScript(`new Promise(async resolve => {
     const {href} = document.querySelector("link[rel*='icon']")
