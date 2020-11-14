@@ -1,22 +1,25 @@
 @charset "utf-8";
 @import url("agregore://theme/vars.css");
 
-html,body,input,button {
-  background: var(--ag-theme-background);
-  color: var(--ag-theme-text);
-  font-family: var(--ag-theme-font-family);
+html,
+body,
+input,
+button {
+	background: var(--ag-theme-background);
+	color: var(--ag-theme-text);
+	font-family: var(--ag-theme-font-family);
 }
 
 body {
-  padding: 1em;
-  max-width: var(--ag-theme-max-width);
-  margin: 0 auto;
+	padding: 1em;
+	max-width: var(--ag-theme-max-width);
+	margin: 0 auto;
 }
 
 a {
-  color: var(--ag-theme-secondary);
-  text-decoration: underline;
-  text-decoration-color: var(--ag-theme-primary);
+	color: var(--ag-theme-secondary);
+	text-decoration: underline;
+	text-decoration-color: var(--ag-theme-primary);
 }
 
 a:visited {
@@ -24,35 +27,38 @@ a:visited {
 }
 
 code {
-  background: var(--ag-theme-primary);
-  font-weight: bold;
-  padding: 0.25em;
+	background: var(--ag-theme-primary);
+	font-weight: bold;
+	padding: 0.25em;
 }
 
 br {
-  display: none;
+	display: none;
 }
 
 li {
-  list-style-type: " ⟐ ";
+	list-style-type: " ⟐ ";
 }
 
 *:focus {
-  outline: 2px solid var(--ag-theme-secondary);
+	outline: 2px solid var(--ag-theme-secondary);
 }
 
-h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {
-  text-decoration: none !important;
+h1:hover::after,
+h2:hover::after,
+h3:hover::after,
+h4:hover::after {
+	text-decoration: none !important;
 }
 h2::before {
-  content: "## ";
-  color: var(--ag-theme-secondary)
+	content: "## ";
+	color: var(--ag-theme-secondary);
 }
 h3::before {
-  content: "### ";
-  color: var(--ag-theme-secondary)
+	content: "### ";
+	color: var(--ag-theme-secondary);
 }
 h4::before {
-  content: "#### ";
-  color: var(--ag-theme-secondary)
+	content: "#### ";
+	color: var(--ag-theme-secondary);
 }
