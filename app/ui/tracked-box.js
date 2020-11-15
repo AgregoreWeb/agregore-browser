@@ -1,36 +1,27 @@
 /* global HTMLElement, ResizeObserver, CustomEvent, customElements */
 
 class TrackedBox extends HTMLElement {
-	constructor() {
-		super();
+  constructor () {
+    super()
 
-		this.observer = new ResizeObserver(() => this.emitResize());
-	}
+    this.observer = new ResizeObserver(() => this.emitResize())
+  }
 
-	connectedCallback() {
-		this.observer.observe(this);
+  connectedCallback () {
+    this.observer.observe(this)
 
-		this.emitResize();
-	}
+    this.emitResize()
+  }
 
-	disconnectedCallback() {
-		this.observer.unobserve(this);
-	}
+  disconnectedCallback () {
+    this.observer.unobserve(this)
+  }
 
-	emitResize() {
-		const { x, y, width, height } = this.getBoundingClientRect();
+  emitResize () {
+    const { x, y, width, height } = this.getBoundingClientRect()
 
-		this.dispatchEvent(
-			new CustomEvent("resize", {
-				detail: {
-					x,
-					y,
-					width,
-					height,
-				},
-			})
-		);
-	}
+    this.dispatchEvent(new CustomEvent('resize', { detail: { x, y, width, height } }))
+  }
 }
 
-customElements.define("tracked-box", TrackedBox);
+customElements.define('tracked-box', TrackedBox)

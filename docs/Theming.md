@@ -6,18 +6,18 @@ The contents of this look something like:
 
 ```css
 :root {
-	--ag-color-purple: #6e2de5;
-	--ag-color-black: #111;
-	--ag-color-white: #f2f2f2;
-	--ag-color-green: #2de56e;
+  --ag-color-purple: #6e2de5;
+  --ag-color-black: #111;
+  --ag-color-white: #F2F2F2;
+  --ag-color-green: #2de56e;
 }
 
 :root {
-	--ag-theme-font-family: system-ui;
-	--ag-theme-background: var(--ag-color-black);
-	--ag-theme-text: var(--ag-color-white);
-	--ag-theme-primary: var(--ag-color-purple);
-	--ag-theme-secondary: var(--ag-color-green);
+  --ag-theme-font-family: system-ui;
+  --ag-theme-background: var(--ag-color-black);
+  --ag-theme-text: var(--ag-color-white);
+  --ag-theme-primary: var(--ag-color-purple);
+  --ag-theme-secondary: var(--ag-color-green);
 }
 ```
 
@@ -29,7 +29,7 @@ You can also make use of the `agregore://theme/style.css` which adds some defaul
 
 This is useful for styling markdown pages or other pages with basic HTML. You probably shouldn't include this if you're doing something fancy with styling as the styles may change over time.
 
-The style includes a class called `agregore-header-anchor` which can be used on anchors within headers for linking to headings. Checkout the markdown extension
+The style includes a class called `agregore-header-anchor` which can be used on anchors within headers for linking to headings. Checkout the markdown extension 
 
 ## Customization
 

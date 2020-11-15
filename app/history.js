@@ -1,18 +1,19 @@
-let historyExtension = null;
+
+let historyExtension = null
 
 module.exports = {
-	setExtension,
-	search,
-};
-
-function setExtension(extension) {
-	historyExtension = extension;
+  setExtension,
+  search
 }
 
-async function search(query = "") {
-	const { webContents } = historyExtension.backgroundPage;
+function setExtension (extension) {
+  historyExtension = extension
+}
 
-	return webContents.executeJavaScript(`
+async function search (query = '') {
+  const { webContents } = historyExtension.backgroundPage
+
+  return webContents.executeJavaScript(`
     (async () => {
       let result = []
       for await(let item of search(${JSON.stringify(query)})) {
@@ -20,5 +21,5 @@ async function search(query = "") {
       }
       return result
     })()
-  `);
+  `)
 }

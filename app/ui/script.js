@@ -1,122 +1,115 @@
-const DEFAULT_PAGE = "agregore://welcome";
+const DEFAULT_PAGE = 'agregore://welcome'
 
-const webview = $("#view");
+const webview = $('#view')
 // Kyran: Using variable name "top" causes issues for some reason? I would assume it's because of another one of the UI scripts but it doesn't seem like that's the case.
-const nav = $("#top");
-const search = $("#search");
-const find = $("#find");
+const nav = $('#top')
+const search = $('#search')
+const find = $('#find')
 
-const currentWindow = window.getCurrentWindow();
+const currentWindow = window.getCurrentWindow()
 
-const pageTitle = $("title");
+const pageTitle = $('title')
 
-const searchParams = new URL(window.location.href).searchParams;
+const searchParams = new URL(window.location.href).searchParams
 
-const toNavigate = searchParams.has("url")
-	? searchParams.get("url")
-	: DEFAULT_PAGE;
+const toNavigate = searchParams.has('url') ? searchParams.get('url') : DEFAULT_PAGE
 
-const rawFrame = searchParams.get("rawFrame") === "true";
-const noNav = searchParams.get("noNav") === "true";
+const rawFrame = searchParams.get('rawFrame') === 'true'
+const noNav = searchParams.get('noNav') === 'true'
 
-if (rawFrame) nav.classList.toggle("hidden", true);
+if (rawFrame) nav.classList.toggle('hidden', true)
 
-window.addEventListener("load", () => {
-	if (noNav) return;
-	console.log("toNavigate", toNavigate);
-	currentWindow.loadURL(toNavigate);
-	webview.emitResize();
-});
+window.addEventListener('load', () => {
+  if (noNav) return
+  console.log('toNavigate', toNavigate)
+  currentWindow.loadURL(toNavigate)
+  webview.emitResize()
+})
 
-search.addEventListener("back", () => {
-	currentWindow.goBack();
-});
+search.addEventListener('back', () => {
+  currentWindow.goBack()
+})
 
-search.addEventListener("forward", () => {
-	currentWindow.goForward();
-});
+search.addEventListener('forward', () => {
+  currentWindow.goForward()
+})
 
-search.addEventListener("navigate", ({ detail }) => {
-	const { url } = detail;
+search.addEventListener('navigate', ({ detail }) => {
+  const { url } = detail
 
-	navigateTo(url);
-});
+  navigateTo(url)
+})
 
-search.addEventListener("unfocus", async () => {
-	await currentWindow.focus();
-	search.src = await webview.getURL();
-});
+search.addEventListener('unfocus', async () => {
+  await currentWindow.focus()
+  search.src = await webview.getURL()
+})
 
-search.addEventListener("search", async ({ detail }) => {
-	const { query, searchID } = detail;
+search.addEventListener('search', async ({ detail }) => {
+  const { query, searchID } = detail
 
-	const results = await currentWindow.searchHistory(query, searchID);
+  const results = await currentWindow.searchHistory(query, searchID)
 
-	search.setSearchResults(results, query, searchID);
-});
+  search.setSearchResults(results, query, searchID)
+})
 
-webview.addEventListener("focus", () => {
-	currentWindow.focus();
-});
+webview.addEventListener('focus', () => {
+  currentWindow.focus()
+})
 
-webview.addEventListener("resize", ({ detail: rect }) => {
-	currentWindow.setBounds(rect);
-});
+webview.addEventListener('resize', ({ detail: rect }) => {
+  currentWindow.setBounds(rect)
+})
 
-currentWindow.on("navigating", (url) => {
-	search.src = url;
-});
+currentWindow.on('navigating', (url) => {
+  search.src = url
+})
 
-currentWindow.on("history-buttons-change", updateButtons);
+currentWindow.on('history-buttons-change', updateButtons)
 
-currentWindow.on("page-title-updated", (title) => {
-	pageTitle.innerText = title + " - Agregore Browser";
-});
+currentWindow.on('page-title-updated', (title) => {
+  pageTitle.innerText = title + ' - Agregore Browser'
+})
 
-currentWindow.on("enter-html-full-screen", () => {
-	if (!rawFrame) nav.classList.toggle("hidden", true);
-});
-currentWindow.on("leave-html-full-screen", () => {
-	if (!rawFrame) nav.classList.toggle("hidden", false);
-});
+currentWindow.on('enter-html-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', true)
+})
+currentWindow.on('leave-html-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', false)
+})
 
-find.addEventListener("next", ({ detail }) => {
-	const { value, findNext } = detail;
+find.addEventListener('next', ({ detail }) => {
+  const { value, findNext } = detail
 
-	currentWindow.findInPage(value, {
-		findNext,
-	});
-});
+  currentWindow.findInPage(value, { findNext })
+})
 
-find.addEventListener("previous", ({ detail }) => {
-	const { value, findNext } = detail;
+find.addEventListener('previous', ({ detail }) => {
+  const { value, findNext } = detail
 
-	currentWindow.findInPage(value, {
-		forward: false,
-		findNext,
-	});
-});
+  currentWindow.findInPage(value, { forward: false, findNext })
+})
 
-find.addEventListener("hide", () => {
-	currentWindow.stopFindInPage("clearSelection");
-});
+find.addEventListener('hide', () => {
+  currentWindow.stopFindInPage('clearSelection')
+})
 
-function updateButtons({ canGoBack, canGoForward }) {
-	search.setAttribute("back", canGoBack ? "visible" : "hidden");
-	search.setAttribute("forward", canGoForward ? "visible" : "hidden");
+function updateButtons ({ canGoBack, canGoForward }) {
+  search.setAttribute('back', canGoBack ? 'visible' : 'hidden')
+  search.setAttribute('forward', canGoForward ? 'visible' : 'hidden')
 }
 
-function $(query) {
-	return document.querySelector(query);
+function $ (query) {
+  return document.querySelector(query)
 }
 
-async function navigateTo(url) {
-	const currentURL = await currentWindow.getURL();
-	if (currentURL === url) {
-		console.log("Reloading");
-		currentWindow.reload();
-	} else {
-		currentWindow.loadURL(url);
-		currentWindow.focus();
-	}
+async function navigateTo (url) {
+  const currentURL = await currentWindow.getURL()
+  if (currentURL === url) {
+    console.log('Reloading')
+    currentWindow.reload()
+  } else {
+    currentWindow.loadURL(url)
+    currentWindow.focus()
+  }
 }

@@ -1,13 +1,13 @@
 # Supported protocols
 
 - [x] `hyper://` [Hypercore](https://hypercore-protocol.org/)
-  - Able to read from archives
-  - Able to resolve `dat-dns` domains
-  - Able to write, create and modify archives
+	- Able to read from archives
+	- Able to resolve `dat-dns` domains
+	- Able to write, create and modify archives
 - [x] `dat://`
-  - Able to read from archives
-  - Able to resolve `dat-dns` domains
-  - No `DatArchive` support.
+	- Able to read from archives
+	- Able to resolve `dat-dns` domains
+	- No `DatArchive` support.
 - [x] `gemini://` [Gemini](https://gemini.circumlunar.space/)
   - Able to read from gemini servers
   - Render Gemini pages as HTML

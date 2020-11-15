@@ -1,5 +1,4 @@
 # Agregore Browser
-
 A minimal web browser for the distributed web
 
 <p align="center" style="float: right">
@@ -9,7 +8,7 @@ A minimal web browser for the distributed web
 [![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)  
 [Watch the intro video](https://www.youtube.com/watch?v=TnYKvOQB0ts&list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&index=14)  
 [Download the installer](https://github.com/RangerMauve/agregore-browser/releases)  
-[Discord](https://discord.gg/QMthd4Y)
+[Discord](https://discord.gg/QMthd4Y)  
 
 ## Goals
 
@@ -24,7 +23,6 @@ A minimal web browser for the distributed web
 ## Features
 
 ### Keyboard Shortcuts
-
 (Ctrl means Command or Control)
 |Shortcut|Does|Is configurable|
 |:-:|:-:|:-:|
@@ -45,7 +43,6 @@ A minimal web browser for the distributed web
 |Ctrl+.|Edit Config File|+|
 
 ### Other features
-
 - Open links in new windows (right click on element)
 - Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
@@ -77,5 +74,4 @@ To build from source do the following:
 - Submit a pull request
 
 Other notes:
-
 - To debug extensions, run `yarn debug`
