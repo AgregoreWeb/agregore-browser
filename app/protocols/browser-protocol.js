@@ -105,10 +105,10 @@ ${themes}
 };
 
 async function resolveFile(path) {
-	CHECK_PATHS.forEach(async (toTry) => {
+	for (const toTry of CHECK_PATHS) {
 		const tryPath = toTry(path);
 		if (await exists(tryPath)) return tryPath;
-	});
+	}
 	throw new Error("Not Found");
 }
 
