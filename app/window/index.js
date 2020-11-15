@@ -81,6 +81,8 @@ class WindowManager extends EventEmitter {
 	}
 
 	get(id) {
+		// Need to use FOR for return purposes
+		// eslint-disable-next-line no-restricted-syntax
 		for (const window of this.windows) {
 			if (window.id === id) return window;
 		}

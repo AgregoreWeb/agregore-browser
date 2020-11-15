@@ -105,8 +105,12 @@ ${themes}
 };
 
 async function resolveFile(path) {
+	// Need to use FOR for return purposes
+	// eslint-disable-next-line no-restricted-syntax
 	for (const toTry of CHECK_PATHS) {
 		const tryPath = toTry(path);
+		// No await in loop stuff... blah blah
+		// eslint-disable-next-line no-await-in-loop
 		if (await exists(tryPath)) return tryPath;
 	}
 	throw new Error("Not Found");
