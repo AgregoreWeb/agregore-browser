@@ -81,9 +81,9 @@ class WindowManager extends EventEmitter {
 	}
 
 	get(id) {
-		this.windows.forEach((window) => {
+		for (const window of this.windows) {
 			if (window.id === id) return window;
-		});
+		}
 		return null;
 	}
 
