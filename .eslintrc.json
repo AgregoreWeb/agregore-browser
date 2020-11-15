@@ -1,0 +1,15 @@
+{
+	"extends": ["airbnb", "prettier"],
+	"rules": {
+		// Allow normal stuff (silly rules)
+		"no-use-before-define": ["error", { "functions": false, "classes": false }],
+		"no-console": "off",
+		// Silly IMO (Kyran)
+		"consistent-return": "off",
+		"no-nested-ternary": "off",
+		// Maybe we should improve
+		"max-classes-per-file": "off",
+		// Unsure of
+		"no-param-reassign": "off"
+	}
+}

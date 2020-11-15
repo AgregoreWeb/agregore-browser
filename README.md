@@ -1,4 +1,5 @@
 # Agregore Browser
+
 A minimal web browser for the distributed web
 
 <p align="center" style="float: right">
@@ -8,7 +9,7 @@ A minimal web browser for the distributed web
 [![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)  
 [Watch the intro video](https://www.youtube.com/watch?v=TnYKvOQB0ts&list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&index=14)  
 [Download the installer](https://github.com/RangerMauve/agregore-browser/releases)  
-[Discord](https://discord.gg/QMthd4Y)  
+[Discord](https://discord.gg/QMthd4Y)
 
 ## Goals
 
@@ -23,6 +24,7 @@ A minimal web browser for the distributed web
 ## Features
 
 ### Keyboard Shortcuts
+
 (Ctrl means Command or Control)
 |Shortcut|Does|Is configurable|
 |:-:|:-:|:-:|
@@ -43,6 +45,7 @@ A minimal web browser for the distributed web
 |Ctrl+.|Edit Config File|+|
 
 ### Other features
+
 - Open links in new windows (right click on element)
 - Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
@@ -59,7 +62,7 @@ Check out the [documentation](./docs).
 
 Feel free to open a Github issue if you wish to tackle one of the items on the roadmap, or message @RangerMauve directly on whatever platform you can find them on.
 
-This project uses the [StandardJS](https://standardjs.com/) code style. Please format your code with `standard --fix` or run `npm run lint`.
+This project uses the [Prettier](https://prettier.io/) code style. Please format your code with `yarn lint` or run `npm run lint` (or simply run `yarn test` or `npm run test`).
 
 To build from source do the following:
 
@@ -69,9 +72,12 @@ To build from source do the following:
 - Load submodules with `git submodule update --init --recursive`
 - Run `yarn` or `npm install`
 - Run `yarn start` or `npm start`
-- After coding, when ready to submit, run `standard --fix` or `npm run lint`
+- Before commiting, run `yarn test` or `npm run test`
+  - Ensure there is no errors
+  - It may be wise to run this before `start` instead.
 - Push to your clone
 - Submit a pull request
 
 Other notes:
+
 - To debug extensions, run `yarn debug`

@@ -1,77 +1,82 @@
-window.getCurrentWindow = function getCurrentWindow () {
-  const { ipcRenderer } = require('electron')
-  const EventEmitter = require('events')
+/* global window */
 
-  const EVENTS = [
-    'navigating',
-    'history-buttons-change',
-    'page-title-updated',
-    'enter-html-full-screen',
-    'leave-html-full-screen',
-    'close'
-  ]
+const { ipcRenderer } = require("electron");
+const EventEmitter = require("events");
 
-  class CurrentWindow extends EventEmitter {
-    constructor () {
-      super()
+window.getCurrentWindow = function getCurrentWindow() {
+	const EVENTS = [
+		"navigating",
+		"history-buttons-change",
+		"page-title-updated",
+		"enter-html-full-screen",
+		"leave-html-full-screen",
+		"close",
+	];
 
-      for (const name of EVENTS) {
-        ipcRenderer.on(`agregore-window-${name}`, (event, ...args) => this.emit(name, ...args))
-      }
-    }
+	class CurrentWindow extends EventEmitter {
+		constructor() {
+			super();
 
-    async goBack () {
-      return this.invoke('goBack')
-    }
+			EVENTS.forEach((name) => {
+				ipcRenderer.on(`agregore-window-${name}`, (event, ...args) =>
+					this.emit(name, ...args)
+				);
+			});
+		}
 
-    async goForward () {
-      return this.invoke('goForward')
-    }
+		async goBack() {
+			return this.invoke("goBack");
+		}
 
-    async reload () {
-      return this.invoke('reload')
-    }
+		async goForward() {
+			return this.invoke("goForward");
+		}
 
-    async focus () {
-      return this.invoke('focus')
-    }
+		async reload() {
+			return this.invoke("reload");
+		}
 
-    async loadURL (url) {
-      return this.invoke('loadURL', url)
-    }
+		async focus() {
+			return this.invoke("focus");
+		}
 
-    async getURL () {
-      return this.invoke('getURL')
-    }
+		async loadURL(url) {
+			return this.invoke("loadURL", url);
+		}
 
-    async findInPage (value, opts) {
-      return this.invoke('findInPage', value, opts)
-    }
+		async getURL() {
+			return this.invoke("getURL");
+		}
 
-    async stopFindInPage () {
-      return this.invoke('stopFindInPage')
-    }
+		async findInPage(value, opts) {
+			return this.invoke("findInPage", value, opts);
+		}
 
-    async setBounds (rect) {
-      return this.invoke('setBounds', rect)
-    }
+		async stopFindInPage() {
+			return this.invoke("stopFindInPage");
+		}
 
-    async searchHistory (query, limit = 8) {
-      return this.invoke('searchHistory', query, limit)
-    }
+		async setBounds(rect) {
+			return this.invoke("setBounds", rect);
+		}
 
-    async listExtensionActions () {
-      return this.invoke('listExtensionActions')
-    }
+		async searchHistory(query, limit = 8) {
+			return this.invoke("searchHistory", query, limit);
+		}
 
-    async clickExtensionAction (id) {
-      return this.invoke('clickExtensionAction', id)
-    }
+		async listExtensionActions() {
+			return this.invoke("listExtensionActions");
+		}
 
-    async invoke (name, ...args) {
-      return ipcRenderer.invoke(`agregore-window-${name}`, ...args)
-    }
-  }
+		async clickExtensionAction(id) {
+			return this.invoke("clickExtensionAction", id);
+		}
 
-  return new CurrentWindow()
-}
+		// eslint-disable-next-line class-methods-use-this
+		async invoke(name, ...args) {
+			return ipcRenderer.invoke(`agregore-window-${name}`, ...args);
+		}
+	}
+
+	return new CurrentWindow();
+};

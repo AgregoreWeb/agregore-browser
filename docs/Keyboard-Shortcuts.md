@@ -4,22 +4,22 @@ Agregore uses the [rc](https://www.npmjs.com/package/rc#standards) module for lo
 
 There's a bunch of functionality in there, but the short of it is that you can use the following as a starting point for your configuration.
 
-Save this as a file called `.agregorerc` in your "home" or "user" folder. 
+Save this as a file called `.agregorerc` in your "home" or "user" folder.
 
 You can open this file by navigating to `Help > Edit Configuration File`.
 
 ```json
 {
-  "accelerators": {
-    "OpenDevTools": "CommandOrControl+Shift+I",
-    "NewWindow": "CommandOrControl+N",
-    "Forward": "CommandOrControl+]",
-    "Back": "CommandOrControl+[",
-    "FocusURLBar": "CommandOrControl+L",
-    "FindInPage": "CommandOrControl+F",
-    "Reload": "CommandOrControl+R",
-    "HardReload": "CommandOrControl+Shift+R"
-  }
+	"accelerators": {
+		"OpenDevTools": "CommandOrControl+Shift+I",
+		"NewWindow": "CommandOrControl+N",
+		"Forward": "CommandOrControl+]",
+		"Back": "CommandOrControl+[",
+		"FocusURLBar": "CommandOrControl+L",
+		"FindInPage": "CommandOrControl+F",
+		"Reload": "CommandOrControl+R",
+		"HardReload": "CommandOrControl+Shift+R"
+	}
 }
 ```
 
