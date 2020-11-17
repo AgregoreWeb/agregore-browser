@@ -81,8 +81,6 @@ class WindowManager extends EventEmitter {
 	}
 
 	get(id) {
-		// Need to use FOR for return purposes
-		// eslint-disable-next-line no-restricted-syntax
 		for (const window of this.windows) {
 			if (window.id === id) return window;
 		}
@@ -197,19 +195,13 @@ class Window extends EventEmitter {
 
 		this.web.on(
 			"did-start-navigation",
-			// TODO: Remove shadow
-			// eslint-disable-next-line no-shadow
 			(event, url, isInPlace, isMainFrame) => {
 				this.emitNavigate(url, isMainFrame);
 			}
 		);
-		// TODO: Remove shadow
-		// eslint-disable-next-line no-shadow
 		this.web.on("did-navigate", (event, url) => {
 			this.emitNavigate(url, true);
 		});
-		// TODO: Remove shadow
-		// eslint-disable-next-line no-shadow
 		this.web.on("did-navigate-in-page", (event, url, isMainFrame) => {
 			this.emitNavigate(url, isMainFrame);
 		});
