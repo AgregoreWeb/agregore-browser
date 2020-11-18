@@ -1857,7 +1857,7 @@ cid-tool@^1.0.0:
     uint8arrays "^1.1.0"
     yargs "^15.0.2"
 
-cids@^1.0.0:
+cids@^1.0.0, cids@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/cids/-/cids-1.0.2.tgz#04ebadd65e5600a07feb16db594160f087c6eab3"
   integrity sha512-ohCcYyEHh0Z5Hl+O1IML4kt6Kx5GPho1ybxtqK4zyk6DeV5CvOLoT/mqDh0cgKcAvsls3vcVa9HjZc7RQr3geA==
@@ -3782,10 +3782,10 @@ fetch-headers@^2.0.0:
   resolved "https://registry.yarnpkg.com/fetch-headers/-/fetch-headers-2.0.0.tgz#bab7531c39b3d72d21ac189f179756f08541cf55"
   integrity sha1-urdTHDmz1y0hrBifF5dW8IVBz1U=
 
-fetch-request-body-to-async-iterator@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/fetch-request-body-to-async-iterator/-/fetch-request-body-to-async-iterator-1.0.1.tgz#dbf85ea0d977fa2f7fa9a4abfb3c958564f20599"
-  integrity sha512-ri0JOHWZDx491f/4tcztt1fwoqNNbOcf6I2tX4m3Mk/vDwaLaPe1dZP0uax8yagB/ybxFLiJj/JzBNp5dQW4AA==
+fetch-request-body-to-async-iterator@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/fetch-request-body-to-async-iterator/-/fetch-request-body-to-async-iterator-1.0.2.tgz#effb9a8666674c46092a37e4405c62aa9405a5c7"
+  integrity sha512-tJDs/BU7nZOqlP9jFMhgBb9qwW1a3OSPikQ8J7+sa0qNnZXoSJ/U4pp4nSAxVEXL3GllBJNhBUl4NjtId++YdQ==
   dependencies:
     stream-async-iterator "^2.0.0"
 
@@ -5984,12 +5984,13 @@ joycon@^2.2.5:
   resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
   integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
 
-js-ipfs-fetch@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-1.2.0.tgz#83eb89286a823886f3cd13a00c8bef8a0180e545"
-  integrity sha512-aju8YGUfXL4MOCK3iJUpf2k+6zqHomHcy+8ZhPa7ABsvrjdOFfcQ8EuhUYx5HTkbE1+p+BZ9Dlk1nkS0GlkHvA==
+js-ipfs-fetch@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-1.4.2.tgz#5e065748d77e49567dd12b828fb52b15a6ecb027"
+  integrity sha512-RPtxWuI2GvaF73UrqSavfbZAi8T0M1lJtUcpNfqcz9Celxr1EyQgZTKewOdNKrwKoktGUDDbtWkF8USYZNKPxA==
   dependencies:
-    make-fetch "^2.1.2"
+    cids "^1.0.2"
+    make-fetch "^2.2.1"
     mime "^2.4.6"
     range-parser "^1.2.1"
 
@@ -7026,16 +7027,16 @@ make-fetch@^1.1.0:
     fetch-request-body-to-stream "^1.0.0"
     statuses "^2.0.0"
 
-make-fetch@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-2.1.2.tgz#a22e660216ff6dbf5f849bb0f8fe40368a4c4162"
-  integrity sha512-jrne+3XyXwwuKABcnVzb8HuwdxiTfMR7+aR9b85xrpmXmM8NVrNr+P1cCdCvxIq3nXzq0VsigPgrOMVha3fa3Q==
+make-fetch@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-2.2.1.tgz#da815e9a794a7fdd41f970e120448d97d433757d"
+  integrity sha512-NTRctOGCtgR9rOJ7V+6xhr7jRr0xbggFUbEgyf/9M8qV/PrwTsZCqNkFGgC+SNyBWk+ELy9yCQ2X/waLqFVn3g==
   dependencies:
     concat-stream "^2.0.0"
     fetch-headers "^2.0.0"
-    fetch-request-body-to-async-iterator "^1.0.0"
-    fetch-request-body-to-stream "^1.0.0"
+    fetch-request-body-to-async-iterator "^1.0.2"
     statuses "^2.0.0"
+    web-streams-polyfill "^3.0.0"
 
 map-cache@^0.2.2:
   version "0.2.2"
@@ -10832,6 +10833,11 @@ web-encoding@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/web-encoding/-/web-encoding-1.0.4.tgz#0398d39ce2cbef5ed2617080750ed874e6153aea"
   integrity sha512-DcXs2lbVPzuJmn2kuDEwul2oZg7p4YMa5J2f0YzsOBHaAnBYGPNUB/rJ74DTjTKpw7F0+lSsVM8sFHE2UyBixg==
+
+web-streams-polyfill@^3.0.0:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/web-streams-polyfill/-/web-streams-polyfill-3.0.1.tgz#1f836eea307e8f4af15758ee473c7af755eb879e"
+  integrity sha512-M+EmTdszMWINywOZaqpZ6VIEDUmNpRaTOuizF0ZKPjSDC8paMRe/jBBwFv0Yeyn5WYnM5pMqMQa82vpaE+IJRw==
 
 webcrypto@~0.1.1:
   version "0.1.1"

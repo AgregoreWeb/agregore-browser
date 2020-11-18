@@ -2,6 +2,57 @@
 
 This API is implemented in [js-ipfs-fetch](https://github.com/RangerMauve/js-ipfs-fetch).
 
+## Example
+
+```javascript
+// Upload some data to IPFS
+const response1 = await fetch(`ipfs:///index.html`, {
+  method: 'POST',
+  body: `
+  <!DOCTYPE html>
+  <marquee>
+    Hello World!
+    <marquee>
+      Hello World!
+      <marquee>
+        Hello World!
+      </marquee>
+    </marquee>
+  </marquee>
+  `
+})
+
+const url = await response1.text()
+
+// Should look like this:
+// ipfs://k2jmtxw856nqrm9pc7up4acmbtco1muuenxjy1lkv9x6rsxd1zclki9m/index.html
+console.log('IPFS URL:', url)
+
+// You can load the data back up
+const response2 = await fetch(url)
+
+console.log('Uploaded content', await response2.text())
+
+// Get the root of the new IPFS site you created
+// This with automagically serve the `index.html` file when you navigate to it
+const root = new URL('/', url).href
+
+// Publish to IPNS
+// `ExampleName` can be any name, it'll be used to generate a keypair
+// Instead of exposing private keys directly, you can use the key names wherever you need
+const response3 = await fetch(`ipns://ExampleName`, {
+  method: 'PUBLISH',
+  body: root
+})
+
+// Should look something like this:
+// ipns://k2jmtxu20rj3axf43s36u7r9ds7fsgy5djbdxmuhnfyan2dgom9cil72/
+// Every time you PUBLISH a new version, the URL will stay the same for the given key
+const ipnsURL = await response3.text()
+
+console.log('Published URL', ipnsURL)
+```
+
 ### `await fetch('ipfs://CID/example.txt')`
 
 If you specify a URL for a file (no trailing slashes), it will be loaded from IPFS and the content will be sent as the response body.
