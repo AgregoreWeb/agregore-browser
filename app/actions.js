@@ -173,7 +173,9 @@ function createActions ({
 
   async function onCreateBookmark (event, focusedWindow) {
     for (const webContents of getContents(focusedWindow)) {
+      const defaultPath = app.getPath('desktop')
       const outputPath = (await dialog.showOpenDialog({
+        defaultPath,
         properties: ['openDirectory']
       })).filePaths[0]
 
@@ -223,7 +225,8 @@ function createActions ({
 }
 
 async function getFaviconDataURL (webContents, type) {
-  return webContents.executeJavaScript(`new Promise(async resolve => {
+  return webContents.executeJavaScript(`new Promise(async (resolve, reject) => {
+    try {
     const {href} = document.querySelector("link[rel*='icon']")
 
     const image = new Image()
@@ -264,6 +267,9 @@ async function getFaviconDataURL (webContents, type) {
         })`
 
       : "resolve(canvas.toDataURL('image/png'))"
+    }
+    } catch (e) {
+      reject(e)
     }
   })`)
 }
