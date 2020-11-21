@@ -1,7 +1,11 @@
-const { app, shell } = require('electron')
+const { app, shell, dialog } = require('electron')
 const fs = require('fs-extra')
 const os = require('os')
-const { join } = require('path')
+const path = require('path')
+const { join } = path
+const createDesktopShortcut = require('create-desktop-shortcuts')
+const dataUriToBuffer = require('data-uri-to-buffer')
+const sanitize = require('sanitize-filename')
 
 const { accelerators, extensions } = require('./config')
 
@@ -78,8 +82,13 @@ function createActions ({
     },
     EditConfigFile: {
       label: 'Edit Configuration File',
-      accelerators: accelerators.EditConfigFile,
+      accelerator: accelerators.EditConfigFile,
       click: onEditConfigFile
+    },
+    CreateBookmark: {
+      label: 'Create Bookmark',
+      accelerator: accelerators.CreateBookmark,
+      click: onCreateBookmark
     }
   }
   async function onSetAsDefault () {
@@ -161,4 +170,107 @@ function createActions ({
 
     await shell.openPath(file)
   }
+
+  async function onCreateBookmark (event, focusedWindow) {
+    for (const webContents of getContents(focusedWindow)) {
+      const defaultPath = app.getPath('desktop')
+      const outputPath = (await dialog.showOpenDialog({
+        defaultPath,
+        properties: ['openDirectory']
+      })).filePaths[0]
+
+      const appPath = process.argv[0] // If testing from source find and use installed Agregore location
+
+      const title = webContents.getTitle()
+      const shortcutName = sanitize(title, { replacement: ' ' })
+      const url = webContents.getURL()
+
+      const shortcut = {
+        filePath: appPath,
+        outputPath: outputPath,
+        name: shortcutName,
+        comment: `Agregore Browser - ${url}`,
+        arguments: url
+      }
+
+      const createShortcut = icon => {
+        if (icon) shortcut.icon = icon
+        // TODO: Kyran: Use Agregore icon if no icon provided.
+        // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
+        createDesktopShortcut({
+          windows: shortcut,
+          linux: shortcut
+        })
+      }
+
+      try {
+        const type = process.platform === 'win32' ? 'ico' : 'png'
+        const faviconDataURI = await getFaviconDataURL(webContents, type)
+        const buffer = dataUriToBuffer(faviconDataURI)
+
+        const savePath = path.join(app.getPath('userData'), 'PWAs', shortcutName)
+        const faviconPath = path.join(savePath, `favicon.${type}`)
+
+        await fs.ensureDir(savePath)
+        await fs.writeFile(faviconPath, buffer)
+
+        createShortcut(faviconPath)
+      } catch (e) {
+        console.error('Error loading favicon')
+        console.error(e.stack)
+        createShortcut()
+      }
+    }
+  }
 }
+
+async function getFaviconDataURL (webContents, type) {
+  return webContents.executeJavaScript(`new Promise(async (resolve, reject) => {
+    try {
+    const {href} = document.querySelector("link[rel*='icon']")
+
+    const image = new Image()
+      await new Promise(resolve => {
+         image.onload = resolve
+         image.src = href
+      })
+
+    const canvas = document.createElement('canvas')
+      canvas.width = 256
+      canvas.height = 256
+
+    const context = canvas.getContext('2d')
+      context.drawImage(image, 0, 0, 256, 256)
+
+    ${
+      type === 'ico'
+      ? `
+        canvas.toBlob(blob => {
+          const reader = new FileReader()
+          reader.onload = () => resolve(reader.result)
+          reader.readAsDataURL(new Blob([].concat([
+            [0, 0],      // ICO header
+            [1, 0],      // Is ICO
+            [1, 0],      // Number of images
+            [0],         // Width (0 seems to work)
+            [0],         // Height (0 seems to work)
+            [0],         // Color palette (none)
+            [0],         // Reserved space
+            [1, 0],      // Color planes
+            [32, 0],     // Bit depth
+          ].map(part => new Uint8Array(part).buffer), [
+            [blob.size], // Image byte size
+            [22],        // Image byte offset
+          ].map(part => new Uint32Array(part).buffer), [
+            blob,        // Image
+          ]), {type: 'image/vnd.microsoft.icon'}))
+        })`
+
+      : "resolve(canvas.toDataURL('image/png'))"
+    }
+    } catch (e) {
+      reject(e)
+    }
+  })`)
+}
+//

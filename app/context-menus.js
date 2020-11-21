@@ -6,7 +6,8 @@ const {
   clipboard
 } = require('electron')
 
-const path = require('path').posix
+const path = require('path')
+const pathPosix = path.posix
 
 module.exports = {
   attachContextMenus
@@ -179,8 +180,8 @@ function attachContextMenus ({ window, createWindow }) {
 
   async function saveAs (link, browserWindow) {
     const downloads = app.getPath('downloads')
-    const name = path.basename(link)
-    const defaultPath = path.join(downloads, name)
+    const name = pathPosix.basename(link)
+    const defaultPath = pathPosix.join(downloads, name)
     const { filePath } = await dialog.showSaveDialog(browserWindow, {
       defaultPath
     })

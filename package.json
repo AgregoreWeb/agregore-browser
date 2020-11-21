@@ -104,9 +104,11 @@
   },
   "dependencies": {
     "@geut/hyperdrive-promise": "^3.0.1",
+    "create-desktop-shortcuts": "^1.1.0",
     "dat-fetch": "^5.1.0",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
+    "data-uri-to-buffer": "^3.0.1",
     "electron-extensions": "^6.0.4",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
@@ -115,6 +117,7 @@
     "js-ipfs-fetch": "^1.4.2",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
+    "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
   }

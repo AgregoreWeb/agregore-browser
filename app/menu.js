@@ -19,7 +19,8 @@ function registerMenu (actions) {
     LearnMore,
     SetAsDefault,
     OpenExtensionFolder,
-    EditConfigFile
+    EditConfigFile,
+    CreateBookmark
   } = actions
 
   const template = [
@@ -98,6 +99,9 @@ function registerMenu (actions) {
       submenu: [
         Reload,
         HardReload,
+        ...(isMac ? [] : [
+          CreateBookmark
+        ]),
         { role: 'minimize' },
         { role: 'zoom' },
         ...(isMac ? [
