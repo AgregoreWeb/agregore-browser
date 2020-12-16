@@ -114,3 +114,6 @@ app/extensions/adblocker-chrome-extension/
 
 # Ignore RC file used for testing the config
 .agregorerc
+
+# Ignore nano temporary files
+*.swp
