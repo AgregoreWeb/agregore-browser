@@ -5,7 +5,7 @@ A minimal web browser for the distributed web
 	<img src="./build/icon.png" width="333px">
 </p>
 
-[![Build Status](https://travis-ci.com/RangerMauve/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)  
+[![Build Status](https://travis-ci.com/AgregoreWeb/agregore-browser.svg?branch=master)](https://travis-ci.com/RangerMauve/agregore-browser)  
 [Watch the intro video from Dat Conference](https://www.youtube.com/watch?v=TnYKvOQB0ts&list=PL7sG5SCUNyeYx8wnfMOUpsh7rM_g0w_cu&index=14)  
 [Intro to IPFS interface from IPFS meetup](https://youtu.be/kI9Issf3MNc?t=1606)
 [5 minute overview from Dweb meetup](https://archive.org/embed/dweb-meetup-dec-2020-dweb-lightning-talks?start=4212)
