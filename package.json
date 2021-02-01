@@ -113,6 +113,7 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
+    "hypercore-fetch": "^6.0.1",
     "ipfs": "^0.50.2",
     "js-ipfs-fetch": "^1.4.2",
     "mime": "^2.4.6",

@@ -1,6 +1,6 @@
 const { Readable } = require('stream')
 
-module.exports = function fetchToHandler (getFetch) {
+module.exports = function fetchToHandler (getFetch, session) {
   let hasFetch = null
   let loadingFetch = null
 
@@ -33,12 +33,16 @@ module.exports = function fetchToHandler (getFetch) {
         uploadData.length > 1 ? uploadData : uploadData[0]
       ) : null
 
-      const response = await fetch(url, { headers: requestHeaders, method, body })
+      const response = await fetch({ url, headers: requestHeaders, method, body, session })
 
       const { status: statusCode, body: responseBody, headers: responseHeaders } = response
 
       for (const [key, value] of responseHeaders) {
-        headers[key] = value
+        if (Array.isArray(value)) {
+          headers[key] = value[0]
+        } else {
+          headers[key] = value
+        }
       }
 
       const isAsync = responseBody[Symbol.asyncIterator]

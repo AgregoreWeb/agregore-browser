@@ -69,13 +69,13 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('ipfs')
   app.setAsDefaultProtocolClient('ipns')
 
-  const hyperProtocolHandler = await createHyperHandler()
-  sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-  globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-
   const browserProtocolHandler = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+
+  const hyperProtocolHandler = await createHyperHandler({}, session)
+  sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+  globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
   const datProtocolHandler = await createDatHandler()
   sessionProtocol.registerStreamProtocol('dat', datProtocolHandler)
@@ -85,7 +85,7 @@ async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
   globalProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
 
-  const ipfsProtocolHandler = await createIPFSHandler(ipfsOptions)
+  const ipfsProtocolHandler = await createIPFSHandler(ipfsOptions, session)
   sessionProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
