@@ -187,7 +187,7 @@ function createActions ({
 
 	    const createShortcut = function (icon) {
 		    // todo: kyran: use agregore icon if no icon provided.
-		    const real_icon = null;
+		    const real_icon = null
 		    if (icon) real_icon = icon
 		    const windows = {
 			    filePath: appPath,
