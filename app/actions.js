@@ -185,23 +185,27 @@ function createActions ({
       const shortcutName = sanitize(title, { replacement: ' ' })
       const url = webContents.getURL()
 
-      const shortcut = {
-        filePath: appPath,
-        outputPath: outputPath,
-        name: shortcutName,
-        comment: `Agregore Browser - ${url}`,
-        arguments: url
-      }
-
-      const createShortcut = icon => {
-        if (icon) shortcut.icon = icon
-        // TODO: Kyran: Use Agregore icon if no icon provided.
-        // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution.
-        createDesktopShortcut({
-          windows: shortcut,
-          linux: shortcut
-        })
-      }
+	    const createShortcut = function (icon) {
+		    // todo: kyran: use agregore icon if no icon provided.
+		    const real_icon = null;
+		    if (icon) real_icon = icon
+		    const windows = {
+			    filePath: appPath,
+			    outputPath,
+			    name: shortcutName,
+			    comment: 'Agregore Browser - ' + url,
+			    arguments: url,
+			    icon: real_icon
+		    }
+		    const linux = {
+			    ...windows,
+			    description: 'Agregore Browser - ' + url,
+			    filePath: appPath + ' ' + url,
+			    validate: false
+		    }
+		    const osx = linux
+		    createDesktopShortcut({ windows, linux, osx })
+	    }
 
       try {
         const type = process.platform === 'win32' ? 'ico' : 'png'
