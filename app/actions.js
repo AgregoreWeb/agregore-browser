@@ -186,8 +186,8 @@ function createActions ({
       const url = webContents.getURL()
 
 	    const createShortcut = function (icon) {
-		    // TODO: kyran: use agregore icon if no icon provided.
-		    // TODO: kyran: osx bookmarks 
+		    // TODO: kyran: use Agregore icon if no icon provided.
+		    // TODO: Kyran: OSX doesn't have arguments option. See https://github.com/RangerMauve/agregore-browser/pull/53#issuecomment-705654060 for solution. 
 		    var real_icon = null
 		    if (icon) real_icon = icon
 		    const windows = {
