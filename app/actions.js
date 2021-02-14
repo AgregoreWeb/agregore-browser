@@ -199,9 +199,7 @@ function createActions ({
 		    }
 		    const linux = {
 			    ...windows,
-			    description: 'Agregore Browser - ' + url,
-			    filePath: appPath + ' ' + url,
-			    validate: false
+			    description: 'Agregore Browser - ' + url
 		    }
 		    const osx = linux
 		    createDesktopShortcut({ windows, linux, osx })
