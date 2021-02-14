@@ -201,8 +201,7 @@ function createActions ({
 			    ...windows,
 			    description: 'Agregore Browser - ' + url
 		    }
-		    const osx = linux
-		    createDesktopShortcut({ windows, linux, osx })
+		    createDesktopShortcut({ windows, linux })
 	    }
 
       try {
