@@ -186,7 +186,8 @@ function createActions ({
       const url = webContents.getURL()
 
 	    const createShortcut = function (icon) {
-		    // todo: kyran: use agregore icon if no icon provided.
+		    // TODO: kyran: use agregore icon if no icon provided.
+		    // TODO: kyran: osx bookmarks 
 		    const real_icon = null
 		    if (icon) real_icon = icon
 		    const windows = {
