@@ -188,7 +188,7 @@ function createActions ({
 	    const createShortcut = function (icon) {
 		    // TODO: kyran: use agregore icon if no icon provided.
 		    // TODO: kyran: osx bookmarks 
-		    const real_icon = null
+		    var real_icon = null
 		    if (icon) real_icon = icon
 		    const windows = {
 			    filePath: appPath,
