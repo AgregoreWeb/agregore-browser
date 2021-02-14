@@ -2244,10 +2244,10 @@ count-trailing-zeros@^1.0.1:
   resolved "https://registry.yarnpkg.com/count-trailing-zeros/-/count-trailing-zeros-1.0.1.tgz#aba6c5833be410d45b1eca3e6d583844ce682c77"
   integrity sha1-q6bFgzvkENRbHso+bVg4RM5oLHc=
 
-create-desktop-shortcuts@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/create-desktop-shortcuts/-/create-desktop-shortcuts-1.2.0.tgz#7f880264022171579526c640cf728baed571b0c1"
-  integrity sha512-1q+3bv/JBxiuVR/DN7Ld07mny+iJopyH5YUZC9dpKOl+qdp5/usqKBixswOMjfU+sRxvNRnW0/kBdIqsOa2xqA==
+create-desktop-shortcuts@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/create-desktop-shortcuts/-/create-desktop-shortcuts-1.4.0.tgz#e65b2dd2e9e6354b4dd15463ebbb6c65ff2fba0e"
+  integrity sha512-UYl5efC4mpxcrPl8FK2k6vBuTP2+a2tdIe3OaNGmRImHTDfV4tRVQFkJ8HUk5tIykHwN1nepDo53oCXyGcnXMQ==
 
 create-ecdh@^4.0.0:
   version "4.0.4"

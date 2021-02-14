@@ -104,7 +104,7 @@
   },
   "dependencies": {
     "@geut/hyperdrive-promise": "^3.0.1",
-    "create-desktop-shortcuts": "^1.1.0",
+    "create-desktop-shortcuts": "^1.4.0",
     "dat-fetch": "^5.1.0",
     "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
