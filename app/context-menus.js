@@ -172,6 +172,10 @@ function attachContextMenus ({ window, createWindow }) {
   function saveGroup ({ srcURL }) {
     return !srcURL.length ? null : [
       new MenuItem({
+        label: 'Copy source address',
+        click: () => clipboard.writeText(srcURL)
+      }),
+      new MenuItem({
         label: 'Save As',
         click: (_, browserWindow) => saveAs(srcURL, browserWindow)
       })
