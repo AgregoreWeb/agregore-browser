@@ -26,6 +26,9 @@ if (!gotTheLock) {
   })
 }
 
+// Set some flags!
+app.commandLine.appendSwitch('enable-speech-dispatcher')
+
 const extensions = createExtensions({ partition: WEB_PARTITION, createWindow })
 
 const windowManager = new WindowManager({

@@ -31,6 +31,14 @@ const WINDOW_METHODS = [
   'clickExtensionAction'
 ]
 
+const BLINK_FLAGS = [
+  'WebBluetooth',
+  'WebBluetoothGetDevices',
+  'WebBluetoothRemoteCharacteristicNewWriteValue',
+  'WebBluetoothWatchAdvertisements',
+  'CSSModules'
+].join(',')
+
 async function DEFAULT_SEARCH () {
   return []
 }
@@ -186,7 +194,8 @@ class Window extends EventEmitter {
         nodeIntegration: false,
         sandbox: true,
         webviewTag: false,
-        contextIsolation: true
+        contextIsolation: true,
+        enableBlinkFeatures: BLINK_FLAGS
       }
     })
     this.window.setBrowserView(this.view)
