@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.0.0-32",
+  "version": "1.0.0-33",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -48,11 +48,16 @@
       },
       {
         "name": "gemini",
-        "schemes": ["gemini"]
+        "schemes": [
+          "gemini"
+        ]
       },
       {
         "name": "bittorrent",
-        "schemes": ["magnet", "bittorrent"]
+        "schemes": [
+          "magnet",
+          "bittorrent"
+        ]
       }
     ],
     "dmg": {
