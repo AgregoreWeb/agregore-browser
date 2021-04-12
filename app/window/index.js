@@ -87,7 +87,6 @@ class WindowManager extends EventEmitter {
       console.log('<-', id, name, '(', args, ')')
       const window = this.get(id)
       if (!window) return console.warn(`Got method ${name} from invalid frame ${id}`)
-
       return window[name](...args)
     })
   }

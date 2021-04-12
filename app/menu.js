@@ -18,6 +18,7 @@ function registerMenu (actions) {
     HardReload,
     LearnMore,
     SetAsDefault,
+    SetAsDefaultMagnet,
     OpenExtensionFolder,
     EditConfigFile,
     CreateBookmark
@@ -120,7 +121,8 @@ function registerMenu (actions) {
         LearnMore,
         OpenExtensionFolder,
         EditConfigFile,
-        SetAsDefault
+        SetAsDefault,
+        SetAsDefaultMagnet
       ]
     }
   ]

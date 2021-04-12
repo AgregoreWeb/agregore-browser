@@ -16,8 +16,10 @@
   - Able to read from `ipfs://` and `ipns://` URLs
   - Able to `POST` data into `IPFS`
   - Able to `PUBLISH` an infohash to IPNS
+- [x] BitTorrent
+  - Able to read from `bittorrent://` URLs
+  - Able to redirect `magnet:` URIs to `bittorrent://` URLs
 - [ ] [EarthStar](https://github.com/earthstar-project/earthstar)
-- [ ] BitTorrent
 - [ ] [Pigeon Protocol](https://tildegit.org/PigeonProtocolConsortium/protocol_spec)
 
 PRs for more protocols are welcome.

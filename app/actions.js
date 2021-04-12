@@ -75,6 +75,11 @@ function createActions ({
       accelerator: accelerators.SetAsDefault,
       click: onSetAsDefault
     },
+    SetAsDefaultMagnet: {
+      label: 'Set as Default for Torrents',
+      accelerator: accelerators.SetAsDefaultMagnet,
+      click: onSetAsDefaultMagnet
+    },
     OpenExtensionFolder: {
       label: 'Open Extensions Folder',
       accelerator: accelerators.OpenExtensionFolder,
@@ -94,6 +99,10 @@ function createActions ({
   async function onSetAsDefault () {
     app.setAsDefaultProtocolClient('http')
     app.setAsDefaultProtocolClient('https')
+  }
+
+  async function onSetAsDefaultMagnet () {
+    app.setAsDefaultProtocolClient('magnet')
   }
 
   async function onLearMore () {

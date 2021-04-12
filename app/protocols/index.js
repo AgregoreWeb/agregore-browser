@@ -19,7 +19,21 @@ const BROWSER_PRIVILEDGES = {
   corsEnabled: true
 }
 
-const { ipfsOptions } = require('../config')
+const LOW_PRIVILEDGES = {
+  standard: false,
+  secure: false,
+  allowServiceWorkers: false,
+  supportFetchAPI: false,
+  bypassCSP: false,
+  corsEnabled: true
+}
+
+const {
+  ipfsOptions,
+  hyperOptions,
+  btOptions,
+  datOptions
+} = require('../config')
 
 /*
 TODO: Refactor protocol registration code
@@ -42,6 +56,8 @@ const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
 const createDatHandler = require('./dat-protocol')
 const createGeminiHandler = require('./gemini-protocol')
+const createBTHandler = require('./bt-protocol')
+const createMagnetHandler = require('./magnet-protocol')
 
 module.exports = {
   registerPriviledges,
@@ -55,7 +71,9 @@ function registerPriviledges () {
     { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES }
+    { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
+    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
+    { scheme: 'magnet', privileges: LOW_PRIVILEDGES }
   ])
 }
 
@@ -68,16 +86,17 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
   app.setAsDefaultProtocolClient('ipns')
+  app.setAsDefaultProtocolClient('bittorrent')
 
   const browserProtocolHandler = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
 
-  const hyperProtocolHandler = await createHyperHandler({}, session)
+  const hyperProtocolHandler = await createHyperHandler(hyperOptions, session)
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
-  const datProtocolHandler = await createDatHandler()
+  const datProtocolHandler = await createDatHandler(datOptions, session)
   sessionProtocol.registerStreamProtocol('dat', datProtocolHandler)
   globalProtocol.registerStreamProtocol('dat', datProtocolHandler)
 
@@ -90,4 +109,12 @@ async function setupProtocols (session) {
   globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
+
+  const btHandler = await createBTHandler(btOptions, session)
+  sessionProtocol.registerStreamProtocol('bittorrent', btHandler)
+  globalProtocol.registerStreamProtocol('bittorrent', btHandler)
+
+  const magnetHandler = await createMagnetHandler()
+  sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
+  globalProtocol.registerStreamProtocol('magnet', magnetHandler)
 }

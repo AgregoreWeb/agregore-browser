@@ -59,6 +59,7 @@ A minimal web browser for the distributed web
 - Web Extension support
 - Save files from pages (any protocol, right click it)
 - Set as default browser (click Set As Default in the menu bar (`ALT`))
+- Set as default Torrent handler (click Set as Default Torrent in the menu bar (`ALT`))
 
 ## Docs
 
