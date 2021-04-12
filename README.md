@@ -85,3 +85,5 @@ To build from source do the following:
 
 Other notes:
 - To debug extensions, run `yarn debug`
+- If you're interested in a CLI for these protocols, check out [curld](https://github.com/Lohn/curld) `cURL for Distributed Web`. That project supports the same protocols as Agregore, but in a terminal way.
+
