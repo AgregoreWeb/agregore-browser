@@ -26,8 +26,24 @@ if (!gotTheLock) {
   })
 }
 
-// Set some flags!
+// Enable text to speech.
+// Requires espeak on Linux
 app.commandLine.appendSwitch('enable-speech-dispatcher')
+
+// Smooth scrolling
+app.commandLine.appendSwitch('enable-smooth-scrolling')
+
+// Try to use the GPU for video decode on Pinephone
+app.commandLine.appendSwitch('enable-accelerated-video-decode')
+app.commandLine.appendSwitch('ignore-gpu-blacklist')
+
+// Enable flags for using Wayland rendering
+// Based on this: https://blogs.igalia.com/adunaev/2020/11/13/hidpi-support-in-chromium-for-wayland/
+// TODO: Should we do something similar for x11?
+if (process.env.XDG_SESSION_TYPE === 'wayland') {
+  app.commandLine.appendSwitch('enable-features', 'UseOzonePlatform')
+  app.commandLine.appendSwitch('ozone-platform', 'wayland')
+}
 
 const extensions = createExtensions({ partition: WEB_PARTITION, createWindow })
 
