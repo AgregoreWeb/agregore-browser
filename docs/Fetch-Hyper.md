@@ -116,3 +116,41 @@ Use `await response.json()` to get the data out.
 You can delete a given tag with the `TAG-DELETE` method.
 
 Specify the tag you want in the URL, and it'll be removed from the tags list.
+
+## URL Specification
+
+All `hyper://` URLs follow this convention:
+
+```
+hyper://KEY_OR_HOSTNAME/path/to/file?queryString=whatever
+```
+
+`KEY_OR_HOSTNAME` is either a 64 character string of hexadecimal digits, or a DNS address which will be resolved using [dat-dns](https://github.com/datprotocol/dat-dns).
+
+If a DNS hostname is used, a DNS request will be made for a `txt` record using DNS-Over-HTTPS, along with a `HTTPS` request to `https://HOSTNAME/.well-known/dat`.
+Either one can resolve to the 64 hex character hex key.
+Details on dat-dns can be found [here](https://github.com/datprotocol/DEPs/blob/master/proposals/0005-dns.md)
+
+From there, the text `"hypercore"` will be prepended to the key, and will be hashed using the blake2b algorithm to derive a 32 byte `"discovery key"`.
+The code for that can be found [here](https://github.com/mafintosh/hypercore-crypto/blob/master/index.js#L170)
+
+The `discovery key` will then be used for finding peers on the [hyperswarm](https://github.com/hyperswarm/hyperswarm) network.
+This is done by announcing the your IP address for the discovery key, and simultaniously looking for peers to connect to via the discovery key.
+
+From there, the actual data will be resolved using the path prortion of the URL.
+Right now, Agregore only supports the Hyperdrive datastructure, so paths are used to resolve files within the hyperdrive represented by the public key.
+
+The path will be used to look up files in the Hyperdrive by checking for the following files:
+
+```JavaScript
+path + `index.html`
+path + `index.md`
+path + `/index.html`
+path + `/index.md`
+path + `.html`
+path + `.md`
+```
+
+This enables having clean URLs like `/example/` which can resolve to `/example/index.html`.
+
+In the future the path will be used to resolve data within other data structures like hyperbee or hypertrie.
