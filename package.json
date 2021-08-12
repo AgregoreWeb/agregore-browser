@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "1.0.0-33",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
@@ -10,7 +10,8 @@
     "builder": "electron-builder build --publish never",
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
-    "preversion": "npm run test"
+    "preversion": "npm run test",
+    "postinstall": "./rebuild.sh"
   },
   "standard": {
     "ignore": [
@@ -75,17 +76,45 @@
       ]
     },
     "mac": {
-      "target": "dmg"
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
     },
     "win": {
       "target": [
-        "nsis"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
       ]
     },
     "linux": {
       "target": [
-        "deb",
-        "AppImage"
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
+        },
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
+        }
       ],
       "category": "Development"
     }
@@ -110,7 +139,7 @@
   },
   "homepage": "https://github.com/RangerMauve/agregore-browser#readme",
   "devDependencies": {
-    "electron": "^11.0.0-beta.9",
+    "electron": "11",
     "electron-builder": "^22.9.1",
     "electron-rebuild": "^1.11.0",
     "standard": "^14.3.4"
@@ -120,16 +149,16 @@
     "bt-fetch": "^1.2.0",
     "create-desktop-shortcuts": "^1.4.0",
     "dat-fetch": "^5.1.0",
-    "dat-sdk": "^2.1.0",
     "dat-sdk-old": "^1.0.0",
     "data-uri-to-buffer": "^3.0.1",
     "electron-extensions": "^6.0.4",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
-    "hypercore-fetch": "^6.0.1",
-    "ipfs": "^0.50.2",
-    "js-ipfs-fetch": "^1.4.2",
+    "hyper-sdk": "^3.0.7",
+    "hypercore-fetch": "^8.2.0",
+    "ipfs-core": "^0.10.0",
+    "js-ipfs-fetch": "^3.2.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",

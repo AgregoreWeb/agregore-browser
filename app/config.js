@@ -41,11 +41,14 @@ module.exports = require('rc')('agregore', {
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {
     repo: DEFAULT_IPFS_DIR,
-    silent: true
+    silent: true,
+    preload: {
+      enabled: false
+    }
   },
   // All options here: https://github.com/datproject/sdk/#const-hypercore-hyperdrive-resolvename-keypair-derivesecret-registerextension-close--await-sdkopts
   hyperOptions: {
-    storageLocation: DEFAULT_HYPER_DIR
+    storage: DEFAULT_HYPER_DIR
   },
   datOptions: {
     storageLocation: DEFAULT_DAT_DIR
