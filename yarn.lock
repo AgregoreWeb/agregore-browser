@@ -4704,10 +4704,10 @@ hypercore-default-storage@^1.1.1:
   optionalDependencies:
     fsctl "^1.0.0"
 
-hypercore-fetch@^8.2.0:
-  version "8.2.0"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-8.2.0.tgz#d8edebbc307d668a39ee541466f54df2469adf6c"
-  integrity sha512-2sOvtjARDTwAn4YNwInxZW8I2c9ZyMNmM3jNzVNn36QCtQfOj1qbpLqeV0EOJw0pkSti+ClPkGckMyDxyQNb2g==
+hypercore-fetch@^8.3.1:
+  version "8.3.1"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-8.3.1.tgz#c8135875679ba48e3c2577cab516dfb129d712e6"
+  integrity sha512-G5cmcnadEkXWbhsa8YwA5DsLhq2SIfOZ3B7mE0SK2YBCFYW8OSnjAitwu7HGbMt9tBkGSAFNx6UJXSnZMqQQiA==
   dependencies:
     event-iterator "^2.0.0"
     fetch-headers "^2.0.0"
@@ -6096,10 +6096,10 @@ jake@^10.6.1:
     filelist "^1.0.1"
     minimatch "^3.0.4"
 
-js-ipfs-fetch@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-3.2.0.tgz#49d4fb02503b616763ef64ed918633ea8354b976"
-  integrity sha512-5EVVdjWCuug9LUgPmuH0aYT5mbcKFyApiIsj5e495Pt+DBPySfYkrDqKqwMDt8l4wgxWLXFfTG/1Yx54s4Ul6A==
+js-ipfs-fetch@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-3.3.0.tgz#1c49bba277c125110d463d962df17e5a214bcdac"
+  integrity sha512-noMSgOYIJR2kXug/G8J2BpmaqPizcjR05688hb2YWiWVA6+MMC2DXMYg+ROuD1XToqnsicw3BdxRmVtR9beecw==
   dependencies:
     busboy "^0.3.1"
     event-iterator "^2.0.0"

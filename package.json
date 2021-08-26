@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser-dev",
+  "name": "agregore-browser",
   "version": "1.0.0-34",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
@@ -156,9 +156,9 @@
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
     "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "^8.2.0",
+    "hypercore-fetch": "^8.3.1",
     "ipfs-core": "^0.10.0",
-    "js-ipfs-fetch": "^3.2.0",
+    "js-ipfs-fetch": "^3.3.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
