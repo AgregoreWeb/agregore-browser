@@ -31,8 +31,7 @@ const LOW_PRIVILEDGES = {
 const {
   ipfsOptions,
   hyperOptions,
-  btOptions,
-  datOptions
+  btOptions
 } = require('../config')
 
 /*

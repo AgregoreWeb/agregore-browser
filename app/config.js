@@ -6,7 +6,6 @@ const USER_DATA = app.getPath('userData')
 const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
 const DEFAULT_IPFS_DIR = path.join(USER_DATA, 'ipfs')
 const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
-const DEFAULT_DAT_DIR = path.join(USER_DATA, 'dat')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 
 module.exports = require('rc')('agregore', {
@@ -49,9 +48,6 @@ module.exports = require('rc')('agregore', {
   // All options here: https://github.com/datproject/sdk/#const-hypercore-hyperdrive-resolvename-keypair-derivesecret-registerextension-close--await-sdkopts
   hyperOptions: {
     storage: DEFAULT_HYPER_DIR
-  },
-  datOptions: {
-    storageLocation: DEFAULT_DAT_DIR
   },
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {
