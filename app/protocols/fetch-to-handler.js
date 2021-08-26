@@ -17,6 +17,17 @@ module.exports = function fetchToHandler (getFetch, session) {
     return loadingFetch
   }
 
+  async function * readBody (body) {
+    for (const chunk of body) {
+      if (chunk.blobUUID) {
+        const data = await session.getBlobData(chunk.blobUUID)
+        yield data
+      } else if (chunk.bytes) {
+        yield await Promise.resolve(chunk.bytes)
+      }
+    }
+  }
+
   return async function protocolHandler (req, sendResponse) {
     const headers = {
       'Access-Control-Allow-Origin': '*',
@@ -29,9 +40,7 @@ module.exports = function fetchToHandler (getFetch, session) {
 
       const { url, headers: requestHeaders, method, uploadData } = req
 
-      const body = uploadData ? (
-        uploadData.length > 1 ? uploadData : uploadData[0]
-      ) : null
+      const body = uploadData ? Readable.from(readBody(uploadData)) : null
 
       const response = await fetch({ url, headers: requestHeaders, method, body, session })
 
