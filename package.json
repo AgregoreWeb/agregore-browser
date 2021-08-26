@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "1.0.0-34",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
@@ -145,11 +145,8 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
-    "@geut/hyperdrive-promise": "^3.0.1",
     "bt-fetch": "^1.2.0",
     "create-desktop-shortcuts": "^1.4.0",
-    "dat-fetch": "^5.1.0",
-    "dat-sdk-old": "^1.0.0",
     "data-uri-to-buffer": "^3.0.1",
     "electron-extensions": "^6.0.4",
     "fs-extra": "^9.0.1",

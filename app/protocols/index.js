@@ -54,7 +54,6 @@ class Protocols {
 const createHyperHandler = require('./hyper-protocol')
 const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
-const createDatHandler = require('./dat-protocol')
 const createGeminiHandler = require('./gemini-protocol')
 const createBTHandler = require('./bt-protocol')
 const createMagnetHandler = require('./magnet-protocol')
@@ -67,7 +66,6 @@ module.exports = {
 function registerPriviledges () {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-    { scheme: 'dat', privileges: P2P_PRIVILEDGES },
     { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
@@ -81,7 +79,6 @@ async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
   app.setAsDefaultProtocolClient('hyper')
-  app.setAsDefaultProtocolClient('dat')
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
@@ -95,10 +92,6 @@ async function setupProtocols (session) {
   const hyperProtocolHandler = await createHyperHandler(hyperOptions, session)
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-
-  const datProtocolHandler = await createDatHandler(datOptions, session)
-  sessionProtocol.registerStreamProtocol('dat', datProtocolHandler)
-  globalProtocol.registerStreamProtocol('dat', datProtocolHandler)
 
   const geminiProtocolHandler = await createGeminiHandler()
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
