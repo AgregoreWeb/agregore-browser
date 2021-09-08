@@ -164,10 +164,14 @@ function createActions ({
   }
 
   async function onOpenExtensionFolder () {
-    const { dir } = extensions
-    await fs.ensureDir(dir)
+    try {
+      const { dir } = extensions
+      await fs.ensureDir(dir)
 
-    await shell.openPath(dir)
+      await shell.openPath(dir)
+    } catch (e) {
+      console.error(e.stack)
+    }
   }
 
   async function onEditConfigFile () {

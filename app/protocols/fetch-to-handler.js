@@ -56,7 +56,7 @@ module.exports = function fetchToHandler (getFetch, session) {
 
       const isAsync = responseBody[Symbol.asyncIterator]
 
-      const data = isAsync ? Readable.from(responseBody, {objectMode: false}) : responseBody
+      const data = isAsync ? Readable.from(responseBody, { objectMode: false }) : responseBody
 
       sendResponse({
         statusCode,
