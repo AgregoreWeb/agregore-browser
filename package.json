@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npm run lint",
     "start": "electron .",
+    "rebuild": "electron-rebuild -v $(./node_modules/.bin/electron -v) -f -w better-sqlite3",
     "debug": "env NODE_ENV=debug electron --trace-uncaught .",
     "builder": "electron-builder build --publish never",
     "builder-all": "electron-builder build -mwl",
