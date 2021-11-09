@@ -2554,9 +2554,9 @@ electron-rebuild@^1.11.0:
     yargs "^14.2.0"
 
 electron@11:
-  version "11.4.11"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-11.4.11.tgz#27091dcd54d28539b492d011b0ed3aef7d69cb60"
-  integrity sha512-DyarEH2IJpx5KfE42vF+uq7jyfHDrDRUsXXZyc69tR/GOO0DGuFE6/BHlTaywgPbCS4Sa5/ffEGlG6xq9+eRAQ==
+  version "11.5.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-11.5.0.tgz#f1650543b9d8f2047d3807755bdb120153ed210f"
+  integrity sha512-WjNDd6lGpxyiNjE3LhnFCAk/D9GIj1rU3GSDealVShhkkkPR3Vh4q8ErXGDl1OAO/faomVa10KoFPUN/pLbNxg==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
