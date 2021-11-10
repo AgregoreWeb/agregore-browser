@@ -6,8 +6,11 @@ module.exports = async function createHandler (options, session) {
     const SDK = require('hyper-sdk')
 
     const sdk = await SDK(options)
-    const { Hyperdrive, resolveName } = sdk
-    const fetch = hyperFetch({ Hyperdrive, resolveName, writable: true })
+    const { Hyperdrive } = sdk
+    const fetch = hyperFetch({
+      Hyperdrive,
+      writable: true
+    })
 
     return fetch
   }, session)
