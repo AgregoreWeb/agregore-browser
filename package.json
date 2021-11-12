@@ -152,6 +152,7 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
+    "gun-fetch": "^2.4.1",
     "hyper-sdk": "^3.0.7",
     "hypercore-fetch": "^8.3.1",
     "ipfs-core": "^0.10.0",
