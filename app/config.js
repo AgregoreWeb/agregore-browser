@@ -7,6 +7,7 @@ const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
 const DEFAULT_IPFS_DIR = path.join(USER_DATA, 'ipfs')
 const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
+const DEFAULT_GUN_DIR = path.join(USER_DATA, 'gun')
 const DEFAULT_GUN_PEERS = ["https://gun-manhattan.herokuapp.com/gun",
 "https://us-west.xerberus.net/gun",
 "http://gun-matrix.herokuapp.com/gun",
@@ -70,6 +71,7 @@ module.exports = require('rc')('agregore', {
   },
   // All options here: https://gun.eco/docs/API#-a-name-gun-a-gun-options-
   gunOptions: {
+    file: DEFAULT_GUN_DIR,
     peers: DEFAULT_GUN_PEERS,
     radisk: true
   }
