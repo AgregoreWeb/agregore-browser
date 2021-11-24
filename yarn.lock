@@ -3852,10 +3852,10 @@
   "resolved" "https://registry.npmjs.org/guard-timeout/-/guard-timeout-2.0.0.tgz"
   "version" "2.0.0"
 
-"gun-fetch@^2.4.9":
-  "integrity" "sha512-nGPbnPn7gib2eoYeTM5HG3QPWgIklKbHchUgFzc7+UPoCJTGdziJC5b4BTms/uqaJDx31lVoIgKd3L5yNsWFvw=="
-  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-2.4.9.tgz"
-  "version" "2.4.9"
+"gun-fetch@^2.5.0":
+  "integrity" "sha512-a0TDHpcyLGHDJQOV61SUWLrnKAWtngT04hz5oLCkrs6HwO7jWp4NBc4vIUmpzFB4Pf6oJ7mS7k1tTlC8FPFKXQ=="
+  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-2.5.0.tgz"
+  "version" "2.5.0"
   dependencies:
     "gun" "^0.2020.1235"
     "make-fetch" "^2.3.1"
