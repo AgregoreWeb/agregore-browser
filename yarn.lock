@@ -529,7 +529,7 @@
     "unordered-array-remove" "^1.0.2"
     "xml2js" "^0.4.23"
 
-"@peculiar/asn1-schema@^2.0.38":
+"@peculiar/asn1-schema@^2.0.44":
   "integrity" "sha512-uaCnjQ9A9WwQSMuDJcNOCYEPXTahgKbFMvI7eMOMd8lXgx0J1eU7F3BoMsK5PFxa3dVUxjSQbaOjfgGoeHGgoQ=="
   "resolved" "https://registry.npmjs.org/@peculiar/asn1-schema/-/asn1-schema-2.0.44.tgz"
   "version" "2.0.44"
@@ -547,15 +547,15 @@
     "tslib" "^2.0.0"
 
 "@peculiar/webcrypto@^1.1.1":
-  "integrity" "sha512-xb8MEgfq93TAkIb70kn+llZgIFQwhdiCiOJHzekVTAS74Y+ae5bZn8KEsuycop/LXAm1kx+Kad/v9eTDTWuY/w=="
-  "resolved" "https://registry.npmjs.org/@peculiar/webcrypto/-/webcrypto-1.2.2.tgz"
-  "version" "1.2.2"
+  "integrity" "sha512-q7wDfZy3k/tpnsYB23/MyyDkjn6IdHh8w+xwoVMS5cu6CjVoFzngXDZEOOuSE4zus2yO6ciQhhHxd4XkLpwVnQ=="
+  "resolved" "https://registry.npmjs.org/@peculiar/webcrypto/-/webcrypto-1.2.3.tgz"
+  "version" "1.2.3"
   dependencies:
-    "@peculiar/asn1-schema" "^2.0.38"
+    "@peculiar/asn1-schema" "^2.0.44"
     "@peculiar/json-schema" "^1.1.12"
     "pvtsutils" "^1.2.1"
     "tslib" "^2.3.1"
-    "webcrypto-core" "^1.3.0"
+    "webcrypto-core" "^1.4.0"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   "integrity" "sha1-m4sMxmPWaafY9vXQiToU00jzD78="
@@ -9211,12 +9211,12 @@
   "resolved" "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.0.tgz"
   "version" "3.2.0"
 
-"webcrypto-core@^1.3.0":
-  "integrity" "sha512-/+Hz+uNM6T8FtizWRYMNdGTXxWaljLFzQ5GKU4WqCTZKpaki94YqDA39h/SpWxEZfgkVMZzrqqtPlfy2+BloQw=="
-  "resolved" "https://registry.npmjs.org/webcrypto-core/-/webcrypto-core-1.3.0.tgz"
-  "version" "1.3.0"
+"webcrypto-core@^1.4.0":
+  "integrity" "sha512-HY3Zo0GcRIQUUDnlZ/shGjN+4f7LVMkdJZoGPog+oHhJsJdMz6iM8Za5xZ0t6qg7Fx/JXXz+oBv2J2p982hGTQ=="
+  "resolved" "https://registry.npmjs.org/webcrypto-core/-/webcrypto-core-1.4.0.tgz"
+  "version" "1.4.0"
   dependencies:
-    "@peculiar/asn1-schema" "^2.0.38"
+    "@peculiar/asn1-schema" "^2.0.44"
     "@peculiar/json-schema" "^1.1.12"
     "asn1js" "^2.1.1"
     "pvtsutils" "^1.2.0"
