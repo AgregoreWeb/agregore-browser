@@ -31,7 +31,8 @@ const LOW_PRIVILEDGES = {
 const {
   ipfsOptions,
   hyperOptions,
-  btOptions
+  btOptions,
+  gunOptions
 } = require('../config')
 
 /*
@@ -56,6 +57,7 @@ const createBrowserHandler = require('./browser-protocol')
 const createGeminiHandler = require('./gemini-protocol')
 const createBTHandler = require('./bt-protocol')
 const createMagnetHandler = require('./magnet-protocol')
+const createGunHandler = require('./gun-protocol')
 
 module.exports = {
   registerPriviledges,
@@ -69,6 +71,7 @@ function registerPriviledges () {
     { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
     { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
+    { scheme: 'gun', privileges: P2P_PRIVILEDGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
     { scheme: 'magnet', privileges: LOW_PRIVILEDGES }
   ])
@@ -83,6 +86,7 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('ipfs')
   app.setAsDefaultProtocolClient('ipns')
   app.setAsDefaultProtocolClient('bittorrent')
+  app.setAsDefaultProtocolClient('gun')
 
   const browserProtocolHandler = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
@@ -109,4 +113,8 @@ async function setupProtocols (session) {
   const magnetHandler = await createMagnetHandler()
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
+
+  const gunHandler = await createGunHandler(gunOptions, session)
+  sessionProtocol.registerStreamProtocol('gun', gunHandler)
+  globalProtocol.registerStreamProtocol('gun', gunHandler)
 }
