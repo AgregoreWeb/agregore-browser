@@ -114,9 +114,17 @@
             "ia32",
             "arm64"
           ]
+        },
+        {
+          "target": "apk",
+          "arch": [
+            "x64",
+            "ia32",
+            "arm64"
+          ]
         }
       ],
-      "category": "Development"
+      "category": "Network"
     }
   },
   "repository": {
