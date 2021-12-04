@@ -8,21 +8,21 @@ const DEFAULT_IPFS_DIR = path.join(USER_DATA, 'ipfs')
 const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 const DEFAULT_GUN_DIR = path.join(USER_DATA, 'gun')
-const DEFAULT_GUN_PEERS = ["https://gun-manhattan.herokuapp.com/gun",
-"https://us-west.xerberus.net/gun",
-"http://gun-matrix.herokuapp.com/gun",
-"https://gun-ams1.maddiex.wtf:443/gun",
-"https://gun-sjc1.maddiex.wtf:443/gun",
-"https://dletta.rig.airfaas.com/gun",
-"https://mg-gun-manhattan.herokuapp.com/gun",
-"https://gunmeetingserver.herokuapp.com/gun",
-"https://e2eec.herokuapp.com/gun",
-"https://gun-us.herokuapp.com/gun",
-"https://gun-eu.herokuapp.com/gun",
-"https://gunjs.herokuapp.com/gun",
-"https://www.raygun.live/gun",
-"https://gun-armitro.herokuapp.com/",
-"https://fire-gun.herokuapp.com/gun"]
+const DEFAULT_GUN_PEERS = ['https://gun-manhattan.herokuapp.com/gun',
+  'https://us-west.xerberus.net/gun',
+  'http://gun-matrix.herokuapp.com/gun',
+  'https://gun-ams1.maddiex.wtf:443/gun',
+  'https://gun-sjc1.maddiex.wtf:443/gun',
+  'https://dletta.rig.airfaas.com/gun',
+  'https://mg-gun-manhattan.herokuapp.com/gun',
+  'https://gunmeetingserver.herokuapp.com/gun',
+  'https://e2eec.herokuapp.com/gun',
+  'https://gun-us.herokuapp.com/gun',
+  'https://gun-eu.herokuapp.com/gun',
+  'https://gunjs.herokuapp.com/gun',
+  'https://www.raygun.live/gun',
+  'https://gun-armitro.herokuapp.com/',
+  'https://fire-gun.herokuapp.com/gun']
 
 module.exports = require('rc')('agregore', {
   accelerators: {
