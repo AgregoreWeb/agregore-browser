@@ -4,6 +4,7 @@ on: push
 
 jobs:
   release:
+    continue-on-error: true
     runs-on: ${{ matrix.os }}
 
     strategy:
