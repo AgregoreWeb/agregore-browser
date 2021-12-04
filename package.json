@@ -129,7 +129,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RangerMauve/agregore-browser.git"
+    "url": "git+https://github.com/AgregoreWeb/agregore-browser.git"
   },
   "keywords": [
     "dat",
@@ -140,12 +140,12 @@
     "browser",
     "dweb"
   ],
-  "author": "rangermauve <ranger@mauve.moe> (https://mauve.moe/)",
+  "author": "rangermauve <contact@mauve.moe> (https://mauve.moe/)",
   "license": "AGPL-3.0",
   "bugs": {
-    "url": "https://github.com/RangerMauve/agregore-browser/issues"
+    "url": "https://github.com/AgregoreWeb/agregore-browser/issues"
   },
-  "homepage": "https://github.com/RangerMauve/agregore-browser#readme",
+  "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "electron": "11",
     "electron-builder": "^22.9.1",
