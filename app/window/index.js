@@ -205,9 +205,6 @@ class Window extends EventEmitter {
     this.web.on('did-navigate', (event, url) => {
       this.emitNavigate(url, true)
     })
-    this.web.on('update-target-url', (event, url) => {
-      this.send('update-target-url', url)
-    })
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
     })
@@ -224,6 +221,9 @@ class Window extends EventEmitter {
     })
     this.window.on('leave-html-full-screen', () => {
       this.send('leave-html-full-screen')
+    })
+    this.web.on('update-target-url', (event, url) => {
+      this.send('update-target-url', url)
     })
 
     this.window.once('ready-to-show', () => this.window.show())

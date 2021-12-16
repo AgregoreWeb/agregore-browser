@@ -6,9 +6,9 @@ window.getCurrentWindow = function getCurrentWindow () {
     'navigating',
     'history-buttons-change',
     'page-title-updated',
-    'update-target-url',
     'enter-html-full-screen',
     'leave-html-full-screen',
+    'update-target-url',
     'close'
   ]
 
