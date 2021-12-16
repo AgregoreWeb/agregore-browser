@@ -205,6 +205,9 @@ class Window extends EventEmitter {
     this.web.on('did-navigate', (event, url) => {
       this.emitNavigate(url, true)
     })
+    this.web.on('update-target-url', (event, url) => {
+      this.send('update-target-url', url)
+    })
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
     })
