@@ -54,11 +54,11 @@ omni-box {
   border: none;
 }
 
-.omni-box-input, .find-menu-input, .omni-box-hover-url {
+.omni-box-input, .find-menu-input, .omni-box-target-input {
   flex: 1;
   border:none;
   background: none;
-  padding: 0.50em;
+  padding: 0.5em;
   color: inherit;
   font-size: inherit;
   font-family: inherit;

@@ -17,7 +17,7 @@ class OmniBox extends HTMLElement {
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
         <form class="omni-box-form">
-          <span class="omni-box-hover-url"></span>
+          <input class="omni-box-target-input" readonly></span>
           <input class="omni-box-input" title="Enter search params">
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
@@ -27,7 +27,7 @@ class OmniBox extends HTMLElement {
     this.forwardButton = this.$('.omni-box-forward')
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
-    this.hoverUrl = this.$('.omni-box-hover-url')
+    this.targetUrl = this.$('.omni-box-target-input')
 
     this.input.addEventListener('focus', () => {
       this.input.select()
