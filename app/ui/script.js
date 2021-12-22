@@ -70,12 +70,21 @@ currentWindow.on('history-buttons-change', updateButtons)
 currentWindow.on('page-title-updated', (title) => {
   pageTitle.innerText = title + ' - Agregore Browser'
 })
-
 currentWindow.on('enter-html-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', true)
 })
 currentWindow.on('leave-html-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', false)
+})
+currentWindow.on('update-target-url', async (url) => {
+  search.targetUrl.value = url
+  if (url) {
+    search.targetUrl.classList.toggle('hidden', false)
+    search.input.classList.toggle('hidden', true)
+  } else {
+    search.targetUrl.classList.toggle('hidden', true)
+    search.input.classList.toggle('hidden', false)
+  }
 })
 
 find.addEventListener('next', ({ detail }) => {

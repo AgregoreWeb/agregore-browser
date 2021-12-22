@@ -8,6 +8,7 @@ window.getCurrentWindow = function getCurrentWindow () {
     'page-title-updated',
     'enter-html-full-screen',
     'leave-html-full-screen',
+    'update-target-url',
     'close'
   ]
 

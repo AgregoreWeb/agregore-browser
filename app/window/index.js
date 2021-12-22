@@ -222,6 +222,9 @@ class Window extends EventEmitter {
     this.window.on('leave-html-full-screen', () => {
       this.send('leave-html-full-screen')
     })
+    this.web.on('update-target-url', (event, url) => {
+      this.send('update-target-url', url)
+    })
 
     this.window.once('ready-to-show', () => this.window.show())
     this.window.on('close', () => {

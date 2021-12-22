@@ -54,7 +54,7 @@ omni-box {
   border: none;
 }
 
-.omni-box-input, .find-menu-input {
+.omni-box-input, .find-menu-input, .omni-box-target-input {
   flex: 1;
   border:none;
   background: none;
