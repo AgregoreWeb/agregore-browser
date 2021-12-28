@@ -8,15 +8,15 @@ const path = require('path')
 const EventEmitter = require('events')
 const fs = require('fs-extra')
 
-const MAIN_PAGE = path.resolve(__dirname, '../ui/index.html')
-const LOGO_FILE = path.join(__dirname, '../../build/icon.png')
+const MAIN_PAGE = path.resolve(__dirname, './ui/index.html')
+const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
-const { defaultPage } = require('../config')
+const { defaultPage } = require('./config')
 
 const WINDOW_METHODS = [
   'goBack',
