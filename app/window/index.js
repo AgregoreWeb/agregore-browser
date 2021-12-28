@@ -116,7 +116,7 @@ class WindowManager extends EventEmitter {
 
   saveOpened () {
     console.log('Saving open windows')
-    const urls = []
+    let urls = []
     for (const window of this.all) {
       const url = window.web.getURL()
       const position = window.window.getPosition()
@@ -124,6 +124,8 @@ class WindowManager extends EventEmitter {
 
       urls.push({ url, position, size })
     }
+
+    if (urls.length === 1) urls = []
 
     fs.outputJsonSync(this.persistTo, urls)
   }
