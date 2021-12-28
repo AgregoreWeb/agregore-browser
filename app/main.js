@@ -96,6 +96,7 @@ app.on('activate', () => {
 
 app.on('before-quit', () => {
   windowManager.saveOpened()
+  windowManager.close()
 })
 
 async function onready () {

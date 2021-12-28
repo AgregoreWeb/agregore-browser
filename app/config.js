@@ -22,7 +22,10 @@ const DEFAULT_GUN_PEERS = ['https://gun-manhattan.herokuapp.com/gun',
   'https://gunjs.herokuapp.com/gun',
   'https://www.raygun.live/gun',
   'https://gun-armitro.herokuapp.com/',
-  'https://fire-gun.herokuapp.com/gun']
+  'https://fire-gun.herokuapp.com/gun'
+]
+
+const DEFAULT_PAGE = 'agregore://welcome'
 
 module.exports = require('rc')('agregore', {
   accelerators: {
@@ -53,6 +56,9 @@ module.exports = require('rc')('agregore', {
     indent: '16px',
     'max-width': '666px'
   },
+
+  defaultPage: DEFAULT_PAGE,
+
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {
     repo: DEFAULT_IPFS_DIR,

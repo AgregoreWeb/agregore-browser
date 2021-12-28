@@ -12,9 +12,11 @@ const MAIN_PAGE = path.resolve(__dirname, '../ui/index.html')
 const LOGO_FILE = path.join(__dirname, '../../build/icon.png')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
-const DEFAULT_PAGE = 'agregore://welcome'
-
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
+
+const DEFAULT_SAVE_INTERVAL = 30 * 1000
+
+const { defaultPage } = require('../config')
 
 const WINDOW_METHODS = [
   'goBack',
@@ -51,13 +53,16 @@ class WindowManager extends EventEmitter {
   constructor ({
     onSearch = DEFAULT_SEARCH,
     listActions = DEFAULT_LIST_ACTIONS,
-    persistTo = PERSIST_FILE
+    persistTo = PERSIST_FILE,
+    saverInterval = DEFAULT_SAVE_INTERVAL
   } = {}) {
     super()
     this.windows = new Set()
     this.onSearch = onSearch
     this.listActions = listActions
     this.persistTo = persistTo
+    this.saverTimer = null
+    this.saverInterval = saverInterval
 
     for (const method of WINDOW_METHODS) {
       this.relayMethod(method)
@@ -66,13 +71,20 @@ class WindowManager extends EventEmitter {
 
   open (opts = {}) {
     const { onSearch, listActions } = this
-    const window = new Window({ ...opts, onSearch, listActions })
+    const window = new Window({
+      onSearch,
+      listActions,
+      ...opts
+    })
 
     console.log('created window', window.id)
     this.windows.add(window)
     window.once('close', () => {
       this.windows.delete(window)
       this.emit('close', window)
+    })
+    window.on('navigating', () => {
+      this.restartSaver()
     })
     this.emit('open', window)
 
@@ -102,16 +114,16 @@ class WindowManager extends EventEmitter {
     return [...this.windows.values()]
   }
 
-  async saveOpened () {
-    let urls = await Promise.all(this.all.map(async (window) => {
+  saveOpened () {
+    console.log('Saving open windows')
+    const urls = []
+    for (const window of this.all) {
       const url = window.web.getURL()
       const position = window.window.getPosition()
       const size = window.window.getSize()
 
-      return { url, position, size }
-    }))
-
-    if (urls.length === 1) urls = []
+      urls.push({ url, position, size })
+    }
 
     fs.outputJsonSync(this.persistTo, urls)
   }
@@ -119,32 +131,30 @@ class WindowManager extends EventEmitter {
   async openSaved () {
     const saved = await this.loadSaved()
 
-    return Promise.all(saved.map((info) => {
+    return saved.map((info) => {
       console.log('About to open', info)
       const options = {}
 
-      if (typeof info === 'string') {
-        options.url = info
-      } else {
-        const { url, position, size } = info
+      const { url, position, size } = info
 
-        options.url = url
+      options.url = url
 
-        if (position) {
-          const [x, y] = position
-          options.x = x
-          options.y = y
-        }
-
-        if (size) {
-          const [width, height] = size
-          options.width = width
-          options.height = height
-        }
+      if (position) {
+        const [x, y] = position
+        options.x = x
+        options.y = y
       }
 
-      return this.open(options)
-    }))
+      if (size) {
+        const [width, height] = size
+        options.width = width
+        options.height = height
+      }
+
+      const window = this.open(options)
+
+      return window
+    })
   }
 
   async loadSaved () {
@@ -156,11 +166,30 @@ class WindowManager extends EventEmitter {
       return []
     }
   }
+
+  close () {
+    this.clearSaver()
+  }
+
+  restartSaver () {
+    this.clearSaver()
+    this.startSaver()
+  }
+
+  startSaver () {
+    this.saverTimer = setTimeout(() => {
+      this.saveOpened()
+    }, this.saverInterval)
+  }
+
+  clearSaver () {
+    clearInterval(this.saverTimer)
+  }
 }
 
 class Window extends EventEmitter {
   constructor ({
-    url = DEFAULT_PAGE,
+    url = defaultPage,
     rawFrame = false,
     noNav = false,
     noAutoFocus = false,
