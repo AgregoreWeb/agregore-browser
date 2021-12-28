@@ -42,7 +42,7 @@ search.addEventListener('navigate', ({ detail }) => {
 
 search.addEventListener('unfocus', async () => {
   await currentWindow.focus()
-  search.src = await webview.getURL()
+  search.src = await currentWindow.getURL()
 })
 
 search.addEventListener('search', async ({ detail }) => {
