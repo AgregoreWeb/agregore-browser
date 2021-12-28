@@ -1,0 +1,6 @@
+[submodule "app/extensions/extension-agregore-render-gemini"]
+	path = app/extensions/extension-agregore-render-gemini
+	url = git@github.com:AgregoreWeb/extension-agregore-render-gemini.git
+[submodule "app/extensions/extension-agregore-render-markdown"]
+	path = app/extensions/extension-agregore-render-markdown
+	url = git@github.com:AgregoreWeb/extension-agregore-render-markdown.git
