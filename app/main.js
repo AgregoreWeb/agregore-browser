@@ -2,6 +2,7 @@ const { app, BrowserWindow, session } = require('electron')
 const fs = require('fs-extra')
 const { sep } = require('path')
 
+const packageJSON = require('../package.json')
 const protocols = require('./protocols')
 const { createActions } = require('./actions')
 const { registerMenu } = require('./menu')
@@ -99,6 +100,8 @@ app.on('before-quit', () => {
 
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
+
+  webSession.setUserAgent(`AgregoreDesktop/${packageJSON.version}`)
 
   const actions = createActions({
     createWindow
