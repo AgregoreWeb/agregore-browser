@@ -30,6 +30,7 @@ const LOW_PRIVILEDGES = {
 
 const {
   ipfsOptions,
+  ssbOptions,
   hyperOptions,
   btOptions,
   gunOptions
@@ -52,6 +53,7 @@ class Protocols {
 */
 
 const createHyperHandler = require('./hyper-protocol')
+const createSsbHandler = require('./ssb-protocol')
 const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
 const createGeminiHandler = require('./gemini-protocol')
@@ -64,9 +66,10 @@ module.exports = {
   setupProtocols
 }
 
-function registerPriviledges () {
+function registerPriviledges() {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
+    // { scheme: 'ssb', privileges: P2P_PRIVILEDGES }, // presumably errors because ssb uri are not url safe
     { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
@@ -77,10 +80,11 @@ function registerPriviledges () {
   ])
 }
 
-async function setupProtocols (session) {
+async function setupProtocols(session) {
   const { protocol: sessionProtocol } = session
 
   app.setAsDefaultProtocolClient('hyper')
+  app.setAsDefaultProtocolClient('ssb')
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
@@ -95,6 +99,10 @@ async function setupProtocols (session) {
   const hyperProtocolHandler = await createHyperHandler(hyperOptions, session)
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+
+  const ssbProtocolHandler = await createSsbHandler(ssbOptions, session)
+  sessionProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
+  globalProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
 
   const geminiProtocolHandler = await createGeminiHandler()
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)

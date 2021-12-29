@@ -1,4 +1,3 @@
-
 const { app } = require('electron')
 const path = require('path')
 
@@ -6,9 +5,11 @@ const USER_DATA = app.getPath('userData')
 const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
 const DEFAULT_IPFS_DIR = path.join(USER_DATA, 'ipfs')
 const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
+const DEFAULT_SSB_DIR = path.join(USER_DATA, 'ssb')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 const DEFAULT_GUN_DIR = path.join(USER_DATA, 'gun')
-const DEFAULT_GUN_PEERS = ['https://gun-manhattan.herokuapp.com/gun',
+const DEFAULT_GUN_PEERS = [
+  'https://gun-manhattan.herokuapp.com/gun',
   'https://us-west.xerberus.net/gun',
   'http://gun-matrix.herokuapp.com/gun',
   'https://gun-ams1.maddiex.wtf:443/gun',
@@ -71,6 +72,8 @@ module.exports = require('rc')('agregore', {
   hyperOptions: {
     storage: DEFAULT_HYPER_DIR
   },
+
+  ssbOptions: {},
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {
     storageLocation: DEFAULT_BT_DIR
