@@ -123,3 +123,6 @@ app/extensions/adblocker-chrome-extension/
 
 # Ignore nano temporary files
 *.swp
+
+# prettier config
+.prettierrc

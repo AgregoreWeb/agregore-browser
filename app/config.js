@@ -5,7 +5,7 @@ const USER_DATA = app.getPath('userData')
 const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
 const DEFAULT_IPFS_DIR = path.join(USER_DATA, 'ipfs')
 const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
-const DEFAULT_SSB_DIR = path.join(USER_DATA, 'ssb')
+// const DEFAULT_SSB_DIR = path.join(USER_DATA, 'ssb')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 const DEFAULT_GUN_DIR = path.join(USER_DATA, 'gun')
 const DEFAULT_GUN_PEERS = [
@@ -72,7 +72,7 @@ module.exports = require('rc')('agregore', {
   hyperOptions: {
     storage: DEFAULT_HYPER_DIR
   },
-
+  // All options here: https://github.com/ssbc/ssb-config#configuration
   ssbOptions: {},
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {

@@ -66,10 +66,10 @@ module.exports = {
   setupProtocols
 }
 
-function registerPriviledges() {
+function registerPriviledges () {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-    // { scheme: 'ssb', privileges: P2P_PRIVILEDGES }, // presumably errors because ssb uri are not url safe
+    { scheme: 'ssb', privileges: { ...P2P_PRIVILEDGES, standard: false } }, // ssb uri are not url safe
     { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
@@ -80,7 +80,7 @@ function registerPriviledges() {
   ])
 }
 
-async function setupProtocols(session) {
+async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
   app.setAsDefaultProtocolClient('hyper')
