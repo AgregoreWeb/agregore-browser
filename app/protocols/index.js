@@ -28,28 +28,21 @@ const LOW_PRIVILEDGES = {
   corsEnabled: true
 }
 
+const EXTENSION_PRIVILEDGES = {
+  bypassCSP: true,
+  secure: true,
+  standard: true,
+  supportFetchAPI: true,
+  allowServiceWorkers: true,
+  corsEnabled: false
+}
+
 const {
   ipfsOptions,
   hyperOptions,
   btOptions,
   gunOptions
 } = require('../config')
-
-/*
-TODO: Refactor protocol registration code
-class Protocols {
-  constructor () {
-    this.fetches = new Map()
-  }
-
-  register (name, fetch) {
-    this.fetches
-  }
-
-  async getFetch (name) {
-  }
-}
-*/
 
 const createHyperHandler = require('./hyper-protocol')
 const createIPFSHandler = require('./ipfs-protocol')
@@ -73,7 +66,8 @@ function registerPriviledges () {
     { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
     { scheme: 'gun', privileges: P2P_PRIVILEDGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEDGES }
+    { scheme: 'magnet', privileges: LOW_PRIVILEDGES },
+    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEDGES }
   ])
 }
 
