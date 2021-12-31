@@ -45,7 +45,12 @@ class Extensions extends EventEmitter {
         const title = browser_action.default_title || name
         const onClick = popupPage
           ? () => {
-            this.createWindow(popupPage, { rawFrame: true, useContentSize: true })
+            this.createWindow(popupPage, {
+              rawFrame: true,
+              autoResize: true,
+              height: 400,
+              width: 256
+            })
           }
           : (tabId) => {
             const tab = webContents.fromId(tabId)

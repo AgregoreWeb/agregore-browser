@@ -118,6 +118,8 @@ class WindowManager extends EventEmitter {
     console.log('Saving open windows')
     let urls = []
     for (const window of this.all) {
+      // We don't need to save popups from extensions
+      if(window.rawFrame) continue
       const url = window.web.getURL()
       const position = window.window.getPosition()
       const size = window.window.getSize()
@@ -195,6 +197,7 @@ class Window extends EventEmitter {
     rawFrame = false,
     noNav = false,
     noAutoFocus = false,
+    autoResize = false,
     onSearch,
     listActions,
     view,
@@ -206,13 +209,16 @@ class Window extends EventEmitter {
     this.listActions = listActions
     this.rawFrame = rawFrame
 
+    console.log({autoResize})
+
     this.window = new BrowserWindow({
       autoHideMenuBar: true,
       webPreferences: {
         // partition: 'persist:web-content',
         nodeIntegration: true,
         webviewTag: false,
-        contextIsolation: false
+        contextIsolation: false,
+        enablePreferredSizeMode: autoResize
       },
       show: false,
       icon: LOGO_FILE,
@@ -225,7 +231,8 @@ class Window extends EventEmitter {
         sandbox: true,
         webviewTag: false,
         contextIsolation: true,
-        enableBlinkFeatures: BLINK_FLAGS
+        enableBlinkFeatures: BLINK_FLAGS,
+        enablePreferredSizeMode: autoResize
       }
     })
     this.window.setBrowserView(this.view)
@@ -242,6 +249,14 @@ class Window extends EventEmitter {
     this.web.on('new-window', (...args) => {
       this.emit('new-window', ...args)
     })
+
+    if (autoResize) {
+      this.web.on('preferred-size-changed', (event, preferredSize) => {
+        console.log('preferred-size-changed', event, preferred)
+        const { width, height } = preferredSize
+        this.window.setSize(width, height, false)
+      })
+    }
 
     // Send to UI
     this.web.on('page-title-updated', (event, title) => {
