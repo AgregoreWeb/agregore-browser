@@ -24,7 +24,7 @@
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
-      "build/**/*",
+      "build/*",
       "app/**/*",
       "node_modules/**/*",
       "package.json"
