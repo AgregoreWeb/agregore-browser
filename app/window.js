@@ -196,7 +196,6 @@ class Window extends EventEmitter {
     url = defaultPage,
     rawFrame = false,
     noNav = false,
-    noAutoFocus = false,
     autoResize = false,
     onSearch,
     listActions,
