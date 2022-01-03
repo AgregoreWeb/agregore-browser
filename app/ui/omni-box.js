@@ -1,5 +1,7 @@
 /* global HTMLElement, CustomEvent, customElements */
 
+const { looksLikeLegacySSB, convertLegacySSB: makeSSB } = require('ssb-fetch')
+
 class OmniBox extends HTMLElement {
   constructor () {
     super()
@@ -33,12 +35,18 @@ class OmniBox extends HTMLElement {
       this.input.select()
     })
 
-    this.form.addEventListener('submit', (e) => {
+    this.form.addEventListener('submit', e => {
       e.preventDefault(true)
 
       const rawURL = this.getURL()
 
-      const url = isURL(rawURL) ? rawURL : (looksLikeDomain(rawURL) ? makeHttps(rawURL) : makeDuckDuckGo(rawURL))
+      const url = isURL(rawURL)
+        ? rawURL
+        : looksLikeLegacySSB(rawURL)
+          ? makeSSB(rawURL)
+          : looksLikeDomain(rawURL)
+            ? makeHttps(rawURL)
+            : makeDuckDuckGo(rawURL)
 
       this.clearOptions()
 
@@ -59,7 +67,8 @@ class OmniBox extends HTMLElement {
 
       if (keyCode === 39) {
         const { selectionStart, selectionEnd, value } = this.input
-        const isAtEnd = (selectionStart === value.length) && (selectionEnd === value.length)
+        const isAtEnd =
+          selectionStart === value.length && selectionEnd === value.length
         if (isAtEnd) this.fillWithSelected()
       }
 
@@ -88,7 +97,10 @@ class OmniBox extends HTMLElement {
   }
 
   getSelected () {
-    return this.options.querySelector('[data-selected]') || this.options.firstElementChild
+    return (
+      this.options.querySelector('[data-selected]') ||
+      this.options.firstElementChild
+    )
   }
 
   selectNext () {
@@ -139,29 +151,46 @@ class OmniBox extends HTMLElement {
       return
     }
 
-    this.dispatchEvent(new CustomEvent('search', { detail: { query, searchID } }))
+    this.dispatchEvent(
+      new CustomEvent('search', { detail: { query, searchID } })
+    )
   }
 
   async setSearchResults (results, query, searchID) {
     if (this.lastSearch !== searchID) {
-      return console.debug('Urlbar changed since query finished', this.lastSearch, searchID, query)
+      return console.debug(
+        'Urlbar changed since query finished',
+        this.lastSearch,
+        searchID,
+        query
+      )
     }
 
     const finalItems = []
 
     if (isURL(query)) {
       finalItems.push(this.makeNavItem(query, `Go to ${query}`))
+    } else if (looksLikeLegacySSB(query)) {
+      const url = makeSSB(query)
+      finalItems.push(this.makeNavItem(url, `Go to ${url}`))
     } else if (looksLikeDomain(query)) {
-      finalItems.push(this.makeNavItem(makeHttps(query), `Go to https://${query}`))
+      finalItems.push(
+        this.makeNavItem(makeHttps(query), `Go to https://${query}`)
+      )
     } else {
-      finalItems.push(this.makeNavItem(
-        makeDuckDuckGo(query),
-      `Search for "${query}" on DuckDuckGo`
-      ))
+      finalItems.push(
+        this.makeNavItem(
+          makeDuckDuckGo(query),
+          `Search for "${query}" on DuckDuckGo`
+        )
+      )
     }
 
-    finalItems.push(...results
-      .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`)))
+    finalItems.push(
+      ...results.map(({ title, url }) =>
+        this.makeNavItem(url, `${title} - ${url}`)
+      )
+    )
 
     for (const item of finalItems) {
       this.options.appendChild(item)
@@ -191,11 +220,12 @@ class OmniBox extends HTMLElement {
   attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'src') {
       this.input.value = newValue
-      if (this.firstLoad && (newValue === window.DEFAULT_PAGE)) {
+      if (this.firstLoad && newValue === window.DEFAULT_PAGE) {
         this.firstLoad = false
         this.focus()
       }
-    } if (name === 'back') {
+    }
+    if (name === 'back') {
       this.backButton.classList.toggle('hidden', newValue === 'hidden')
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
@@ -221,6 +251,9 @@ class OmniBox extends HTMLElement {
 }
 
 function makeHttps (query) {
+  if (looksLikeLegacySSB(query)) {
+    return makeSSB(query)
+  }
   return `https://${query}`
 }
 
