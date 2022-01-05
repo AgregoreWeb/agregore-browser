@@ -6,10 +6,10 @@ const { ExtensibleSession } = require('../../node_modules/electron-extensions/ma
 const { webContents } = require('electron')
 
 const { extensions: config } = require('../config')
-const { dir, remote } = config
+const { dir: extensionsDir, remote } = config
 
 const DEFAULT_PARTITION = 'persist:web-content'
-const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*', 'devtools://*/*', 'chrome-devtools://*/*']
+const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*']
 const DEFAULT_EXTENSION_LOCATION = __dirname
 
 module.exports = {
@@ -33,6 +33,13 @@ class Extensions extends EventEmitter {
       partition,
       blacklist
     })
+
+    this.extensions.on('create-tab', (details, onCreate) => {
+      const {url, width, height} = details
+      const window = createWindow({url, width, height})
+
+      onCreate(window.web.id)
+    })
   }
 
   async listActions () {
@@ -43,14 +50,21 @@ class Extensions extends EventEmitter {
       .map(({ popupPage, backgroundPage, manifest, id, path: extensionPath }) => {
         const { browser_action, name } = manifest
         const title = browser_action.default_title || name
-        const onClick = popupPage ? () => {
-          this.createWindow(popupPage, { rawFrame: true })
-        } : (tabId) => {
-          const tab = webContents.fromId(tabId)
-          backgroundPage.webContents.send('api-emit-event-browserAction-onClicked', tab)
-        }
+        const onClick = popupPage
+          ? () => {
+            this.createWindow(popupPage, {
+              rawFrame: true,
+              autoResize: true,
+              height: 400,
+              width: 256
+            })
+          }
+          : (tabId) => {
+            const tab = webContents.fromId(tabId)
+            backgroundPage.webContents.send('api-emit-event-browserAction-onClicked', tab)
+          }
         const { default_icon } = browser_action
-        const iconRelative = (typeof default_icon === 'string') ? default_icon : (default_icon[19] || default_icon[38])
+        const iconRelative = (typeof default_icon === 'string') ? default_icon : findIcon(default_icon)
         const icon = new URL(path.join(extensionPath, iconRelative), 'file:///').href
         return {
           id: name,
@@ -82,9 +96,9 @@ class Extensions extends EventEmitter {
   }
 
   async registerExternal () {
-    const existsExtensions = await fs.pathExists(dir)
+    const existsExtensions = await fs.pathExists(extensionsDir)
 
-    if (existsExtensions) await this.registerAll(dir)
+    if (existsExtensions) await this.registerAll(extensionsDir)
   }
 
   async registerInternal () {
@@ -130,4 +144,10 @@ class Extensions extends EventEmitter {
 
 function createExtensions (opts) {
   return new Extensions(opts)
+}
+
+function findIcon (iconList) {
+  for (const size of [38, 32, 19, 16]) {
+    if (iconList[size]) return iconList[size]
+  }
 }
