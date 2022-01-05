@@ -1,6 +1,6 @@
 const { app, protocol: globalProtocol } = require('electron')
 
-const P2P_PRIVILEDGES = {
+const P2P_PRIVILEGES = {
   standard: true,
   secure: true,
   allowServiceWorkers: true,
@@ -10,7 +10,7 @@ const P2P_PRIVILEDGES = {
   stream: true
 }
 
-const BROWSER_PRIVILEDGES = {
+const BROWSER_PRIVILEGES = {
   standard: false,
   secure: true,
   allowServiceWorkers: false,
@@ -19,7 +19,7 @@ const BROWSER_PRIVILEDGES = {
   corsEnabled: true
 }
 
-const LOW_PRIVILEDGES = {
+const LOW_PRIVILEGES = {
   standard: false,
   secure: false,
   allowServiceWorkers: false,
@@ -62,21 +62,21 @@ const createMagnetHandler = require('./magnet-protocol')
 const createGunHandler = require('./gun-protocol')
 
 module.exports = {
-  registerPriviledges,
+  registerPrivileges,
   setupProtocols
 }
 
-function registerPriviledges () {
+function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
-    { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ssb', privileges: { ...P2P_PRIVILEDGES, standard: false } }, // ssb uri are not url safe
-    { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
-    { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
-    { scheme: 'gun', privileges: P2P_PRIVILEDGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEDGES }
+    { scheme: 'hyper', privileges: P2P_PRIVILEGES },
+    { scheme: 'ssb', privileges: P2P_PRIVILEGES },
+    { scheme: 'gemini', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipns', privileges: P2P_PRIVILEGES },
+    { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
+    { scheme: 'gun', privileges: P2P_PRIVILEGES },
+    { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
+    { scheme: 'magnet', privileges: LOW_PRIVILEGES }
   ])
 }
 

@@ -14,7 +14,7 @@ class OmniBox extends HTMLElement {
   }
 
   connectedCallback () {
-    this.innerHTML = `
+    this.innerHTML = ` 
       <section class="omni-box-header">
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
@@ -35,7 +35,7 @@ class OmniBox extends HTMLElement {
       this.input.select()
     })
 
-    this.form.addEventListener('submit', e => {
+    this.form.addEventListener('submit', (e) => {
       e.preventDefault(true)
 
       const rawURL = this.getURL()
@@ -67,8 +67,7 @@ class OmniBox extends HTMLElement {
 
       if (keyCode === 39) {
         const { selectionStart, selectionEnd, value } = this.input
-        const isAtEnd =
-          selectionStart === value.length && selectionEnd === value.length
+        const isAtEnd = (selectionStart === value.length) && (selectionEnd === value.length)
         if (isAtEnd) this.fillWithSelected()
       }
 
@@ -97,10 +96,7 @@ class OmniBox extends HTMLElement {
   }
 
   getSelected () {
-    return (
-      this.options.querySelector('[data-selected]') ||
-      this.options.firstElementChild
-    )
+    return (this.options.querySelector('[data-selected]') || this.options.firstElementChild)
   }
 
   selectNext () {
@@ -151,19 +147,12 @@ class OmniBox extends HTMLElement {
       return
     }
 
-    this.dispatchEvent(
-      new CustomEvent('search', { detail: { query, searchID } })
-    )
+    this.dispatchEvent(new CustomEvent('search', { detail: { query, searchID } }))
   }
 
   async setSearchResults (results, query, searchID) {
     if (this.lastSearch !== searchID) {
-      return console.debug(
-        'Urlbar changed since query finished',
-        this.lastSearch,
-        searchID,
-        query
-      )
+      return console.debug('Urlbar changed since query finished', this.lastSearch, searchID, query)
     }
 
     const finalItems = []
@@ -186,10 +175,8 @@ class OmniBox extends HTMLElement {
       )
     }
 
-    finalItems.push(
-      ...results.map(({ title, url }) =>
-        this.makeNavItem(url, `${title} - ${url}`)
-      )
+    finalItems.push(...results
+      .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`))
     )
 
     for (const item of finalItems) {
@@ -220,12 +207,11 @@ class OmniBox extends HTMLElement {
   attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'src') {
       this.input.value = newValue
-      if (this.firstLoad && newValue === window.DEFAULT_PAGE) {
+      if (this.firstLoad && (newValue === window.DEFAULT_PAGE)) {
         this.firstLoad = false
         this.focus()
       }
-    }
-    if (name === 'back') {
+    } if (name === 'back') {
       this.backButton.classList.toggle('hidden', newValue === 'hidden')
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
@@ -251,9 +237,6 @@ class OmniBox extends HTMLElement {
 }
 
 function makeHttps (query) {
-  if (looksLikeLegacySSB(query)) {
-    return makeSSB(query)
-  }
   return `https://${query}`
 }
 
