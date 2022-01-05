@@ -4688,9 +4688,9 @@ is-ci@^3.0.0:
     ci-info "^3.2.0"
 
 is-core-module@^2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.8.0.tgz#0321336c3d0925e497fd97f5d95cb114a5ccd548"
-  integrity sha512-vd15qHsaqrRL7dtH6QNuy0ndJmRDrS9HAM1CAiSifNUFv4x1a0CCVsj18hJ1mShxIG6T2i1sO78MkP56r0nYRw==
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/is-core-module/-/is-core-module-2.8.1.tgz#f59fdfca701d5879d0a6b100a40aa1560ce27211"
+  integrity sha512-SdNCUs284hr40hFTFP6l0IfZ/RSrMXF3qgoRHd3/79unUTvrFO/JoXwkGm+5J/Oe3E/b5GsnG330uUNgRpu1PA==
   dependencies:
     has "^1.0.3"
 
@@ -8525,10 +8525,10 @@ ssb-config@^3.4.4, ssb-config@^3.4.6:
     ssb-caps "^1.0.1"
     ssb-keys "^8.2.0"
 
-ssb-fetch@^1.1.3:
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/ssb-fetch/-/ssb-fetch-1.1.3.tgz#91e1e850e8652967ef05c03b213f10bb5314047c"
-  integrity sha512-AJfL2M1jHrLQWNnCThLhlKk61snJrNHn0D6ng7FaaPpr4X4cuIReDy/eIBHrbe2qPvGYxc78NfBIiLLRMvUqOA==
+ssb-fetch@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/ssb-fetch/-/ssb-fetch-1.1.4.tgz#1fb90bbb1da72ffa8b49d3195978b615d4d8cd8f"
+  integrity sha512-aZRb3fduDdtkj4pNJu3ldYx/8+aeO4S9xcTD1pA81KioFfr2hwdXp3mJKBBc4zxehcgUpMZ4wn3Mj44STO8a4Q==
   dependencies:
     "@hapi/accept" "^5.0.2"
     debug "^4.3.3"

@@ -28,7 +28,7 @@ const LOW_PRIVILEGES = {
   corsEnabled: true
 }
 
-const EXTENSION_PRIVILEDGES = {
+const EXTENSION_PRIVILEGES = {
   bypassCSP: true,
   secure: true,
   standard: true,
@@ -61,16 +61,16 @@ module.exports = {
 
 function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
-    { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-    { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
-    { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
-    { scheme: 'gun', privileges: P2P_PRIVILEDGES },
+    { scheme: 'hyper', privileges: P2P_PRIVILEGES },
+    { scheme: 'gemini', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipns', privileges: P2P_PRIVILEGES },
+    { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
+    { scheme: 'gun', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEDGES },
-    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEDGES }
+    { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
+    { scheme: 'magnet', privileges: LOW_PRIVILEGES },
+    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEGES }
   ])
 }
 
