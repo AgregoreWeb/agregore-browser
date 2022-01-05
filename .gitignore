@@ -126,3 +126,6 @@ app/extensions/adblocker-chrome-extension/
 
 # prettier config
 .prettierrc
+
+# visual code config
+.vscode/
