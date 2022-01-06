@@ -162,13 +162,14 @@
     "gemini-to-html": "^1.0.0",
     "gun-fetch": "github:resession/gun-fetch#main",
     "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "^8.3.1",
+    "hypercore-fetch": "^8.3.3",
     "ipfs-core": "^0.10.0",
     "js-ipfs-fetch": "^3.3.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
+    "ssb-fetch": "^1.1.4",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
   }
 }

@@ -1,6 +1,6 @@
 const { app, protocol: globalProtocol } = require('electron')
 
-const P2P_PRIVILEDGES = {
+const P2P_PRIVILEGES = {
   standard: true,
   secure: true,
   allowServiceWorkers: true,
@@ -10,7 +10,7 @@ const P2P_PRIVILEDGES = {
   stream: true
 }
 
-const BROWSER_PRIVILEDGES = {
+const BROWSER_PRIVILEGES = {
   standard: false,
   secure: true,
   allowServiceWorkers: false,
@@ -19,7 +19,7 @@ const BROWSER_PRIVILEDGES = {
   corsEnabled: true
 }
 
-const LOW_PRIVILEDGES = {
+const LOW_PRIVILEGES = {
   standard: false,
   secure: false,
   allowServiceWorkers: false,
@@ -28,7 +28,7 @@ const LOW_PRIVILEDGES = {
   corsEnabled: true
 }
 
-const EXTENSION_PRIVILEDGES = {
+const EXTENSION_PRIVILEGES = {
   bypassCSP: true,
   secure: true,
   standard: true,
@@ -39,12 +39,14 @@ const EXTENSION_PRIVILEDGES = {
 
 const {
   ipfsOptions,
+  ssbOptions,
   hyperOptions,
   btOptions,
   gunOptions
 } = require('../config')
 
 const createHyperHandler = require('./hyper-protocol')
+const createSsbHandler = require('./ssb-protocol')
 const createIPFSHandler = require('./ipfs-protocol')
 const createBrowserHandler = require('./browser-protocol')
 const createGeminiHandler = require('./gemini-protocol')
@@ -53,21 +55,22 @@ const createMagnetHandler = require('./magnet-protocol')
 const createGunHandler = require('./gun-protocol')
 
 module.exports = {
-  registerPriviledges,
+  registerPrivileges,
   setupProtocols
 }
 
-function registerPriviledges () {
+function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
-    { scheme: 'hyper', privileges: P2P_PRIVILEDGES },
-    { scheme: 'gemini', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipfs', privileges: P2P_PRIVILEDGES },
-    { scheme: 'ipns', privileges: P2P_PRIVILEDGES },
-    { scheme: 'bittorrent', privileges: P2P_PRIVILEDGES },
-    { scheme: 'gun', privileges: P2P_PRIVILEDGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEDGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEDGES },
-    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEDGES }
+    { scheme: 'hyper', privileges: P2P_PRIVILEGES },
+    { scheme: 'gemini', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipns', privileges: P2P_PRIVILEGES },
+    { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
+    { scheme: 'gun', privileges: P2P_PRIVILEGES },
+    { scheme: 'ssb', privileges: P2P_PRIVILEGES },
+    { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
+    { scheme: 'magnet', privileges: LOW_PRIVILEGES },
+    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEGES }
   ])
 }
 
@@ -75,6 +78,7 @@ async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
   app.setAsDefaultProtocolClient('hyper')
+  app.setAsDefaultProtocolClient('ssb')
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
@@ -89,6 +93,10 @@ async function setupProtocols (session) {
   const hyperProtocolHandler = await createHyperHandler(hyperOptions, session)
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+
+  const ssbProtocolHandler = await createSsbHandler(ssbOptions, session)
+  sessionProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
+  globalProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
 
   const geminiProtocolHandler = await createGeminiHandler()
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)

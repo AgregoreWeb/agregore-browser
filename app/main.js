@@ -49,9 +49,9 @@ const windowManager = new WindowManager({
   listActions: (...args) => extensions.listActions(...args)
 })
 
-protocols.registerPriviledges()
+protocols.registerPrivileges()
 
-windowManager.on('open', (window) => {
+windowManager.on('open', window => {
   attachContextMenus({ window, createWindow })
   if (!window.rawFrame) {
     const asBrowserView = BrowserWindow.fromBrowserView(window.view)
@@ -64,7 +64,7 @@ windowManager.on('open', (window) => {
       event.preventDefault()
       event.newGuest = null
       createWindow(url)
-    } else if (options && options.webContents) attachContextMenus({ window: options, createWindow })
+    } else if (options && options.webContents) { attachContextMenus({ window: options, createWindow }) }
   })
 })
 
@@ -132,5 +132,5 @@ function urlsFromArgs (argv, workingDir) {
   const rootURL = new URL(workingDir + sep, 'file://')
   return argv
     .filter((arg) => arg.includes('/'))
-    .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
+    .map((arg) => (arg.includes('://') ? arg : (new URL(arg, rootURL)).href))
 }
