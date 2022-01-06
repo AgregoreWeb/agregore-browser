@@ -23,6 +23,10 @@ a:visited {
 	color: var(--ag-theme-primary);
 }
 
+img {
+    max-width: 100%;
+}
+
 code {
   background: var(--ag-theme-primary);
   font-weight: bold;
@@ -39,6 +43,17 @@ li {
 
 *:focus {
   outline: 2px solid var(--ag-theme-secondary);
+}
+
+/* Reset style for anchors added to headers */
+h2 a, h3 a, h4 a {
+  color: var(--ag-theme-text);
+  text-decoration: none;
+}
+
+h1 a {
+  color: var(--ag-theme-primary);
+  text-decoration: none;
 }
 
 h1:hover::after, h2:hover::after, h3:hover::after, h4:hover::after {

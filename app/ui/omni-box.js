@@ -1,5 +1,7 @@
 /* global HTMLElement, CustomEvent, customElements */
 
+const { looksLikeLegacySSB, convertLegacySSB: makeSSB } = require('ssb-fetch')
+
 class OmniBox extends HTMLElement {
   constructor () {
     super()
@@ -12,11 +14,12 @@ class OmniBox extends HTMLElement {
   }
 
   connectedCallback () {
-    this.innerHTML = `
+    this.innerHTML = ` 
       <section class="omni-box-header">
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
         <form class="omni-box-form">
+          <input class="omni-box-target-input" readonly></span>
           <input class="omni-box-input" title="Enter search params">
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
@@ -26,6 +29,7 @@ class OmniBox extends HTMLElement {
     this.forwardButton = this.$('.omni-box-forward')
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
+    this.targetUrl = this.$('.omni-box-target-input')
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -36,7 +40,13 @@ class OmniBox extends HTMLElement {
 
       const rawURL = this.getURL()
 
-      const url = isURL(rawURL) ? rawURL : (looksLikeDomain(rawURL) ? makeHttps(rawURL) : makeDuckDuckGo(rawURL))
+      const url = isURL(rawURL)
+        ? rawURL
+        : looksLikeLegacySSB(rawURL)
+          ? makeSSB(rawURL)
+          : looksLikeDomain(rawURL)
+            ? makeHttps(rawURL)
+            : makeDuckDuckGo(rawURL)
 
       this.clearOptions()
 
@@ -86,7 +96,7 @@ class OmniBox extends HTMLElement {
   }
 
   getSelected () {
-    return this.options.querySelector('[data-selected]') || this.options.firstElementChild
+    return (this.options.querySelector('[data-selected]') || this.options.firstElementChild)
   }
 
   selectNext () {
@@ -149,17 +159,25 @@ class OmniBox extends HTMLElement {
 
     if (isURL(query)) {
       finalItems.push(this.makeNavItem(query, `Go to ${query}`))
+    } else if (looksLikeLegacySSB(query)) {
+      const url = makeSSB(query)
+      finalItems.push(this.makeNavItem(url, `Go to ${url}`))
     } else if (looksLikeDomain(query)) {
-      finalItems.push(this.makeNavItem(makeHttps(query), `Go to https://${query}`))
+      finalItems.push(
+        this.makeNavItem(makeHttps(query), `Go to https://${query}`)
+      )
     } else {
-      finalItems.push(this.makeNavItem(
-        makeDuckDuckGo(query),
-      `Search for "${query}" on DuckDuckGo`
-      ))
+      finalItems.push(
+        this.makeNavItem(
+          makeDuckDuckGo(query),
+          `Search for "${query}" on DuckDuckGo`
+        )
+      )
     }
 
     finalItems.push(...results
-      .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`)))
+      .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`))
+    )
 
     for (const item of finalItems) {
       this.options.appendChild(item)

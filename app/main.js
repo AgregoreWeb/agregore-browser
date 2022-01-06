@@ -1,7 +1,7 @@
 const { app, BrowserWindow, session } = require('electron')
-const fs = require('fs-extra')
 const { sep } = require('path')
 
+const packageJSON = require('../package.json')
 const protocols = require('./protocols')
 const { createActions } = require('./actions')
 const { registerMenu } = require('./menu')
@@ -9,9 +9,6 @@ const { attachContextMenus } = require('./context-menus')
 const { WindowManager } = require('./window')
 const { createExtensions } = require('./extensions')
 const history = require('./history')
-
-const { extensions: extensionsConfig } = require('./config')
-const { dir: extensionsDir } = extensionsConfig
 
 const WEB_PARTITION = 'persist:web-content'
 
@@ -52,9 +49,9 @@ const windowManager = new WindowManager({
   listActions: (...args) => extensions.listActions(...args)
 })
 
-protocols.registerPriviledges()
+protocols.registerPrivileges()
 
-windowManager.on('open', (window) => {
+windowManager.on('open', window => {
   attachContextMenus({ window, createWindow })
   if (!window.rawFrame) {
     const asBrowserView = BrowserWindow.fromBrowserView(window.view)
@@ -67,7 +64,7 @@ windowManager.on('open', (window) => {
       event.preventDefault()
       event.newGuest = null
       createWindow(url)
-    } else if (options && options.webContents) attachContextMenus({ window: options, createWindow })
+    } else if (options && options.webContents) { attachContextMenus({ window: options, createWindow }) }
   })
 })
 
@@ -95,10 +92,13 @@ app.on('activate', () => {
 
 app.on('before-quit', () => {
   windowManager.saveOpened()
+  windowManager.close()
 })
 
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
+
+  webSession.setUserAgent(`AgregoreDesktop/${packageJSON.version}`)
 
   const actions = createActions({
     createWindow
@@ -113,10 +113,6 @@ async function onready () {
   // Register extensions that users installed externally
   await extensions.registerExternal()
 
-  const existsExtensions = await fs.pathExists(extensionsDir)
-
-  if (existsExtensions) await extensions.registerAll(extensionsDir)
-
   const historyExtension = await extensions.get('agregore-history')
   history.setExtension(historyExtension)
 
@@ -124,9 +120,9 @@ async function onready () {
 
   const urls = urlsFromArgs(process.argv.slice(1), process.cwd())
   if (urls.length) {
-    urls.map((url) => {
+    for (const url of urls) {
       windowManager.open({ url })
-    })
+    }
   } else if (!opened.length) windowManager.open()
 }
 
@@ -136,5 +132,5 @@ function urlsFromArgs (argv, workingDir) {
   const rootURL = new URL(workingDir + sep, 'file://')
   return argv
     .filter((arg) => arg.includes('/'))
-    .map((arg) => arg.includes('://') ? arg : (new URL(arg, rootURL)).href)
+    .map((arg) => (arg.includes('://') ? arg : (new URL(arg, rootURL)).href))
 }

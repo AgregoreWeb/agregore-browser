@@ -3,6 +3,7 @@ const mime = require('mime/lite')
 const ScopedFS = require('scoped-fs')
 const { Readable } = require('stream')
 const fs = new ScopedFS(path.join(__dirname, '../pages'))
+const packageJSON = require('../../package.json')
 
 const { theme } = require('../config')
 
@@ -24,7 +25,47 @@ module.exports = async function createHandler () {
     const { pathname, hostname } = parsed
     const toResolve = path.join(hostname, pathname)
 
-    if ((hostname === 'theme') && (pathname === '/vars.css')) {
+    if (hostname === 'about') {
+      const statusCode = 200
+
+      const packagesToRender = [
+        'hypercore-fetch',
+        'hyper-sdk',
+        'js-ipfs-fetch',
+        'ipfs-core',
+        'bt-fetch',
+        'gun-fetch',
+        'gemini-fetch'
+      ]
+
+      const { version } = packageJSON
+
+      const dependencies = {}
+      for (const name of packagesToRender) {
+        dependencies[name] = packageJSON.dependencies[name]
+      }
+
+      const aboutInfo = {
+        version,
+        dependencies
+      }
+
+      const data = intoStream(JSON.stringify(aboutInfo, null, '\t'))
+
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Allow-CSP-From': '*',
+        'Content-Type': 'application/json'
+      }
+
+      sendResponse({
+        statusCode,
+        headers,
+        data
+      })
+
+      return
+    } else if ((hostname === 'theme') && (pathname === '/vars.css')) {
       const statusCode = 200
 
       const themes = Object

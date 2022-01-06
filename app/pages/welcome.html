@@ -51,6 +51,12 @@
     text-align: center;
     margin: 1em;
 	}
+
+	footer {
+    color: var(--ag-theme-primary);
+    text-align: center;
+    font-size: 0.4em;
+	}
 </style>
 
 <img src="agregore://icon.svg" />
@@ -79,3 +85,21 @@ Agregore
 		Discord Community
 	</a>
 </p>
+
+<footer id="version">
+
+</footer>
+
+<script>
+async function load() {
+const response = await fetch('agregore://about')
+const about = await response.json()
+const {version} = about
+
+console.log(about)
+
+document.querySelector('#version').innerText = version
+}
+
+load()
+</script>
