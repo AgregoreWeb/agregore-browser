@@ -153,7 +153,7 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
-    "bt-fetch": "^1.2.0",
+    "bt-fetch": "^2.0.0",
     "create-desktop-shortcuts": "^1.4.0",
     "data-uri-to-buffer": "^3.0.1",
     "electron-extensions": "^6.0.4",

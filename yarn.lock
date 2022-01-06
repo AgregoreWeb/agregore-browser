@@ -1524,15 +1524,16 @@ browserify-package-json@^1.0.0:
   resolved "https://registry.yarnpkg.com/browserify-package-json/-/browserify-package-json-1.0.1.tgz#98dde8aa5c561fd6d3fe49bbaa102b74b396fdea"
   integrity sha1-mN3oqlxWH9bT/km7qhArdLOW/eo=
 
-bt-fetch@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/bt-fetch/-/bt-fetch-1.2.0.tgz#76c383e100d6c674c93aa3c512b3c1f40a02d2cd"
-  integrity sha512-dM4fL6DSPfCtpEs/X42/F4jYozcGH8MrDL6TPTK/X5zF9zBa6RISEPNaSVPmx4ma0NxeB0vIN62AF9y0IcBA0w==
+bt-fetch@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/bt-fetch/-/bt-fetch-2.0.0.tgz#aeb63b1c3eb2348d2d01a3053ffa0c8dd82cf8c2"
+  integrity sha512-Ia/rVxR7LAbr7jBITBU56ffrkCaMBP6fJks53mpBV7JuLE85w4ok/9mN/9/lrBb/5xqLiFlCYr1U3IrpazBNxg==
   dependencies:
     make-fetch "^2.3.1"
     mime "^2.5.2"
     range-parser "^1.2.1"
     stream-async-iterator "^2.0.0"
+    webproperty "^1.6.3"
     webtorrent "^0.116.0"
 
 buffer-alloc-unsafe@^1.1.0:
@@ -2579,6 +2580,14 @@ ecc-jsbn@~0.1.1:
   dependencies:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
+
+ed25519-supercop@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/ed25519-supercop/-/ed25519-supercop-2.0.1.tgz#5b317dec9b17a0ff2c303d2a5b600983f9df1806"
+  integrity sha512-5K75apA428ygTu/uvWwfOPPqdw65v7lFDLX6CSsV/ByhhVR5xED93KXeKDEMZ7G2Ttd3RyQoL8pFGSoMEWBXHA==
+  dependencies:
+    napi-macros "^2.0.0"
+    node-gyp-build "^4.2.3"
 
 ed2curve@^0.1.4:
   version "0.1.4"
@@ -5391,7 +5400,7 @@ level-supports@^2.0.1:
   resolved "https://registry.yarnpkg.com/level-supports/-/level-supports-2.1.0.tgz#9af908d853597ecd592293b2fad124375be79c5f"
   integrity sha512-E486g1NCjW5cF78KGPrMDRBYzPuueMZ6VBXHT6gC7A8UYWGiM14fGgp+s/L1oFfDWSPV/+SFkYCmZ0SiESkRKA==
 
-level@^7.0.0:
+level@^7.0.0, level@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/level/-/level-7.0.1.tgz#05121748d95a4ff7355860d56eb5d0aa36faef2a"
   integrity sha512-w3E64+ALx2eZf8RV5JL4kIcE0BFAvQscRYd1yU4YVqZN9RGTQxXSvH202xvK15yZwFFxRXe60f13LJjcJ//I4Q==
@@ -9436,6 +9445,17 @@ webidl-conversions@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
   integrity sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=
+
+webproperty@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/webproperty/-/webproperty-1.6.3.tgz#9a7c67128159c57bd96a50f2b7f6ff92a5972fe2"
+  integrity sha512-vcFNiNS5oT8E99kSMwbif7YPfnpLlFvo9J6Bgx/gQMO2YThsv6zR3nK8WbdTT+fsHiCJuA+nkAfePFfNzptMGw==
+  dependencies:
+    bencode "^2.0.2"
+    bittorrent-dht "^10.0.2"
+    ed25519-supercop "^2.0.1"
+    level "^7.0.1"
+    simple-sha1 "^3.1.0"
 
 websocket-stream@^5.5.0, websocket-stream@^5.5.2:
   version "5.5.2"
