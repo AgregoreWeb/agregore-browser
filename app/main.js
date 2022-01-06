@@ -98,7 +98,11 @@ app.on('before-quit', () => {
 async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
 
-  webSession.setUserAgent(`AgregoreDesktop/${packageJSON.version}`)
+  const electronSection = /Electron.+ /i
+  const existingAgent = webSession.getUserAgent()
+  const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${packageJSON.version}`)
+
+  webSession.setUserAgent(newAgent)
 
   const actions = createActions({
     createWindow

@@ -119,7 +119,7 @@ class WindowManager extends EventEmitter {
     let urls = []
     for (const window of this.all) {
       // We don't need to save popups from extensions
-      if(window.rawFrame) continue
+      if (window.rawFrame) continue
       const url = window.web.getURL()
       const position = window.window.getPosition()
       const size = window.window.getSize()
@@ -208,7 +208,7 @@ class Window extends EventEmitter {
     this.listActions = listActions
     this.rawFrame = rawFrame
 
-    console.log({autoResize})
+    console.log({ autoResize })
 
     this.window = new BrowserWindow({
       autoHideMenuBar: true,
@@ -251,7 +251,7 @@ class Window extends EventEmitter {
 
     if (autoResize) {
       this.web.on('preferred-size-changed', (event, preferredSize) => {
-        console.log('preferred-size-changed', event, preferred)
+        console.log('preferred-size-changed', event, preferredSize)
         const { width, height } = preferredSize
         this.window.setSize(width, height, false)
       })
