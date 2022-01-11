@@ -42,7 +42,8 @@ const {
   ssbOptions,
   hyperOptions,
   btOptions,
-  gunOptions
+  gunOptions,
+  btpOptions
 } = require('../config')
 
 const createHyperHandler = require('./hyper-protocol')
@@ -53,6 +54,7 @@ const createGeminiHandler = require('./gemini-protocol')
 const createBTHandler = require('./bt-protocol')
 const createMagnetHandler = require('./magnet-protocol')
 const createGunHandler = require('./gun-protocol')
+const createBTPHandler = require('./btp-protocol')
 
 module.exports = {
   registerPrivileges,
@@ -66,6 +68,7 @@ function registerPrivileges () {
     { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEGES },
     { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
+    { scheme: 'bt', privileges: P2P_PRIVILEGES },
     { scheme: 'gun', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
@@ -85,6 +88,7 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('ipns')
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('gun')
+  app.setAsDefaultProtocolClient('bt')
 
   const browserProtocolHandler = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
@@ -119,4 +123,8 @@ async function setupProtocols (session) {
   const gunHandler = await createGunHandler(gunOptions, session)
   sessionProtocol.registerStreamProtocol('gun', gunHandler)
   globalProtocol.registerStreamProtocol('gun', gunHandler)
+
+  const btpHandler = await createBTPHandler(btpOptions, session)
+  sessionProtocol.registerStreamProtocol('bt', btpHandler)
+  globalProtocol.registerStreamProtocol('bt', btpHandler)
 }

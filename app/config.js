@@ -25,6 +25,7 @@ const DEFAULT_GUN_PEERS = [
   'https://gun-armitro.herokuapp.com/',
   'https://fire-gun.herokuapp.com/gun'
 ]
+const DEFAULT_BTP_DIR = path.join(USER_DATA, 'btp')
 
 const DEFAULT_PAGE = 'agregore://welcome'
 
@@ -83,5 +84,8 @@ module.exports = require('rc')('agregore', {
     file: DEFAULT_GUN_DIR,
     peers: DEFAULT_GUN_PEERS,
     radisk: true
+  },
+  btpOptions: {
+    folder: DEFAULT_BTP_DIR
   }
 })
