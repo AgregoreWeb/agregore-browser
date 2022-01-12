@@ -54,10 +54,29 @@
         ]
       },
       {
+        "name": "ipfs",
+        "schemes": [
+          "ipfs",
+          "ipns"
+        ]
+      },
+      {
         "name": "bittorrent",
         "schemes": [
           "magnet",
           "bittorrent"
+        ]
+      },
+      {
+        "name": "gunDB",
+        "schemes": [
+          "gun"
+        ]
+      },
+      {
+        "name": "SecureScuttlebutt",
+        "schemes": [
+          "ssb"
         ]
       }
     ],
