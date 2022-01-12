@@ -1526,12 +1526,12 @@
     "webproperty" "^1.6.3"
     "webtorrent" "^0.116.0"
 
-"btp-fetch@^1.3.0":
-  "integrity" "sha512-z+EcQyKSjBEERWQ6/lExYs43sdTyIJ4Kk9gkMiHgkCNctjYxCLsv8mtSlHH+tuBZfAYVB9nEu6Au+O+jVTUtkQ=="
-  "resolved" "https://registry.npmjs.org/btp-fetch/-/btp-fetch-1.3.0.tgz"
-  "version" "1.3.0"
+"btp-fetch@^1.3.1":
+  "integrity" "sha512-TNrhJiOTim8tDSAcveytQ81/OWocgyRX0u+sagSUcoDPc+6ZJNtr9xb5nr7Px1vCaynS9o661um0SrAHTl6eQg=="
+  "resolved" "https://registry.npmjs.org/btp-fetch/-/btp-fetch-1.3.1.tgz"
+  "version" "1.3.1"
   dependencies:
-    "btp-torrent" "^1.2.2"
+    "btp-torrent" "^1.2.3"
     "make-fetch" "^2.3.1"
     "mime" "^2.6.0"
     "stream-async-iterator" "^2.0.0"
@@ -1546,10 +1546,10 @@
     "ed25519-supercop" "^2.0.1"
     "simple-sha1" "^3.1.0"
 
-"btp-torrent@^1.2.2":
-  "integrity" "sha512-gRmSqLN5voh8VvN8ROEe2tDnXhao6J4IZWYL4SwTG7sfkHmWJav6/Ll52sQusAb1Ut0hoFm8fdD6Ql6SXTMLxQ=="
-  "resolved" "https://registry.npmjs.org/btp-torrent/-/btp-torrent-1.2.2.tgz"
-  "version" "1.2.2"
+"btp-torrent@^1.2.3":
+  "integrity" "sha512-wcX/rCITHcYytE5YYj4DULOhlFzwwr4x2Oduc1QqcbqJrRW8BZFecZLIkriZyyjIowDvJITz0X20LKHAXMrGGg=="
+  "resolved" "https://registry.npmjs.org/btp-torrent/-/btp-torrent-1.2.3.tgz"
+  "version" "1.2.3"
   dependencies:
     "btp-property" "^1.0.9"
     "fs-extra" "^10.0.0"
