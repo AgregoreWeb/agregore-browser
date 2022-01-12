@@ -1526,32 +1526,32 @@
     "webproperty" "^1.6.3"
     "webtorrent" "^0.116.0"
 
-"btp-fetch@^1.2.6":
-  "integrity" "sha512-qxb/wYTQJ3fGpmsvsIWVsZ8eG8yv3A+2osExK/pRCK6lS23PKZBQZTvpToVGFdnBRmKHuYkt7iSrfMsle4D50A=="
-  "resolved" "https://registry.npmjs.org/btp-fetch/-/btp-fetch-1.2.6.tgz"
-  "version" "1.2.6"
+"btp-fetch@^1.3.0":
+  "integrity" "sha512-z+EcQyKSjBEERWQ6/lExYs43sdTyIJ4Kk9gkMiHgkCNctjYxCLsv8mtSlHH+tuBZfAYVB9nEu6Au+O+jVTUtkQ=="
+  "resolved" "https://registry.npmjs.org/btp-fetch/-/btp-fetch-1.3.0.tgz"
+  "version" "1.3.0"
   dependencies:
-    "btp-torrent" "^1.2.0"
+    "btp-torrent" "^1.2.2"
     "make-fetch" "^2.3.1"
     "mime" "^2.6.0"
     "stream-async-iterator" "^2.0.0"
 
-"btp-property@^1.0.7":
-  "integrity" "sha512-xONTB3IkBUKQI/19nNRm7S2xepErXb0x0Tg9MPEpqV/VVEBatdTjhhlzizI2o1r7YYl6+hbpAvOQQ69F5PsxHw=="
-  "resolved" "https://registry.npmjs.org/btp-property/-/btp-property-1.0.7.tgz"
-  "version" "1.0.7"
+"btp-property@^1.0.9":
+  "integrity" "sha512-kD0oL2YRO5B9rVpYxMsGLhR8NbIUZgx5dpMIrdCuULBqZFGEQKrbTYkkw9WKT4km7IXAbiL5GIdJBROVy21BcA=="
+  "resolved" "https://registry.npmjs.org/btp-property/-/btp-property-1.0.9.tgz"
+  "version" "1.0.9"
   dependencies:
     "bencode" "^2.0.2"
     "bittorrent-dht" "^10.0.2"
     "ed25519-supercop" "^2.0.1"
     "simple-sha1" "^3.1.0"
 
-"btp-torrent@^1.2.0":
-  "integrity" "sha512-paF5k+nCy61obqVthR2kgyOIX4+0YeAuvDs/jWHlCFwWfst9nTO6PZa+XKS0lZeRgvlRY0mNlHZ2OiU9k9O8Mw=="
-  "resolved" "https://registry.npmjs.org/btp-torrent/-/btp-torrent-1.2.0.tgz"
-  "version" "1.2.0"
+"btp-torrent@^1.2.2":
+  "integrity" "sha512-gRmSqLN5voh8VvN8ROEe2tDnXhao6J4IZWYL4SwTG7sfkHmWJav6/Ll52sQusAb1Ut0hoFm8fdD6Ql6SXTMLxQ=="
+  "resolved" "https://registry.npmjs.org/btp-torrent/-/btp-torrent-1.2.2.tgz"
+  "version" "1.2.2"
   dependencies:
-    "btp-property" "^1.0.7"
+    "btp-property" "^1.0.9"
     "fs-extra" "^10.0.0"
     "webtorrent" "^1.5.8"
 
