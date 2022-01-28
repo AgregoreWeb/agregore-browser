@@ -78,7 +78,9 @@ currentWindow.on('leave-html-full-screen', () => {
 })
 currentWindow.on('update-target-url', async (url) => {
   search.targetUrl.value = url
-  if (url) {
+  const inputSelected = search.input === document.activeElement
+
+  if (url && !inputSelected) {
     search.targetUrl.classList.toggle('hidden', false)
     search.input.classList.toggle('hidden', true)
   } else {
