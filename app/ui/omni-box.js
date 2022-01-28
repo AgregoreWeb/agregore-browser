@@ -36,7 +36,7 @@ class OmniBox extends HTMLElement {
     })
 
     this.input.addEventListener('blur',  () => {
-      document.activeElement.blur()
+      this.input.blur()
     })
 
     this.form.addEventListener('submit', (e) => {
@@ -77,7 +77,7 @@ class OmniBox extends HTMLElement {
 
       if (key === 'Escape') {
         this.clearOptions()
-        document.activeElement.blur()
+        this.input.blur()
         this.dispatchEvent(new CustomEvent('unfocus'))
       }
     })
