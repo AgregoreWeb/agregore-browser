@@ -29,6 +29,18 @@
       "node_modules/**/*",
       "package.json"
     ],
+    "fileAssociations": [{
+      "ext": "html",
+      "name": "web page",
+        "role": "Viewer"
+    },{
+      "ext": "md",
+      "name": "markdown",
+        "role": "Viewer"
+    },{
+      "ext": "gemini",
+        "role": "Viewer"
+    }],
     "directories": {
       "output": "release"
     },
@@ -38,46 +50,53 @@
         "schemes": [
           "hyper",
           "dat"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "webpages",
         "schemes": [
           "http",
           "https"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "gemini",
         "schemes": [
           "gemini"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "ipfs",
         "schemes": [
           "ipfs",
           "ipns"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "bittorrent",
         "schemes": [
           "magnet",
           "bittorrent"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "gunDB",
         "schemes": [
           "gun"
-        ]
+        ],
+        "role": "Viewer"
       },
       {
         "name": "SecureScuttlebutt",
         "schemes": [
           "ssb"
-        ]
+        ],
+        "role": "Viewer"
       }
     ],
     "dmg": {
@@ -99,49 +118,24 @@
         {
           "target": "dmg",
           "arch": [
-            "x64",
-            "arm64"
+            "universal"
           ]
         }
       ]
     },
     "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
+      "target": "nsis"
     },
     "linux": {
+      "executableArgs": [
+        "--enable-accelerated-video",
+        "--enable-features=UseOzonePlatform",
+        "--ozone-platform=wayland"
+      ],
       "target": [
-        {
-          "target": "deb",
-          "arch": [
-            "x64",
-            "ia32",
-            "arm64"
-          ]
-        },
-        {
-          "target": "AppImage",
-          "arch": [
-            "x64",
-            "ia32",
-            "arm64"
-          ]
-        },
-        {
-          "target": "apk",
-          "arch": [
-            "x64",
-            "ia32",
-            "arm64"
-          ]
-        }
+        "deb",
+        "AppImage",
+        "apk"
       ],
       "category": "Network"
     }
