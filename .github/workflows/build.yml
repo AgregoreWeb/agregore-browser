@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Remove symlink for go-ipfs
+        uses: JesseTG/rm@v1.0.2
+        with:
+          path: ./node_modules/.bin/ipfs
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
