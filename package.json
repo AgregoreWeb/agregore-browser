@@ -11,7 +11,7 @@
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test",
-    "postinstall": "./rebuild.sh"
+    "postinstall": "electron-builder install-app-deps"
   },
   "standard": {
     "ignore": [
@@ -166,7 +166,6 @@
   "devDependencies": {
     "electron": "^16.0.8",
     "electron-builder": "^22.9.1",
-    "electron-rebuild": "^1.11.0",
     "standard": "^14.3.4"
   },
   "dependencies": {

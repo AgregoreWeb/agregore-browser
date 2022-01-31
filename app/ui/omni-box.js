@@ -228,7 +228,7 @@ class OmniBox extends HTMLElement {
     this.setAttribute('src', value)
   }
 
-  showInput (show=true) {
+  showInput (show = true) {
     this.targetUrl.classList.toggle('hidden', show)
     this.input.classList.toggle('hidden', !show)
   }
