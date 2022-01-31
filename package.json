@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser-dev",
-  "version": "1.0.0-51",
+  "version": "1.0.0-52",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
