@@ -129,3 +129,4 @@ app/extensions/adblocker-chrome-extension/
 
 # visual code config
 .vscode/
+.vs/
