@@ -19,7 +19,7 @@ class OmniBox extends HTMLElement {
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
         <form class="omni-box-form">
-          <input class="omni-box-target-input" readonly></span>
+          <input class="omni-box-target-input" readonly></input>
           <input class="omni-box-input" title="Enter search params">
           <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
         </form>
@@ -33,6 +33,10 @@ class OmniBox extends HTMLElement {
 
     this.input.addEventListener('focus', () => {
       this.input.select()
+    })
+
+    this.input.addEventListener('blur',  () => {
+      this.input.blur()
     })
 
     this.form.addEventListener('submit', (e) => {
@@ -73,6 +77,7 @@ class OmniBox extends HTMLElement {
 
       if (key === 'Escape') {
         this.clearOptions()
+        this.input.blur()
         this.dispatchEvent(new CustomEvent('unfocus'))
       }
     })
