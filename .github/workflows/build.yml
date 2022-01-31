@@ -1,8 +1,6 @@
 name: Build/release
 
-on:
-  push:
-    tags: ['v.*']
+on: push
 
 jobs:
   release:
@@ -25,8 +23,8 @@ jobs:
           node-version: 16
 
       - name: Remove symlink for go-ipfs
-        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
         run: unlink ./node_modules/.bin/ipfs
+        if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
