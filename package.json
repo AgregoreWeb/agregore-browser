@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "1.0.0-49",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
@@ -29,18 +29,22 @@
       "node_modules/**/*",
       "package.json"
     ],
-    "fileAssociations": [{
-      "ext": "html",
-      "name": "web page",
+    "fileAssociations": [
+      {
+        "ext": "html",
+        "name": "web page",
         "role": "Viewer"
-    },{
-      "ext": "md",
-      "name": "markdown",
+      },
+      {
+        "ext": "md",
+        "name": "markdown",
         "role": "Viewer"
-    },{
-      "ext": "gemini",
+      },
+      {
+        "ext": "gemini",
         "role": "Viewer"
-    }],
+      }
+    ],
     "directories": {
       "output": "release"
     },
@@ -160,7 +164,7 @@
   },
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
-    "electron": "11",
+    "electron": "^16.0.8",
     "electron-builder": "^22.9.1",
     "electron-rebuild": "^1.11.0",
     "standard": "^14.3.4"
@@ -173,11 +177,13 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
+    "go-ipfs": "^0.11.0",
     "gun-fetch": "github:resession/gun-fetch#main",
     "hyper-sdk": "^3.0.7",
     "hypercore-fetch": "^8.3.3",
-    "ipfs-core": "^0.10.0",
-    "js-ipfs-fetch": "^3.3.0",
+    "ipfs-http-client": "^56.0.0",
+    "ipfsd-ctl": "^10.0.5",
+    "js-ipfs-fetch": "^3.4.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",

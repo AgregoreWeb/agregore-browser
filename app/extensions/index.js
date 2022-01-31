@@ -122,7 +122,7 @@ class Extensions extends EventEmitter {
     for (const folder of extensionFolders) {
       try {
         const extension = await this.loadExtension(path.join(extensionsFolder, folder))
-        console.log('Loaded extension', extension)
+        console.log('Loaded extension', extension.manifest)
 
         if (process.env.NODE_ENV === 'debug') {
           if (extension.backgroundPage) extension.backgroundPage.webContents.openDevTools()
