@@ -32,11 +32,8 @@ class OmniBox extends HTMLElement {
     this.targetUrl = this.$('.omni-box-target-input')
 
     this.input.addEventListener('focus', () => {
+      this.input.showInput()
       this.input.select()
-    })
-
-    this.input.addEventListener('blur',  () => {
-      this.input.blur()
     })
 
     this.form.addEventListener('submit', (e) => {
@@ -229,6 +226,22 @@ class OmniBox extends HTMLElement {
 
   set src (value) {
     this.setAttribute('src', value)
+  }
+
+  showInput (show=true) {
+    this.targetUrl.classList.toggle('hidden', show)
+    this.input.classList.toggle('hidden', !show)
+  }
+
+  showTarget (url) {
+    this.targetUrl.value = url
+    const inputSelected = this.input === document.activeElement
+
+    if (url && !inputSelected) {
+      this.showInput(false)
+    } else {
+      this.showInput(true)
+    }
   }
 
   focus () {

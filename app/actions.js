@@ -10,6 +10,7 @@ const sanitize = require('sanitize-filename')
 const { accelerators, extensions } = require('./config')
 
 const FOCUS_URL_BAR_SCRIPT = `
+document.getElementById('search').showInput()
 document.getElementById('search').focus()
 `
 

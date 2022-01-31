@@ -77,16 +77,7 @@ currentWindow.on('leave-html-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', false)
 })
 currentWindow.on('update-target-url', async (url) => {
-  search.targetUrl.value = url
-  const inputSelected = search.input === document.activeElement
-
-  if (url && !inputSelected) {
-    search.targetUrl.classList.toggle('hidden', false)
-    search.input.classList.toggle('hidden', true)
-  } else {
-    search.targetUrl.classList.toggle('hidden', true)
-    search.input.classList.toggle('hidden', false)
-  }
+  search.showTarget(url)
 })
 
 find.addEventListener('next', ({ detail }) => {
