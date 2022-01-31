@@ -23,6 +23,7 @@ jobs:
           node-version: 16
 
       - name: Remove symlink for go-ipfs
+        continue-on-error: true
         run: unlink ./node_modules/.bin/ipfs
         if: contains(matrix.os, 'ubuntu') || contains(matrix.os, 'macos')
 
