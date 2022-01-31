@@ -20,7 +20,7 @@
   },
   "build": {
     "npmRebuild": true,
-    "asar": true,
+    "asar": false,
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
