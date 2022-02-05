@@ -7,7 +7,7 @@ const createDesktopShortcut = require('create-desktop-shortcuts')
 const dataUriToBuffer = require('data-uri-to-buffer')
 const sanitize = require('sanitize-filename')
 
-const { accelerators, extensions } = require('./config')
+const { accelerators, extensions, appPath } = require('./config')
 
 const FOCUS_URL_BAR_SCRIPT = `
 document.getElementById('search').showInput()
@@ -193,7 +193,7 @@ function createActions ({
         properties: ['openDirectory']
       })).filePaths[0]
 
-      const appPath = process.argv[0] // If testing from source find and use installed Agregore location
+      const filePath = appPath || process.argv[0] // If testing from source find and use installed Agregore location
 
       const title = webContents.getTitle()
       const shortcutName = sanitize(title, { replacement: ' ' })
@@ -201,7 +201,7 @@ function createActions ({
       const description = `Agregore Browser - ${url}`
 
       const shortcut = {
-        filePath: appPath,
+        filePath,
         outputPath: outputPath,
         name: shortcutName,
         comment: description,
