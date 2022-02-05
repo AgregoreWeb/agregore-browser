@@ -24,7 +24,14 @@ a:visited {
 }
 
 img {
-    max-width: 100%;
+    width: 80%;
+    display: block;
+    margin: 1em auto;
+}
+
+iframe {
+  display: block;
+  margin: 1em auto;
 }
 
 code {
@@ -41,8 +48,16 @@ li {
   list-style-type: " ⟐ ";
 }
 
+br {
+  color: var(--ag-theme-primary);
+}
+
 *:focus {
   outline: 2px solid var(--ag-theme-secondary);
+}
+
+h1 {
+  text-align: center;
 }
 
 /* Reset style for anchors added to headers */
