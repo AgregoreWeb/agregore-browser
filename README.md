@@ -5,7 +5,7 @@ A minimal web browser for the distributed web
 	<img src="./build/icon.png" width="333px">
 </p>
 
-[Download the installer](https://github.com/RangerMauve/agregore-browser/releases)  
+[Download the installer](https://github.com/AgregoreWeb/agregore-browser/releases)  
 
 [Discord](https://discord.gg/QMthd4Y)
 
