@@ -48,8 +48,8 @@ li {
   list-style-type: " ⟐ ";
 }
 
-br {
-  color: var(--ag-theme-primary);
+hr {
+  border-color: var(--ag-theme-primary);
 }
 
 *:focus {
