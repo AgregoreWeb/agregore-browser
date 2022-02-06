@@ -32,8 +32,16 @@ class OmniBox extends HTMLElement {
     this.targetUrl = this.$('.omni-box-target-input')
 
     this.input.addEventListener('focus', () => {
-      this.input.showInput()
       this.input.select()
+    })
+
+    this.targetUrl.addEventListener('focus', () => {
+      this.showInput()
+      this.input.select()
+    })
+
+    this.input.addEventListener('blur',  () => {
+      this.input.blur()
     })
 
     this.form.addEventListener('submit', (e) => {
