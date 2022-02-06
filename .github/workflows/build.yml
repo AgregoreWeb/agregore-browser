@@ -36,7 +36,6 @@ jobs:
         uses: samuelmeuli/action-electron-builder@92327c67bc45ff7c38bf55d8aa8c4d75b7ea38e7 # v1.6.0 but safer than a tag that can be changed
         with:
           args: --publish onTag # attach signed binaries to a release draft only when building a tag
-          release: false # keep github release as draft for manual inspection
           max_attempts: 2
           # GH token for attaching atrifacts to release draft on tag build
           github_token: ${{ secrets.github_token }}
