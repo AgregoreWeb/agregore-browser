@@ -19,8 +19,8 @@
     ]
   },
   "build": {
-    "npmRebuild": false,
-    "asar": false,
+    "npmRebuild": true,
+    "asar": true,
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
@@ -118,6 +118,8 @@
       ]
     },
     "mac": {
+      "darkModeSupport": true,
+      "gatekeeperAssess": false,
       "target": [
         {
           "target": "dmg",
@@ -131,6 +133,7 @@
       "target": "nsis"
     },
     "linux": {
+      "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
       "executableArgs": [
         "--enable-accelerated-video",
         "--enable-features=UseOzonePlatform",
@@ -141,7 +144,7 @@
         "AppImage",
         "apk"
       ],
-      "category": "Network"
+      "category": "Network;FileTransfer:P2P"
     }
   },
   "repository": {

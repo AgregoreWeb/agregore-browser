@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs-extra')
+const {readdir} = require('fs/promises')
 const EventEmitter = require('events')
 
 const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
@@ -106,7 +107,7 @@ class Extensions extends EventEmitter {
   }
 
   async registerAll (extensionsFolder = this.location) {
-    const rawNames = await fs.readdir(extensionsFolder)
+    const rawNames = await readdir(extensionsFolder)
     const stats = await Promise.all(
       rawNames.map(
         (name) => fs.stat(
