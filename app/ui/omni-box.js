@@ -40,7 +40,7 @@ class OmniBox extends HTMLElement {
       this.input.select()
     })
 
-    this.input.addEventListener('blur',  () => {
+    this.input.addEventListener('blur', () => {
       this.input.blur()
     })
 
