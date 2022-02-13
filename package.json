@@ -135,9 +135,7 @@
     "linux": {
       "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
       "executableArgs": [
-        "--enable-accelerated-video",
-        "--enable-features=UseOzonePlatform",
-        "--ozone-platform=wayland"
+        "--enable-accelerated-video"
       ],
       "target": [
         "deb",
