@@ -4288,10 +4288,10 @@ joi@^17.2.1:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-js-ipfs-fetch@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-3.4.0.tgz#af6c0fcead5de05d15391d880c85b6e6ae7574ed"
-  integrity sha512-g0vXylpaOd7/HqYhyopkO99MrDphkyNbFIfLgwfpwqI2a7fsox28liZYvuucBmrcw0gLniUWlhkl9Ky7tMKuzA==
+js-ipfs-fetch@^3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-3.5.0.tgz#d4ec61ef54cc35fb734795ec30fa6249c7018bb8"
+  integrity sha512-Wbrf5bYpO9vD878Q/l/j0Ds19HbkQVj9SQGhG68bvGYWeqSHG6htGHQtozXwG7qfV45cPKcz9aoXYtRbECfklQ==
   dependencies:
     busboy "^0.3.1"
     event-iterator "^2.0.0"
