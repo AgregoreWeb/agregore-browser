@@ -57,8 +57,8 @@ function attachContextMenus ({ window, createWindow }) {
       .filter(group => group != null)
       .flatMap((group, index, array) => {
         if (index + 1 < array.length) {
-          const seperator = new MenuItem({ type: 'separator' })
-          group.push(seperator)
+          const separator = new MenuItem({ type: 'separator' })
+          group.push(separator)
         }
         return group
       })

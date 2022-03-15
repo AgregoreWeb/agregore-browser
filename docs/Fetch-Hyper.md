@@ -8,7 +8,7 @@ Each response will contain a header for the canonical URL represented as a `Link
 
 Each response will also contain the `Allow` header of all the methods currently allowed. If the archive is writable, this will contain `PUT`.
 
-There is also an `ETag` header which will be a JSON string containging the drive's current `version`. This will change only when the drive has gotten an update of some sort and is monotonically incrementing.
+There is also an `ETag` header which will be a JSON string containing the drive's current `version`. This will change only when the drive has gotten an update of some sort and is monotonically incrementing.
 
 ### `fetch('hyper://NAME/example.txt', {method: 'GET'})`
 
@@ -23,7 +23,7 @@ The response headers will contain `X-Blocks` for the number of blocks of data th
 
 ### `fetch('hyper://NAME/.well-known/dat', {method: 'GET'})`
 
-This is used by the dat-dns module for resoving dns domains to `dat://` URLs.
+This is used by the dat-dns module for resolving dns domains to `dat://` URLs.
 
 This will return some text which will have a `dat://` URL of your archive, followed by a newline and a TTL for the DNS record.
 
