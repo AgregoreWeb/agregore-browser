@@ -1,4 +1,4 @@
-# Installing extenions
+# Installing extensions
 
 Agregore doesn't yet support loading extensions from app stores or zip files, but you can place the extracted extensions inside a folder for it to load.
 
