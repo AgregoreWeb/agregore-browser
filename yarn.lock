@@ -3235,16 +3235,16 @@
   "resolved" "https://registry.npmjs.org/guard-timeout/-/guard-timeout-2.0.0.tgz"
   "version" "2.0.0"
 
-"gun-fetch@^3.1.9":
-  "integrity" "sha512-QSuwWQcTnP6nqF6WrXqWAEgWKV+YQahlSpfW1LibfwmDJQCYuJ97bSiXktpcJacmpYrRboPTT6lqAteeznF3Wg=="
-  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.1.9.tgz"
-  "version" "3.1.9"
+"gun-fetch@^3.2.0":
+  "integrity" "sha512-Rd+qjMnDmdiChII+drMssE4TX2ltrnwXe/WGKuXk5sLOA/YB2uhtYVkP8rRuPvnPfZ2qh8if+I4GTtfOCmmNrg=="
+  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.2.0.tgz"
+  "version" "3.2.0"
   dependencies:
     "gun" "github:amark/gun"
     "make-fetch" "^2.3.1"
 
 "gun@github:amark/gun":
-  "resolved" "git+ssh://git@github.com/amark/gun.git#41c2f64ef2abc862d1a004e36013f0647491bc81"
+  "resolved" "git+ssh://git@github.com/amark/gun.git#f6b65c8e7e77549739d96736d8cae88ad406a7ef"
   "version" "0.2020.1236"
   dependencies:
     "ws" "^7.2.1"
