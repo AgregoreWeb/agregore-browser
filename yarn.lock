@@ -494,14 +494,14 @@
     "murmurhash3js-revisited" "^3.0.0"
 
 "@peculiar/asn1-schema@^2.0.44":
-  "integrity" "sha512-uaCnjQ9A9WwQSMuDJcNOCYEPXTahgKbFMvI7eMOMd8lXgx0J1eU7F3BoMsK5PFxa3dVUxjSQbaOjfgGoeHGgoQ=="
-  "resolved" "https://registry.npmjs.org/@peculiar/asn1-schema/-/asn1-schema-2.0.44.tgz"
-  "version" "2.0.44"
+  "integrity" "sha512-D6g4C5YRKC/iPujMAOXuZ7YGdaoMx8GsvWzfVSyx2LYeL38ECOKNywlYAuwbqQvON64lgsYdAujWQPX8hhoBLw=="
+  "resolved" "https://registry.npmjs.org/@peculiar/asn1-schema/-/asn1-schema-2.1.0.tgz"
+  "version" "2.1.0"
   dependencies:
     "@types/asn1js" "^2.0.2"
-    "asn1js" "^2.1.1"
+    "asn1js" "^2.3.1"
     "pvtsutils" "^1.2.1"
-    "tslib" "^2.3.0"
+    "tslib" "^2.3.1"
 
 "@peculiar/json-schema@^1.1.12":
   "integrity" "sha512-coUfuoMeIB7B8/NMekxaDzLhaYmp0HZNPEjYRm9goRou8UZIC3z21s0sL9AWoCw4EG876QyO3kYrc61WNF9B/w=="
@@ -956,10 +956,10 @@
   optionalDependencies:
     "@types/glob" "^7.1.1"
 
-"asn1js@^2.1.1", "asn1js@^2.2.0":
-  "integrity" "sha512-oagLNqpfNv7CvmyMoexMDNyVDSiq1rya0AEUgcLlNHdHgNl6U/hi8xY370n5y+ZIFEXOx0J4B1qF2NDjMRxklA=="
-  "resolved" "https://registry.npmjs.org/asn1js/-/asn1js-2.2.0.tgz"
-  "version" "2.2.0"
+"asn1js@^2.2.0", "asn1js@^2.3.1":
+  "integrity" "sha512-IYzujqcOk7fHaePpTyvD3KPAA0AjT3qZlaQAw76zmPPAV/XTjhO+tbHjbFbIQZIhw+fk9wCSfb0Z6K+JHe8Q2g=="
+  "resolved" "https://registry.npmjs.org/asn1js/-/asn1js-2.3.2.tgz"
+  "version" "2.3.2"
   dependencies:
     "pvutils" "latest"
 
@@ -1024,13 +1024,12 @@
   "version" "1.1.1"
 
 "better-sqlite3@^7.1.4":
-  "integrity" "sha512-LB/UxnMhcJY12bRCDXl2jTk0lsbXHCHOLn3cPjGhy3GCcVPGq45sCGJPUdfBZnfXGN14tYTJyq0ztUI3lGng8A=="
-  "resolved" "https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-7.4.6.tgz"
-  "version" "7.4.6"
+  "integrity" "sha512-6FdG9DoytYGDhLW7VWW1vxjEz7xHkqK6LnaUQYA8d6GHNgZhu9PFX2xwKEEnSBRoT1J4PjTUPeg217ShxNmuPg=="
+  "resolved" "https://registry.npmjs.org/better-sqlite3/-/better-sqlite3-7.5.0.tgz"
+  "version" "7.5.0"
   dependencies:
     "bindings" "^1.5.0"
     "prebuild-install" "^7.0.0"
-    "tar" "^6.1.11"
 
 "binary-search@^1.3.4":
   "integrity" "sha512-nbE1WxOTTrUWIfsfZ4aHGYu5DOuNkbxGokjV6Z2kxfJK3uaAb8zNK1muzOeipoLHZjInT4Br88BHpzevc681xA=="
@@ -1553,11 +1552,6 @@
   "resolved" "https://registry.npmjs.org/chownr/-/chownr-1.1.4.tgz"
   "version" "1.1.4"
 
-"chownr@^2.0.0":
-  "integrity" "sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ=="
-  "resolved" "https://registry.npmjs.org/chownr/-/chownr-2.0.0.tgz"
-  "version" "2.0.0"
-
 "chrome-dgram@^3.0.2", "chrome-dgram@^3.0.6":
   "integrity" "sha512-bqBsUuaOiXiqxXt/zA/jukNJJ4oaOtc7ciwqJpZVEaaXwwxqgI2/ZdG02vXYWUhHGziDlvGMQWk0qObgJwVYKA=="
   "resolved" "https://registry.npmjs.org/chrome-dgram/-/chrome-dgram-3.0.6.tgz"
@@ -2053,10 +2047,10 @@
   "resolved" "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz"
   "version" "1.0.4"
 
-"detect-libc@^1.0.3":
-  "integrity" "sha1-+hN8S9aY7fVc1c0CrFWfkaTEups="
-  "resolved" "https://registry.npmjs.org/detect-libc/-/detect-libc-1.0.3.tgz"
-  "version" "1.0.3"
+"detect-libc@^2.0.0":
+  "integrity" "sha512-463v3ZeIrcWtdgIg6vI6XUncguvr2TnGl4SzDXinkt9mSLpBJKXT3mW6xT3VQdDN11+WVs29pgvivTc4Lp8v+w=="
+  "resolved" "https://registry.npmjs.org/detect-libc/-/detect-libc-2.0.1.tgz"
+  "version" "2.0.1"
 
 "detect-node@^2.0.4":
   "integrity" "sha512-T0NIuQpnTvFDATNuHN5roPwSBG83rFsuO+MXXH9/3N1eFbn4wcPjttvjMLEPWJ0RGUYgQE7cGgS3tNxbqCGM7g=="
@@ -2966,13 +2960,6 @@
     "jsonfile" "^6.0.1"
     "universalify" "^2.0.0"
 
-"fs-minipass@^2.0.0":
-  "integrity" "sha512-V/JgOLFCS+R6Vcq0slCuaeWEdNC3ouDlJMNIsacH2VtALiu9mV4LPrHc5cDl8k5aw6J8jwgWWpiTo5RYhmIzvg=="
-  "resolved" "https://registry.npmjs.org/fs-minipass/-/fs-minipass-2.1.0.tgz"
-  "version" "2.1.0"
-  dependencies:
-    "minipass" "^3.0.0"
-
 "fs.realpath@^1.0.0":
   "integrity" "sha1-FQStJSMVjKpA20onh8sBQRmU6k8="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
@@ -3244,7 +3231,7 @@
     "make-fetch" "^2.3.1"
 
 "gun@github:amark/gun":
-  "resolved" "git+ssh://git@github.com/amark/gun.git#f6b65c8e7e77549739d96736d8cae88ad406a7ef"
+  "resolved" "git+ssh://git@github.com/amark/gun.git#e4bb977d5da55bc790f74605393808e3b972c322"
   "version" "0.2020.1236"
   dependencies:
     "ws" "^7.2.1"
@@ -3479,10 +3466,9 @@
   optionalDependencies:
     "fsctl" "^1.0.0"
 
-"hypercore-fetch@^8.3.3":
-  "integrity" "sha512-HAsc/g+vbdYc1InjgJj3+38TLFevVsfxQwEj4u+Sh+julf0G8KhbPQkpmlYTC8mNn9boOX1C1WavbQPjOdqOfA=="
-  "resolved" "https://registry.npmjs.org/hypercore-fetch/-/hypercore-fetch-8.3.3.tgz"
-  "version" "8.3.3"
+"hypercore-fetch@github:resession/hypercore-fetch":
+  "resolved" "git+ssh://git@github.com/resession/hypercore-fetch.git#ef50058657f45407626b23f2da4fbad64dcdb74d"
+  "version" "8.4.0"
   dependencies:
     "event-iterator" "^2.0.0"
     "fetch-headers" "^2.0.0"
@@ -4811,21 +4797,6 @@
   "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
   "version" "1.2.5"
 
-"minipass@^3.0.0":
-  "integrity" "sha512-rty5kpw9/z8SX9dmxblFA6edItUmwJgMeYDZRrwlIVN27i8gysGbznJwUggw2V/FVqFSDdWy040ZPS811DYAqQ=="
-  "resolved" "https://registry.npmjs.org/minipass/-/minipass-3.1.6.tgz"
-  "version" "3.1.6"
-  dependencies:
-    "yallist" "^4.0.0"
-
-"minizlib@^2.1.1":
-  "integrity" "sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg=="
-  "resolved" "https://registry.npmjs.org/minizlib/-/minizlib-2.1.2.tgz"
-  "version" "2.1.2"
-  dependencies:
-    "minipass" "^3.0.0"
-    "yallist" "^4.0.0"
-
 "mkdirp-classic@^0.5.2", "mkdirp-classic@^0.5.3":
   "integrity" "sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A=="
   "resolved" "https://registry.npmjs.org/mkdirp-classic/-/mkdirp-classic-0.5.3.tgz"
@@ -4837,11 +4808,6 @@
   "version" "0.5.5"
   dependencies:
     "minimist" "^1.2.5"
-
-"mkdirp@^1.0.3":
-  "integrity" "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw=="
-  "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
-  "version" "1.0.4"
 
 "moo@^0.5.0":
   "integrity" "sha512-I1mnb5xn4fO80BH9BLcF0yLypy2UKl+Cb01Fu0hJRkJjlCRtxZMWkTdAtDd5ZqCOxtCkhmRwyI57vWT+1iZ67w=="
@@ -5144,9 +5110,9 @@
   "version" "1.0.5"
 
 "node-abi@^3.3.0":
-  "integrity" "sha512-LtHvNIBgOy5mO8mPEUtkCW/YCRWYEKshIvqhe1GHHyXEHEB5mgICyYnAcl4qan3uFeRROErKGzatFHPf6kDxWw=="
-  "resolved" "https://registry.npmjs.org/node-abi/-/node-abi-3.5.0.tgz"
-  "version" "3.5.0"
+  "integrity" "sha512-tzua9qWWi7iW4I42vUPKM+SfaF0vQSLAm4yO5J83mSwB7GeoWrDKC/K+8YCnYNwqP5duwazbw2X9l4m8SC2cUw=="
+  "resolved" "https://registry.npmjs.org/node-abi/-/node-abi-3.8.0.tgz"
+  "version" "3.8.0"
   dependencies:
     "semver" "^7.3.5"
 
@@ -5620,11 +5586,11 @@
     "xmlbuilder" "^9.0.7"
 
 "prebuild-install@^7.0.0":
-  "integrity" "sha512-IvSenf33K7JcgddNz2D5w521EgO+4aMMjFt73Uk9FRzQ7P+QZPKrp7qPsDydsSwjGt3T5xRNnM1bj1zMTD5fTA=="
-  "resolved" "https://registry.npmjs.org/prebuild-install/-/prebuild-install-7.0.0.tgz"
-  "version" "7.0.0"
+  "integrity" "sha512-QBSab31WqkyxpnMWQxubYAHR5S9B2+r81ucocew34Fkl98FhvKIF50jIJnNOBmAZfyNV7vE5T6gd3hTVWgY6tg=="
+  "resolved" "https://registry.npmjs.org/prebuild-install/-/prebuild-install-7.0.1.tgz"
+  "version" "7.0.1"
   dependencies:
-    "detect-libc" "^1.0.3"
+    "detect-libc" "^2.0.0"
     "expand-template" "^2.0.3"
     "github-from-package" "0.0.0"
     "minimist" "^1.2.3"
@@ -7285,18 +7251,6 @@
     "inherits" "^2.0.3"
     "readable-stream" "^3.1.1"
 
-"tar@^6.1.11":
-  "integrity" "sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA=="
-  "resolved" "https://registry.npmjs.org/tar/-/tar-6.1.11.tgz"
-  "version" "6.1.11"
-  dependencies:
-    "chownr" "^2.0.0"
-    "fs-minipass" "^2.0.0"
-    "minipass" "^3.0.0"
-    "minizlib" "^2.1.1"
-    "mkdirp" "^1.0.3"
-    "yallist" "^4.0.0"
-
 "temp-dir@^1.0.0":
   "integrity" "sha1-CnwOom06Oa+n4OvqnB/AvE2qAR0="
   "resolved" "https://registry.npmjs.org/temp-dir/-/temp-dir-1.0.0.tgz"
@@ -7458,7 +7412,7 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
 
-"tslib@^2.0.0", "tslib@^2.3.0", "tslib@^2.3.1":
+"tslib@^2.0.0", "tslib@^2.3.1":
   "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
   "version" "2.3.1"
