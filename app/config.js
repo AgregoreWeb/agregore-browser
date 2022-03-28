@@ -65,6 +65,6 @@ module.exports = require('rc')('agregore', {
   gunOptions: {
     file: DEFAULT_GUN_DIR,
     radisk: true,
-    relay: true
+    relay: false
   }
 })
