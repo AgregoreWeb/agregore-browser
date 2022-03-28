@@ -3217,10 +3217,10 @@
   "resolved" "https://registry.npmjs.org/guard-timeout/-/guard-timeout-2.0.0.tgz"
   "version" "2.0.0"
 
-"gun-fetch@^3.2.7":
-  "integrity" "sha512-S9WEDkCuPuX8jEGGRT3zltXm2qIAV6inN612g2wKiXZWzgpn1h6mxVEopTIiDTz4iBeboF5lm5MF8aLKc9dVKg=="
-  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.2.7.tgz"
-  "version" "3.2.7"
+"gun-fetch@^3.2.8":
+  "integrity" "sha512-Uwu6WzeosNRrwFVhW6QBsQZ+ozWyz6LfDHzlDcLk75mkS+Ru8K419vIuitvLRy8XNxdMmHgqWzny+9UJcNxjIA=="
+  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.2.8.tgz"
+  "version" "3.2.8"
   dependencies:
     "gun" "github:amark/gun"
     "make-fetch" "^2.3.1"
