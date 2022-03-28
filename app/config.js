@@ -64,6 +64,7 @@ module.exports = require('rc')('agregore', {
   // All options here: https://gun.eco/docs/API#-a-name-gun-a-gun-options-
   gunOptions: {
     file: DEFAULT_GUN_DIR,
-    radisk: true
+    radisk: true,
+    relay: false
   }
 })
