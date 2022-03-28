@@ -493,7 +493,7 @@
     "multiformats" "^9.5.4"
     "murmurhash3js-revisited" "^3.0.0"
 
-"@peculiar/asn1-schema@^2.0.44":
+"@peculiar/asn1-schema@^2.1.0":
   "integrity" "sha512-D6g4C5YRKC/iPujMAOXuZ7YGdaoMx8GsvWzfVSyx2LYeL38ECOKNywlYAuwbqQvON64lgsYdAujWQPX8hhoBLw=="
   "resolved" "https://registry.npmjs.org/@peculiar/asn1-schema/-/asn1-schema-2.1.0.tgz"
   "version" "2.1.0"
@@ -511,15 +511,15 @@
     "tslib" "^2.0.0"
 
 "@peculiar/webcrypto@^1.1.1":
-  "integrity" "sha512-oUgNj+8oT7uROEMEpZZ3U+kZjyxj1KXuvA8P5kiMUveTya9eyS8KTqu/dzdEtYC3u7dvjknVz+0sUfkWOBHfQg=="
-  "resolved" "https://registry.npmjs.org/@peculiar/webcrypto/-/webcrypto-1.3.2.tgz"
-  "version" "1.3.2"
+  "integrity" "sha512-+jkp16Hp18HkphJlMtqsQKjyDWJBh0AhDuoB+vVakuIRbkBdaFb7v26Ldm25altjiYhCyQnR5NChHxwSTvbXJw=="
+  "resolved" "https://registry.npmjs.org/@peculiar/webcrypto/-/webcrypto-1.3.3.tgz"
+  "version" "1.3.3"
   dependencies:
-    "@peculiar/asn1-schema" "^2.0.44"
+    "@peculiar/asn1-schema" "^2.1.0"
     "@peculiar/json-schema" "^1.1.12"
     "pvtsutils" "^1.2.2"
     "tslib" "^2.3.1"
-    "webcrypto-core" "^1.7.1"
+    "webcrypto-core" "^1.7.2"
 
 "@protobufjs/aspromise@^1.1.1", "@protobufjs/aspromise@^1.1.2":
   "integrity" "sha1-m4sMxmPWaafY9vXQiToU00jzD78="
@@ -714,11 +714,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/web@^0.0.55":
-  "integrity" "sha512-YMH9aZrSJIMRMioCUwrgauI3iS/w2wRFN45Xxm0FE9Tt3hqaqkvOzjDFGsNjyKZzz7GJC0ilb+0tv59ytSUbrQ=="
-  "resolved" "https://registry.npmjs.org/@types/web/-/web-0.0.55.tgz"
-  "version" "0.0.55"
-
 "@types/yargs-parser@*":
   "integrity" "sha512-7tFImggNeNBVMsn0vLrpn1H1uPrUBdnARPTpZoitY37ZrdJREzf7I16tMrlK3hen349gr1NYh8CmZQa7CTG6Aw=="
   "resolved" "https://registry.npmjs.org/@types/yargs-parser/-/yargs-parser-20.2.1.tgz"
@@ -824,9 +819,9 @@
   "version" "2.1.1"
 
 "ansi-regex@^4.1.0":
-  "integrity" "sha512-1apePfXM1UOSqw0o9IiFAovVz9M5S1Dg+4TrDwfMewQ6p/rmMueb7tWZjQ1rx4Loy1ArBggoqGpfqqdI4rondg=="
-  "resolved" "https://registry.npmjs.org/ansi-regex/-/ansi-regex-4.1.0.tgz"
-  "version" "4.1.0"
+  "integrity" "sha512-ILlv4k/3f6vfQ4OoP2AGvirOktlQ98ZEL1k9FaQjxa3L1abBgbuTDAdPOpvbGncC0BTVQrl+OM8xZGK6tWXt7g=="
+  "resolved" "https://registry.npmjs.org/ansi-regex/-/ansi-regex-4.1.1.tgz"
+  "version" "4.1.1"
 
 "ansi-regex@^5.0.1":
   "integrity" "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="
@@ -956,7 +951,7 @@
   optionalDependencies:
     "@types/glob" "^7.1.1"
 
-"asn1js@^2.2.0", "asn1js@^2.3.1":
+"asn1js@^2.3.1", "asn1js@^2.3.2":
   "integrity" "sha512-IYzujqcOk7fHaePpTyvD3KPAA0AjT3qZlaQAw76zmPPAV/XTjhO+tbHjbFbIQZIhw+fk9wCSfb0Z6K+JHe8Q2g=="
   "resolved" "https://registry.npmjs.org/asn1js/-/asn1js-2.3.2.tgz"
   "version" "2.3.2"
@@ -3222,16 +3217,16 @@
   "resolved" "https://registry.npmjs.org/guard-timeout/-/guard-timeout-2.0.0.tgz"
   "version" "2.0.0"
 
-"gun-fetch@^3.2.3":
-  "integrity" "sha512-yuAHhYEvq+QVwWQMMIIC1tXn6ZmpQyCpaKx6X/Dz+Jogov5KwfsZ9uNB6jA/IQ2jPT00gnvp1jPzEVOQnvJ5HA=="
-  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.2.3.tgz"
-  "version" "3.2.3"
+"gun-fetch@^3.2.4":
+  "integrity" "sha512-GddXoOPC9UQgOlNoh8gdF54EL310/3r5O/vjxSTCOWzA6SaYv5AT+tn+yKSIwBiz6OdFOiLjvN4Sf+EMeoyH5Q=="
+  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.2.4.tgz"
+  "version" "3.2.4"
   dependencies:
     "gun" "github:amark/gun"
     "make-fetch" "^2.3.1"
 
 "gun@github:amark/gun":
-  "resolved" "git+ssh://git@github.com/amark/gun.git#e4bb977d5da55bc790f74605393808e3b972c322"
+  "resolved" "git+ssh://git@github.com/amark/gun.git#f062fc330b65668832b2b611666d006976363107"
   "version" "0.2020.1236"
   dependencies:
     "ws" "^7.2.1"
@@ -3467,7 +3462,7 @@
     "fsctl" "^1.0.0"
 
 "hypercore-fetch@github:resession/hypercore-fetch":
-  "resolved" "git+ssh://git@github.com/resession/hypercore-fetch.git#ef50058657f45407626b23f2da4fbad64dcdb74d"
+  "resolved" "git+ssh://git@github.com/resession/hypercore-fetch.git#08f39fe0ae3beb8f3f836cf18d0b43120e2a3485"
   "version" "8.4.0"
   dependencies:
     "event-iterator" "^2.0.0"
@@ -4793,9 +4788,9 @@
     "brace-expansion" "^1.1.7"
 
 "minimist@^1.2.0", "minimist@^1.2.3", "minimist@^1.2.5":
-  "integrity" "sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw=="
-  "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.5.tgz"
-  "version" "1.2.5"
+  "integrity" "sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q=="
+  "resolved" "https://registry.npmjs.org/minimist/-/minimist-1.2.6.tgz"
+  "version" "1.2.6"
 
 "mkdirp-classic@^0.5.2", "mkdirp-classic@^0.5.3":
   "integrity" "sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A=="
@@ -5578,9 +5573,9 @@
     "xtend" "^4.0.1"
 
 "plist@^3.0.1":
-  "integrity" "sha512-ksrr8y9+nXOxQB2osVNqrgvX/XQPOXaU4BQMKjYq8PvaY1U18mo+fKgBSwzK+luSyinOuPae956lSVcBwxlAMg=="
-  "resolved" "https://registry.npmjs.org/plist/-/plist-3.0.4.tgz"
-  "version" "3.0.4"
+  "integrity" "sha512-83vX4eYdQp3vP9SxuYgEM/G/pJQqLUz/V/xzPrzruLs7fz7jxGQ1msZ/mg1nwZxUSuOp4sb+/bEIbRrbzZRxDA=="
+  "resolved" "https://registry.npmjs.org/plist/-/plist-3.0.5.tgz"
+  "version" "3.0.5"
   dependencies:
     "base64-js" "^1.5.1"
     "xmlbuilder" "^9.0.7"
@@ -7725,15 +7720,14 @@
   "resolved" "https://registry.npmjs.org/web-streams-polyfill/-/web-streams-polyfill-3.2.0.tgz"
   "version" "3.2.0"
 
-"webcrypto-core@^1.7.1":
-  "integrity" "sha512-Gw2zLzYSJ7Imp5lLDu3CcWB5oTTACMDEE2PjoLfttGgIhd7BfackBdVgEzd9ZM/i65gpNq0+IelL0JZ48QwzNg=="
-  "resolved" "https://registry.npmjs.org/webcrypto-core/-/webcrypto-core-1.7.1.tgz"
-  "version" "1.7.1"
+"webcrypto-core@^1.7.2":
+  "integrity" "sha512-GUblRwka3JiP/dduk9/Hdkbm7/+ZqVPISJj9Fq1rZ/JBSInmaeVbeH0KuIy4/gtoC7aWpu6DEnYk0VhkZXmFSA=="
+  "resolved" "https://registry.npmjs.org/webcrypto-core/-/webcrypto-core-1.7.2.tgz"
+  "version" "1.7.2"
   dependencies:
-    "@peculiar/asn1-schema" "^2.0.44"
+    "@peculiar/asn1-schema" "^2.1.0"
     "@peculiar/json-schema" "^1.1.12"
-    "@types/web" "^0.0.55"
-    "asn1js" "^2.2.0"
+    "asn1js" "^2.3.2"
     "pvtsutils" "^1.2.2"
     "tslib" "^2.3.1"
 
