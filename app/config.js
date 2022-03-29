@@ -8,23 +8,6 @@ const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
 // const DEFAULT_SSB_DIR = path.join(USER_DATA, 'ssb')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 const DEFAULT_GUN_DIR = path.join(USER_DATA, 'gun')
-const DEFAULT_GUN_PEERS = [
-  'https://gun-manhattan.herokuapp.com/gun',
-  'https://us-west.xerberus.net/gun',
-  'http://gun-matrix.herokuapp.com/gun',
-  'https://gun-ams1.maddiex.wtf:443/gun',
-  'https://gun-sjc1.maddiex.wtf:443/gun',
-  'https://dletta.rig.airfaas.com/gun',
-  'https://mg-gun-manhattan.herokuapp.com/gun',
-  'https://gunmeetingserver.herokuapp.com/gun',
-  'https://e2eec.herokuapp.com/gun',
-  'https://gun-us.herokuapp.com/gun',
-  'https://gun-eu.herokuapp.com/gun',
-  'https://gunjs.herokuapp.com/gun',
-  'https://www.raygun.live/gun',
-  'https://gun-armitro.herokuapp.com/',
-  'https://fire-gun.herokuapp.com/gun'
-]
 
 const DEFAULT_PAGE = 'agregore://welcome'
 
@@ -81,7 +64,7 @@ module.exports = require('rc')('agregore', {
   // All options here: https://gun.eco/docs/API#-a-name-gun-a-gun-options-
   gunOptions: {
     file: DEFAULT_GUN_DIR,
-    peers: DEFAULT_GUN_PEERS,
-    radisk: true
+    radisk: true,
+    relay: false
   }
 })
