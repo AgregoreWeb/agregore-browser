@@ -193,7 +193,8 @@ function createActions ({
         properties: ['openDirectory']
       })).filePaths[0]
 
-      const filePath = appPath || process.argv[0] // If testing from source find and use installed Agregore location
+      // If testing from source find and use installed Agregore location
+      const filePath = '"' + (appPath || process.argv[0]) + '"'
 
       const title = webContents.getTitle()
       const shortcutName = sanitize(title, { replacement: ' ' })

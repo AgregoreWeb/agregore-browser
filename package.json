@@ -130,7 +130,10 @@
       ]
     },
     "win": {
-      "target": "nsis"
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "linux": {
       "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
@@ -165,7 +168,7 @@
   },
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
-    "electron": "^16.0.8",
+    "electron": "11",
     "electron-builder": "^22.9.1",
     "standard": "^14.3.4"
   },
@@ -180,7 +183,7 @@
     "go-ipfs": "^0.11.0",
     "gun-fetch": "^3.2.8",
     "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "github:resession/hypercore-fetch",
+    "hypercore-fetch": "^8.5.0",
     "ipfs-http-client": "^56.0.0",
     "ipfsd-ctl": "^10.0.5",
     "js-ipfs-fetch": "^3.5.0",
