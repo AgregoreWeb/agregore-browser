@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs-extra')
-const { readdir } = require('fs/promises')
+const { readdir } = require('fs').promises
 const EventEmitter = require('events')
 
 const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
