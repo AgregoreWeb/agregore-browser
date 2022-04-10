@@ -4,3 +4,6 @@
 [submodule "app/extensions/extension-agregore-render-markdown"]
 	path = app/extensions/extension-agregore-render-markdown
 	url = https://github.com/AgregoreWeb/extension-agregore-render-markdown.git
+[submodule "app/extensions/extension-agregore-qr-share"]
+	path = app/extensions/extension-agregore-qr-share
+	url = https://github.com/AgregoreWeb/extension-agregore-qr-share.git
