@@ -5,11 +5,13 @@ A minimal web browser for the distributed web
 	<img src="./build/icon.png" width="333px">
 </p>
 
-[Download the installer](https://github.com/AgregoreWeb/agregore-browser/releases)  
+[Website](https://agregore.mauve.moe/)
 
-[Discord](https://discord.gg/QMthd4Y)
+[Download the installer](https://github.com/AgregoreWeb/agregore-browser/releases)
 
-[Matrix](https://matrix.to/#/#agregore:mauve.moe) 
+[Matrix Chat](https://matrix.to/#/#agregore:mauve.moe)
+
+[Discord Chat](https://discord.gg/QMthd4Y)
 
 ## Videos
 
@@ -56,14 +58,19 @@ A minimal web browser for the distributed web
 |Ctrl+.|Edit Config File|+|
 
 ### Other features
+
+- Web Extension support
+- Built-in Markdown and Gemini rendering extension
+- Built-in QR code scanner and generator extension
+- Built-in ad blocker (basic)
 - Open links in new windows (right click on element)
 - Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
 - Persist open windows when quitting
-- Web Extension support
 - Save files from pages (any protocol, right click it)
 - Set as default browser (click Set As Default in the menu bar (`ALT`))
 - Set as default Torrent handler (click Set as Default Torrent in the menu bar (`ALT`))
+- Auto-convert SSB sigils, `/ipfs/Qm` paths, and `/ipns/` paths to proper URLs.
 
 ## Docs
 
@@ -78,16 +85,16 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 To build from source do the following:
 
 - Set up node.js, git, and yarn
-- Clone the repo
-- Pull your clone
+- fork the repo
+- Pull your fork to your computer
 - Load submodules with `git submodule update --init --recursive`
-- Run `yarn` or `npm install`
-- Run `yarn start` or `npm start`
-- After coding, when ready to submit, run `standard --fix` or `npm run lint`
+- Run `yarn` or `npm install` to install dependencies
+- Run `yarn start` or `npm start` to start the browser and test your changes
+- After coding, when ready to submit, run `npm run lint` or `yarn lint` to check code style
 - Push to your clone
 - Submit a pull request
 
 Other notes:
-- To debug extensions, run `yarn debug`
+- To debug extensions, run `yarn debug` to have devtools opened for their background pages
 - If you're interested in a CLI for these protocols, check out [curld](https://github.com/Lohn/curld) `cURL for Distributed Web`. That project supports the same protocols as Agregore, but in a terminal way.
 
