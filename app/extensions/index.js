@@ -37,7 +37,7 @@ class Extensions extends EventEmitter {
 
     this.extensions.on('create-tab', (details, onCreate) => {
       const { url, width, height } = details
-      const window = createWindow({ url, width, height })
+      const window = createWindow(url, { width, height })
 
       onCreate(window.web.id)
     })

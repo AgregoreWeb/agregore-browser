@@ -1,3 +1,4 @@
+require('abort-controller/polyfill')
 const { app, BrowserWindow, session } = require('electron')
 const { sep } = require('path')
 
@@ -56,7 +57,13 @@ windowManager.on('open', window => {
   if (!window.rawFrame) {
     const asBrowserView = BrowserWindow.fromBrowserView(window.view)
     extensions.addWindow(asBrowserView)
-    asBrowserView.on('focus', () => extensions.setActiveTab(window.web.id))
+    asBrowserView.on('focus', () => {
+      const url = window.web.getURL()
+      console.log('Focusing', url)
+      // Don't set extension popups as active tabs
+      if (url.startsWith('electron-extension://')) return
+      extensions.setActiveTab(window.web.id)
+    })
   }
   window.on('new-window', (event, url, frameName, disposition, options) => {
     console.log('New window', url, disposition)

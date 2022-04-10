@@ -26,20 +26,22 @@ function registerMenu (actions) {
 
   const template = [
     // { role: 'appMenu' }
-    ...(isMac ? [{
-      label: app.name,
-      submenu: [
-        { role: 'about' },
-        { type: 'separator' },
-        { role: 'services' },
-        { type: 'separator' },
-        { role: 'hide' },
-        { role: 'hideothers' },
-        { role: 'unhide' },
-        { type: 'separator' },
-        { role: 'quit' }
-      ]
-    }] : []),
+    ...(isMac
+      ? [{
+        label: app.name,
+        submenu: [
+          { role: 'about' },
+          { type: 'separator' },
+          { role: 'services' },
+          { type: 'separator' },
+          { role: 'hide' },
+          { role: 'hideothers' },
+          { role: 'unhide' },
+          { type: 'separator' },
+          { role: 'quit' }
+        ]
+      }]
+      : []),
     // { role: 'fileMenu' }
     {
       label: 'File',
@@ -59,23 +61,25 @@ function registerMenu (actions) {
         { role: 'cut' },
         { role: 'copy' },
         { role: 'paste' },
-        ...(isMac ? [
-          { role: 'pasteAndMatchStyle' },
-          { role: 'delete' },
-          { role: 'selectAll' },
-          { type: 'separator' },
-          {
-            label: 'Speech',
-            submenu: [
-              { role: 'startspeaking' },
-              { role: 'stopspeaking' }
-            ]
-          }
-        ] : [
-          { role: 'delete' },
-          { type: 'separator' },
-          { role: 'selectAll' }
-        ])
+        ...(isMac
+          ? [
+            { role: 'pasteAndMatchStyle' },
+            { role: 'delete' },
+            { role: 'selectAll' },
+            { type: 'separator' },
+            {
+              label: 'Speech',
+              submenu: [
+                { role: 'startspeaking' },
+                { role: 'stopspeaking' }
+              ]
+            }
+          ]
+          : [
+            { role: 'delete' },
+            { type: 'separator' },
+            { role: 'selectAll' }
+          ])
       ]
     },
     // { role: 'viewMenu' }
@@ -100,19 +104,23 @@ function registerMenu (actions) {
       submenu: [
         Reload,
         HardReload,
-        ...(isMac ? [] : [
-          CreateBookmark
-        ]),
+        ...(isMac
+          ? []
+          : [
+            CreateBookmark
+          ]),
         { role: 'minimize' },
         { role: 'zoom' },
-        ...(isMac ? [
-          { type: 'separator' },
-          { role: 'front' },
-          { type: 'separator' },
-          { role: 'window' }
-        ] : [
-          { role: 'close' }
-        ])
+        ...(isMac
+          ? [
+            { type: 'separator' },
+            { role: 'front' },
+            { type: 'separator' },
+            { role: 'window' }
+          ]
+          : [
+            { role: 'close' }
+          ])
       ]
     },
     {
