@@ -20,11 +20,11 @@ module.exports = function fetchToHandler (getFetch, session) {
 
   async function * readBody (body) {
     for (const chunk of body) {
-      if (chunk.type === 'rawData') {
+      if (chunk.bytes) {
         yield await Promise.resolve(chunk.bytes)
-      } else if (chunk.type === 'blob') {
+      } else if (chunk.blobUUID) {
         yield await session.getBlobData(chunk.blobUUID)
-      } else if(chunk.type === 'file'){
+      } else if(chunk.filePath){
         yield await fs.readFile(chunk.filePath)
       }
     }
