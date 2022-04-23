@@ -55,7 +55,7 @@ class OmniBox extends HTMLElement {
 
       let url = rawURL
 
-      if (!isURL) {
+      if (!isURL(rawURL)) {
         if (looksLikeLegacySSB(rawURL)) {
           url = makeSSB(rawURL)
         } else if (looksLikeIPFS(rawURL)) {
