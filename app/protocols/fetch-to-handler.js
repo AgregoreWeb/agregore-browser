@@ -25,7 +25,7 @@ module.exports = function fetchToHandler (getFetch, session) {
       } else if (chunk.blobUUID) {
         yield await session.getBlobData(chunk.blobUUID)
       } else if(chunk.file){
-        yield await fs.readFile(chunk.file)
+        yield * Readable.from(fs.createReadStream(chunk.file))
       }
     }
   }
