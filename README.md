@@ -71,6 +71,7 @@ A minimal web browser for the distributed web
 - Set as default browser (click Set As Default in the menu bar (`ALT`))
 - Set as default Torrent handler (click Set as Default Torrent in the menu bar (`ALT`))
 - Auto-convert SSB sigils, `/ipfs/Qm` paths, and `/ipns/` paths to proper URLs.
+- Configure whether the menu bar should be visible by default (edit .agregorerc `autoHideMenuBar` property)
 
 ## Docs
 
