@@ -42,6 +42,7 @@ module.exports = require('rc')('agregore', {
   },
 
   defaultPage: DEFAULT_PAGE,
+  autoHideMenuBar: false,
 
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {

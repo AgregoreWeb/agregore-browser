@@ -16,7 +16,10 @@ const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
-const { defaultPage } = require('./config')
+const {
+  defaultPage,
+  autoHideMenuBar: DEFAULT_AUTO_HIDE_MENU_BAR
+} = require('./config')
 
 const WINDOW_METHODS = [
   'goBack',
@@ -200,6 +203,7 @@ class Window extends EventEmitter {
     onSearch,
     listActions,
     view,
+    autoHideMenuBar = DEFAULT_AUTO_HIDE_MENU_BAR,
     ...opts
   } = {}) {
     super()
@@ -211,7 +215,7 @@ class Window extends EventEmitter {
     console.log({ autoResize })
 
     this.window = new BrowserWindow({
-      autoHideMenuBar: true,
+      autoHideMenuBar,
       webPreferences: {
         // partition: 'persist:web-content',
         nodeIntegration: true,
