@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.0.0-69",
+  "version": "1.0.0-70",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -168,7 +168,7 @@
   },
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
-    "electron": "11",
+    "electron": "^18.1.0",
     "electron-builder": "^22.9.1",
     "standard": "^14.3.4"
   },
