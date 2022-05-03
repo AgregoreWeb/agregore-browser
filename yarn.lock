@@ -3232,10 +3232,10 @@
   "resolved" "https://registry.npmjs.org/guard-timeout/-/guard-timeout-2.0.0.tgz"
   "version" "2.0.0"
 
-"gun-fetch@^3.5.5":
-  "integrity" "sha512-GEaYlELR/+O3M4odJDYeecXzoB45gTFI1eMicEmWuCkdMLYc82NdnUGjJBZ+QcDSF7RfwfRdKgexLuSdLwy24g=="
-  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.5.5.tgz"
-  "version" "3.5.5"
+"gun-fetch@^3.5.6":
+  "integrity" "sha512-OgMvQW2ObSxGTeTm0/aVicZMjPdfKwv6kNOav2UwzSnpwI/REdNvCkEwFNw9RN4DO7jXXlFcnw00v3J3bXCqqQ=="
+  "resolved" "https://registry.npmjs.org/gun-fetch/-/gun-fetch-3.5.6.tgz"
+  "version" "3.5.6"
   dependencies:
     "fs-extra" "^10.1.0"
     "gun" "github:amark/gun"
