@@ -1,3 +1,4 @@
+const fs = require('fs-extra')
 const { Readable } = require('stream')
 
 module.exports = function fetchToHandler (getFetch, session) {
@@ -19,11 +20,12 @@ module.exports = function fetchToHandler (getFetch, session) {
 
   async function * readBody (body) {
     for (const chunk of body) {
-      if (chunk.blobUUID) {
-        const data = await session.getBlobData(chunk.blobUUID)
-        yield data
-      } else if (chunk.bytes) {
+      if (chunk.bytes) {
         yield await Promise.resolve(chunk.bytes)
+      } else if (chunk.blobUUID) {
+        yield await session.getBlobData(chunk.blobUUID)
+      } else if(chunk.file){
+        yield * Readable.from(fs.createReadStream(chunk.file))
       }
     }
   }
