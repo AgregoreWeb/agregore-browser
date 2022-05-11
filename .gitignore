@@ -130,3 +130,6 @@ app/extensions/adblocker-chrome-extension/
 # visual code config
 .vscode/
 .vs/
+
+# We use yarn lockfiles instead of package-lock
+package-lock.json
