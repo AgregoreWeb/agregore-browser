@@ -24,7 +24,7 @@ module.exports = function fetchToHandler (getFetch, session) {
         yield await Promise.resolve(chunk.bytes)
       } else if (chunk.blobUUID) {
         yield await session.getBlobData(chunk.blobUUID)
-      } else if(chunk.file){
+      } else if (chunk.file) {
         yield * Readable.from(fs.createReadStream(chunk.file))
       }
     }
@@ -33,7 +33,9 @@ module.exports = function fetchToHandler (getFetch, session) {
   return async function protocolHandler (req, sendResponse) {
     const headers = {
       'Access-Control-Allow-Origin': '*',
-      'Allow-CSP-From': '*'
+      'Allow-CSP-From': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Request-Headers': '*'
     }
 
     try {
