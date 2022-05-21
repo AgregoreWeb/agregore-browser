@@ -187,7 +187,7 @@
     "hypercore-fetch": "^8.5.0",
     "ipfs-http-client": "^56.0.0",
     "ipfsd-ctl": "^10.0.5",
-    "js-ipfs-fetch": "^3.5.0",
+    "js-ipfs-fetch": "^4.0.0",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
