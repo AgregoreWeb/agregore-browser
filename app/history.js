@@ -1,17 +1,17 @@
 
-let historyExtension = null
+let getBackgroundPage = null
 
 module.exports = {
-  setExtension,
+  setGetBackgroundPage,
   search
 }
 
-function setExtension (extension) {
-  historyExtension = extension
+function setGetBackgroundPage (backgroundPage) {
+  getBackgroundPage = backgroundPage
 }
 
 async function search (query = '') {
-  const { webContents } = historyExtension.backgroundPage
+  const webContents = await getBackgroundPage()
 
   return webContents.executeJavaScript(`
     (async () => {

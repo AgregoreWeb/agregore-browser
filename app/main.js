@@ -2,6 +2,8 @@ require('abort-controller/polyfill')
 const { app, BrowserWindow, session } = require('electron')
 const { sep } = require('path')
 
+const IS_DEBUG = process.env.NODE_ENV === 'debug'
+
 const packageJSON = require('../package.json')
 const protocols = require('./protocols')
 const { createActions } = require('./actions')
@@ -24,6 +26,12 @@ if (!gotTheLock) {
   })
 }
 
+if (IS_DEBUG) {
+  app.on('web-contents-created', (event, webContents) => {
+    webContents.openDevTools()
+  })
+}
+
 // Enable text to speech.
 // Requires espeak on Linux
 app.commandLine.appendSwitch('enable-speech-dispatcher')
@@ -35,7 +43,10 @@ app.commandLine.appendSwitch('enable-smooth-scrolling')
 app.commandLine.appendSwitch('enable-accelerated-video-decode')
 app.commandLine.appendSwitch('ignore-gpu-blacklist')
 
-const extensions = createExtensions({ partition: WEB_PARTITION, createWindow })
+// Experimental web platform features, such as the FileSystem API
+app.commandLine.appendSwitch('enable-experimental-web-platform-features')
+
+let extensions = null
 
 const windowManager = new WindowManager({
   onSearch: (...args) => history.search(...args),
@@ -45,16 +56,12 @@ const windowManager = new WindowManager({
 protocols.registerPrivileges()
 
 windowManager.on('open', window => {
-  attachContextMenus({ window, createWindow })
+  attachContextMenus({ window, createWindow, extensions })
   if (!window.rawFrame) {
     const asBrowserView = BrowserWindow.fromBrowserView(window.view)
-    extensions.addWindow(asBrowserView)
     asBrowserView.on('focus', () => {
       const url = window.web.getURL()
       console.log('Focusing', url)
-      // Don't set extension popups as active tabs
-      if (url.startsWith('electron-extension://')) return
-      extensions.setActiveTab(window.web.id)
     })
   }
   window.on('new-window', (event, url, frameName, disposition, options) => {
@@ -63,7 +70,9 @@ windowManager.on('open', window => {
       event.preventDefault()
       event.newGuest = null
       createWindow(url)
-    } else if (options && options.webContents) { attachContextMenus({ window: options, createWindow }) }
+    } else if (options && options.webContents) {
+      attachContextMenus({ window: options, createWindow, extensions })
+    }
   })
 })
 
@@ -110,14 +119,18 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu(actions)
 
+  extensions = createExtensions({ session: webSession, createWindow })
+
   // Register extensions that came bundled with the browser
   await extensions.registerInternal()
 
   // Register extensions that users installed externally
   await extensions.registerExternal()
 
-  const historyExtension = await extensions.get('agregore-history')
-  history.setExtension(historyExtension)
+  // TODO: Better error handling when the extension doesn't exist?
+  history.setGetBackgroundPage(() => {
+    return extensions.getBackgroundPageByName('agregore-history')
+  })
 
   const opened = await windowManager.openSaved()
 
@@ -129,7 +142,10 @@ async function onready () {
   } else if (!opened.length) windowManager.open()
 }
 
-function createWindow (url, options = {}) { return windowManager.open({ url, ...options }) }
+function createWindow (url, options = {}) {
+  console.log('createWindow', url, options)
+  return windowManager.open({ url, ...options })
+}
 
 function urlsFromArgs (argv, workingDir) {
   const rootURL = new URL(workingDir + sep, 'file://')

@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "1.0.0-72",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
@@ -168,7 +168,7 @@
   },
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
-    "electron": "^18.1.0",
+    "electron": "19",
     "electron-builder": "^22.9.1",
     "standard": "^14.3.4"
   },
@@ -177,7 +177,7 @@
     "bt-fetch": "^2.0.0",
     "create-desktop-shortcuts": "^1.4.0",
     "data-uri-to-buffer": "^3.0.1",
-    "electron-extensions": "^6.0.4",
+    "electron-extended-webextensions": "^0.0.3",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",

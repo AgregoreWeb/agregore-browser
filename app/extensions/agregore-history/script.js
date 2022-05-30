@@ -9,6 +9,8 @@ const HISTORY_VERSION = 1
 const HISTORY_STORE = 'navigated'
 const MAX_RESULTS = 8
 
+const FORBIDDEN_PROTOCOLS = ['agregore:', 'chrome-extension:', 'devtools:']
+
 main()
 
 async function main () {
@@ -64,7 +66,7 @@ async function main () {
 
     const { host, protocol, pathname } = new URL(url)
 
-    if (protocol === 'agregore-browser:') return console.debug('Skipping saving', url)
+    if (FORBIDDEN_PROTOCOLS.includes(protocol)) return console.debug('Skipping saving', url)
 
     const historyItem = {
       host,
