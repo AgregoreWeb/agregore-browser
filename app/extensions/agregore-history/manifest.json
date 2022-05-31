@@ -5,6 +5,8 @@
 
 	"description": "The history tracking functionality for the Agregore Browser",
 
+	"permissions": ["webNavigation"],
+
 	"background": {
 		"page": "background.html"
 	}

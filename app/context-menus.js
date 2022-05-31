@@ -13,7 +13,7 @@ module.exports = {
   attachContextMenus
 }
 
-function attachContextMenus ({ window, createWindow }) {
+function attachContextMenus ({ window, createWindow, extensions }) {
   if (window.web) {
     window.webContents.on('context-menu', headerContextMenu)
     window.web.on('context-menu', pageContextMenu)
@@ -38,6 +38,7 @@ function attachContextMenus ({ window, createWindow }) {
         editGroup(params, true)
       ])
     }
+    // TODO: Context menus for browser actions
   }
 
   function pageContextMenu (event, params) {
@@ -47,7 +48,8 @@ function attachContextMenus ({ window, createWindow }) {
       linkGroup(params),
       saveGroup(params),
       editGroup(params),
-      developmentGroup(window.web || window.webContents, params)
+      developmentGroup(window.web || window.webContents, params),
+      extensionGroup(event, params)
     ])
   }
 
@@ -64,6 +66,11 @@ function attachContextMenus ({ window, createWindow }) {
       })
       .forEach(item => menu.append(item))
     menu.popup(window.window)
+  }
+
+  function extensionGroup (event, params) {
+    const webContents = window.web
+    return extensions.listContextMenuForEvent(webContents, event, params)
   }
 
   function historyBufferGroup ({ editFlags, isEditable }, showRedo = true) {

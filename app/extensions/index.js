@@ -3,14 +3,12 @@ const fs = require('fs-extra')
 const { readdir } = require('fs').promises
 const EventEmitter = require('events')
 
-const { ExtensibleSession } = require('../../node_modules/electron-extensions/main')
-const { webContents } = require('electron')
+const { ExtendedExtensions } = require('electron-extended-webextensions')
 
+// TODO: This smells! Inject options in constructor
 const { extensions: config } = require('../config')
 const { dir: extensionsDir, remote } = config
 
-const DEFAULT_PARTITION = 'persist:web-content'
-const DEFAULT_BLACKLIST = ['agregore-browser://*/*', 'file://*/*']
 const DEFAULT_EXTENSION_LOCATION = __dirname
 
 module.exports = {
@@ -19,69 +17,57 @@ module.exports = {
 
 class Extensions extends EventEmitter {
   constructor ({
-    partition = DEFAULT_PARTITION,
-    blacklist = DEFAULT_BLACKLIST,
+    session,
     createWindow,
     location = DEFAULT_EXTENSION_LOCATION
   }) {
     super()
-    this.partition = partition
-    this.blacklist = blacklist
     this.createWindow = createWindow
     this.location = location
 
-    this.extensions = new ExtensibleSession({
-      partition,
-      blacklist
-    })
+    this.session = session
 
-    this.extensions.on('create-tab', (details, onCreate) => {
-      const { url, width, height } = details
-      const window = createWindow(url, { width, height })
+    async function onCreateTab ({ url, popup, openerTabId }) {
+      const options = { url }
+      if (popup) options.popup = true
+      if (openerTabId) options.openerTabId = openerTabId
+      const window = await createWindow(url, options)
+      return window.web
+    }
 
-      onCreate(window.web.id)
+    this.extensions = new ExtendedExtensions(this.session, {
+      onCreateTab
     })
   }
 
-  async listActions () {
-    /* eslint-disable camelcase */
-    return Object.keys(this.all)
-      .map((name) => this.get(name))
-      .filter(({ manifest }) => manifest.browser_action)
-      .map(({ popupPage, backgroundPage, manifest, id, path: extensionPath }) => {
-        const { browser_action, name } = manifest
-        const title = browser_action.default_title || name
-        const onClick = popupPage
-          ? () => {
-            this.createWindow(popupPage, {
-              rawFrame: true,
-              autoResize: true,
-              height: 400,
-              width: 256
-            })
-          }
-          : (tabId) => {
-            const tab = webContents.fromId(tabId)
-            backgroundPage.webContents.send('api-emit-event-browserAction-onClicked', tab)
-          }
-        const { default_icon } = browser_action
-        const iconRelative = (typeof default_icon === 'string') ? default_icon : findIcon(default_icon)
-        const icon = new URL(path.join(extensionPath, iconRelative), 'file:///').href
-        return {
-          id: name,
-          title,
-          icon,
-          onClick
-        }
-      })
+  async listActions (window) {
+    const tabId = window ? window.web.id : null
+    const actions = await this.extensions.browserActions.list(tabId)
+    return actions.map((action) => {
+      const onClick = (clickTabId) => this.extensions.browserActions.click(action.extensionId, clickTabId)
+      return { ...action, onClick }
+    })
+  }
+
+  listContextMenuForEvent (webContents, event, params, additionalOpts = {}) {
+    return this.extensions.contextMenus.getForEvent(webContents, event, params, additionalOpts)
   }
 
   get all () {
-    return this.extensions.extensions
+    return [...this.extensions.extensions.values()]
   }
 
-  get (name) {
-    return this.all[name]
+  async get (id) {
+    return this.extensions.get(id)
+  }
+
+  async byName (findName) {
+    return this.all.find(({ name }) => name === findName)
+  }
+
+  async getBackgroundPageByName (name) {
+    const extension = await this.byName(name)
+    return this.extensions.getBackgroundPage(extension.id)
   }
 
   async loadRemote () {
@@ -126,29 +112,15 @@ class Extensions extends EventEmitter {
         console.log('Loaded extension', extension.manifest)
 
         if (process.env.NODE_ENV === 'debug') {
-          if (extension.backgroundPage) extension.backgroundPage.webContents.openDevTools()
+          // TODO: Open devtools?
         }
       } catch (e) {
         console.error('Error loading extension', folder, e)
       }
     }
   }
-
-  setActiveTab (tabId) {
-    this.extensions.activeTab = tabId
-  }
-
-  addWindow (window) {
-    this.extensions.addWindow(window)
-  }
 }
 
 function createExtensions (opts) {
   return new Extensions(opts)
-}
-
-function findIcon (iconList) {
-  for (const size of [38, 32, 19, 16]) {
-    if (iconList[size]) return iconList[size]
-  }
 }

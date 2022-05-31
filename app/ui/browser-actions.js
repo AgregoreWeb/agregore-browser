@@ -14,7 +14,7 @@ class BrowserActions extends HTMLElement {
         current.clickExtensionAction(id)
       })
       button.innerHTML = `
-        <img src=${icon} class="browser-actions-icon" />
+        <img src="${icon}" class="browser-actions-icon" />
       `
       this.appendChild(button)
     }
