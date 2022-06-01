@@ -12,8 +12,6 @@ const MAIN_PAGE = path.resolve(__dirname, './ui/index.html')
 const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
-const IS_DEBUG = process.env.NODE_ENV === 'debug'
-
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
 const {
@@ -197,13 +195,14 @@ class WindowManager extends EventEmitter {
 class Window extends EventEmitter {
   constructor ({
     url = defaultPage,
-    rawFrame = false,
+    popup = false,
+    rawFrame = false || popup,
+    autoResize = false || popup,
     noNav = false,
-    autoResize = false,
     onSearch,
     listActions,
     view,
-    autoHideMenuBar = DEFAULT_AUTO_HIDE_MENU_BAR,
+    autoHideMenuBar = DEFAULT_AUTO_HIDE_MENU_BAR || popup,
     ...opts
   } = {}) {
     super()
@@ -212,16 +211,13 @@ class Window extends EventEmitter {
     this.listActions = listActions
     this.rawFrame = rawFrame
 
-    console.log({ autoResize })
-
     this.window = new BrowserWindow({
       autoHideMenuBar,
       webPreferences: {
         // partition: 'persist:web-content',
         nodeIntegration: true,
         webviewTag: false,
-        contextIsolation: false,
-        enablePreferredSizeMode: autoResize
+        contextIsolation: false
       },
       show: false,
       icon: LOGO_FILE,
@@ -238,6 +234,7 @@ class Window extends EventEmitter {
         enablePreferredSizeMode: autoResize
       }
     })
+
     this.window.setBrowserView(this.view)
 
     this.web.on('did-start-navigation', (event, url, isInPlace, isMainFrame) => {
@@ -255,8 +252,8 @@ class Window extends EventEmitter {
 
     if (autoResize) {
       this.web.on('preferred-size-changed', (event, preferredSize) => {
-        console.log('preferred-size-changed', event, preferredSize)
         const { width, height } = preferredSize
+        console.log('preferred-size-changed', preferredSize)
         this.window.setSize(width, height, false)
       })
     }
@@ -288,11 +285,6 @@ class Window extends EventEmitter {
     if (noNav) toLoad.searchParams.set('noNav', 'true')
 
     this.toLoad = toLoad.href
-
-    if (IS_DEBUG) {
-      // this.web.openDevTools()
-      this.window.webContents.openDevTools()
-    }
   }
 
   load () {
@@ -356,15 +348,15 @@ class Window extends EventEmitter {
   }
 
   async listExtensionActions () {
-    const actions = await this.listActions()
-    return actions.map(({ title, id, icon }) => ({ title, id, icon }))
+    const actions = await this.listActions(this)
+    return actions.map(({ title, extensionId: id, icon }) => ({ title, id, icon }))
   }
 
   async clickExtensionAction (actionId) {
     await this.focus()
-    for (const { id, onClick } of await this.listActions()) {
-      if (actionId !== id) continue
-      await onClick(this.id)
+    for (const { extensionId, onClick } of await this.listActions()) {
+      if (actionId !== extensionId) continue
+      await onClick(this.web.id)
     }
   }
 
