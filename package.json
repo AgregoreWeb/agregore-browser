@@ -15,7 +15,10 @@
   },
   "standard": {
     "ignore": [
-      "bundle.js"
+      "bundle.js",
+      "bundle-markdown.js",
+      "bundle-json.js",
+      "bundle-gemini.js"
     ]
   },
   "build": {
