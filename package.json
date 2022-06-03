@@ -24,6 +24,10 @@
   "build": {
     "npmRebuild": true,
     "asar": true,
+    "asarUnpack": [
+      "app/extensions/*",
+      "node_modules/go-ipfs/*"
+    ],
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
