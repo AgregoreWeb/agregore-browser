@@ -25,7 +25,7 @@
     "npmRebuild": true,
     "asar": true,
     "asarUnpack": [
-      "app/extensions/*",
+      "app/extensions/**",
       "node_modules/go-ipfs/**"
     ],
     "productName": "Agregore Browser",
