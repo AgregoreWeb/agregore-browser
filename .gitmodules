@@ -1,9 +1,6 @@
-[submodule "app/extensions/extension-agregore-render-gemini"]
-	path = app/extensions/extension-agregore-render-gemini
-	url = https://github.com/AgregoreWeb/extension-agregore-render-gemini.git
-[submodule "app/extensions/extension-agregore-render-markdown"]
-	path = app/extensions/extension-agregore-render-markdown
-	url = https://github.com/AgregoreWeb/extension-agregore-render-markdown.git
 [submodule "app/extensions/extension-agregore-qr-share"]
 	path = app/extensions/extension-agregore-qr-share
 	url = https://github.com/AgregoreWeb/extension-agregore-qr-share.git
+[submodule "app/extensions/extension-agregore-renderer"]
+	path = app/extensions/extension-agregore-renderer
+	url = https://github.com/AgregoreWeb/extension-agregore-renderer.git

@@ -2266,10 +2266,10 @@ electron-builder@^22.9.1:
     update-notifier "^5.1.0"
     yargs "^17.0.1"
 
-electron-extended-webextensions@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.3.tgz#2a087b7a9f17ff4d63109cd4bbff3ea9f21492f4"
-  integrity sha512-mRawcZ28tzxVp2La5kGm9Pb1MSofDdkT4iSz+h/iyF9ZNWuvrVbdtEWC8sKBgBsEE+0PNE5DB47t4KbtR+eXbg==
+electron-extended-webextensions@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.5.tgz#0ee102f110d3f664a2f6ea78b5c1e2aa3f5e9fbe"
+  integrity sha512-k1AOmHhg9Bt0nvT/HgkhiDcPlJC+gbifXBiEH81Ce6DDvamWf4DE+gIt4W10F/UAh6IoccWLAavvfpecAM/igQ==
 
 electron-fetch@^1.7.2:
   version "1.7.4"
@@ -3183,24 +3183,18 @@ globalthis@^1.0.1:
   dependencies:
     define-properties "^1.1.3"
 
-go-ipfs@^0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/go-ipfs/-/go-ipfs-0.11.0.tgz#d693d9fa6cef6d8f2d3c392e0b9bbcfeb920cefa"
-  integrity sha512-l6uZTeEZYQQpKsoI8DXV5j1UDiq7xTIwNyp5lGJmY1cR9LoWHR4lIhbSpc2DfvOv5Ly/+BC/CLvo7vIFmdmyGQ==
+go-ipfs@^0.12.2:
+  version "0.12.2"
+  resolved "https://registry.yarnpkg.com/go-ipfs/-/go-ipfs-0.12.2.tgz#aecf0ee16fd7f8d3a1a08f9d1e030555db741d70"
+  integrity sha512-4eA4xFRDM1JfC3W+IkAk2VUauVWKp3zHghiXCs+8SizhNrfajTwzhLduFNnQtjLYicXlhfX1Hjm8uk011ypV6Q==
   dependencies:
     cachedir "^2.3.0"
-    go-platform "^1.0.0"
     got "^11.7.0"
     gunzip-maybe "^1.4.2"
     hasha "^5.2.2"
     pkg-conf "^3.1.0"
     tar-fs "^2.1.0"
     unzip-stream "^0.3.0"
-
-go-platform@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/go-platform/-/go-platform-1.0.0.tgz#b05ff6b9274007d246b164235f03f7f6a59626c7"
-  integrity sha1-sF/2uSdAB9JGsWQjXwP39qWWJsc=
 
 got@^11.7.0:
   version "11.8.3"
