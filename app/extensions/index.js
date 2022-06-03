@@ -9,7 +9,8 @@ const { ExtendedExtensions } = require('electron-extended-webextensions')
 const { extensions: config } = require('../config')
 const { dir: extensionsDir, remote } = config
 
-const DEFAULT_EXTENSION_LOCATION = __dirname
+// Handle `app.asar` Electron functionality so that extensions can be referenced on the FS
+const DEFAULT_EXTENSION_LOCATION = __dirname.replace('app.asar', 'app.asar.unpacked')
 
 module.exports = {
   createExtensions
