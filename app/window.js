@@ -215,6 +215,7 @@ class Window extends EventEmitter {
       autoHideMenuBar,
       webPreferences: {
         // partition: 'persist:web-content',
+        defaultEncoding: 'utf-8',
         nodeIntegration: true,
         webviewTag: false,
         contextIsolation: false
@@ -226,6 +227,7 @@ class Window extends EventEmitter {
     this.view = view || new BrowserView({
       webPreferences: {
         partition: 'persist:web-content',
+        defaultEncoding: 'utf-8',
         nodeIntegration: false,
         sandbox: true,
         webviewTag: false,
