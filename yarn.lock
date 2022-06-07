@@ -3505,11 +3505,12 @@ hypercore-default-storage@^1.1.1:
   optionalDependencies:
     fsctl "^1.0.0"
 
-hypercore-fetch@^8.5.0:
-  version "8.5.0"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-8.5.0.tgz#12940f481d18694f6c616cd6bb7347220059b162"
-  integrity sha512-Y+AFmf8rSu+SGaZfkC0HLn1xRub844MmTWPDJslwZn9Y5ibxeizbkFXfqbc/gtf24RrtJXHJGJtgQPJY3V/Txg==
+hypercore-fetch@^8.6.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-8.6.0.tgz#43161ee718744945f4b55f19b1a857be9da380e7"
+  integrity sha512-RTS45vVq+SM9fstRQ8lM8b+ieCtJS8LjAS2OCLGBlkVew61uYbzej1p5d2/nj8LyAh/wlXj77R7/T2xdETFalg==
   dependencies:
+    busboy "^0.3.1"
     event-iterator "^2.0.0"
     fetch-headers "^2.0.0"
     hyper-dns "^0.12.0"
@@ -5182,14 +5183,7 @@ node-addon-api@^1.6.3:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-1.7.2.tgz#3df30b95720b53c24e59948b49532b662444f54d"
   integrity sha512-ibPK3iA+vaY1eEjESkQkM0BbCqFOaZMiXRTtdB0u7b4djtY6JnsjvPdUHVMg6xQt3B8fpTTWHI9A+ADjM9frzg==
 
-node-fetch@^2.6.1:
-  version "2.6.7"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
-  integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
-  dependencies:
-    whatwg-url "^5.0.0"
-
-"node-fetch@https://registry.npmjs.org/@achingbrain/node-fetch/-/node-fetch-2.6.7.tgz":
+node-fetch@^2.6.1, "node-fetch@https://registry.npmjs.org/@achingbrain/node-fetch/-/node-fetch-2.6.7.tgz":
   version "2.6.7"
   resolved "https://registry.npmjs.org/@achingbrain/node-fetch/-/node-fetch-2.6.7.tgz#1b5d62978f2ed07b99444f64f0df39f960a6d34d"
 
@@ -7383,11 +7377,6 @@ torrent-piece@^2.0.0:
   resolved "https://registry.yarnpkg.com/torrent-piece/-/torrent-piece-2.0.1.tgz#a1a50fffa589d9bf9560e38837230708bc3afdc6"
   integrity sha512-JLSOyvQVLI6JTWqioY4vFL0JkEUKQcaHQsU3loxkCvPTSttw8ePs2tFwsP4XIjw99Fz8EdOzt/4faykcbnPbCQ==
 
-tr46@~0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/tr46/-/tr46-0.0.3.tgz#8184fd347dac9cdc185992f3a6622e14b9d9ab6a"
-  integrity sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=
-
 "traverse@>=0.3.0 <0.4":
   version "0.3.9"
   resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.3.9.tgz#717b8f220cc0bb7b44e40514c22b2e8bbc70d8b9"
@@ -7730,11 +7719,6 @@ webcrypto-core@^1.7.2:
     pvtsutils "^1.2.2"
     tslib "^2.3.1"
 
-webidl-conversions@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz#24534275e2a7bc6be7bc86611cc16ae0a5654871"
-  integrity sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE=
-
 webproperty@^1.6.3:
   version "1.6.5"
   resolved "https://registry.yarnpkg.com/webproperty/-/webproperty-1.6.5.tgz#b168745a7fa3a7ce8a4ec1fad41404c8177ca022"
@@ -7810,14 +7794,6 @@ webtorrent@^0.116.0:
 "whatwg-mimetype@https://github.com/jsdom/whatwg-mimetype#v2.3.0":
   version "2.3.0"
   resolved "https://github.com/jsdom/whatwg-mimetype#7eadb26d8e02f9d95bc2f6e272df7eb653d7a903"
-
-whatwg-url@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/whatwg-url/-/whatwg-url-5.0.0.tgz#966454e8765462e37644d3626f6742ce8b70965d"
-  integrity sha1-lmRU6HZUYuN2RNNib2dCzotwll0=
-  dependencies:
-    tr46 "~0.0.3"
-    webidl-conversions "^3.0.0"
 
 which-boxed-primitive@^1.0.2:
   version "1.0.2"

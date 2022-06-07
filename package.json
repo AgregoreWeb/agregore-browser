@@ -191,7 +191,7 @@
     "go-ipfs": "^0.12.2",
     "gun-fetch": "^3.5.9",
     "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "^8.5.0",
+    "hypercore-fetch": "^8.6.0",
     "ipfs-http-client": "^56.0.0",
     "ipfsd-ctl": "^10.0.5",
     "js-ipfs-fetch": "^4.0.0",
