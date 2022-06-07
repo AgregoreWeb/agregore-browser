@@ -203,7 +203,7 @@ function createActions ({
 
       const shortcut = {
         filePath,
-        outputPath: outputPath,
+        outputPath,
         name: shortcutName,
         comment: description,
         description,
