@@ -8,6 +8,8 @@ const path = require('path')
 const EventEmitter = require('events')
 const fs = require('fs-extra')
 
+const IS_DEBUG = process.env.NODE_ENV === 'debug'
+
 const MAIN_PAGE = path.resolve(__dirname, './ui/index.html')
 const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
@@ -97,7 +99,7 @@ class WindowManager extends EventEmitter {
   relayMethod (name) {
     ipcMain.handle(`agregore-window-${name}`, ({ sender }, ...args) => {
       const { id } = sender
-      console.log('<-', id, name, '(', args, ')')
+      if (IS_DEBUG) console.log('<-', id, name, '(', args, ')')
       const window = this.get(id)
       if (!window) return console.warn(`Got method ${name} from invalid frame ${id}`)
       return window[name](...args)
@@ -255,7 +257,6 @@ class Window extends EventEmitter {
     if (autoResize) {
       this.web.on('preferred-size-changed', (event, preferredSize) => {
         const { width, height } = preferredSize
-        console.log('preferred-size-changed', preferredSize)
         this.window.setSize(width, height, false)
       })
     }
@@ -295,7 +296,7 @@ class Window extends EventEmitter {
 
   emitNavigate (url, isMainFrame) {
     if (!isMainFrame) return
-    console.log('Navigating', url)
+    if (IS_DEBUG) console.log('Navigating', url)
     const canGoBack = this.web.canGoBack()
     const canGoForward = this.web.canGoForward()
 
@@ -364,7 +365,7 @@ class Window extends EventEmitter {
 
   send (name, ...args) {
     this.emit(name, ...args)
-    console.log('->', this.id, name, '(', args, ')')
+    if (IS_DEBUG) console.log('->', this.id, name, '(', args, ')')
     this.window.webContents.send(`agregore-window-${name}`, ...args)
   }
 
