@@ -65,6 +65,8 @@ function registerPrivileges () {
     { scheme: 'gemini', privileges: P2P_PRIVILEGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
     { scheme: 'ipns', privileges: P2P_PRIVILEGES },
+    { scheme: 'ipld', privileges: P2P_PRIVILEGES },
+    { scheme: 'pubsub', privileges: P2P_PRIVILEGES },
     { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
     { scheme: 'bt', privileges: P2P_PRIVILEGES },
     { scheme: 'gun', privileges: P2P_PRIVILEGES },
@@ -84,6 +86,8 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
   app.setAsDefaultProtocolClient('ipns')
+  app.setAsDefaultProtocolClient('ipld')
+  app.setAsDefaultProtocolClient('pubsub')
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
   app.setAsDefaultProtocolClient('gun')
@@ -109,6 +113,10 @@ async function setupProtocols (session) {
   globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
+  sessionProtocol.registerStreamProtocol('ipld', ipfsProtocolHandler)
+  globalProtocol.registerStreamProtocol('ipld', ipfsProtocolHandler)
+  sessionProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
+  globalProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
 
   const btHandler = await createBTHandler(btOptions, session)
   sessionProtocol.registerStreamProtocol('bittorrent', btHandler)
