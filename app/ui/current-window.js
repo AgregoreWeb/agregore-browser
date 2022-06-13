@@ -9,6 +9,7 @@ window.getCurrentWindow = function getCurrentWindow () {
     'enter-html-full-screen',
     'leave-html-full-screen',
     'update-target-url',
+    'browser-actions-changed',
     'close'
   ]
 

@@ -125,9 +125,21 @@ browser-actions {
   padding: 0 calc(var(--border-width) * 2);
   height: calc(100% - calc(var(--border-width) * 2));
   width: auto;
+  position: relative;
 } .browser-actions-button>img {
   height: 100%;
   width: auto;
+}
+.browser-actions-badge {
+  border-radius: 0.25em;
+  position: absolute;
+  bottom: 0px;
+  min-width: 1em;
+  min-height: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
 }
 
 browser-actions:empty {

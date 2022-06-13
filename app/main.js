@@ -110,7 +110,11 @@ async function onready () {
   await protocols.setupProtocols(webSession)
   await registerMenu(actions)
 
-  extensions = createExtensions({ session: webSession, createWindow })
+  function updateBrowserActions (tabId, actions) {
+    windowManager.reloadBrowserActions(tabId)
+  }
+
+  extensions = createExtensions({ session: webSession, createWindow, updateBrowserActions })
 
   // Register extensions that came bundled with the browser
   await extensions.registerInternal()

@@ -5,6 +5,7 @@ const webview = $('#view')
 const nav = $('#top')
 const search = $('#search')
 const find = $('#find')
+const actions = $('#actions')
 
 const currentWindow = window.getCurrentWindow()
 
@@ -78,6 +79,9 @@ currentWindow.on('leave-html-full-screen', () => {
 })
 currentWindow.on('update-target-url', async (url) => {
   search.showTarget(url)
+})
+currentWindow.on('browser-actions-changed', () => {
+  actions.renderLatest()
 })
 
 find.addEventListener('next', ({ detail }) => {

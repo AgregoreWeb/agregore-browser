@@ -20,10 +20,12 @@ class Extensions extends EventEmitter {
   constructor ({
     session,
     createWindow,
+    updateBrowserActions,
     location = DEFAULT_EXTENSION_LOCATION
   }) {
     super()
     this.createWindow = createWindow
+    this.updateBrowserActions = updateBrowserActions
     this.location = location
 
     this.session = session
@@ -39,6 +41,9 @@ class Extensions extends EventEmitter {
     this.extensions = new ExtendedExtensions(this.session, {
       onCreateTab
     })
+
+    this.extensions.browserActions.on('change', (actions) => updateBrowserActions(null, actions))
+    this.extensions.browserActions.on('change-tab', (tabId, actions) => updateBrowserActions(tabId, actions))
   }
 
   async listActions (window) {

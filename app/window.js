@@ -106,6 +106,18 @@ class WindowManager extends EventEmitter {
     })
   }
 
+  reloadBrowserActions (tabId) {
+    for (const window of this.all) {
+      if (tabId) {
+        if (window.web.id === tabId) {
+          window.send('browser-actions-changed')
+        }
+      } else {
+        window.send('browser-actions-changed')
+      }
+    }
+  }
+
   get (id) {
     for (const window of this.windows) {
       if (window.id === id) return window
@@ -352,7 +364,25 @@ class Window extends EventEmitter {
 
   async listExtensionActions () {
     const actions = await this.listActions(this)
-    return actions.map(({ title, extensionId: id, icon }) => ({ title, id, icon }))
+    return actions.map(({
+      title,
+      extensionId: id,
+      icon,
+      badge,
+      badgeColor,
+      badgeBackground
+    }) => {
+      return {
+        title,
+        id,
+        icon,
+        badge: {
+          text: badge,
+          color: badgeColor,
+          background: badgeBackground
+        }
+      }
+    })
   }
 
   async clickExtensionAction (actionId) {
