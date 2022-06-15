@@ -1863,10 +1863,10 @@ crc@^3.8.0:
   dependencies:
     buffer "^5.1.0"
 
-create-desktop-shortcuts@^1.4.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/create-desktop-shortcuts/-/create-desktop-shortcuts-1.6.0.tgz#ce894d6205d24426d2cf47c91755dede9e9fb862"
-  integrity sha512-Us4uLDdpRz1bapTxTQ720OAZXqEbIAwaDX4VU2drpiFJOa1GtGwYnFN+XU1SZ08aLgRRFmnLHz8WZgDdfAOzOg==
+create-desktop-shortcuts@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/create-desktop-shortcuts/-/create-desktop-shortcuts-1.7.0.tgz#eaa3d3cea5ed06b6823490c5b32ffd0b815a36b9"
+  integrity sha512-l1Gc4uw1rfJ8uTKb0Doeh7C3evwBpSt0LJGZFKmLa6d1t12nHYFF5yXO8cA4bX06LczfZ4xcnzt0faVwNzM6iw==
   dependencies:
     which "^2.0.2"
 
