@@ -60,8 +60,7 @@ windowManager.on('open', window => {
   if (!window.rawFrame) {
     const asBrowserView = BrowserWindow.fromBrowserView(window.view)
     asBrowserView.on('focus', () => {
-      const url = window.web.getURL()
-      console.log('Focusing', url)
+      window.web.focus()
     })
   }
   window.on('new-window', (event, url, frameName, disposition, options) => {
