@@ -267,9 +267,31 @@ class Window extends EventEmitter {
     })
 
     if (autoResize) {
+      let reloaded = false
       this.web.on('preferred-size-changed', (event, preferredSize) => {
         const { width, height } = preferredSize
+        if (IS_DEBUG) console.log('Preferred size', this.id, preferredSize)
         this.window.setSize(width, height, false)
+        this.view.setBounds({
+          x: 0,
+          y: 0,
+          width,
+          height
+        })
+
+        if (!reloaded) {
+          reloaded = true
+          this.web.invalidate()
+        }
+      })
+    }
+
+    if (popup) {
+      this.web.focus()
+      this.window.once('blur', () => {
+        if(this.web.isFocused() || this.webContents.isFocused()) return
+        if(this.web.isDevToolsOpened() || this.webContents.isDevToolsOpened()) return
+        this.window.close()
       })
     }
 

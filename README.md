@@ -60,9 +60,13 @@ A minimal web browser for the distributed web
 ### Other features
 
 - Web Extension support
-- Built-in Markdown and Gemini rendering extension
+- Built-in Markdown/Gemini/JSON rendering extension
 - Built-in QR code scanner and generator extension
-- Built-in ad blocker (basic)
+	- Generate a QR code for the current page
+	- Scan a QR code from the browser action window.
+	- Right click a link or image to generate a QR code for it
+- Built-in ad blocker (ublock origin)
+- Built-in support for creating web archives via [ArchiveWeb.page](https://github.com/webrecorder/archiveweb.page/)
 - Open links in new windows (right click on element)
 - Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
@@ -70,7 +74,7 @@ A minimal web browser for the distributed web
 - Save files from pages (any protocol, right click it)
 - Set as default browser (click Set As Default in the menu bar (`ALT`))
 - Set as default Torrent handler (click Set as Default Torrent in the menu bar (`ALT`))
-- Auto-convert SSB sigils, `/ipfs/Qm` paths, and `/ipns/` paths to proper URLs.
+- Auto-convert SSB sigils, BitTorrent magnet links, `/ipfs/Qm` paths, and `/ipns/` paths to proper URLs.
 - Configure whether the menu bar should be visible by default (edit .agregorerc `autoHideMenuBar` property)
 
 ## Docs
@@ -98,4 +102,4 @@ To build from source do the following:
 Other notes:
 - To debug extensions, run `yarn debug` to have devtools opened for their background pages
 - If you're interested in a CLI for these protocols, check out [curld](https://github.com/Lohn/curld) `cURL for Distributed Web`. That project supports the same protocols as Agregore, but in a terminal way.
-
+- To download the latest versions of ArchiveWeb.page or Ublock Origin, run `yarn download-extennsions`

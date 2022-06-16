@@ -11,7 +11,8 @@
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "npm run download-extensions && electron-builder install-app-deps",
+    "download-extensions": "node ./download-extensions.js"
   },
   "standard": {
     "ignore": [
@@ -175,6 +176,7 @@
   },
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
+    "@netless/extension-flat": "^1.0.1",
     "electron": "19",
     "electron-builder": "^22.9.1",
     "standard": "^14.3.4"
@@ -184,7 +186,7 @@
     "bt-fetch": "^3.1.0",
     "create-desktop-shortcuts": "^1.4.0",
     "data-uri-to-buffer": "^3.0.1",
-    "electron-extended-webextensions": "^0.0.8",
+    "electron-extended-webextensions": "0.0.9",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
