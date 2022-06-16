@@ -19,7 +19,8 @@
       "bundle.js",
       "bundle-markdown.js",
       "bundle-json.js",
-      "bundle-gemini.js"
+      "bundle-gemini.js",
+      "bundle-ssb.js"
     ]
   },
   "build": {
@@ -184,7 +185,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "bt-fetch": "^3.1.0",
-    "create-desktop-shortcuts": "^1.4.0",
+    "create-desktop-shortcuts": "^1.7.0",
     "data-uri-to-buffer": "^3.0.1",
     "electron-extended-webextensions": "0.0.9",
     "fs-extra": "^9.0.1",
@@ -201,7 +202,7 @@
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
-    "ssb-fetch": "^1.1.4",
+    "ssb-fetch": "^1.5.2",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "wrtc": "^0.4.7"
   }
