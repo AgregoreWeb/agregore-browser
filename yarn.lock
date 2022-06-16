@@ -2288,10 +2288,10 @@ electron-builder@^22.9.1:
     update-notifier "^5.1.0"
     yargs "^17.0.1"
 
-electron-extended-webextensions@0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.9.tgz#25e8ef542cc76b4f49a6aeabc7ed9e95b9035749"
-  integrity sha512-v84tU52bNwvvsI5S4ovOV7CK/cOX2GXZ3VVqM+g+JvHXgTBv7e3oWusIDywT5hSFINHX/V75tAqjjdaGJ8iyTA==
+electron-extended-webextensions@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.10.tgz#78c530f469221e368869931c2ef3d8c49aef6fa5"
+  integrity sha512-g5aUkLeyO/s2coc2ytPNHUPE5+xiEJIYmvBWpWbX69b4rg1MKqfDExcKwYYA13jdtyzAG8+fpemeXjttYsGfxg==
 
 electron-fetch@^1.7.2:
   version "1.7.4"
@@ -3258,6 +3258,7 @@ gun-fetch@^3.5.9:
     ws "^7.2.1"
   optionalDependencies:
     "@peculiar/webcrypto" "^1.1.1"
+    emailjs "^2.2.0"
 
 gunzip-maybe@^1.4.2:
   version "1.4.2"
