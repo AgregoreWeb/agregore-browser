@@ -289,8 +289,8 @@ class Window extends EventEmitter {
     if (popup) {
       this.web.focus()
       this.window.once('blur', () => {
-        if(this.web.isFocused() || this.webContents.isFocused()) return
-        if(this.web.isDevToolsOpened() || this.webContents.isDevToolsOpened()) return
+        if (this.web.isFocused() || this.webContents.isFocused()) return
+        if (this.web.isDevToolsOpened() || this.webContents.isDevToolsOpened()) return
         this.window.close()
       })
     }
