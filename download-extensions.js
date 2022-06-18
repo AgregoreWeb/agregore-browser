@@ -3,7 +3,7 @@
 const { extensionFlat } = require('@netless/extension-flat')
 
 const EXTENSIONS = {
-  // 'archiveweb.page': 'fpeoodllldobpkbkabpblcfaogecpndd',
+  'archiveweb.page': 'fpeoodllldobpkbkabpblcfaogecpndd',
   ublock: 'cjpalhdlnbpafiamejdnhcphjbkeiagm'
 }
 
