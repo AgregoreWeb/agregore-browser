@@ -12,7 +12,7 @@ const { dir: extensionsDir, remote } = config
 // Handle `app.asar` Electron functionality so that extensions can be referenced on the FS
 // Also note that MacOS uses `app-arm64.asar`, so we should target the first `.asar/`
 const DEFAULT_EXTENSION_LOCATION = __dirname
-  .replace(`.asar${path.delimiter}`, `.asar.unpacked${path.delimiter}`)
+  .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
 module.exports = {
   createExtensions
