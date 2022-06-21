@@ -98,7 +98,7 @@ async function onready () {
 
   const electronSection = /Electron.+ /i
   const existingAgent = webSession.getUserAgent()
-  const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${packageJSON.version}`)
+  const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${packageJSON.version} `)
 
   webSession.setUserAgent(newAgent)
 
