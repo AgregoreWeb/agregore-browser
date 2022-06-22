@@ -101,6 +101,7 @@ async function onready () {
   const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${packageJSON.version} `)
 
   webSession.setUserAgent(newAgent)
+  session.defaultSession.setUserAgent(newAgent)
 
   const actions = createActions({
     createWindow
