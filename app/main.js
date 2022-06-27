@@ -14,6 +14,8 @@ const { createExtensions } = require('./extensions')
 const history = require('./history')
 
 const WEB_PARTITION = 'persist:web-content'
+const path = require('path')
+const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -94,6 +96,22 @@ app.on('before-quit', () => {
 })
 
 async function onready () {
+  const { app, Menu, Tray } = require('electron')
+
+  let appIcon = null
+  app.whenReady().then(() => {
+    appIcon = new Tray(LOGO_FILE)
+    const contextMenu = Menu.buildFromTemplate([
+      { label: 'Show/Hide', type: 'radio' },
+      { label: 'Quit', type: 'radio' }
+    ])
+
+    // Make a change to the context menu
+    contextMenu.items[1].checked = false
+
+    // Call this again for Linux because we modified the context menu
+    appIcon.setContextMenu(contextMenu)
+  })
   const webSession = session.fromPartition(WEB_PARTITION)
 
   const electronSection = /Electron.+ /i
