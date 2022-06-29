@@ -1,5 +1,5 @@
 require('abort-controller/polyfill')
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, session, Menu, Tray } = require('electron')
 const { sep } = require('path')
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
@@ -14,6 +14,8 @@ const { createExtensions } = require('./extensions')
 const history = require('./history')
 
 const WEB_PARTITION = 'persist:web-content'
+const path = require('path')
+const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 
 const gotTheLock = app.requestSingleInstanceLock()
 
@@ -92,8 +94,19 @@ app.on('before-quit', () => {
   windowManager.saveOpened()
   windowManager.close()
 })
-
+app.on('window-all-closed', () => {})
 async function onready () {
+  const appIcon = new Tray(LOGO_FILE)
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'New Window', click: () => createWindow() },
+    {
+      label: 'Quit',
+      role: 'quit'
+    }
+  ])
+  // Call this again for Linux because we modified the context menu
+  appIcon.setContextMenu(contextMenu)
+
   const webSession = session.fromPartition(WEB_PARTITION)
 
   const electronSection = /Electron.+ /i
