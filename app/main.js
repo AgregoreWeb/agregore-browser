@@ -1,5 +1,5 @@
 require('abort-controller/polyfill')
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, session, Menu, Tray } = require('electron')
 const { sep } = require('path')
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
@@ -94,24 +94,19 @@ app.on('before-quit', () => {
   windowManager.saveOpened()
   windowManager.close()
 })
-
+app.on('window-all-closed', () => {})
 async function onready () {
-  const { app, Menu, Tray } = require('electron')
+  const appIcon = new Tray(LOGO_FILE)
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'New Window', click: () => createWindow() },
+    {
+      label: 'Quit',
+      role: 'quit'
+    }
+  ])
+  // Call this again for Linux because we modified the context menu
+  appIcon.setContextMenu(contextMenu)
 
-  let appIcon = null
-  app.whenReady().then(() => {
-    appIcon = new Tray(LOGO_FILE)
-    const contextMenu = Menu.buildFromTemplate([
-      { label: 'Show/Hide', type: 'radio' },
-      { label: 'Quit', type: 'radio' }
-    ])
-
-    // Make a change to the context menu
-    contextMenu.items[1].checked = false
-
-    // Call this again for Linux because we modified the context menu
-    appIcon.setContextMenu(contextMenu)
-  })
   const webSession = session.fromPartition(WEB_PARTITION)
 
   const electronSection = /Electron.+ /i
