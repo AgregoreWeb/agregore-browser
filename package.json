@@ -183,6 +183,7 @@
     "standard": "^14.3.4"
   },
   "dependencies": {
+    "@metacentre/shipyard-ssb": "^1.2.0",
     "abort-controller": "^3.0.0",
     "bt-fetch": "^3.1.0",
     "create-desktop-shortcuts": "^1.7.0",
@@ -203,6 +204,7 @@
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
     "ssb-fetch": "^1.5.2",
+    "ssbd": "^0.0.2",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "wrtc": "^0.4.7"
   }
