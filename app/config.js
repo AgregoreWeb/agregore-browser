@@ -63,6 +63,7 @@ module.exports = require('rc')('agregore', {
   ssbOptions: {
     appname: DEFAULT_SSB_APPNAME,
     ssbd: {
+      runServer: true,
       plugins: require('@metacentre/shipyard-ssb')
     }
   },
