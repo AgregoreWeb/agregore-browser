@@ -797,6 +797,11 @@ addr-to-ip-port@^1.0.1, addr-to-ip-port@^1.5.4:
   resolved "https://registry.yarnpkg.com/addr-to-ip-port/-/addr-to-ip-port-1.5.4.tgz#9542b1c6219fdb8c9ce6cc72c14ee880ab7ddd88"
   integrity sha512-ByxmJgv8vjmDcl3IDToxL2yrWFrRtFpZAToY0f46XFXl8zS081t7El5MXIodwm7RC6DhHBRoOSMLFSPKCtHukg==
 
+addressparser@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/addressparser/-/addressparser-0.3.2.tgz#59873f35e8fcf6c7361c10239261d76e15348bb2"
+  integrity sha512-fDlslCJpojuY1cnb7tY7COAriA7cdSzDiWyrWNdFn7Cjd+jrEgZavqkOgD/wg+eH765YPnQjqlS88OL/Q0Qtkg==
+
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
@@ -2333,6 +2338,28 @@ electron@19:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"
     extract-zip "^1.0.3"
+
+emailjs-base64@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/emailjs-base64/-/emailjs-base64-1.1.4.tgz#392fa38cb6aa35dccd3af3637ffc14c1c7ce9612"
+  integrity sha512-4h0xp1jgVTnIQBHxSJWXWanNnmuc5o+k4aHEpcLXSToN8asjB5qbXAexs7+PEsUKcEyBteNYsSvXUndYT2CGGA==
+
+emailjs-mime-codec@^2.0.7:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/emailjs-mime-codec/-/emailjs-mime-codec-2.0.9.tgz#d184451b6f2e55c5868b0f0a82d18fe2b82f0c97"
+  integrity sha512-7qJo4pFGcKlWh/kCeNjmcgj34YoJWY0ekZXEHYtluWg4MVBnXqGM4CRMtZQkfYwitOhUgaKN5EQktJddi/YIDQ==
+  dependencies:
+    emailjs-base64 "^1.1.4"
+    ramda "^0.26.1"
+    text-encoding "^0.7.0"
+
+emailjs@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/emailjs/-/emailjs-2.2.0.tgz#ba5b23e4a4b0a4510f652e873b154e9407b6ca03"
+  integrity sha512-J9HNx13GA5DnJma10YxsSqYCErTyB0KoVflTddPTyKlEVHM0MckZXn/zDqovdacwWkHCxqC9AKVY8GMPaGvaGQ==
+  dependencies:
+    addressparser "^0.3.2"
+    emailjs-mime-codec "^2.0.7"
 
 emittery@^0.6.0:
   version "0.6.0"
@@ -5943,6 +5970,11 @@ railroad-diagrams@^1.0.0:
   resolved "https://registry.yarnpkg.com/railroad-diagrams/-/railroad-diagrams-1.0.0.tgz#eb7e6267548ddedfb899c1b90e57374559cddb7e"
   integrity sha512-cz93DjNeLY0idrCNOH6PviZGRN9GJhsdm9hpn1YCS879fj4W+x5IFJhhkRZcwVgMmFF7R82UA/7Oh+R8lLZg6A==
 
+ramda@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
+  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+
 randexp@0.4.6:
   version "0.4.6"
   resolved "https://registry.yarnpkg.com/randexp/-/randexp-0.4.6.tgz#e986ad5e5e31dae13ddd6f7b3019aa7c87f60ca3"
@@ -7307,6 +7339,11 @@ temp-write@^4.0.0:
     make-dir "^3.0.0"
     temp-dir "^1.0.0"
     uuid "^3.3.2"
+
+text-encoding@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/text-encoding/-/text-encoding-0.7.0.tgz#f895e836e45990624086601798ea98e8f36ee643"
+  integrity sha512-oJQ3f1hrOnbRLOcwKz0Liq2IcrvDeZRHXhd9RgLrsT+DjWY/nty1Hi7v3dtkaEYbPYe0mUoOfzRrMwfXXwgPUA==
 
 text-table@^0.2.0:
   version "0.2.0"
