@@ -63,7 +63,11 @@ class OmniBox extends HTMLElement {
         } else if (looksLikeIPNS(rawURL)) {
           url = makeIPNS(rawURL)
         } else if (looksLikeDomain(rawURL)) {
-          url = makeHttps(rawURL)
+          if (isLocalhost(rawURL)) {
+            url = makeHttp(rawURL)
+          } else {
+            url = makeHttps(rawURL)
+          }
         } else {
           url = makeDuckDuckGo(rawURL)
         }
@@ -283,6 +287,10 @@ class OmniBox extends HTMLElement {
   }
 }
 
+function makeHttp (query) {
+  return `http://${query}`
+}
+
 function makeHttps (query) {
   return `https://${query}`
 }
@@ -301,6 +309,10 @@ function isURL (string) {
 
 function looksLikeDomain (string) {
   return !string.match(/\s/) && string.includes('.')
+}
+
+function isLocalhost (string) {
+  return string.startsWith('localhost')
 }
 
 function looksLikeIPFS (string) {
