@@ -100,3 +100,99 @@ module.exports = [
 ## user supplied override plugins
 
 `ssbd` uses `ssb-plugins` under the hood as another way to specify plugins. These plugins will override the plugins above. They are [installed manually](https://github.com/ssbc/ssb-plugins#installing-a-user-configured-ssb-plugin-manually) to the node_modules directory in the ssb data directory. Historically in `~/.ssb/node_modules/`. In the case of agregore, in `~/.agregore-ssb/node_modules/`.
+
+# config scenarios in ~/.agregorerc
+
+Run bundled `ssbd` with *bundled* plugins. Data dir `~/.agregore-ssb`
+
+```json
+{
+  "ssbOptions": {
+    "ssbd": {
+      "runServer": true
+    }
+  }
+}
+```
+
+Run bundled `ssbd` with *custom* plugins. Data dir `~/.agregore-ssb`
+
+Note the absolute path to plugins
+
+```json
+{
+  "ssbOptions": {
+    "ssbd": {
+      "runServer": true,
+      "plugins": ["/home/av8ta/.agregore-plugins/index.js"]
+    }
+  }
+}
+```
+
+Run bundled `ssbd` with *bundled* plugins. With previously existing data dir `~/.ssb`
+
+```json
+{
+  "ssbOptions": {
+    "appname": "ssb",
+    "ssbd": {
+      "runServer": true
+    }
+  }
+}
+```
+
+Do *not bundle* `ssbd`. Connect to running ssb-server. Data dir `~/.ssb`
+
+```json
+{
+  "ssbOptions": {
+    "appname": "ssb",
+    "ssbd": {
+      "runServer": false
+    }
+  }
+}
+```
+
+Do *not bundle* `ssbd`. Attempt to pass through config & connect to running ssb-server. Data dir `~/.ssb`
+
+```json
+{
+  "ssbOptions": {
+    "appname": "ssb",
+    "npm": {
+      "port": 8043
+    },
+    "ssbd": {
+      "runServer": false
+    }
+  }
+}
+```
+
+The npm port config here has no effect because agregore is unable to configure an already running ssb server. In cases like this, place your ssb config in the appropriate file.
+
+In `~/.agregorerc`
+
+```json
+{
+  "ssbOptions": {
+    "appname": "ssb",
+    "ssbd": {
+      "runServer": false
+    }
+  }
+}
+```
+
+In `~/.ssb/config`
+
+```json
+{
+  "npm": {
+    "port": 8043
+  }
+}
+```
