@@ -1,4 +1,5 @@
 const fetchToHandler = require('./fetch-to-handler')
+const path = require('path')
 
 module.exports = async function createHandler (ipfsOptions, session) {
   return fetchToHandler(async () => {
@@ -9,7 +10,7 @@ module.exports = async function createHandler (ipfsOptions, session) {
 
     const ipfsBin = require('go-ipfs')
       .path()
-      .replace('app.asar', 'app.asar.unpacked')
+      .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
     const ipfsd = await Ctl.createController({
       ipfsOptions,
