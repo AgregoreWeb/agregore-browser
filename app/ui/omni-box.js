@@ -62,12 +62,10 @@ class OmniBox extends HTMLElement {
           url = makeIPFS(rawURL)
         } else if (looksLikeIPNS(rawURL)) {
           url = makeIPNS(rawURL)
+        } else if (isBareLocalhost(rawURL)) {
+          url = makeHttp(rawURL)
         } else if (looksLikeDomain(rawURL)) {
-          if (isLocalhost(rawURL)) {
-            url = makeHttp(rawURL)
-          } else {
-            url = makeHttps(rawURL)
-          }
+          url = makeHttps(rawURL)
         } else {
           url = makeDuckDuckGo(rawURL)
         }
@@ -194,10 +192,10 @@ class OmniBox extends HTMLElement {
     } else if (looksLikeIPFS(query)) {
       const url = makeIPFS(query)
       finalItems.push(this.makeNavItem(url, `Go to ${url}`))
+    } else if (isBareLocalhost(query)) {
+      finalItems.push(this.makeNavItem(makeHttp(query), `Go to http://${query}`))
     } else if (looksLikeDomain(query)) {
-      finalItems.push(
-        this.makeNavItem(makeHttps(query), `Go to https://${query}`)
-      )
+      finalItems.push(this.makeNavItem(makeHttps(query), `Go to https://${query}`))
     } else {
       finalItems.push(
         this.makeNavItem(
@@ -301,6 +299,8 @@ function makeDuckDuckGo (query) {
 
 function isURL (string) {
   try {
+    // localhost: is a valid url apparently!
+    if (isBareLocalhost(string)) return false
     return !!new URL(string)
   } catch {
     return false
@@ -311,8 +311,8 @@ function looksLikeDomain (string) {
   return !string.match(/\s/) && string.includes('.')
 }
 
-function isLocalhost (string) {
-  return string.startsWith('localhost')
+function isBareLocalhost (string) {
+  return string.match(/^localhost(:[0-9]+)?\/?$/)
 }
 
 function looksLikeIPFS (string) {
