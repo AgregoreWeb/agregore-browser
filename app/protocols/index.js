@@ -28,21 +28,11 @@ const LOW_PRIVILEGES = {
   corsEnabled: true
 }
 
-const EXTENSION_PRIVILEGES = {
-  bypassCSP: true,
-  secure: true,
-  standard: true,
-  supportFetchAPI: true,
-  allowServiceWorkers: true,
-  corsEnabled: false
-}
-
 const {
   ipfsOptions,
   ssbOptions,
   hyperOptions,
-  btOptions,
-  gunOptions
+  btOptions
 } = require('../config')
 
 const createHyperHandler = require('./hyper-protocol')
@@ -52,7 +42,6 @@ const createBrowserHandler = require('./browser-protocol')
 const createGeminiHandler = require('./gemini-protocol')
 const createBTHandler = require('./bt-protocol')
 const createMagnetHandler = require('./magnet-protocol')
-const createGunHandler = require('./gun-protocol')
 
 module.exports = {
   registerPrivileges,
@@ -69,11 +58,9 @@ function registerPrivileges () {
     { scheme: 'pubsub', privileges: P2P_PRIVILEGES },
     { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
     { scheme: 'bt', privileges: P2P_PRIVILEGES },
-    { scheme: 'gun', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEGES },
-    { scheme: 'electron-extension', privileges: EXTENSION_PRIVILEGES }
+    { scheme: 'magnet', privileges: LOW_PRIVILEGES }
   ])
 }
 
@@ -90,7 +77,6 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('pubsub')
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
-  app.setAsDefaultProtocolClient('gun')
 
   const browserProtocolHandler = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
@@ -127,8 +113,4 @@ async function setupProtocols (session) {
   const magnetHandler = await createMagnetHandler()
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
-
-  const gunHandler = await createGunHandler(gunOptions, session)
-  sessionProtocol.registerStreamProtocol('gun', gunHandler)
-  globalProtocol.registerStreamProtocol('gun', gunHandler)
 }

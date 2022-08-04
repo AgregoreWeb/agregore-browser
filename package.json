@@ -98,13 +98,6 @@
         "role": "Viewer"
       },
       {
-        "name": "gunDB",
-        "schemes": [
-          "gun"
-        ],
-        "role": "Viewer"
-      },
-      {
         "name": "SecureScuttlebutt",
         "schemes": [
           "ssb"
@@ -192,7 +185,6 @@
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.14.0",
-    "gun-fetch": "^3.5.9",
     "hyper-sdk": "^3.0.7",
     "hypercore-fetch": "^8.6.1",
     "ipfs-http-client": "^56.0.0",
