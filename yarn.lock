@@ -444,7 +444,7 @@
     cborg "^1.6.0"
     multiformats "^9.5.4"
 
-"@ipld/dag-json@^8.0.1":
+"@ipld/dag-json@^8.0.1", "@ipld/dag-json@^8.0.10":
   version "8.0.10"
   resolved "https://registry.yarnpkg.com/@ipld/dag-json/-/dag-json-8.0.10.tgz#16ebb2315fb4a604cc18ecbb3ebd5b488397d7d8"
   integrity sha512-fny24vxVtgAv7aKmAikZq86kikp56knZL/77eyXUsrgGRGtkx9D1awemKbhIVw/7S5nBbP43m/AZwxNPVpP5eg==
@@ -4253,18 +4253,26 @@ joi@^17.2.1:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-js-ipfs-fetch@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-4.1.0.tgz#43e84c8c4d116a1bb3cdb93d9d434944b7149ab7"
-  integrity sha512-Opvl3RXruxWzcC7Pfzl0jyDZd/w0d+etI5bRFw4pjFBkK0bzedWrELczxrgsiXTdKQy35LP4hWP7NIv/ltAEzA==
+js-ipfs-fetch@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-4.2.0.tgz#c811fa6ad242e5f920d3ae8c0c8aa39a66b13b95"
+  integrity sha512-utMNQjjoGUjauK/wBqCMWHQ8DATCehBjYvsWYEwVBgDea5GzRj2E6MaCdkWXdASAn7dBwGTEtkA6s14aGUMyKg==
   dependencies:
+    "@ipld/dag-cbor" "^7.0.2"
+    "@ipld/dag-json" "^8.0.10"
     busboy "^0.3.1"
     event-iterator "^2.0.0"
     ipfs-unixfs-exporter "^7.0.6"
+    js-ipld-url "^1.0.2"
     make-fetch "^2.3.3"
     mime "^2.4.6"
     multiformats "^9.4.2"
     range-parser "^1.2.1"
+
+js-ipld-url@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/js-ipld-url/-/js-ipld-url-1.0.2.tgz#084e7c5526a439d7766197892cd75a03a634f9df"
+  integrity sha512-hmWotOtSfBan/ZmZULZyjo6VDBreluMnx/dOyJY+1GDQVfxdougCT36go8MzLnc4t8ksBF2KAgFqrKjVnX833A==
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
