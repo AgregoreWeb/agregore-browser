@@ -85,7 +85,8 @@
         "name": "ipfs",
         "schemes": [
           "ipfs",
-          "ipns"
+          "ipns",
+          "ipld"
         ],
         "role": "Viewer"
       },
