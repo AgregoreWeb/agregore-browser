@@ -4253,10 +4253,10 @@ joi@^17.2.1:
     "@sideway/formula" "^3.0.0"
     "@sideway/pinpoint" "^2.0.0"
 
-js-ipfs-fetch@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-4.2.0.tgz#c811fa6ad242e5f920d3ae8c0c8aa39a66b13b95"
-  integrity sha512-utMNQjjoGUjauK/wBqCMWHQ8DATCehBjYvsWYEwVBgDea5GzRj2E6MaCdkWXdASAn7dBwGTEtkA6s14aGUMyKg==
+js-ipfs-fetch@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-4.2.1.tgz#8bb56c58dd4fd0ecb1dcfc734afe5578c32bdca6"
+  integrity sha512-RYtcyvNxuOzP2oZTK6S/lku7qZ/DWDZTbRuDjJRth0AfglXKwMrVV17iZx1RAmYbTkNOGL4Rw1u11n8kZnJLKA==
   dependencies:
     "@ipld/dag-cbor" "^7.0.2"
     "@ipld/dag-json" "^8.0.10"
