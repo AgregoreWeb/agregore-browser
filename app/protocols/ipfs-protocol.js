@@ -12,6 +12,8 @@ module.exports = async function createHandler (ipfsOptions, session) {
       .path()
       .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
+    console.log(ipfsOptions)
+
     const ipfsd = await Ctl.createController({
       ipfsOptions,
       disposable: false,
@@ -22,7 +24,7 @@ module.exports = async function createHandler (ipfsOptions, session) {
       ipfsBin
     })
 
-    await ipfsd.init()
+    await ipfsd.init({ipfsOptions})
 
     await ipfsd.start()
 
