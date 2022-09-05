@@ -76,6 +76,6 @@ module.exports = require('rc')('agregore', {
 
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {
-    storageLocation: DEFAULT_BT_DIR
+    folder: DEFAULT_BT_DIR
   }
 })
