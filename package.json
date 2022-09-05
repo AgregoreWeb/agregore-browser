@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "1.4.2",
+  "version": "1.6.1",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.js",
   "scripts": {
@@ -85,7 +85,8 @@
         "name": "ipfs",
         "schemes": [
           "ipfs",
-          "ipns"
+          "ipns",
+          "ipld"
         ],
         "role": "Viewer"
       },
@@ -94,13 +95,6 @@
         "schemes": [
           "magnet",
           "bittorrent"
-        ],
-        "role": "Viewer"
-      },
-      {
-        "name": "gunDB",
-        "schemes": [
-          "gun"
         ],
         "role": "Viewer"
       },
@@ -192,13 +186,12 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^1.0.0",
     "gemini-to-html": "^1.0.0",
-    "go-ipfs": "^0.12.2",
-    "gun-fetch": "^3.5.9",
+    "go-ipfs": "^0.14.0",
     "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "^8.6.0",
+    "hypercore-fetch": "^8.6.1",
     "ipfs-http-client": "^56.0.0",
     "ipfsd-ctl": "^10.0.5",
-    "js-ipfs-fetch": "^4.0.0",
+    "js-ipfs-fetch": "^4.2.1",
     "mime": "^2.4.6",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
