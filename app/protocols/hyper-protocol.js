@@ -12,6 +12,8 @@ module.exports = async function createHandler (options, session) {
       writable: true
     })
 
+    fetch.close = () => sdk.close()
+
     return fetch
   }, session)
 }

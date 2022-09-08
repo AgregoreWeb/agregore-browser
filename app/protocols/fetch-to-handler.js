@@ -30,7 +30,19 @@ module.exports = function fetchToHandler (getFetch, session) {
     }
   }
 
-  return async function protocolHandler (req, sendResponse) {
+  const close = async () => {
+    if (loadingFetch) {
+      await loadingFetch
+      await close()
+    } else if (hasFetch) {
+      if (hasFetch.close) await hasFetch.close()
+      else if (hasFetch.destroy) await hasFetch.destroy()
+    }
+  }
+
+  return { handler: protocolHandler, close }
+
+  async function protocolHandler (req, sendResponse) {
     const headers = {
       'Access-Control-Allow-Origin': '*',
       'Allow-CSP-From': '*',

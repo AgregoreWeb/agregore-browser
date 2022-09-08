@@ -102,7 +102,9 @@ app.on('activate', () => {
 app.on('before-quit', () => {
   windowManager.saveOpened()
   windowManager.close()
+  protocols.close()
 })
+
 app.on('window-all-closed', () => {})
 async function onready () {
   const appIcon = new Tray(LOGO_FILE)

@@ -54,13 +54,13 @@ module.exports = require('rc')('agregore', {
     },
     config: {
       Addresses: {
-        API: `/ip4/127.0.0.1/tcp/2473`,
-        Gateway: `/ip4/127.0.0.1/tcp/2474`,
+        API: '/ip4/127.0.0.1/tcp/2473',
+        Gateway: '/ip4/127.0.0.1/tcp/2474',
         Swarm: [
-          `/ip4/0.0.0.0/tcp/2475`,
-          `/ip6/::/tcp/2475`,
-          `/ip4/0.0.0.0/udp/2475/quic`,
-          `/ip6/::/udp/2475/quic`
+          '/ip4/0.0.0.0/tcp/2475',
+          '/ip6/::/tcp/2475',
+          '/ip4/0.0.0.0/udp/2475/quic',
+          '/ip6/::/udp/2475/quic'
         ]
       }
     }

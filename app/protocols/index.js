@@ -43,9 +43,16 @@ const createGeminiHandler = require('./gemini-protocol')
 const createBTHandler = require('./bt-protocol')
 const createMagnetHandler = require('./magnet-protocol')
 
+const onCloseHandlers = []
+
 module.exports = {
   registerPrivileges,
-  setupProtocols
+  setupProtocols,
+  close
+}
+
+async function close () {
+  await Promise.all(onCloseHandlers.map((handler) => handler()))
 }
 
 function registerPrivileges () {
@@ -78,23 +85,31 @@ async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
 
-  const browserProtocolHandler = await createBrowserHandler()
+  const { handler: browserProtocolHandler } = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
 
-  const hyperProtocolHandler = await createHyperHandler(hyperOptions, session)
+  const {
+    handler: hyperProtocolHandler,
+    close: closeHyper
+  } = await createHyperHandler(hyperOptions, session)
+  onCloseHandlers.push(closeHyper)
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
-  const ssbProtocolHandler = await createSsbHandler(ssbOptions, session)
+  const { handler: ssbProtocolHandler } = await createSsbHandler(ssbOptions, session)
   sessionProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
   globalProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
 
-  const geminiProtocolHandler = await createGeminiHandler()
+  const { handler: geminiProtocolHandler } = await createGeminiHandler()
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
   globalProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
 
-  const ipfsProtocolHandler = await createIPFSHandler(ipfsOptions, session)
+  const {
+    handler: ipfsProtocolHandler,
+    close: closeIPFS
+  } = await createIPFSHandler(ipfsOptions, session)
+  onCloseHandlers.push(closeIPFS)
   sessionProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
   sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
@@ -104,7 +119,11 @@ async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
 
-  const btHandler = await createBTHandler(btOptions, session)
+  const {
+    handler: btHandler,
+    close: closeBT
+  } = await createBTHandler(btOptions, session)
+  onCloseHandlers.push(closeBT)
   sessionProtocol.registerStreamProtocol('bittorrent', btHandler)
   globalProtocol.registerStreamProtocol('bittorrent', btHandler)
   sessionProtocol.registerStreamProtocol('bt', btHandler)
