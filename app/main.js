@@ -17,22 +17,16 @@ const WEB_PARTITION = 'persist:web-content'
 const path = require('path')
 const LOGO_FILE = path.join(__dirname, './../build/icon.png')
 
-const gotTheLock = app.requestSingleInstanceLock()
-
-if (!gotTheLock) {
-  app.quit()
-} else {
-  app.on('second-instance', (event, argv, workingDirectory) => {
-    const urls = urlsFromArgs(argv.slice(1), workingDirectory)
-    urls.map((url) => windowManager.open({ url }))
-  })
-}
-
 if (IS_DEBUG) {
   app.on('web-contents-created', (event, webContents) => {
     webContents.openDevTools()
   })
 }
+
+process.on('SIGINT', () => app.quit())
+
+let extensions = null
+let windowManager = null
 
 // Enable text to speech.
 // Requires espeak on Linux
@@ -48,34 +42,49 @@ app.commandLine.appendSwitch('ignore-gpu-blacklist')
 // Experimental web platform features, such as the FileSystem API
 app.commandLine.appendSwitch('enable-experimental-web-platform-features')
 
-let extensions = null
-
-const windowManager = new WindowManager({
-  onSearch: (...args) => history.search(...args),
-  listActions: (...args) => extensions.listActions(...args)
-})
-
 protocols.registerPrivileges()
 
-windowManager.on('open', window => {
-  attachContextMenus({ window, createWindow, extensions })
-  if (!window.rawFrame) {
-    const asBrowserView = BrowserWindow.fromBrowserView(window.view)
-    asBrowserView.on('focus', () => {
-      window.web.focus()
-    })
+init()
+
+function init () {
+  const gotTheLock = app.requestSingleInstanceLock()
+
+  if (!gotTheLock) {
+    app.quit()
+    return
   }
-  window.on('new-window', (event, url, frameName, disposition, options) => {
-    console.log('New window', url, disposition)
-    if ((disposition === 'foreground-tab') || (disposition === 'background-tab')) {
-      event.preventDefault()
-      event.newGuest = null
-      createWindow(url)
-    } else if (options && options.webContents) {
-      attachContextMenus({ window: options, createWindow, extensions })
-    }
+
+  windowManager = new WindowManager({
+    onSearch: (...args) => history.search(...args),
+    listActions: (...args) => extensions.listActions(...args)
   })
-})
+
+  app.on('second-instance', (event, argv, workingDirectory) => {
+    console.log('Got signal from second instance', argv)
+    const urls = urlsFromArgs(argv.slice(1), workingDirectory)
+    urls.map((url) => windowManager.open({ url }))
+  })
+
+  windowManager.on('open', window => {
+    attachContextMenus({ window, createWindow, extensions })
+    if (!window.rawFrame) {
+      const asBrowserView = BrowserWindow.fromBrowserView(window.view)
+      asBrowserView.on('focus', () => {
+        window.web.focus()
+      })
+    }
+    window.on('new-window', (event, url, frameName, disposition, options) => {
+      console.log('New window', url, disposition)
+      if ((disposition === 'foreground-tab') || (disposition === 'background-tab')) {
+        event.preventDefault()
+        event.newGuest = null
+        createWindow(url)
+      } else if (options && options.webContents) {
+        attachContextMenus({ window: options, createWindow, extensions })
+      }
+    })
+  })
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
