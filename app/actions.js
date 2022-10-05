@@ -86,6 +86,11 @@ function createActions ({
       accelerator: accelerators.OpenExtensionFolder,
       click: onOpenExtensionFolder
     },
+    OpenDataFolder: {
+      label: 'Open Data Folder',
+      accelerator: accelerators.OpenDataFolder,
+      click: onOpenDataFolder
+    },
     EditConfigFile: {
       label: 'Edit Configuration File',
       accelerator: accelerators.EditConfigFile,
@@ -170,6 +175,14 @@ function createActions ({
       await fs.ensureDir(dir)
 
       await shell.openPath(dir)
+    } catch (e) {
+      console.error(e.stack)
+    }
+  }
+
+  async function onOpenDataFolder () {
+    try {
+      await shell.openPath(app.getPath('userData'))
     } catch (e) {
       console.error(e.stack)
     }

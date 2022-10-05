@@ -20,6 +20,7 @@ function registerMenu (actions) {
     SetAsDefault,
     SetAsDefaultMagnet,
     OpenExtensionFolder,
+    OpenDataFolder,
     EditConfigFile,
     CreateBookmark
   } = actions
@@ -128,6 +129,7 @@ function registerMenu (actions) {
       submenu: [
         LearnMore,
         OpenExtensionFolder,
+        OpenDataFolder,
         EditConfigFile,
         SetAsDefault,
         SetAsDefaultMagnet
