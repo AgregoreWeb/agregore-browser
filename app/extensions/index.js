@@ -86,8 +86,15 @@ class Extensions extends EventEmitter {
     }
   }
 
-  async loadExtension (path) {
-    return this.extensions.loadExtension(path)
+  async loadExtension (extensionPath) {
+    const manifestPath = path.join(extensionPath, 'manifest.json')
+    const manifestData = await fs.readFile(manifestPath, 'utf8')
+    const { name } = JSON.parse(manifestData)
+    const exists = await this.byName(name)
+    if (exists) {
+      return console.warn('Trying to load extension with existing name from', extensionPath, 'with existing extension:', exists)
+    }
+    return this.extensions.loadExtension(extensionPath)
   }
 
   async registerExternal () {
@@ -117,6 +124,8 @@ class Extensions extends EventEmitter {
     for (const folder of extensionFolders) {
       try {
         const extension = await this.loadExtension(path.join(extensionsFolder, folder))
+        // Must have been skipped
+        if(!extension) continue
         console.log('Loaded extension', extension.manifest)
 
         if (process.env.NODE_ENV === 'debug') {

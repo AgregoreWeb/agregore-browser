@@ -140,11 +140,12 @@ async function onready () {
 
   extensions = createExtensions({ session: webSession, createWindow, updateBrowserActions })
 
-  // Register extensions that came bundled with the browser
-  await extensions.registerInternal()
-
   // Register extensions that users installed externally
   await extensions.registerExternal()
+
+  // Register extensions that came bundled with the browser
+  // This happens second so that users can override built in extensions easily.
+  await extensions.registerInternal()
 
   // TODO: Better error handling when the extension doesn't exist?
   history.setGetBackgroundPage(() => {
