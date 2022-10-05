@@ -62,7 +62,9 @@ module.exports = require('rc')('agregore', {
           '/ip4/0.0.0.0/udp/2475/quic',
           '/ip6/::/udp/2475/quic'
         ]
-      }
+      },
+      // We don't need a gateway running. 🤷
+      Gateway: null
     }
   },
 
