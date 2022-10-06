@@ -125,7 +125,7 @@ class Extensions extends EventEmitter {
       try {
         const extension = await this.loadExtension(path.join(extensionsFolder, folder))
         // Must have been skipped
-        if(!extension) continue
+        if (!extension) continue
         console.log('Loaded extension', extension.manifest)
 
         if (process.env.NODE_ENV === 'debug') {

@@ -1,10 +1,19 @@
 @charset "utf-8";
 @import url("agregore://theme/vars.css");
 
-html,body,input,button {
+* {
+  box-sizing: border-box;
+}
+
+html, body, input, button, textarea {
   background: var(--ag-theme-background);
   color: var(--ag-theme-text);
   font-family: var(--ag-theme-font-family);
+  font-size: inherit;
+}
+
+input, button, textarea {
+  border: 1px solid var(--ag-theme-primary);
 }
 
 body {
@@ -23,10 +32,10 @@ a:visited {
 	color: var(--ag-theme-primary);
 }
 
-img {
-    width: 80%;
-    display: block;
-    margin: 1em auto;
+img, video, svg, object {
+  width: 80%;
+  display: block;
+  margin: 1em auto;
 }
 
 iframe {
@@ -38,6 +47,11 @@ code {
   background: var(--ag-theme-primary);
   font-weight: bold;
   padding: 0.25em;
+}
+
+pre > code {
+  display: block;
+  padding: 0.5em;
 }
 
 br {
