@@ -6,16 +6,19 @@ module.exports = function fetchToHandler (getFetch, session) {
   let loadingFetch = null
 
   async function load () {
+    try {
     if (hasFetch) return hasFetch
     if (loadingFetch) return loadingFetch
 
     loadingFetch = Promise.resolve(getFetch()).then((fetch) => {
       hasFetch = fetch
-      loadingFetch = null
       return fetch
     })
 
     return loadingFetch
+    } finally {
+      loadingFetch = null
+    }
   }
 
   async function * readBody (body) {
