@@ -7,15 +7,15 @@ module.exports = function fetchToHandler (getFetch, session) {
 
   async function load () {
     try {
-    if (hasFetch) return hasFetch
-    if (loadingFetch) return loadingFetch
+      if (hasFetch) return hasFetch
+      if (loadingFetch) return loadingFetch
 
-    loadingFetch = Promise.resolve(getFetch()).then((fetch) => {
-      hasFetch = fetch
-      return fetch
-    })
+      loadingFetch = Promise.resolve(getFetch()).then((fetch) => {
+        hasFetch = fetch
+        return fetch
+      })
 
-    return loadingFetch
+      return loadingFetch
     } finally {
       loadingFetch = null
     }
@@ -38,6 +38,7 @@ module.exports = function fetchToHandler (getFetch, session) {
       await loadingFetch
       await close()
     } else if (hasFetch) {
+      console.log('Closing')
       if (hasFetch.close) await hasFetch.close()
       else if (hasFetch.destroy) await hasFetch.destroy()
     }
