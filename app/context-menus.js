@@ -1,13 +1,8 @@
 const {
   Menu,
   MenuItem,
-  dialog,
-  app,
   clipboard
 } = require('electron')
-
-const path = require('path')
-const pathPosix = path.posix
 
 module.exports = {
   attachContextMenus
@@ -139,20 +134,20 @@ function attachContextMenus ({ window, createWindow, extensions }) {
         new MenuItem({
           label: 'Back',
           enabled: wc.canGoBack(),
-          click: wc.goBack
+          click: () => wc.goBack()
         }),
         new MenuItem({
           label: 'Forward',
           enabled: wc.canGoForward(),
-          click: wc.goForward
+          click: () => wc.goForward()
         }),
         new MenuItem({
           label: 'Reload',
-          click: wc.reload
+          click: () => wc.reload()
         }),
         new MenuItem({
           label: 'Hard Reload',
-          click: wc.reloadIgnoringCache
+          click: () => wc.reloadIgnoringCache()
         })
       ]
   }
@@ -194,50 +189,12 @@ function attachContextMenus ({ window, createWindow, extensions }) {
         }),
         new MenuItem({
           label: 'Save As',
-          click: (_, browserWindow) => saveAs(srcURL, browserWindow)
+          click: () => saveAs(srcURL)
         })
       ]
   }
 
   async function saveAs (link, browserWindow) {
-    const downloads = app.getPath('downloads')
-    const name = pathPosix.basename(link)
-    const defaultPath = pathPosix.join(downloads, name)
-    const { filePath } = await dialog.showSaveDialog(browserWindow, {
-      defaultPath
-    })
-
-    if (!filePath) return
-
-    await window.webContents.executeJavaScript(`
-  (async () => {
-  const fs = require('fs')
-  const pump = require('pump')
-  const { Readable } = require('stream')
-  const link = ${JSON.stringify(link)}
-  const filePath = ${JSON.stringify(filePath)}
-
-  const response = await window.fetch(link)
-
-  pump(
-    Readable.from(consumeBody(response.body)),
-    fs.createWriteStream(filePath)
-  )
-
-  async function * consumeBody (body) {
-    const reader = body.getReader()
-
-    try {
-      const { done, value } = await reader.read()
-
-      if (done) return
-
-      yield value
-    } finally {
-      reader.releaseLock()
-    }
-  }
-  })()
-  `)
+    await window.web.downloadURL(link)
   }
 }
