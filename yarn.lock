@@ -2286,10 +2286,10 @@ electron-publish@22.14.13:
     lazy-val "^1.0.5"
     mime "^2.5.2"
 
-electron@^20.1.2:
-  version "20.1.2"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-20.1.2.tgz#ef5502e4a1ea7c08bfbae17a49da861ac9f882dc"
-  integrity sha512-Yz2GAUqgXNr3+7vI+xL3qoCBUw4nVX+MeF/+HNL80y67ZrhMFUbJFirw7Tm6/Kx8r6TBPz0/D3aleeySWFUmzw==
+electron@20:
+  version "20.3.2"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-20.3.2.tgz#d1582a89520bb06fbb3862f93e0b2c22c40c47cc"
+  integrity sha512-px5/bcxsHbyByIB+kQKi3goPMXA/oVEojqP7gJ+6NxESNNYWYUR4FfzBjxTJ7I8X/Cn0BuAAWKKrCQKqJRHPQQ==
   dependencies:
     "@electron/get" "^1.14.1"
     "@types/node" "^16.11.26"

@@ -172,7 +172,7 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "^20.1.2",
+    "electron": "20",
     "electron-builder": "^22.9.1",
     "standard": "^14.3.4"
   },
