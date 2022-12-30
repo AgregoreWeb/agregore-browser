@@ -146,7 +146,8 @@
       "target": [
         "deb",
         "AppImage",
-        "apk"
+        "apk",
+        "pacman"
       ],
       "category": "Network;FileTransfer:P2P"
     }
