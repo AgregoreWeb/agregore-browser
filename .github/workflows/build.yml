@@ -34,7 +34,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Build binaries with electron-builder
-        uses: samuelmeuli/action-electron-builder@92327c67bc45ff7c38bf55d8aa8c4d75b7ea38e7 # v1.6.0 but safer than a tag that can be changed
+        uses: coparse-inc/action-electron-builder@29a7606c7d726b5b0f4dc2f334026f58bea0e1bb # v1.6.0 but safer than a tag that can be changed
         with:
           max_attempts: 2
           # GH token for attaching atrifacts to release draft on tag build
