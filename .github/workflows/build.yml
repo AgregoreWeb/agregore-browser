@@ -24,7 +24,7 @@ jobs:
         run: sudo apt-get install libarchive-tools
 
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: true
 
