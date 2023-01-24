@@ -158,7 +158,9 @@ export class WindowManager extends EventEmitter {
 
     return saved.map((info) => {
       console.log('About to open', info)
-      const options = {}
+      const options = {
+        noFocus: true
+      }
 
       const { url, position, size } = info
 
@@ -219,6 +221,7 @@ export class Window extends EventEmitter {
     rawFrame = false || popup,
     autoResize = false || popup,
     noNav = false,
+    noFocus = false,
     onSearch,
     listActions,
     view,
@@ -326,6 +329,7 @@ export class Window extends EventEmitter {
     if (url) toLoad.searchParams.set('url', url)
     if (rawFrame) toLoad.searchParams.set('rawFrame', 'true')
     if (noNav) toLoad.searchParams.set('noNav', 'true')
+    if (noFocus) toLoad.searchParams.set('noFocus', 'true')
 
     this.toLoad = toLoad.href
   }
