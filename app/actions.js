@@ -1,13 +1,14 @@
-const { app, shell, dialog } = require('electron')
-const fs = require('fs-extra')
-const os = require('os')
-const path = require('path')
-const { join } = path
-const createDesktopShortcut = require('create-desktop-shortcuts')
-const dataUriToBuffer = require('data-uri-to-buffer')
-const sanitize = require('sanitize-filename')
+import { app, shell, dialog } from 'electron'
+import fs from 'fs-extra'
+import os from 'os'
+import path from 'path'
+import createDesktopShortcut from 'create-desktop-shortcuts'
+import dataUriToBuffer from 'data-uri-to-buffer'
+import sanitize from 'sanitize-filename'
 
-const { accelerators, extensions, appPath } = require('./config')
+import Config from './config.js'
+const { accelerators, extensions, appPath } = Config
+const { join } = path
 
 const FOCUS_URL_BAR_SCRIPT = `
 document.getElementById('search').showInput()
@@ -20,9 +21,7 @@ document.getElementById('find').show()
 
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 
-module.exports = { createActions }
-
-function createActions ({
+export function createActions ({
   createWindow
 }) {
   return {
@@ -112,7 +111,6 @@ function createActions ({
   }
 
   async function onLearMore () {
-    const { shell } = require('electron')
     await shell.openExternal('https://github.com/RangerMauve/agregore-browser')
   }
 

@@ -1,11 +1,12 @@
-const path = require('path')
-const mime = require('mime/lite')
-const ScopedFS = require('scoped-fs')
-const { Readable } = require('stream')
-const fs = new ScopedFS(path.join(__dirname, '../pages'))
-const packageJSON = require('../../package.json')
+import path from 'node:path'
+import { Readable } from 'node:stream'
+import { fileURLToPath } from 'node:url'
+import mime from 'mime'
+import ScopedFS from 'scoped-fs'
 
-const { theme } = require('../config')
+import { version, dependencies as packageDependencies } from '../version.js'
+import Config from '../config.js'
+const { theme } = Config
 
 const CHECK_PATHS = [
   (path) => path,
@@ -17,7 +18,12 @@ const CHECK_PATHS = [
   (path) => path + '.md'
 ]
 
-module.exports = async function createHandler () {
+const pagesURL = new URL('../pages', import.meta.url)
+const pagesPath = fileURLToPath(pagesURL)
+
+const fs = new ScopedFS(pagesPath)
+
+export default async function createHandler () {
   return { handler: protocolHandler, close }
 
   function close () {}
@@ -42,11 +48,9 @@ module.exports = async function createHandler () {
         'gemini-fetch'
       ]
 
-      const { version } = packageJSON
-
       const dependencies = {}
       for (const name of packagesToRender) {
-        dependencies[name] = packageJSON.dependencies[name]
+        dependencies[name] = packageDependencies[name]
       }
 
       const aboutInfo = {

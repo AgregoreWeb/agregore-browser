@@ -1,16 +1,11 @@
 
 let getBackgroundPage = null
 
-module.exports = {
-  setGetBackgroundPage,
-  search
-}
-
-function setGetBackgroundPage (backgroundPage) {
+export function setGetBackgroundPage (backgroundPage) {
   getBackgroundPage = backgroundPage
 }
 
-async function search (query = '') {
+export async function search (query = '') {
   const webContents = await getBackgroundPage()
 
   return webContents.executeJavaScript(`

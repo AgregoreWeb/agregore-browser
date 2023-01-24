@@ -1,5 +1,6 @@
-const { app } = require('electron')
-const path = require('path')
+import { app } from 'electron'
+import path from 'path'
+import RC from 'rc'
 
 const USER_DATA = app.getPath('userData')
 const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
@@ -10,7 +11,7 @@ const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 
 const DEFAULT_PAGE = 'agregore://welcome'
 
-module.exports = require('rc')('agregore', {
+export default RC('agregore', {
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
     NewWindow: 'CommandOrControl+N',
@@ -48,7 +49,7 @@ module.exports = require('rc')('agregore', {
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {
     repo: DEFAULT_IPFS_DIR,
-    silent: true,
+    silent: false,
     preload: {
       enabled: false
     },

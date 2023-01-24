@@ -1,25 +1,31 @@
-const {
+import {
   BrowserWindow,
   BrowserView,
   ipcMain,
   app
-} = require('electron')
-const path = require('path')
-const EventEmitter = require('events')
-const fs = require('fs-extra')
+} from 'electron'
+import path from 'node:path'
+import EventEmitter from 'node:events'
+import { fileURLToPath } from 'node:url'
 
-const IS_DEBUG = process.env.NODE_ENV === 'debug'
+import fs from 'fs-extra'
 
-const MAIN_PAGE = path.resolve(__dirname, './ui/index.html')
-const LOGO_FILE = path.join(__dirname, './../build/icon.png')
-const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
-
-const DEFAULT_SAVE_INTERVAL = 30 * 1000
+import Config from './config.js'
 
 const {
   defaultPage,
   autoHideMenuBar: DEFAULT_AUTO_HIDE_MENU_BAR
-} = require('./config')
+} = Config
+
+const IS_DEBUG = process.env.NODE_ENV === 'debug'
+
+const __dirname = fileURLToPath(new URL('./', import.meta.url))
+
+const MAIN_PAGE = path.join(__dirname, './ui/index.html')
+const LOGO_FILE = path.join(__dirname, './../build/icon.png')
+const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
+
+const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
 const WINDOW_METHODS = [
   'goBack',
@@ -52,7 +58,7 @@ async function DEFAULT_LIST_ACTIONS () {
   return []
 }
 
-class WindowManager extends EventEmitter {
+export class WindowManager extends EventEmitter {
   constructor ({
     onSearch = DEFAULT_SEARCH,
     listActions = DEFAULT_LIST_ACTIONS,
@@ -206,7 +212,7 @@ class WindowManager extends EventEmitter {
   }
 }
 
-class Window extends EventEmitter {
+export class Window extends EventEmitter {
   constructor ({
     url = defaultPage,
     popup = false,
@@ -433,5 +439,3 @@ class Window extends EventEmitter {
     return this.window.webContents.id
   }
 }
-
-module.exports = { WindowManager, Window }

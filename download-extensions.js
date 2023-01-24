@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 
-const { extensionFlat } = require('@netless/extension-flat')
+import { extensionFlat } from '@netless/extension-flat'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
+
+const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 const EXTENSIONS = {
   'archiveweb.page': 'fpeoodllldobpkbkabpblcfaogecpndd',
   ublock: 'cjpalhdlnbpafiamejdnhcphjbkeiagm'
 }
 
-const EXTENSION_FOLDER = require('path').join(__dirname, 'app/extensions')
+const EXTENSION_FOLDER = path.join(__dirname, 'app/extensions')
 
 for (const [name, hash] of Object.entries(EXTENSIONS)) {
   downloadExtension(name, hash)

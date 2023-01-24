@@ -1,7 +1,7 @@
-const makeFetch = require('gemini-fetch')
-const fetchToHandler = require('./fetch-to-handler')
+import makeFetch from 'gemini-fetch'
+import fetchToHandler from './fetch-to-handler.js'
 
-module.exports = async function createHandler () {
+export default async function createHandler () {
   return fetchToHandler(async () => {
     const fetch = makeFetch()
 
