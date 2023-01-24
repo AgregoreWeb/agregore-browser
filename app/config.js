@@ -49,7 +49,7 @@ export default RC('agregore', {
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {
     repo: DEFAULT_IPFS_DIR,
-    silent: false,
+    silent: true,
     preload: {
       enabled: false
     },
