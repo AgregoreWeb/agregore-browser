@@ -12,8 +12,9 @@
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test",
-    "postinstall": "npm run download-extensions && electron-builder install-app-deps",
-    "download-extensions": "node ./download-extensions.js"
+    "postinstall": "npm run postversion && npm run download-extensions && electron-builder install-app-deps",
+    "download-extensions": "node ./download-extensions.js",
+    "postversion": "node ./update-versions.js"
   },
   "standard": {
     "ignore": [
@@ -22,7 +23,8 @@
       "bundle-json.js",
       "bundle-gemini.js",
       "bundle-ssb.js",
-      "extension-*.js"
+      "extension-*.js",
+      "version.js"
     ]
   },
   "build": {
