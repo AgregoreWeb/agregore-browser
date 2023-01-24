@@ -135,3 +135,6 @@ app/extensions/archiveweb.page/
 
 # We use yarn lockfiles instead of package-lock
 package-lock.json
+
+# This gets generated post install
+app/version.js

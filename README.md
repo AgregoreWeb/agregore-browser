@@ -89,7 +89,8 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 
 To build from source do the following:
 
-- Set up node.js, git, and yarn
+- Set up node.js (at least Node 18), git, and yarn
+- Set up [Node-gyp](https://github.com/nodejs/node-gyp) and its dependencies for your OS
 - fork the repo
 - Pull your fork to your computer
 - Load submodules with `git submodule update --init --recursive`
