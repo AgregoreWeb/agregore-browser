@@ -237,8 +237,8 @@ class OmniBox extends HTMLElement {
   attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'src') {
       this.input.value = newValue
-      const noFocus = searchParams.get('noFocus') === 'true'
-      if(noFocus) {
+      const noFocus = window.searchParams.get('noFocus') === 'true'
+      if (noFocus) {
         return
       }
       if (this.firstLoad && (newValue === window.DEFAULT_PAGE)) {
