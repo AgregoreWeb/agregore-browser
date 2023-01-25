@@ -72,15 +72,21 @@ function init () {
         window.web.focus()
       })
     }
-    window.on('new-window', (event, url, frameName, disposition, options) => {
+
+    window.web.setWindowOpenHandler(({ url, features, disposition }) => {
       console.log('New window', url, disposition)
       if ((disposition === 'foreground-tab') || (disposition === 'background-tab')) {
-        event.preventDefault()
-        event.newGuest = null
         createWindow(url)
-      } else if (options && options.webContents) {
-        attachContextMenus({ window: options, createWindow, extensions })
+
+        return { action: 'deny' }
+      } else {
+        // TODO: Should we override more options here?
+        return { action: 'allow' }
       }
+    })
+
+    window.web.on('did-create-window', (window) => {
+      attachContextMenus({ window, createWindow, extensions })
     })
   })
 }

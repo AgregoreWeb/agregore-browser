@@ -271,9 +271,6 @@ export class Window extends EventEmitter {
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
     })
-    this.web.on('new-window', (...args) => {
-      this.emit('new-window', ...args)
-    })
 
     if (autoResize) {
       let reloaded = false
