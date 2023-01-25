@@ -39,6 +39,7 @@
     "files": [
       "build/*",
       "app/**/*",
+      "app/*",
       "node_modules/**/*",
       "package.json"
     ],
