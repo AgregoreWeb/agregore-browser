@@ -29,7 +29,7 @@
   },
   "build": {
     "npmRebuild": true,
-    "asar": true,
+    "asar": false,
     "asarUnpack": [
       "app/extensions/**",
       "node_modules/go-ipfs/**"
