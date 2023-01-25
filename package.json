@@ -31,7 +31,9 @@
     "npmRebuild": true,
     "asar": true,
     "asarUnpack": [
-      "**"
+      "app/**",
+      "node_modules/**",
+      "build/icon.png"
     ],
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
