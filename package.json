@@ -23,7 +23,7 @@
       "bundle-json.js",
       "bundle-gemini.js",
       "bundle-ssb.js",
-      "extension-*.js",
+      "extension-agregore-*/",
       "version.js"
     ]
   },
