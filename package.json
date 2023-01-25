@@ -33,7 +33,8 @@
     "asarUnpack": [
       "app/**",
       "node_modules/**",
-      "build/icon.png"
+      "build/icon.png",
+      "package.json"
     ],
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
