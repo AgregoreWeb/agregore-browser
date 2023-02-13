@@ -16,7 +16,7 @@ const IS_DEBUG = process.env.NODE_ENV === 'debug'
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 const WEB_PARTITION = 'persist:web-content'
-const LOGO_FILE = path.join(__dirname, './../build/icon.png')
+const LOGO_FILE = path.join(__dirname, './../build/icon-small.png')
 
 if (IS_DEBUG) {
   app.on('web-contents-created', (event, webContents) => {

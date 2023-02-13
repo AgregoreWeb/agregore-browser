@@ -22,7 +22,7 @@ const IS_DEBUG = process.env.NODE_ENV === 'debug'
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 const MAIN_PAGE = path.join(__dirname, './ui/index.html')
-const LOGO_FILE = path.join(__dirname, './../build/icon.png')
+const LOGO_FILE = path.join(__dirname, './../build/icon-small.png')
 const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
