@@ -34,6 +34,7 @@
       "app/**",
       "node_modules/**",
       "build/icon.png",
+      "build/icon-small.png",
       "package.json"
     ],
     "productName": "Agregore Browser",
