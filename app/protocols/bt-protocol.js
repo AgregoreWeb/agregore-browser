@@ -12,7 +12,7 @@ export default async function createHandler (options, session) {
       .filter(url => url.indexOf('wss://') === 0 || url.indexOf('ws://') === 0)
     globalThis.WRTC = wrtc
 
-    const { default: makeFetch } = import('bt-fetch')
+    const { default: makeFetch } = await import('bt-fetch')
 
     const fetch = makeFetch(options)
 
