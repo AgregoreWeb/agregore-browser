@@ -1,5 +1,6 @@
 const { protocol } = require('electron')
 const path = require('path')
+const { pathToFileURL } = require('url')
 
 const P2P_PRIVILEGES = {
   standard: true,
@@ -46,7 +47,7 @@ protocol.registerSchemesAsPrivileged([
 const indexFile = path.join(__dirname, 'index.js')
   .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
-import(indexFile).catch((e) => {
+import(pathToFileURL(indexFile)).catch((e) => {
   console.error(e.stack)
   process.exit(1)
 })
