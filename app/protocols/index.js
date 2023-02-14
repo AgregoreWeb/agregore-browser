@@ -8,6 +8,7 @@ import createBrowserHandler from './browser-protocol.js'
 import createGeminiHandler from './gemini-protocol.js'
 import createBTHandler from './bt-protocol.js'
 import createMagnetHandler from './magnet-protocol.js'
+import createRawHTTPSHandler from './raw-http-protocol.js'
 
 const P2P_PRIVILEGES = {
   standard: true,
@@ -52,6 +53,7 @@ export async function close () {
 
 export function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
+    { scheme: 'https+raw', privileges: P2P_PRIVILEGES },
     { scheme: 'hyper', privileges: P2P_PRIVILEGES },
     { scheme: 'gemini', privileges: P2P_PRIVILEGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
@@ -127,4 +129,7 @@ export async function setupProtocols (session) {
   const magnetHandler = await createMagnetHandler()
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
+
+  const {handler: rawHTTPSHandler} = await createRawHTTPSHandler()
+  sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)
 }

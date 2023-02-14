@@ -31,6 +31,7 @@ const LOW_PRIVILEGES = {
 }
 
 protocol.registerSchemesAsPrivileged([
+  { scheme: 'https+raw', privileges: P2P_PRIVILEGES },
   { scheme: 'hyper', privileges: P2P_PRIVILEGES },
   { scheme: 'gemini', privileges: P2P_PRIVILEGES },
   { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
