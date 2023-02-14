@@ -102,7 +102,8 @@
         "name": "bittorrent",
         "schemes": [
           "magnet",
-          "bittorrent"
+          "bittorrent",
+          "bt"
         ],
         "role": "Viewer"
       },
