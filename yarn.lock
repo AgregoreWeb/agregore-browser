@@ -3126,10 +3126,10 @@ human-signals@^3.0.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-3.0.1.tgz#c740920859dafa50e5a3222da9d3bf4bb0e5eef5"
   integrity sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==
 
-hyper-sdk@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.2.tgz#e21acffc3f96d684583d6d4c167c5029b7e1fe3d"
-  integrity sha512-yhwvfVYYv6+Fz6bbt6QfinpiEjVa8KS0xe2wGpn0v3KcbLaiVadApvw3rOTBLssHfPhmmV0/LGN6a9GR4/RJ0g==
+hyper-sdk@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.3.tgz#a2f6e51a853f9632b34fa1af23995454f8ffdd7f"
+  integrity sha512-aqrn9/UJXm2q4Sj9H7yoQYqhRpCm7lycVqRmJlvWmUjWOXu1Ii9gnNDQ620GrWwA1s20e9qZR6KTSrGUPFsWHA==
   dependencies:
     b4a "^1.6.1"
     corestore "^6.4.2"
@@ -3184,10 +3184,10 @@ hypercore-crypto@^3.2.1, hypercore-crypto@^3.3.0, hypercore-crypto@^3.3.1:
     compact-encoding "^2.5.1"
     sodium-universal "^4.0.0"
 
-hypercore-fetch@^9.0.7:
-  version "9.0.7"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.0.7.tgz#803e93791a96420a540e381c8ecd95273f0fbb71"
-  integrity sha512-e4UUZiVR0oLjYbqny9xiny7q+640OKUG5g13DQH2ZJidceqxovk8Fj/9KNZrAVKquum7Sdr1eHvODueYV31VNQ==
+hypercore-fetch@^9.0.8:
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.0.8.tgz#07daaffb463e8594af918f6a3da0a2dda6a7bad5"
+  integrity sha512-HpydiYQdClgZ4d5a4scTwLo4aRFGHvQC9D2Gg6zX+0hXEOsDAnHoo4dLTifEyac/KrMJ9QC/184cAVaZ9FG8Pw==
   dependencies:
     event-iterator "^2.0.0"
     hyperdrive "^11.0.0-alpha.10"
