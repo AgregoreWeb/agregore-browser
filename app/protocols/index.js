@@ -130,6 +130,6 @@ export async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
 
-  const {handler: rawHTTPSHandler} = await createRawHTTPSHandler()
+  const { handler: rawHTTPSHandler } = await createRawHTTPSHandler()
   sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)
 }

@@ -1766,10 +1766,10 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-corestore@^6.4.1:
-  version "6.4.1"
-  resolved "https://registry.yarnpkg.com/corestore/-/corestore-6.4.1.tgz#278869b9fc746fb0313bc884e43a76d33d35e688"
-  integrity sha512-YLqS9Fmr79jY3YWkKf6OLtZH2OkaUzb3oJZeeQhKVR90IeyOHRlKGv7v2aMve+1OWX6HWO9V08IBOK/VMciC7w==
+corestore@^6.4.2:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/corestore/-/corestore-6.5.1.tgz#935a7c5ff65f89961da4f6985a3147dfd4cf89df"
+  integrity sha512-ihMHXDpLtKYoDL1f9rqtVE2yKeRqqZOa/OHR8yKN0YvWyiQN7eTyzo/NPLvnir5aoCcua0PiIZFEBFXoiMhvyQ==
   dependencies:
     b4a "^1.3.1"
     hypercore "^10.5.3"
@@ -3126,15 +3126,17 @@ human-signals@^3.0.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-3.0.1.tgz#c740920859dafa50e5a3222da9d3bf4bb0e5eef5"
   integrity sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==
 
-hyper-sdk@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.1.1.tgz#9d5a8686634c4da6ed64de8ff25edf64641fff2f"
-  integrity sha512-punk8qO0cbH4OEf6b6GQa0sdB4o+/E9Z1IrNbrkol+xHvIicL1uC7ErdJ+4uln0KgS/WxHsOfZslgI519qnX7A==
+hyper-sdk@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.2.tgz#e21acffc3f96d684583d6d4c167c5029b7e1fe3d"
+  integrity sha512-yhwvfVYYv6+Fz6bbt6QfinpiEjVa8KS0xe2wGpn0v3KcbLaiVadApvw3rOTBLssHfPhmmV0/LGN6a9GR4/RJ0g==
   dependencies:
     b4a "^1.6.1"
-    corestore "^6.4.1"
+    corestore "^6.4.2"
     dns-query "^0.11.2"
-    hypercore "^10.5.4"
+    hyperbee "^2.4.2"
+    hypercore "^10.7.0"
+    hyperdrive "^11.0.0-alpha.10"
     hyperswarm "^4.3.6"
     random-access-application "^2.0.0"
     random-access-memory "^6.1.0"
@@ -3144,6 +3146,18 @@ hyperbee@^2.1.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/hyperbee/-/hyperbee-2.3.0.tgz#b442adabb618cedc66dce2039acfa8b6c787a3e6"
   integrity sha512-DOUpOcz9W3XtECWu9bTHqQwYf7ls9/kY28xJnn8gOPbCmI2pHHzkvIL/1PUgDldvVN+8aRyW24b6w50GQAuoBQ==
+  dependencies:
+    b4a "^1.6.0"
+    codecs "^3.0.0"
+    mutexify "^1.4.0"
+    protocol-buffers-encodings "^1.2.0"
+    safety-catch "^1.0.2"
+    streamx "^2.12.4"
+
+hyperbee@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/hyperbee/-/hyperbee-2.4.2.tgz#3156f54d41a9d844e30f014ad26fd6ba54c81dee"
+  integrity sha512-EQ05KTvplQudulmOsV+l9zgL62iwR4WP4xGzRSMS7C1VD7UpMqWuxYGPNAeeUIHLHSOitYnIKJjvcs0TyUbOsQ==
   dependencies:
     b4a "^1.6.0"
     codecs "^3.0.0"
@@ -3170,22 +3184,46 @@ hypercore-crypto@^3.2.1, hypercore-crypto@^3.3.0, hypercore-crypto@^3.3.1:
     compact-encoding "^2.5.1"
     sodium-universal "^4.0.0"
 
-hypercore-fetch@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.0.0.tgz#fcc26b01e93a45f213fba30e8b07a376dafa5536"
-  integrity sha512-hQzh/BwGurvB5DWRe5VJMNTArOY+IuDZmhrQ0Bep1tsd8XoKw+J0b9eMyGzNfSbxUcQ41uf0akTa9GSaoInYbw==
+hypercore-fetch@^9.0.7:
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.0.7.tgz#803e93791a96420a540e381c8ecd95273f0fbb71"
+  integrity sha512-e4UUZiVR0oLjYbqny9xiny7q+640OKUG5g13DQH2ZJidceqxovk8Fj/9KNZrAVKquum7Sdr1eHvODueYV31VNQ==
   dependencies:
     event-iterator "^2.0.0"
     hyperdrive "^11.0.0-alpha.10"
-    make-fetch "^3.1.0"
+    make-fetch "^3.1.1"
     mime "^3.0.0"
     range-parser "^1.2.1"
     streamx "^2.13.0"
 
-hypercore@^10.5.3, hypercore@^10.5.4:
+hypercore@^10.5.3:
   version "10.5.4"
   resolved "https://registry.yarnpkg.com/hypercore/-/hypercore-10.5.4.tgz#ac795181d3ddd0440ab2888599623af3fc186c77"
   integrity sha512-63Qj2OMDzjYkq3pHsqVjqrDI/mfYJu8V9VGGj7Ib9J1zvkDUW8TgqobuZZ0r12MLGDeG/Opu4BccbLU3+sqUeg==
+  dependencies:
+    "@hyperswarm/secret-stream" "^6.0.0"
+    b4a "^1.1.0"
+    big-sparse-array "^1.0.3"
+    compact-encoding "^2.11.0"
+    crc-universal "^1.0.2"
+    events "^3.3.0"
+    flat-tree "^1.9.0"
+    hypercore-crypto "^3.2.1"
+    is-options "^1.0.1"
+    protomux "^3.4.0"
+    quickbit-universal "^2.0.3"
+    random-access-file "^4.0.0"
+    random-array-iterator "^1.0.0"
+    safety-catch "^1.0.1"
+    sodium-universal "^4.0.0"
+    streamx "^2.12.4"
+    xache "^1.1.0"
+    z32 "^1.0.0"
+
+hypercore@^10.7.0:
+  version "10.8.0"
+  resolved "https://registry.yarnpkg.com/hypercore/-/hypercore-10.8.0.tgz#3a594be602d0c3d1d6e6a1437ff75a69bbf264e1"
+  integrity sha512-Cpkek8/h2pVwC2HtcslxYTJpWnjzBNbcxPLZ/cUwp4IelQG+1LFOq7e0e8gE7yFEcHg1OZAqaV+M+Um2iomXyw==
   dependencies:
     "@hyperswarm/secret-stream" "^6.0.0"
     b4a "^1.1.0"
@@ -4219,10 +4257,10 @@ make-fetch@^2.3.1, make-fetch@^2.3.4:
     statuses "^2.0.0"
     web-streams-polyfill "^3.0.0"
 
-make-fetch@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-3.1.0.tgz#526730075e0e31785a45b7c7412d5970bb755410"
-  integrity sha512-pxykUE645O95dzlHpTmUvmJReXKUJho93LJ033CZygQm2Ut8lap6ozyh6mNFQlYxxconwrKvy8fgMTyssKxMBw==
+make-fetch@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-3.1.1.tgz#0ef60919ff9093cffa7c392c13215adc4d22cdfd"
+  integrity sha512-XbiszT1EZtHoZdvZzepZZXIydyBCc/EmLwuTPpruaEH+kvHL3T9PvihhsVeBCIyhHI/iM1xDCKQlK0cLq76d5g==
 
 matcher@^3.0.0:
   version "3.0.0"
