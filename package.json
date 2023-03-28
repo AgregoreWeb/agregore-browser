@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "2.0.0-12",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
@@ -197,8 +197,8 @@
     "gemini-fetch": "^2.0.0",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.17.0",
-    "hyper-sdk": "^4.2.3",
-    "hypercore-fetch": "^9.0.8",
+    "hyper-sdk": "^4.2.4",
+    "hypercore-fetch": "^9.3.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^4.2.3",

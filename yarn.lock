@@ -1081,6 +1081,11 @@ b4a@^1.1.0, b4a@^1.3.0, b4a@^1.5.0, b4a@^1.5.3, b4a@^1.6.1:
   resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.6.1.tgz#9effac93a469a868d024e16fd77162c653544cbd"
   integrity sha512-AsKjNhz72yxteo/0EtQEiwkMUgk/tGmycXlbG4g3Ard2/ULtNLUykGOkeK0egmN27h0xMAhb76jYccW+XTBExA==
 
+b4a@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.6.3.tgz#cce6e8a2f0d0774e5fe8062086827e979970266d"
+  integrity sha512-aX6/FqpWQve8VN9kyTExy7GlmwNShvxcCWWD5QVR3ZbRlyBGtCrG5Autu95xxSPH4CRs+5PSV4d7PRnWpmqFlA==
+
 balanced-match@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
@@ -1766,7 +1771,7 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-corestore@^6.4.2:
+corestore@^6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/corestore/-/corestore-6.5.1.tgz#935a7c5ff65f89961da4f6985a3147dfd4cf89df"
   integrity sha512-ihMHXDpLtKYoDL1f9rqtVE2yKeRqqZOa/OHR8yKN0YvWyiQN7eTyzo/NPLvnir5aoCcua0PiIZFEBFXoiMhvyQ==
@@ -1849,6 +1854,11 @@ data-uri-to-buffer@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz#594b8973938c5bc2c33046535785341abc4f3636"
   integrity sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==
+
+debounceify@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/debounceify/-/debounceify-1.0.0.tgz#182889d32bab2dbcc0ad76861f9332f4a6509ff1"
+  integrity sha512-7BeSMAPUohdDJ7sU6Tq2M8HkJR05IqQCeVm/qNemrpOgP5SGZD5WeNOXNfsgbESinz6OjMooWPTGZiKUX91XJQ==
 
 debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0, debug@^4.3.1, debug@^4.3.2, debug@^4.3.3, debug@^4.3.4:
   version "4.3.4"
@@ -3126,18 +3136,18 @@ human-signals@^3.0.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-3.0.1.tgz#c740920859dafa50e5a3222da9d3bf4bb0e5eef5"
   integrity sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==
 
-hyper-sdk@^4.2.3:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.3.tgz#a2f6e51a853f9632b34fa1af23995454f8ffdd7f"
-  integrity sha512-aqrn9/UJXm2q4Sj9H7yoQYqhRpCm7lycVqRmJlvWmUjWOXu1Ii9gnNDQ620GrWwA1s20e9qZR6KTSrGUPFsWHA==
+hyper-sdk@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.4.tgz#1bc60493985581c1df323c5d90d07132830a0b5c"
+  integrity sha512-u1/lrRoic/IjVqsTBGGCyd1t5sE/BpgI0vvQdvG1AWGJt0+r+oyyh5ENKs/FJpHa6mo1rIOcXiq4IFhVRDCquQ==
   dependencies:
-    b4a "^1.6.1"
-    corestore "^6.4.2"
+    b4a "^1.6.3"
+    corestore "^6.5.1"
     dns-query "^0.11.2"
-    hyperbee "^2.4.2"
-    hypercore "^10.7.0"
+    hyperbee "^2.6.0"
+    hypercore "^10.8.1"
     hyperdrive "^11.0.0-alpha.10"
-    hyperswarm "^4.3.6"
+    hyperswarm "^4.4.0"
     random-access-application "^2.0.0"
     random-access-memory "^6.1.0"
     z32 "^1.0.0"
@@ -3154,13 +3164,14 @@ hyperbee@^2.1.1:
     safety-catch "^1.0.2"
     streamx "^2.12.4"
 
-hyperbee@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/hyperbee/-/hyperbee-2.4.2.tgz#3156f54d41a9d844e30f014ad26fd6ba54c81dee"
-  integrity sha512-EQ05KTvplQudulmOsV+l9zgL62iwR4WP4xGzRSMS7C1VD7UpMqWuxYGPNAeeUIHLHSOitYnIKJjvcs0TyUbOsQ==
+hyperbee@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/hyperbee/-/hyperbee-2.6.0.tgz#cd6f125c129c88b2c29207d7c7671e26a682ab1a"
+  integrity sha512-eUSEp/Q3vlfhuCyRJOhSeX8j0Mjvsnd3IK/zEsnoKbTg/IiuaFpPnltMADBNlQAoMRf9x+lcetmwyuldKcSErw==
   dependencies:
     b4a "^1.6.0"
     codecs "^3.0.0"
+    debounceify "^1.0.0"
     mutexify "^1.4.0"
     protocol-buffers-encodings "^1.2.0"
     safety-catch "^1.0.2"
@@ -3184,10 +3195,10 @@ hypercore-crypto@^3.2.1, hypercore-crypto@^3.3.0, hypercore-crypto@^3.3.1:
     compact-encoding "^2.5.1"
     sodium-universal "^4.0.0"
 
-hypercore-fetch@^9.0.8:
-  version "9.0.8"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.0.8.tgz#07daaffb463e8594af918f6a3da0a2dda6a7bad5"
-  integrity sha512-HpydiYQdClgZ4d5a4scTwLo4aRFGHvQC9D2Gg6zX+0hXEOsDAnHoo4dLTifEyac/KrMJ9QC/184cAVaZ9FG8Pw==
+hypercore-fetch@^9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.3.0.tgz#74ba393206d95a53d44d047ac8d0e1f4a476806f"
+  integrity sha512-XCMb1UbT9IGSmhQ8izIXXeBpw+FALDwDu7BlqAD+A/hwPepiKnDkf3QFdM0GXA8cTxvbLF4SQ6wSYy2v5PWykw==
   dependencies:
     event-iterator "^2.0.0"
     hyperdrive "^11.0.0-alpha.10"
@@ -3220,10 +3231,10 @@ hypercore@^10.5.3:
     xache "^1.1.0"
     z32 "^1.0.0"
 
-hypercore@^10.7.0:
-  version "10.8.0"
-  resolved "https://registry.yarnpkg.com/hypercore/-/hypercore-10.8.0.tgz#3a594be602d0c3d1d6e6a1437ff75a69bbf264e1"
-  integrity sha512-Cpkek8/h2pVwC2HtcslxYTJpWnjzBNbcxPLZ/cUwp4IelQG+1LFOq7e0e8gE7yFEcHg1OZAqaV+M+Um2iomXyw==
+hypercore@^10.8.1:
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/hypercore/-/hypercore-10.8.1.tgz#5852322b8138f4b52724fc5dd182cf30e270f486"
+  integrity sha512-ORnHsMi/NyerofTWkt3b4suHOx0037vJwd4q9BNsZGYhXaWepzZd0/vIU8BBsTZsyY90xfOJp03MwGRg1kB3sw==
   dependencies:
     "@hyperswarm/secret-stream" "^6.0.0"
     b4a "^1.1.0"
@@ -3256,10 +3267,10 @@ hyperdrive@^11.0.0-alpha.10:
     streamx "^2.12.4"
     unix-path-resolve "^1.0.2"
 
-hyperswarm@^4.3.6:
-  version "4.3.6"
-  resolved "https://registry.yarnpkg.com/hyperswarm/-/hyperswarm-4.3.6.tgz#6c76f2437fc5439efb03537418c7d86c42495f32"
-  integrity sha512-thohjQjRkuI0sybTzedpJ1mPIXJ9RvcW78TteV38CjcEv5OGk6FXfX7XkKmz/aS2NHLXHIaSqOnMOvD4gSbXIA==
+hyperswarm@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/hyperswarm/-/hyperswarm-4.4.0.tgz#226f5162dc108a3cf99e85b67b28bf4d4ee4f66d"
+  integrity sha512-Mk+oEsfhs+jDcPFPidawQK5/cC6aC/yvtF529rsYZ0xGKQq1WMHXUhFUiZUl1L9ktkuBVTjfs3a8uJ930h9c7Q==
   dependencies:
     "@hyperswarm/dht" "^6.0.1"
     b4a "^1.3.1"
