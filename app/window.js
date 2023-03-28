@@ -1,25 +1,31 @@
-const {
+import {
   BrowserWindow,
   BrowserView,
   ipcMain,
   app
-} = require('electron')
-const path = require('path')
-const EventEmitter = require('events')
-const fs = require('fs-extra')
+} from 'electron'
+import path from 'node:path'
+import EventEmitter from 'node:events'
+import { fileURLToPath } from 'node:url'
 
-const IS_DEBUG = process.env.NODE_ENV === 'debug'
+import fs from 'fs-extra'
 
-const MAIN_PAGE = path.resolve(__dirname, './ui/index.html')
-const LOGO_FILE = path.join(__dirname, './../build/icon.png')
-const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
-
-const DEFAULT_SAVE_INTERVAL = 30 * 1000
+import Config from './config.js'
 
 const {
   defaultPage,
   autoHideMenuBar: DEFAULT_AUTO_HIDE_MENU_BAR
-} = require('./config')
+} = Config
+
+const IS_DEBUG = process.env.NODE_ENV === 'debug'
+
+const __dirname = fileURLToPath(new URL('./', import.meta.url))
+
+const MAIN_PAGE = path.join(__dirname, './ui/index.html')
+const LOGO_FILE = path.join(__dirname, './../build/icon-small.png')
+const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
+
+const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
 const WINDOW_METHODS = [
   'goBack',
@@ -52,7 +58,7 @@ async function DEFAULT_LIST_ACTIONS () {
   return []
 }
 
-class WindowManager extends EventEmitter {
+export class WindowManager extends EventEmitter {
   constructor ({
     onSearch = DEFAULT_SEARCH,
     listActions = DEFAULT_LIST_ACTIONS,
@@ -152,7 +158,9 @@ class WindowManager extends EventEmitter {
 
     return saved.map((info) => {
       console.log('About to open', info)
-      const options = {}
+      const options = {
+        noFocus: true
+      }
 
       const { url, position, size } = info
 
@@ -206,13 +214,14 @@ class WindowManager extends EventEmitter {
   }
 }
 
-class Window extends EventEmitter {
+export class Window extends EventEmitter {
   constructor ({
     url = defaultPage,
     popup = false,
     rawFrame = false || popup,
     autoResize = false || popup,
     noNav = false,
+    noFocus = false,
     onSearch,
     listActions,
     view,
@@ -261,9 +270,6 @@ class Window extends EventEmitter {
     })
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
-    })
-    this.web.on('new-window', (...args) => {
-      this.emit('new-window', ...args)
     })
 
     if (autoResize) {
@@ -320,6 +326,7 @@ class Window extends EventEmitter {
     if (url) toLoad.searchParams.set('url', url)
     if (rawFrame) toLoad.searchParams.set('rawFrame', 'true')
     if (noNav) toLoad.searchParams.set('noNav', 'true')
+    if (noFocus) toLoad.searchParams.set('noFocus', 'true')
 
     this.toLoad = toLoad.href
   }
@@ -375,13 +382,27 @@ class Window extends EventEmitter {
   }
 
   async setBounds (rect) {
+    // Fix non-integer heights causing draw break.
+    // TODO: This should be fixed wherever rect is sent from, not sure where that is.
     Object.keys(rect).forEach(key => {
       rect[key] = Math.floor(rect[key])
     })
-    // Fix non-integer heights causing draw break.
-    // TODO: This should be fixed wherever rect is sent from, not sure where that is.
+
+    // Fix MacOS setBounds not considering the titlebar height
+    const titleBarHeight = this.getTitleBarHeight()
+    if (titleBarHeight && rect.y) {
+      rect.y += titleBarHeight
+    }
 
     return this.view.setBounds(rect)
+  }
+
+  getTitleBarHeight () {
+    const winHeight = this.window.getSize()[1]
+    const contentHeight = this.window.getContentSize()[1]
+    const titlebarHeight = winHeight - contentHeight
+
+    return process.platform === 'darwin' ? titlebarHeight : 0
   }
 
   async listExtensionActions () {
@@ -433,5 +454,3 @@ class Window extends EventEmitter {
     return this.window.webContents.id
   }
 }
-
-module.exports = { WindowManager, Window }

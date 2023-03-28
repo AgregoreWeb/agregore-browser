@@ -1,4 +1,14 @@
-const { app, protocol: globalProtocol } = require('electron')
+import { app, protocol as globalProtocol } from 'electron'
+import Config from '../config.js'
+
+import createHyperHandler from './hyper-protocol.js'
+import createSsbHandler from './ssb-protocol.js'
+import createIPFSHandler from './ipfs-protocol.js'
+import createBrowserHandler from './browser-protocol.js'
+import createGeminiHandler from './gemini-protocol.js'
+import createBTHandler from './bt-protocol.js'
+import createMagnetHandler from './magnet-protocol.js'
+import createRawHTTPSHandler from './raw-http-protocol.js'
 
 const P2P_PRIVILEGES = {
   standard: true,
@@ -33,30 +43,17 @@ const {
   ssbOptions,
   hyperOptions,
   btOptions
-} = require('../config')
-
-const createHyperHandler = require('./hyper-protocol')
-const createSsbHandler = require('./ssb-protocol')
-const createIPFSHandler = require('./ipfs-protocol')
-const createBrowserHandler = require('./browser-protocol')
-const createGeminiHandler = require('./gemini-protocol')
-const createBTHandler = require('./bt-protocol')
-const createMagnetHandler = require('./magnet-protocol')
+} = Config
 
 const onCloseHandlers = []
 
-module.exports = {
-  registerPrivileges,
-  setupProtocols,
-  close
-}
-
-async function close () {
+export async function close () {
   await Promise.all(onCloseHandlers.map((handler) => handler()))
 }
 
-function registerPrivileges () {
+export function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
+    { scheme: 'https+raw', privileges: P2P_PRIVILEGES },
     { scheme: 'hyper', privileges: P2P_PRIVILEGES },
     { scheme: 'gemini', privileges: P2P_PRIVILEGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
@@ -71,7 +68,7 @@ function registerPrivileges () {
   ])
 }
 
-async function setupProtocols (session) {
+export async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
   app.setAsDefaultProtocolClient('agregore')
@@ -132,4 +129,7 @@ async function setupProtocols (session) {
   const magnetHandler = await createMagnetHandler()
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
+
+  const { handler: rawHTTPSHandler } = await createRawHTTPSHandler()
+  sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)
 }

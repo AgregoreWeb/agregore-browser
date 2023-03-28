@@ -1,24 +1,22 @@
-const path = require('path')
-const fs = require('fs-extra')
-const { readdir } = require('fs').promises
-const EventEmitter = require('events')
+import path from 'node:path'
+import { readdir } from 'node:fs/promises'
+import { fileURLToPath } from 'node:url'
+import EventEmitter from 'node:events'
+import fs from 'fs-extra'
 
-const { ExtendedExtensions } = require('electron-extended-webextensions')
+import { ExtendedExtensions } from 'electron-extended-webextensions'
 
 // TODO: This smells! Inject options in constructor
-const { extensions: config } = require('../config')
-const { dir: extensionsDir, remote } = config
+import Config from '../config.js'
+
+const { dir: extensionsDir, remote } = Config.extensions
 
 // Handle `app.asar` Electron functionality so that extensions can be referenced on the FS
 // Also note that MacOS uses `app-arm64.asar`, so we should target the first `.asar/`
-const DEFAULT_EXTENSION_LOCATION = __dirname
-  .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
+const __dirname = fileURLToPath(new URL('./', import.meta.url))
+const DEFAULT_EXTENSION_LOCATION = __dirname.replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
-module.exports = {
-  createExtensions
-}
-
-class Extensions extends EventEmitter {
+export class Extensions extends EventEmitter {
   constructor ({
     session,
     createWindow,
@@ -138,6 +136,6 @@ class Extensions extends EventEmitter {
   }
 }
 
-function createExtensions (opts) {
+export function createExtensions (opts) {
   return new Extensions(opts)
 }

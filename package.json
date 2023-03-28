@@ -1,8 +1,9 @@
 {
   "name": "agregore-browser",
-  "version": "1.10.1",
+  "version": "2.0.0-12",
   "description": "A minimal web browser for the distributed web",
-  "main": "app/main.js",
+  "main": "app/main.cjs",
+  "type": "module",
   "scripts": {
     "test": "npm run lint",
     "start": "electron .",
@@ -11,8 +12,9 @@
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test",
-    "postinstall": "npm run download-extensions && electron-builder install-app-deps",
-    "download-extensions": "node ./download-extensions.js"
+    "postinstall": "npm run postversion && npm run download-extensions && electron-builder install-app-deps",
+    "download-extensions": "node ./download-extensions.js",
+    "postversion": "node ./update-versions.js"
   },
   "standard": {
     "ignore": [
@@ -20,21 +22,27 @@
       "bundle-markdown.js",
       "bundle-json.js",
       "bundle-gemini.js",
-      "bundle-ssb.js"
+      "bundle-ssb.js",
+      "extension-agregore-*/",
+      "version.js"
     ]
   },
   "build": {
     "npmRebuild": true,
     "asar": true,
     "asarUnpack": [
-      "app/extensions/**",
-      "node_modules/go-ipfs/**"
+      "app/**",
+      "node_modules/**",
+      "build/icon.png",
+      "build/icon-small.png",
+      "package.json"
     ],
     "productName": "Agregore Browser",
     "appId": "agregore.mauve.moe",
     "files": [
       "build/*",
       "app/**/*",
+      "app/*",
       "node_modules/**/*",
       "package.json"
     ],
@@ -94,7 +102,8 @@
         "name": "bittorrent",
         "schemes": [
           "magnet",
-          "bittorrent"
+          "bittorrent",
+          "bt"
         ],
         "role": "Viewer"
       },
@@ -121,13 +130,14 @@
       ]
     },
     "mac": {
+      "artifactName": "${name}-${version}-${os}-${arch}.${ext}",
       "darkModeSupport": true,
       "gatekeeperAssess": false,
       "target": [
         {
           "target": "dmg",
           "arch": [
-            "universal"
+            "x64"
           ]
         }
       ]
@@ -173,9 +183,9 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "20",
-    "electron-builder": "^22.9.1",
-    "standard": "^14.3.4"
+    "electron": "23.0.0-beta.2",
+    "electron-builder": "^23.6.0",
+    "standard": "^17.0.0"
   },
   "dependencies": {
     "abort-controller": "^3.0.0",
@@ -184,15 +194,16 @@
     "data-uri-to-buffer": "^3.0.1",
     "electron-extended-webextensions": "0.0.10",
     "fs-extra": "^9.0.1",
-    "gemini-fetch": "^1.0.0",
+    "gemini-fetch": "^2.0.0",
     "gemini-to-html": "^1.0.0",
-    "go-ipfs": "^0.15.0",
-    "hyper-sdk": "^3.0.7",
-    "hypercore-fetch": "^8.6.1",
-    "ipfs-http-client": "56",
-    "ipfsd-ctl": "10",
+    "go-ipfs": "^0.17.0",
+    "hyper-sdk": "^4.2.4",
+    "hypercore-fetch": "^9.3.1",
+    "ipfs-http-client": "^60.0.0",
+    "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^4.2.3",
     "mime": "^2.4.6",
+    "multiformats": "^9.9.0",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",

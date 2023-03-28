@@ -1,21 +1,22 @@
-require('abort-controller/polyfill')
-const { app, BrowserWindow, session, Menu, Tray } = require('electron')
-const { sep } = require('path')
+import { app, BrowserWindow, session, Menu, Tray } from 'electron'
+import path, { sep } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+import * as protocols from './protocols/index.js'
+import { createActions } from './actions.js'
+import { registerMenu } from './menu.js'
+import { attachContextMenus } from './context-menus.js'
+import { WindowManager } from './window.js'
+import { createExtensions } from './extensions/index.js'
+import * as history from './history.js'
+import { version } from './version.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
-const packageJSON = require('../package.json')
-const protocols = require('./protocols')
-const { createActions } = require('./actions')
-const { registerMenu } = require('./menu')
-const { attachContextMenus } = require('./context-menus')
-const { WindowManager } = require('./window')
-const { createExtensions } = require('./extensions')
-const history = require('./history')
+const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 const WEB_PARTITION = 'persist:web-content'
-const path = require('path')
-const LOGO_FILE = path.join(__dirname, './../build/icon.png')
+const LOGO_FILE = path.join(__dirname, './../build/icon-small.png')
 
 if (IS_DEBUG) {
   app.on('web-contents-created', (event, webContents) => {
@@ -41,8 +42,6 @@ app.commandLine.appendSwitch('ignore-gpu-blacklist')
 
 // Experimental web platform features, such as the FileSystem API
 app.commandLine.appendSwitch('enable-experimental-web-platform-features')
-
-protocols.registerPrivileges()
 
 init()
 
@@ -73,15 +72,21 @@ function init () {
         window.web.focus()
       })
     }
-    window.on('new-window', (event, url, frameName, disposition, options) => {
+
+    window.web.setWindowOpenHandler(({ url, features, disposition }) => {
       console.log('New window', url, disposition)
       if ((disposition === 'foreground-tab') || (disposition === 'background-tab')) {
-        event.preventDefault()
-        event.newGuest = null
         createWindow(url)
-      } else if (options && options.webContents) {
-        attachContextMenus({ window: options, createWindow, extensions })
+
+        return { action: 'deny' }
+      } else {
+        // TODO: Should we override more options here?
+        return { action: 'allow' }
       }
+    })
+
+    window.web.on('did-create-window', (window) => {
+      attachContextMenus({ window, createWindow, extensions })
     })
   })
 }
@@ -122,7 +127,7 @@ async function onready () {
 
   const electronSection = /Electron.+ /i
   const existingAgent = webSession.getUserAgent()
-  const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${packageJSON.version} `)
+  const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${version} `)
 
   webSession.setUserAgent(newAgent)
   session.defaultSession.setUserAgent(newAgent)

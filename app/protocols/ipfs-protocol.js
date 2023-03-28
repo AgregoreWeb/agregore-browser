@@ -1,36 +1,64 @@
-const fetchToHandler = require('./fetch-to-handler')
-const path = require('path')
+import fetchToHandler from './fetch-to-handler.js'
+import path from 'node:path'
+import * as fs from 'node:fs/promises'
 
-module.exports = async function createHandler (ipfsOptions, session) {
+export default async function createHandler (ipfsOptions, session) {
   return fetchToHandler(async () => {
-    const makeFetch = require('js-ipfs-fetch')
-    const ipfsHttpModule = require('ipfs-http-client')
+    const { default: makeFetch } = await import('js-ipfs-fetch')
+    const ipfsHttpModule = await import('ipfs-http-client')
 
-    const Ctl = require('ipfsd-ctl')
+    const Ctl = await import('ipfsd-ctl')
 
-    const ipfsBin = require('go-ipfs')
+    const { default: GoIPFS } = await import('go-ipfs')
+
+    const ipfsBin = GoIPFS
       .path()
       .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
-    const ipfsd = await Ctl.createController({
+    const ipfsdOpts = {
+
       ipfsOptions,
+      type: 'go',
       disposable: false,
       test: false,
       remote: false,
-      args: '--enable-pubsub-experiment',
       ipfsHttpModule,
       ipfsBin
-    })
+    }
+
+    let ipfsd = await Ctl.createController(ipfsdOpts)
 
     await ipfsd.init({ ipfsOptions })
+    const version = await ipfsd.version()
+    console.log(`IPFS Version: ${version}\nIPFS bin path: ${ipfsBin}`)
 
-    await ipfsd.start()
+    try {
+      await ipfsd.start()
+      await ipfsd.api.id()
+    } catch (e) {
+      console.log('IPFS Unable to boot daemon', e.message)
+      const { repo } = ipfsOptions
+      const lockFile = path.join(repo, 'repo.lock')
+      const apiFile = path.join(repo, 'api')
+      try {
+        await Promise.all([
+          fs.rm(lockFile),
+          fs.rm(apiFile)
+        ])
+        ipfsd = await Ctl.createController(ipfsdOpts)
+        await ipfsd.start()
+        await ipfsd.api.id()
+      } catch (cause) {
+        const message = `Unable to start daemon due to extra lockfile. Please clear your ipfs folder at ${repo} and try again.`
+        throw new Error(message, { cause })
+      }
+    }
 
-    const ipfs = ipfsd.api
+    console.log('IPFS ID:', await ipfsd.api.id())
 
-    console.log('IPFS:', await ipfs.id())
-
-    const fetch = await makeFetch({ ipfs })
+    const fetch = await makeFetch({
+      ipfs: ipfsd.api
+    })
 
     fetch.close = async () => {
       return ipfsd.stop()

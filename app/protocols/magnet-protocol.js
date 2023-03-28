@@ -1,9 +1,9 @@
-const { Readable } = require('stream')
+import { Readable } from 'stream'
 
 const INFO_HASH_MATCH = /^urn:btih:([a-f0-9]{40})$/ig
 const PUBLIC_KEY_MATCH = /^urn:btpk:([a-f0-9]{64})$/ig
 
-module.exports = async function createHandler () {
+export default async function createHandler () {
   return function magnetHandler (req, sendResponse) {
     try {
       const parsed = new URL(req.url)

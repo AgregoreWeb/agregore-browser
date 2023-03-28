@@ -1,7 +1,17 @@
-const fs = require('fs-extra')
-const { Readable } = require('stream')
+import fs from 'fs-extra'
+import { Readable } from 'stream'
 
-module.exports = function fetchToHandler (getFetch, session) {
+/*
+export const CORS_HEADERS = [
+ 'Access-Control-Allow-Origin',
+ 'Allow-CSP-From',
+ 'Access-Control-Allow-Headers',
+ 'Access-Control-Allow-Methods',
+ 'Access-Control-Request-Headers'
+]
+*/
+
+export default function fetchToHandler (getFetch, session) {
   let hasFetch = null
   let loadingFetch = null
 
@@ -38,7 +48,6 @@ module.exports = function fetchToHandler (getFetch, session) {
       await loadingFetch
       await close()
     } else if (hasFetch) {
-      console.log('Closing')
       if (hasFetch.close) await hasFetch.close()
       else if (hasFetch.destroy) await hasFetch.destroy()
     }
@@ -51,6 +60,7 @@ module.exports = function fetchToHandler (getFetch, session) {
       'Access-Control-Allow-Origin': '*',
       'Allow-CSP-From': '*',
       'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*',
       'Access-Control-Request-Headers': '*'
     }
 
@@ -62,7 +72,13 @@ module.exports = function fetchToHandler (getFetch, session) {
 
       const body = uploadData ? Readable.from(readBody(uploadData)) : null
 
-      const response = await fetch({ url, headers: requestHeaders, method, body, session })
+      const response = await fetch(url, {
+        method,
+        headers: requestHeaders,
+        body,
+        session,
+        duplex: 'half'
+      })
 
       const { status: statusCode, body: responseBody, headers: responseHeaders } = response
 
@@ -74,8 +90,7 @@ module.exports = function fetchToHandler (getFetch, session) {
         }
       }
 
-      const isAsync = responseBody[Symbol.asyncIterator]
-
+      const isAsync = responseBody && responseBody[Symbol.asyncIterator]
       const data = isAsync ? Readable.from(responseBody, { objectMode: false }) : responseBody
 
       sendResponse({

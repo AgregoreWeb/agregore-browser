@@ -1,8 +1,8 @@
-const fetchToHandler = require('./fetch-to-handler')
+import fetchToHandler from './fetch-to-handler.js'
 
-module.exports = async function createHandler (options, session) {
+export default async function createHandler (options, session) {
   return fetchToHandler(async () => {
-    const { makeSsbFetch } = require('ssb-fetch')
+    const { default: makeSsbFetch } = await import('ssb-fetch')
 
     const fetch = makeSsbFetch(options)
 

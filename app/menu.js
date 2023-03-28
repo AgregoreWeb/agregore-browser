@@ -1,12 +1,8 @@
-const { Menu, app } = require('electron')
+import { Menu, app } from 'electron'
 
 const isMac = process.platform === 'darwin'
 
-module.exports = {
-  registerMenu
-}
-
-function registerMenu (actions) {
+export function registerMenu (actions) {
   const {
     OpenDevTools,
     NewWindow,
@@ -29,19 +25,19 @@ function registerMenu (actions) {
     // { role: 'appMenu' }
     ...(isMac
       ? [{
-        label: app.name,
-        submenu: [
-          { role: 'about' },
-          { type: 'separator' },
-          { role: 'services' },
-          { type: 'separator' },
-          { role: 'hide' },
-          { role: 'hideothers' },
-          { role: 'unhide' },
-          { type: 'separator' },
-          { role: 'quit' }
-        ]
-      }]
+          label: app.name,
+          submenu: [
+            { role: 'about' },
+            { type: 'separator' },
+            { role: 'services' },
+            { type: 'separator' },
+            { role: 'hide' },
+            { role: 'hideothers' },
+            { role: 'unhide' },
+            { type: 'separator' },
+            { role: 'quit' }
+          ]
+        }]
       : []),
     // { role: 'fileMenu' }
     {
@@ -64,23 +60,23 @@ function registerMenu (actions) {
         { role: 'paste' },
         ...(isMac
           ? [
-            { role: 'pasteAndMatchStyle' },
-            { role: 'delete' },
-            { role: 'selectAll' },
-            { type: 'separator' },
-            {
-              label: 'Speech',
-              submenu: [
-                { role: 'startspeaking' },
-                { role: 'stopspeaking' }
-              ]
-            }
-          ]
+              { role: 'pasteAndMatchStyle' },
+              { role: 'delete' },
+              { role: 'selectAll' },
+              { type: 'separator' },
+              {
+                label: 'Speech',
+                submenu: [
+                  { role: 'startspeaking' },
+                  { role: 'stopspeaking' }
+                ]
+              }
+            ]
           : [
-            { role: 'delete' },
-            { type: 'separator' },
-            { role: 'selectAll' }
-          ])
+              { role: 'delete' },
+              { type: 'separator' },
+              { role: 'selectAll' }
+            ])
       ]
     },
     // { role: 'viewMenu' }
@@ -108,20 +104,20 @@ function registerMenu (actions) {
         ...(isMac
           ? []
           : [
-            CreateBookmark
-          ]),
+              CreateBookmark
+            ]),
         { role: 'minimize' },
         { role: 'zoom' },
         ...(isMac
           ? [
-            { type: 'separator' },
-            { role: 'front' },
-            { type: 'separator' },
-            { role: 'window' }
-          ]
+              { type: 'separator' },
+              { role: 'front' },
+              { type: 'separator' },
+              { role: 'window' }
+            ]
           : [
-            { role: 'close' }
-          ])
+              { role: 'close' }
+            ])
       ]
     },
     {

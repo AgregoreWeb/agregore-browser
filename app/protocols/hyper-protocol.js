@@ -1,16 +1,17 @@
-const fetchToHandler = require('./fetch-to-handler')
+import fetchToHandler from './fetch-to-handler.js'
 
-module.exports = async function createHandler (options, session) {
+export default async function createHandler (options, session) {
   return fetchToHandler(async () => {
-    const hyperFetch = require('hypercore-fetch')
-    const SDK = require('hyper-sdk')
+    const { default: hyperFetch } = await import('hypercore-fetch')
+    const SDK = await import('hyper-sdk')
 
-    const sdk = await SDK(options)
-    const { Hyperdrive } = sdk
-    const fetch = hyperFetch({
-      Hyperdrive,
+    const sdk = await SDK.create(options)
+    const fetch = await hyperFetch({
+      sdk,
       writable: true
     })
+
+    console.log({ sdk, fetch })
 
     fetch.close = () => sdk.close()
 

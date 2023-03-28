@@ -1,14 +1,10 @@
-const {
+import {
   Menu,
   MenuItem,
   clipboard
-} = require('electron')
+} from 'electron'
 
-module.exports = {
-  attachContextMenus
-}
-
-function attachContextMenus ({ window, createWindow, extensions }) {
+export function attachContextMenus ({ window, createWindow, extensions }) {
   if (window.web) {
     window.webContents.on('context-menu', headerContextMenu)
     window.web.on('context-menu', pageContextMenu)
@@ -72,84 +68,84 @@ function attachContextMenus ({ window, createWindow, extensions }) {
     return !isEditable
       ? null
       : [
-        new MenuItem({
-          label: 'Undo',
-          enabled: editFlags.canUndo,
-          accelerator: 'CommandOrControl+Z',
-          role: 'undo'
-        }),
-        new MenuItem({
-          label: 'Redo',
-          enabled: editFlags.canRedo,
-          visible: showRedo,
-          accelerator: 'CommandOrControl+Y',
-          role: 'redo'
-        })
-      ]
+          new MenuItem({
+            label: 'Undo',
+            enabled: editFlags.canUndo,
+            accelerator: 'CommandOrControl+Z',
+            role: 'undo'
+          }),
+          new MenuItem({
+            label: 'Redo',
+            enabled: editFlags.canRedo,
+            visible: showRedo,
+            accelerator: 'CommandOrControl+Y',
+            role: 'redo'
+          })
+        ]
   }
 
   function editGroup ({ editFlags, isEditable, selectionText }) {
     return !isEditable && !selectionText
       ? null
       : [
-        new MenuItem({
-          label: 'Cut',
-          enabled: editFlags.canCut,
-          accelerator: 'CommandOrControl+X',
-          role: 'cut'
-        }),
-        new MenuItem({
-          label: 'Copy',
-          enabled: editFlags.canCopy,
-          accelerator: 'CommandOrControl+C',
-          role: 'copy'
-        }),
-        new MenuItem({
-          label: 'Paste',
-          enabled: editFlags.canPaste,
-          accelerator: 'CommandOrControl+P',
-          role: 'paste'
-        }),
-        new MenuItem({
-          label: 'Delete',
-          enabled: editFlags.canDelete,
-          role: 'delete'
-        }),
-        new MenuItem({
-          type: 'separator'
-        }),
-        new MenuItem({
-          label: 'Select All',
-          enabled: editFlags.canSelectAll,
-          accelerator: 'CommandOrControl+A',
-          role: 'selectAll'
-        })
-      ]
+          new MenuItem({
+            label: 'Cut',
+            enabled: editFlags.canCut,
+            accelerator: 'CommandOrControl+X',
+            role: 'cut'
+          }),
+          new MenuItem({
+            label: 'Copy',
+            enabled: editFlags.canCopy,
+            accelerator: 'CommandOrControl+C',
+            role: 'copy'
+          }),
+          new MenuItem({
+            label: 'Paste',
+            enabled: editFlags.canPaste,
+            accelerator: 'CommandOrControl+P',
+            role: 'paste'
+          }),
+          new MenuItem({
+            label: 'Delete',
+            enabled: editFlags.canDelete,
+            role: 'delete'
+          }),
+          new MenuItem({
+            type: 'separator'
+          }),
+          new MenuItem({
+            label: 'Select All',
+            enabled: editFlags.canSelectAll,
+            accelerator: 'CommandOrControl+A',
+            role: 'selectAll'
+          })
+        ]
   }
 
   function navigationGroup (wc, { mediaType, isEditable }) {
     return mediaType !== 'none' || isEditable
       ? null
       : [
-        new MenuItem({
-          label: 'Back',
-          enabled: wc.canGoBack(),
-          click: () => wc.goBack()
-        }),
-        new MenuItem({
-          label: 'Forward',
-          enabled: wc.canGoForward(),
-          click: () => wc.goForward()
-        }),
-        new MenuItem({
-          label: 'Reload',
-          click: () => wc.reload()
-        }),
-        new MenuItem({
-          label: 'Hard Reload',
-          click: () => wc.reloadIgnoringCache()
-        })
-      ]
+          new MenuItem({
+            label: 'Back',
+            enabled: wc.canGoBack(),
+            click: () => wc.goBack()
+          }),
+          new MenuItem({
+            label: 'Forward',
+            enabled: wc.canGoForward(),
+            click: () => wc.goForward()
+          }),
+          new MenuItem({
+            label: 'Reload',
+            click: () => wc.reload()
+          }),
+          new MenuItem({
+            label: 'Hard Reload',
+            click: () => wc.reloadIgnoringCache()
+          })
+        ]
   }
 
   function developmentGroup (wc, { x, y }) {
@@ -168,30 +164,30 @@ function attachContextMenus ({ window, createWindow, extensions }) {
     return !linkURL.length
       ? null
       : [
-        new MenuItem({
-          label: 'Open link in new window',
-          click: () => createWindow(linkURL)
-        }),
-        new MenuItem({
-          label: 'Copy link address',
-          click: () => clipboard.writeText(linkURL)
-        })
-      ]
+          new MenuItem({
+            label: 'Open link in new window',
+            click: () => createWindow(linkURL)
+          }),
+          new MenuItem({
+            label: 'Copy link address',
+            click: () => clipboard.writeText(linkURL)
+          })
+        ]
   }
 
   function saveGroup ({ srcURL }) {
     return !srcURL.length
       ? null
       : [
-        new MenuItem({
-          label: 'Copy source address',
-          click: () => clipboard.writeText(srcURL)
-        }),
-        new MenuItem({
-          label: 'Save As',
-          click: () => saveAs(srcURL)
-        })
-      ]
+          new MenuItem({
+            label: 'Copy source address',
+            click: () => clipboard.writeText(srcURL)
+          }),
+          new MenuItem({
+            label: 'Save As',
+            click: () => saveAs(srcURL)
+          })
+        ]
   }
 
   async function saveAs (link, browserWindow) {
