@@ -3195,10 +3195,10 @@ hypercore-crypto@^3.2.1, hypercore-crypto@^3.3.0, hypercore-crypto@^3.3.1:
     compact-encoding "^2.5.1"
     sodium-universal "^4.0.0"
 
-hypercore-fetch@^9.3.0:
-  version "9.3.0"
-  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.3.0.tgz#74ba393206d95a53d44d047ac8d0e1f4a476806f"
-  integrity sha512-XCMb1UbT9IGSmhQ8izIXXeBpw+FALDwDu7BlqAD+A/hwPepiKnDkf3QFdM0GXA8cTxvbLF4SQ6wSYy2v5PWykw==
+hypercore-fetch@^9.3.1:
+  version "9.3.1"
+  resolved "https://registry.yarnpkg.com/hypercore-fetch/-/hypercore-fetch-9.3.1.tgz#1b52c854d8746f81139514000e75a4405fbab42c"
+  integrity sha512-eVolBvy1YXmQSKEXfmdeupJhEWikQIu4ClXsw98aeNZi7Pa9ppuwKG5gvxfZiTeY+IQFDOVJ3+UuO2zr2/tCKA==
   dependencies:
     event-iterator "^2.0.0"
     hyperdrive "^11.0.0-alpha.10"
