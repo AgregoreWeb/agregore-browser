@@ -104,3 +104,8 @@ Other notes:
 - To debug extensions, run `yarn debug` to have devtools opened for their background pages
 - If you're interested in a CLI for these protocols, check out [curld](https://github.com/Lohn/curld) `cURL for Distributed Web`. That project supports the same protocols as Agregore, but in a terminal way.
 - To download the latest versions of ArchiveWeb.page or Ublock Origin, run `yarn download-extennsions`
+
+## Contributors
+<a align="center" href="https://github.com/AgregoreWeb/agregore-browser/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AgregoreWeb/agregore-browser" />
+</a>
