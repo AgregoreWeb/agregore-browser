@@ -54,6 +54,12 @@ export default RC('agregore', {
       enabled: false
     },
     config: {
+      Ipns: {
+        UsePubsub: true
+      },
+      Pubsub: {
+        Enabled: true
+      },
       Addresses: {
         API: '/ip4/127.0.0.1/tcp/2473',
         Gateway: '/ip4/127.0.0.1/tcp/2474',
