@@ -157,7 +157,8 @@
         "deb",
         "AppImage",
         "apk",
-        "pacman"
+        "pacman",
+        "flatpak"
       ],
       "category": "Network;FileTransfer:P2P"
     }
