@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Install libarchive-tools for pacman build # Related https://github.com/electron-userland/electron-builder/issues/4181
         if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt-get install libarchive-tools flatpak flatpak-builder
+        run: sudo apt-get install libarchive-tools flatpak flatpak-builder elfutils
 
       - name: Check out Git repository
         uses: actions/checkout@v3
