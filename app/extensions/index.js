@@ -1,8 +1,10 @@
 import path from 'node:path'
-import { readdir } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import EventEmitter from 'node:events'
 import fs from 'fs-extra'
+import semver from 'semver'
+import decompress from 'decompress'
 
 import { ExtendedExtensions } from 'electron-extended-webextensions'
 
@@ -13,22 +15,27 @@ const { dir: extensionsDir, remote } = Config.extensions
 
 // Handle `app.asar` Electron functionality so that extensions can be referenced on the FS
 // Also note that MacOS uses `app-arm64.asar`, so we should target the first `.asar/`
-const __dirname = fileURLToPath(new URL('./', import.meta.url))
-const DEFAULT_EXTENSION_LOCATION = __dirname.replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
+const __dirname = fileURLToPath(new URL('./', import.meta.url)).replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
+const DEFAULT_EXTENSION_LOCATION = path.join(__dirname, 'builtins')
+const DEFAULT_EXTENSION_LIST_LOCATION = path.join(__dirname, 'builtins.json')
 
 export class Extensions extends EventEmitter {
   constructor ({
     session,
     createWindow,
     updateBrowserActions,
-    location = DEFAULT_EXTENSION_LOCATION
+    builtinsLocation = DEFAULT_EXTENSION_LOCATION,
+    builtinsListLocation = DEFAULT_EXTENSION_LIST_LOCATION,
+    storageLocation = extensionsDir
   }) {
     super()
     this.createWindow = createWindow
     this.updateBrowserActions = updateBrowserActions
-    this.location = location
-
     this.session = session
+
+    this.builtinsLocation = builtinsLocation
+    this.builtinsListLocation = builtinsListLocation
+    this.storageLocation = storageLocation
 
     async function onCreateTab ({ url, popup, openerTabId }) {
       const options = { url }
@@ -95,17 +102,44 @@ export class Extensions extends EventEmitter {
     return this.extensions.loadExtension(extensionPath)
   }
 
-  async registerExternal () {
-    const existsExtensions = await fs.pathExists(extensionsDir)
+  async getManifestVersionOnDisk (name) {
+    const manifestLocation = path.join(this.storageLocation, name, 'manifest.json')
 
-    if (existsExtensions) await this.registerAll(extensionsDir)
+    try {
+      const manifestJSON = await readFile(manifestLocation)
+      const { version } = JSON.parse(manifestJSON)
+
+      return version
+    } catch (e) {
+      console.error(`Unable to load manifest for ${name}. ${e.stack}`)
+      return '0.0.0'
+    }
   }
 
-  async registerInternal () {
-    await this.registerAll(this.location)
+  async extractIfNew (name, info) {
+    const existingVersion = await this.getManifestVersionOnDisk(name)
+    const isNew = semver.lt(existingVersion, info.version)
+    if (!isNew) return false
+    const zipLocation = path.join(this.builtinsLocation, `${name}.zip`)
+    const extensionLocation = path.join(this.storageLocation, name)
+    await decompress(zipLocation, extensionLocation)
+    return true
   }
 
-  async registerAll (extensionsFolder = this.location) {
+  async extractInternal () {
+    // Read builtins list
+    const builtinsListJSON = await readFile(this.builtinsListLocation, 'utf8')
+    console.log({ builtinsListJSON })
+    const builtins = await JSON.parse(builtinsListJSON)
+
+    const builtinsEntries = [...Object.entries(builtins)]
+    // Extract them all in paralell
+    await Promise.all(builtinsEntries.map(([name, info]) => {
+      return this.extractIfNew(name, info)
+    }))
+  }
+
+  async registerAll (extensionsFolder = this.storageLocation) {
     const rawNames = await readdir(extensionsFolder)
     const stats = await Promise.all(
       rawNames.map(

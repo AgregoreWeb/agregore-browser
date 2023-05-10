@@ -68,8 +68,8 @@ export function registerPrivileges () {
   ])
 }
 
-export async function setupProtocols (session) {
-  const { protocol: sessionProtocol } = session
+export function setAsDefaultProtocolClient () {
+  console.log('Setting as default handlers')
 
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('hyper')
@@ -81,10 +81,16 @@ export async function setupProtocols (session) {
   app.setAsDefaultProtocolClient('pubsub')
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
+}
+
+export async function setupProtocols (session) {
+  const { protocol: sessionProtocol } = session
 
   const { handler: browserProtocolHandler } = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+
+  console.log('Registering hyper handlers')
 
   const {
     handler: hyperProtocolHandler,
@@ -94,13 +100,19 @@ export async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
   globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
 
+  console.log('Registering ssb handlers')
+
   const { handler: ssbProtocolHandler } = await createSsbHandler(ssbOptions, session)
   sessionProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
   globalProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
 
+  console.log('Registering gemini handlers')
+
   const { handler: geminiProtocolHandler } = await createGeminiHandler()
   sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
   globalProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
+
+  console.log('Registering IPFS handlers')
 
   const {
     handler: ipfsProtocolHandler,
@@ -116,6 +128,8 @@ export async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
   globalProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
 
+  console.log('Registering bittorrent handlers')
+
   const {
     handler: btHandler,
     close: closeBT
@@ -129,6 +143,8 @@ export async function setupProtocols (session) {
   const magnetHandler = await createMagnetHandler()
   sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
   globalProtocol.registerStreamProtocol('magnet', magnetHandler)
+
+  console.log('Registering raw HTTPS handler')
 
   const { handler: rawHTTPSHandler } = await createRawHTTPSHandler()
   sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)

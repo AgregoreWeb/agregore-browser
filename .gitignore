@@ -112,13 +112,8 @@ dist
 # Ignore releases folder
 release/
 
-# Ignore debug extensions
-app/extensions/web-palette/
-app/extensions/darkreader/
-
-# Ignore extensions downloaded from the chrome store
-app/extensions/ublock/
-app/extensions/archiveweb.page/
+# Ignore zip files for downloaded extensions
+app/extensions/builtins/
 
 # Ignore RC file used for testing the config
 .agregorerc

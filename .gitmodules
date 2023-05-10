@@ -1,6 +1,0 @@
-[submodule "app/extensions/extension-agregore-qr-share"]
-	path = app/extensions/extension-agregore-qr-share
-	url = https://github.com/AgregoreWeb/extension-agregore-qr-share.git
-[submodule "app/extensions/extension-agregore-renderer"]
-	path = app/extensions/extension-agregore-renderer
-	url = https://github.com/AgregoreWeb/extension-agregore-renderer.git

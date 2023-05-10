@@ -192,6 +192,7 @@
     "bt-fetch": "^3.1.1",
     "create-desktop-shortcuts": "^1.7.0",
     "data-uri-to-buffer": "^3.0.1",
+    "decompress": "^4.2.1",
     "electron-extended-webextensions": "0.0.10",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^2.0.0",
@@ -207,6 +208,7 @@
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
+    "semver": "^7.5.0",
     "ssb-fetch": "^1.5.2",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "wrtc": "^0.4.7"

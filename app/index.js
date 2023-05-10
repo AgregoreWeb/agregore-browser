@@ -94,7 +94,10 @@ function init () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(onready)
+app.whenReady().then(onready).catch((e) => {
+  console.error(e)
+  process.exit(1)
+})
 
 app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
@@ -112,6 +115,7 @@ app.on('before-quit', () => {
 
 app.on('window-all-closed', () => {})
 async function onready () {
+  console.log('Building tray and context menu')
   const appIcon = new Tray(LOGO_FILE)
   const contextMenu = Menu.buildFromTemplate([
     { label: 'New Window', click: () => createWindow() },
@@ -136,26 +140,38 @@ async function onready () {
     createWindow
   })
 
+  console.log('Setting up protocol handlers')
+
   await protocols.setupProtocols(webSession)
+
+  console.log('Registering context menu')
+
   await registerMenu(actions)
 
   function updateBrowserActions (tabId, actions) {
     windowManager.reloadBrowserActions(tabId)
   }
 
+  console.log('Initializing extensions')
+
   extensions = createExtensions({ session: webSession, createWindow, updateBrowserActions })
 
-  // Register extensions that users installed externally
-  await extensions.registerExternal()
+  console.log('Extracting internal extensions')
 
-  // Register extensions that came bundled with the browser
-  // This happens second so that users can override built in extensions easily.
-  await extensions.registerInternal()
+  // Extract any internal extensions if there are updates
+  await extensions.extractInternal()
+
+  console.log('Registering extensions from disk')
+
+  // Register all extensions in the extensions folder from disk
+  await extensions.registerAll()
 
   // TODO: Better error handling when the extension doesn't exist?
   history.setGetBackgroundPage(() => {
     return extensions.getBackgroundPageByName('agregore-history')
   })
+
+  console.log('Opening saved windows')
 
   const opened = await windowManager.openSaved()
 
@@ -165,6 +181,14 @@ async function onready () {
       windowManager.open({ url })
     }
   } else if (!opened.length) windowManager.open()
+
+  console.log('Waiting for windows to settle')
+
+  await new Promise((resolve) => setTimeout(resolve, 5000))
+
+  protocols.setAsDefaultProtocolClient()
+
+  console.log('Initialization done')
 }
 
 function createWindow (url, options = {}) {
