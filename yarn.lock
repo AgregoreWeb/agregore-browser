@@ -3259,10 +3259,10 @@ human-signals@^3.0.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-3.0.1.tgz#c740920859dafa50e5a3222da9d3bf4bb0e5eef5"
   integrity sha512-rQLskxnM/5OCldHo+wNXbpVgDn5A17CUoKX+7Sokwaknlq7CdSnphy0W39GU8dw59XiCXmFXDg4fRuckQRKewQ==
 
-hyper-sdk@^4.2.4:
-  version "4.2.4"
-  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.4.tgz#1bc60493985581c1df323c5d90d07132830a0b5c"
-  integrity sha512-u1/lrRoic/IjVqsTBGGCyd1t5sE/BpgI0vvQdvG1AWGJt0+r+oyyh5ENKs/FJpHa6mo1rIOcXiq4IFhVRDCquQ==
+hyper-sdk@^4.2.5:
+  version "4.2.5"
+  resolved "https://registry.yarnpkg.com/hyper-sdk/-/hyper-sdk-4.2.5.tgz#13464c48e958b02904aa322655b73eb47b4cf9e6"
+  integrity sha512-cCpj5uwBYKBoc/FkjIkeksMY6oKZaJHGeCN/+ccvEBoNXMPgkTAJmeJ9FGbjxz19KxA4GdjviTF03MJ9kH5LUA==
   dependencies:
     b4a "^1.6.3"
     corestore "^6.5.1"
