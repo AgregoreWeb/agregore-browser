@@ -126,6 +126,9 @@ async function onready () {
   ])
   // Call this again for Linux because we modified the context menu
   appIcon.setContextMenu(contextMenu)
+  appIcon.on('click',() => {
+    createWindow()
+  })
 
   const webSession = session.fromPartition(WEB_PARTITION)
 
