@@ -122,7 +122,16 @@ export class Extensions extends EventEmitter {
     if (!isNew) return false
     const zipLocation = path.join(this.builtinsLocation, `${name}.zip`)
     const extensionLocation = path.join(this.storageLocation, name)
-    await decompress(zipLocation, extensionLocation)
+    const decompressOptions = {}
+    if (info.stripPrefix) {
+      decompressOptions.map = (file) => {
+        if (file.path.startsWith(info.stripPrefix)) {
+          file.path = file.path.slice(info.stripPrefix.length)
+        }
+        return file
+      }
+    }
+    await decompress(zipLocation, extensionLocation, decompressOptions)
     return true
   }
 
