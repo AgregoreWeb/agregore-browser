@@ -17,7 +17,6 @@
   },
   "ublock": {
     "version": "1.47.4",
-    "comment": "The chrome one has a weird subfolder so we're loading the raw firefox version instead",
     "url": "https://github.com/gorhill/uBlock/releases/download/{version}/uBlock0_{version}.chromium.zip",
     "stripPrefix": "uBlock0.chromium/"
   }
