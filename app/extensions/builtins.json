@@ -4,7 +4,7 @@
     "url": "https://github.com/AgregoreWeb/extension-agregore-history/releases/download/v{version}/agregore-history-v{version}.zip"
   },
   "agregore-renderer": {
-    "version": "2.0.0",
+    "version": "2.0.2",
     "url": "https://github.com/AgregoreWeb/extension-agregore-renderer/releases/download/v{version}/agregore-renderer-v{version}.zip"
   },
   "agregore-qr-share": {
@@ -12,7 +12,7 @@
     "url": "https://github.com/AgregoreWeb/extension-agregore-qr-share/releases/download/v{version}/agregore-qr-share-v{version}.zip"
   },
   "archiveweb.page": {
-    "version": "0.9.8",
+    "version": "0.10.0",
     "url": "https://github.com/webrecorder/archiveweb.page/releases/download/v{version}/ArchiveWeb.page-{version}-extension.zip"
   },
   "ublock": {
