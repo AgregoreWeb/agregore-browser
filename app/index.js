@@ -18,6 +18,9 @@ const __dirname = fileURLToPath(new URL('./', import.meta.url))
 const WEB_PARTITION = 'persist:web-content'
 const LOGO_FILE = path.join(__dirname, './../build/icon-small.png')
 
+// Wait for two minutes of use before registering handlers
+const REGISTRATION_DELAY = 2 * 60 * 1000
+
 if (IS_DEBUG) {
   app.on('web-contents-created', (event, webContents) => {
     webContents.openDevTools()
@@ -187,7 +190,7 @@ async function onready () {
 
   console.log('Waiting for windows to settle')
 
-  await new Promise((resolve) => setTimeout(resolve, 5000))
+  await new Promise((resolve) => setTimeout(resolve, REGISTRATION_DELAY))
 
   protocols.setAsDefaultProtocolClient()
 
