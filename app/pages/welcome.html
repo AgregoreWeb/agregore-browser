@@ -8,7 +8,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <style>
-  @import url("agregore://theme/vars.css");
+  @import url("agregore://theme/style.css");
 
 	body, html {
 		display: flex;
@@ -20,31 +20,14 @@
 		flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--ag-theme-background);
-    color: var(--ag-theme-text);
-    font-family: var(--ag-theme-font-family);
 	}
 	img {
 		width: 40vmin;
 	}
 
-	a {
-    color: var(--ag-theme-primary);
-    text-decoration: none;
-    margin: 0.1em;
-    display: inline-block;
-  }
-
-  a:visited {
-    color: var(--ag-theme-secondary);
-  }
-
-	a::before, a::after {
-    content: " ⟐ "
-	}
-
 	h1 {
 	  text-transform: uppercase;
+	  color: var(--ag-theme-primary);
 	}
 
 	p {
@@ -53,34 +36,26 @@
 	}
 
 	footer {
-    color: var(--ag-theme-primary);
     text-align: center;
     font-size: 0.4em;
 	}
 </style>
 
-<img src="agregore://icon.svg" />
+<img src="agregore://icon.svg" title="Agregore Logo. Eight arrows pointing out with an eye in the middle."/>
 
 <h1>
 Agregore
 </h1>
 
 <p>
-  <a href="https://agregore.mauve.moe/">
-		Agregore Website
-  </a>
-	<a href="https://hypercore-protocol.org">
-		Hypercore Protocol
-	</a>
-	<a href="ipns://ipfs.io/">
-		IPFS Protocol
-	</a>
-	<a href="gemini://gemini.circumlunar.space/">
-		Gemini Protocol
-	</a>
-	<a href="https://matrix.to/#/#agregore:mauve.moe">
-		Matrix Community
-	</a>
+  <a href="https://agregore.mauve.moe/explore">Explore!</a>
+</p>
+<p>
+  <a href="https://agregore.mauve.moe/">Agregore Website</a>
+	<a href="https://matrix.to/#/#agregore:mauve.moe">Matrix Community</a>
+	<a href="https://hypercore-protocol.org">Hypercore Protocol</a>
+	<a href="ipns://ipfs.io/">IPFS Protocol</a>
+	<a href="gemini://gemini.circumlunar.space/">Gemini Protocol</a>
 </p>
 
 <footer id="version"></footer>
