@@ -43,7 +43,7 @@ async function downloadExtension (name, { version, url, subfolder }) {
   const response = await fetch(finalURL)
 
   if (!response.ok) {
-    throw new Error(await response.text())
+    throw new Error(`Could not download ${name} at ${version} from ${finalURL}\n${await response.text()}`)
   }
 
   // Based on this Stack Overflow question: https://stackoverflow.com/questions/37614649/how-can-i-download-and-save-a-file-using-the-fetch-api-node-js
