@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 
 import fs from 'fs-extra'
 import PQueue from 'p-queue'
-import delay from "delay"
+import delay from 'delay'
 
 import Config from './config.js'
 
@@ -64,7 +64,7 @@ async function DEFAULT_LIST_ACTIONS () {
 const SHOW_DELAY = 200
 
 // Used to only show one window at a time
-const showQueue = new PQueue({concurrency: 1})
+const showQueue = new PQueue({ concurrency: 1 })
 
 export class WindowManager extends EventEmitter {
   constructor ({
