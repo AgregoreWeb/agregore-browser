@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "2.2.3",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
@@ -193,6 +193,7 @@
     "create-desktop-shortcuts": "^1.7.0",
     "data-uri-to-buffer": "^3.0.1",
     "decompress": "^4.2.1",
+    "delay": "^6.0.0",
     "electron-extended-webextensions": "0.0.10",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^2.0.0",
@@ -205,6 +206,7 @@
     "js-ipfs-fetch": "^5.0.0",
     "mime": "^2.4.6",
     "multiformats": "^9.9.0",
+    "p-queue": "^7.3.4",
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",

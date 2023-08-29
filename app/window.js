@@ -9,6 +9,8 @@ import EventEmitter from 'node:events'
 import { fileURLToPath } from 'node:url'
 
 import fs from 'fs-extra'
+import PQueue from 'p-queue'
+import delay from "delay"
 
 import Config from './config.js'
 
@@ -57,6 +59,12 @@ async function DEFAULT_SEARCH () {
 async function DEFAULT_LIST_ACTIONS () {
   return []
 }
+
+// How long to wait before showing windows
+const SHOW_DELAY = 200
+
+// Used to only show one window at a time
+const showQueue = new PQueue({concurrency: 1})
 
 export class WindowManager extends EventEmitter {
   constructor ({
@@ -315,7 +323,12 @@ export class Window extends EventEmitter {
       this.send('update-target-url', url)
     })
 
-    this.window.once('ready-to-show', () => this.window.show())
+    this.web.once('dom-ready', () => {
+      showQueue.add(async () => {
+        await this.window.show()
+        await delay(SHOW_DELAY)
+      })
+    })
     this.window.on('close', () => {
       this.web.destroy()
       this.emit('close')
