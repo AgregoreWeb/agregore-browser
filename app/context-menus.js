@@ -160,19 +160,38 @@ export function attachContextMenus ({ window, createWindow, extensions }) {
     ]
   }
 
-  function linkGroup ({ linkURL }) {
-    return !linkURL.length
-      ? null
-      : [
-          new MenuItem({
-            label: 'Open link in new window',
-            click: () => createWindow(linkURL)
-          }),
-          new MenuItem({
-            label: 'Copy link address',
-            click: () => clipboard.writeText(linkURL)
-          })
-        ]
+  function linkGroup ({ linkURL, linkText, selectionText, frameURL, pageURL }) {
+    const items = []
+
+    if (linkURL.length) {
+      items.push(
+        new MenuItem({
+          label: 'Open link in new window',
+          click: () => createWindow(linkURL)
+        }),
+        new MenuItem({
+          label: 'Copy link address',
+          click: () => clipboard.writeText(linkURL)
+        }),
+        new MenuItem({
+          label: 'Copy link text',
+          click: () => clipboard.writeText(linkText)
+        })
+      )
+    }
+
+    if (selectionText) {
+      const url = new URL(frameURL || pageURL)
+      url.hash = `#$:~:text=${encodeURIComponent(selectionText)}`
+      items.push(
+        new MenuItem({
+          label: 'Copy link text',
+          click: () => clipboard.writeText(url.href)
+        })
+      )
+    }
+
+    return items.length ? items : null
   }
 
   function saveGroup ({ srcURL }) {
