@@ -100,3 +100,20 @@ h4::before {
   content: "#### ";
   color: var(--ag-theme-secondary)
 }
+
+*::-webkit-scrollbar {
+    width: 1em;
+}
+
+*::-webkit-scrollbar-corner {
+    background: rgba(0,0,0,0);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--ag-theme-primary);
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+*::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,0);
+}
