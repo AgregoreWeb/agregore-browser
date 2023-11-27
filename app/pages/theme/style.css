@@ -16,6 +16,21 @@ input, button, textarea {
   border: 1px solid var(--ag-theme-primary);
 }
 
+select, select * {
+    background: var(--ag-theme-background);
+    font-size: inherit;
+    margin-bottom: 1em;
+    color: var(--ag-theme-text);
+    border: 0.05em solid var(--ag-theme-secondary);
+    padding:0.25em;
+    border-radius: 0.25em;
+}
+
+*::selection, option:hover {
+    background: var(--ag-theme-primary);
+    color: var(--ag-theme-text);
+}
+
 body {
   padding: 1em;
   max-width: var(--ag-theme-max-width);
@@ -27,6 +42,12 @@ a {
   text-decoration: underline;
   text-decoration-color: var(--ag-theme-primary);
 }
+
+a:hover {
+    color: var(--ag-theme-background);
+    background-color: var(--ag-theme-secondary);
+    text-decoration: none;
+}		
 
 a:visited {
 	color: var(--ag-theme-primary);
