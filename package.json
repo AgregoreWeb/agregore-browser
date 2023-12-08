@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser-dev",
+  "name": "agregore-browser",
   "version": "2.3.0",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
@@ -183,7 +183,7 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "23.0.0-beta.2",
+    "electron": "^28.0.0",
     "electron-builder": "^23.6.0",
     "standard": "^17.0.0"
   },
@@ -199,8 +199,8 @@
     "gemini-fetch": "^2.0.0",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.17.0",
-    "hyper-sdk": "^4.2.5",
-    "hypercore-fetch": "^9.3.1",
+    "hyper-sdk": "^4.4.0",
+    "hypercore-fetch": "^9.9.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^5.0.0",
