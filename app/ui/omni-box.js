@@ -2,6 +2,8 @@
 
 const { looksLikeLegacySSB, convertLegacySSB: makeSSB } = require('ssb-fetch')
 const { CID } = require('multiformats/cid')
+const { clipboard } = require('electron')
+const { BrowserWindow } = require('electron')
 
 const IPNS_PREFIX = '/ipns/'
 const IPFS_PREFIX = '/ipfs/'
@@ -107,6 +109,40 @@ class OmniBox extends HTMLElement {
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
     })
+
+    // middle mouse click paste&go
+    let win = new BrowserWindow()
+    win.webContents.on('paste-and-go', () => {
+      
+      let rawURL = clipboard.readText()
+      let url = rawURL
+
+      if (!isURL(rawURL)) {
+        if (looksLikeLegacySSB(rawURL)) {
+          url = makeSSB(rawURL)
+        } else if (looksLikeIPFS(rawURL)) {
+          url = makeIPFS(rawURL)
+        } else if (looksLikeIPNS(rawURL)) {
+          url = makeIPNS(rawURL)
+        } else if (isBareLocalhost(rawURL)) {
+          url = makeHttp(rawURL)
+        } else if (looksLikeDomain(rawURL)) {
+          url = makeHttps(rawURL)
+        } else {
+          url = makeDuckDuckGo(rawURL)
+        }
+      }
+
+      win.loadURL(url)
+      
+      const searchID = Date.now()
+      this.form.lastSearch = searchID
+
+      this.form.addEventListener('submit', (e) => {
+      this.form.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
+      })
+    })
+
   }
 
   clearOptions () {
