@@ -111,10 +111,10 @@ class OmniBox extends HTMLElement {
     })
 
     // middle mouse click paste&go
-    let win = new BrowserWindow()
-    win.webContents.on('paste-and-go', () => {
-      
-      let rawURL = clipboard.readText()
+    const win = new BrowserWindow()
+    this.input.addEventListener('paste-and-go', () => {
+      win.webContents.executeJavaScript('window.location.href = ""')
+      const rawURL = clipboard.readText()
       let url = rawURL
 
       if (!isURL(rawURL)) {
@@ -133,16 +133,10 @@ class OmniBox extends HTMLElement {
         }
       }
 
-      win.loadURL(url)
-      
       const searchID = Date.now()
       this.form.lastSearch = searchID
-
-      this.form.addEventListener('submit', (e) => {
-      this.form.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
-      })
+      win.loadURL(url)
     })
-
   }
 
   clearOptions () {
