@@ -2,8 +2,6 @@
 
 const { looksLikeLegacySSB, convertLegacySSB: makeSSB } = require('ssb-fetch')
 const { CID } = require('multiformats/cid')
-const { clipboard } = require('electron')
-const { BrowserWindow } = require('electron')
 
 const IPNS_PREFIX = '/ipns/'
 const IPFS_PREFIX = '/ipfs/'
@@ -111,31 +109,16 @@ class OmniBox extends HTMLElement {
     })
 
     // middle mouse click paste&go
-    const win = new BrowserWindow()
-    this.input.addEventListener('paste-and-go', () => {
-      win.webContents.executeJavaScript('window.location.href = ""')
-      const rawURL = clipboard.readText()
-      let url = rawURL
+    this.input.addEventListener('paste', (e) => {
+      e.preventDefault()
+      const url = e.clipboardData.getData('text')
 
-      if (!isURL(rawURL)) {
-        if (looksLikeLegacySSB(rawURL)) {
-          url = makeSSB(rawURL)
-        } else if (looksLikeIPFS(rawURL)) {
-          url = makeIPFS(rawURL)
-        } else if (looksLikeIPNS(rawURL)) {
-          url = makeIPNS(rawURL)
-        } else if (isBareLocalhost(rawURL)) {
-          url = makeHttp(rawURL)
-        } else if (looksLikeDomain(rawURL)) {
-          url = makeHttps(rawURL)
-        } else {
-          url = makeDuckDuckGo(rawURL)
-        }
+      if (!isURL(url)) {
+
+      } else {
+        e.preventDefault()
+        this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
       }
-
-      const searchID = Date.now()
-      this.form.lastSearch = searchID
-      win.loadURL(url)
     })
   }
 
