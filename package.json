@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
   "type": "module",
@@ -183,8 +183,8 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "^28.1.3",
-    "electron-builder": "^24.9.1",
+    "electron": "^28.0.0",
+    "electron-builder": "^23.6.0",
     "standard": "^17.0.0"
   },
   "dependencies": {
@@ -199,8 +199,8 @@
     "gemini-fetch": "^2.0.0",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.17.0",
-    "hyper-sdk": "^4.2.5",
-    "hypercore-fetch": "^9.3.1",
+    "hyper-sdk": "^4.4.0",
+    "hypercore-fetch": "^9.9.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^3.0.1",
@@ -211,8 +211,8 @@
     "rc": "^1.2.8",
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
-    "semver": "^7.5.0",
-    "ssb-fetch": "^1.1.0",
+    "semver": "^7.5.2",
+    "ssb-fetch": "^1.5.2",
     "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0",
     "wrtc": "^0.4.7"
   }

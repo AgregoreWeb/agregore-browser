@@ -5,36 +5,46 @@
   box-sizing: border-box;
 }
 
-html, body, input, button, textarea {
+html {
   background: var(--ag-theme-background);
   color: var(--ag-theme-text);
   font-family: var(--ag-theme-font-family);
   font-size: inherit;
 }
 
-input, button, textarea {
-  border: 1px solid var(--ag-theme-primary);
+body {
+  padding: 1em;
+  max-width: var(--ag-theme-max-width);
+  margin: 0 auto;
 }
 
-select, select * {
-    background: var(--ag-theme-background);
-    font-size: inherit;
-    margin-bottom: 1em;
-    color: var(--ag-theme-text);
-    border: 0.05em solid var(--ag-theme-secondary);
-    padding:0.25em;
-    border-radius: 0.25em;
+input, button, textarea, select, select *, option  {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  background: none;
+  padding:0.25em;
+  border-radius: 0.25em;
+}
+
+textarea {
+ width : 100%;
+ resize: vertical;
+ margin: 1em auto;
+}
+
+select option {
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+}
+
+input, button, textarea, select, select *, video {
+  border: 1px solid var(--ag-theme-primary);
 }
 
 *::selection, option:hover {
     background: var(--ag-theme-primary);
     color: var(--ag-theme-text);
-}
-
-body {
-  padding: 1em;
-  max-width: var(--ag-theme-max-width);
-  margin: 0 auto;
 }
 
 a {
@@ -47,13 +57,13 @@ a:hover {
     color: var(--ag-theme-background);
     background-color: var(--ag-theme-secondary);
     text-decoration: none;
-}		
+}
 
 a:visited {
 	color: var(--ag-theme-primary);
 }
 
-img, video, svg, object {
+img, video, svg, object, audio {
   width: 80%;
   display: block;
   margin: 1em auto;
@@ -62,12 +72,29 @@ img, video, svg, object {
 iframe {
   display: block;
   margin: 1em auto;
+  width: 100%;
+  border: none;
+}
+
+pre {
+  background: var(--ag-theme-primary);
 }
 
 code {
   background: var(--ag-theme-primary);
   font-weight: bold;
   padding: 0.25em;
+}
+
+blockquote {
+  border-left: 1px solid var(--ag-theme-primary);
+  margin: 1em;
+  padding-left: 1em;
+}
+
+blockquote > *::before {
+  content: "> ";
+  color: var(--ag-theme-secondary);
 }
 
 pre > code {
@@ -137,4 +164,39 @@ h4::before {
 }
 *::-webkit-scrollbar-track {
     background-color: rgba(0,0,0,0);
+}
+
+
+audio::-webkit-media-controls-mute-button,
+audio::-webkit-media-controls-play-button,
+audio::-webkit-media-controls-timeline-container,
+audio::-webkit-media-controls-current-time-display,
+audio::-webkit-media-controls-time-remaining-display,
+audio::-webkit-media-controls-timeline,
+audio::-webkit-media-controls-volume-slider-container,
+audio::-webkit-media-controls-volume-slider,
+audio::-webkit-media-controls-seek-back-button,
+audio::-webkit-media-controls-seek-forward-button,
+audio::-webkit-media-controls-fullscreen-button,
+audio::-webkit-media-controls-rewind-button,
+audio::-webkit-media-controls-return-to-realtime-button,
+audio::-webkit-media-controls-toggle-closed-captions-button
+{
+border: none;
+border-radius: none;
+}
+
+audio::-webkit-media-controls-timeline
+{
+  background: var(--ag-theme-primary);
+  margin: 0px 1em;
+  border-radius: none;
+}
+
+audio::-webkit-media-controls-panel {
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+  font-family: var(--ag-theme-font-family);
+  font-size: inherit;
+  border-radius: none;
 }
