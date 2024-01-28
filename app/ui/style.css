@@ -91,6 +91,22 @@ omni-box {
   font-family: inherit;
 }
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.reloader {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #422a85;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+  display: none;
+}
+
+
 .omni-box-nav-item {
   border: 1px solid var(--ag-theme-primary);
   display: flex;

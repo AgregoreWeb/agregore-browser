@@ -25,7 +25,7 @@ class OmniBox extends HTMLElement {
         <form class="omni-box-form">
           <input class="omni-box-target-input" readonly></input>
           <input class="omni-box-input" title="Enter search params">
-          <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
+          <button class="omni-box-button" type="submit" title="Load page or Reload"> <span id="buttonSymbol">⊚</span> <div id="reloader" class="reloader"></div> </button>
         </form>
       </section>
     `
@@ -231,7 +231,7 @@ class OmniBox extends HTMLElement {
   }
 
   static get observedAttributes () {
-    return ['src', 'back', 'forward']
+    return ['src', 'back', 'forward', 'loading']
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
@@ -249,6 +249,20 @@ class OmniBox extends HTMLElement {
       this.backButton.classList.toggle('hidden', newValue === 'hidden')
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
+    } else if(name === 'loading') {
+      const reloadButton = this.querySelector('#omni-box-button')
+
+      reloadButton.addEventListener('click', function() {
+        this.getElementById('buttonSymbol').style.display = 'none';
+        this.getElementById('reloader').style.display = 'block';
+      });
+      
+
+      if (newValue === 'true') {
+        reloadButton.textContent = 'Loading...';
+      } else {
+        reloadButton.textContent = 'Load page or Reload';
+      }
     }
   }
 
