@@ -250,18 +250,19 @@ class OmniBox extends HTMLElement {
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
     } else if(name === 'loading') {
-      const reloadButton = this.querySelector('#omni-box-button')
+      const reloader = document.querySelector('.omni-box-button')
 
-      reloadButton.addEventListener('click', function() {
-        this.getElementById('buttonSymbol').style.display = 'none';
-        this.getElementById('reloader').style.display = 'block';
-      });
-      
+      // reloader.addEventListener('click', () => {
+      //   this.getElementById('buttonSymbol').style.display = 'none';
+      //   this.getElementById('reloader').style.display = 'block';
+      // });
 
       if (newValue === 'true') {
-        reloadButton.textContent = 'Loading...';
+        reloader.textContent = 'Loading...';
+        this.getElementById('buttonSymbol').style.display = 'none';
       } else {
-        reloadButton.textContent = 'Load page or Reload';
+        reloader.textContent = 'Load page or Reload';
+        this.getElementById('reloader').style.display = 'block';
       }
     }
   }
