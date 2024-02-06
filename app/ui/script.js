@@ -84,11 +84,11 @@ currentWindow.on('browser-actions-changed', () => {
   actions.renderLatest()
 })
 
-currentWindow.on('did-start-navigation', (event) => {
+currentWindow.on('did-start-navigation', () => {
   search.setAttribute('loading', 'true')
 })
 
-currentWindow.on('did-navigate', (event) => {
+currentWindow.on('did-navigate', () => {
   search.setAttribute('loading', 'false')
 })
 

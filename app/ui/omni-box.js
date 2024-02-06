@@ -25,7 +25,8 @@ class OmniBox extends HTMLElement {
         <form class="omni-box-form">
           <input class="omni-box-target-input" readonly></input>
           <input class="omni-box-input" title="Enter search params">
-          <button class="omni-box-button" type="submit" title="Load page or Reload"> <span id="buttonSymbol">⊚</span> <div id="reloader" class="reloader"></div> </button>
+          <button class="omni-box-button" type="submit" title="Load page or Reload"> <span id="reloadButton">⊚</span> </button>
+          <button class="omni-box-button" type="submit" title="Loading..."> <div id="loadingButton" class="spinner"></div> </button>
         </form>
       </section>
     `
@@ -34,6 +35,7 @@ class OmniBox extends HTMLElement {
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
     this.targetUrl = this.$('.omni-box-target-input')
+    this.loader = this.$('omni-box-button')
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -250,19 +252,12 @@ class OmniBox extends HTMLElement {
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
     } else if(name === 'loading') {
-      const reloader = document.querySelector('.omni-box-button')
-
-      // reloader.addEventListener('click', () => {
-      //   this.getElementById('buttonSymbol').style.display = 'none';
-      //   this.getElementById('reloader').style.display = 'block';
-      // });
-
       if (newValue === 'true') {
-        reloader.textContent = 'Loading...';
-        this.getElementById('buttonSymbol').style.display = 'none';
+        this.loader.getElementById('reloadButton').classList.toggle('hidden', newValue)
+        this.loader.getElementById('loadingButton').classList.toggle('visible', newValue)
       } else {
-        reloader.textContent = 'Load page or Reload';
-        this.getElementById('reloader').style.display = 'block';
+        this.loader.getElementById('loadingButton').classList.toggle('hidden', newValue)
+        this.loader.getElementById('reloadButton').classList.toggle('visible', newValue)
       }
     }
   }

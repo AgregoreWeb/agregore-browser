@@ -96,14 +96,13 @@ omni-box {
   100% { transform: rotate(360deg); }
 }
 
-.reloader {
-  border: 16px solid #f3f3f3;
-  border-top: 16px solid #422a85;
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #422a85;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  animation: spin 2s linear infinite;
-  display: none;
+  width: 5px;
+  height: 5px;
+  animation: spin 1.6s linear infinite;
 }
 
 
