@@ -5,6 +5,7 @@ const { CID } = require('multiformats/cid')
 
 const IPNS_PREFIX = '/ipns/'
 const IPFS_PREFIX = '/ipfs/'
+const { app } = require('electron')
 
 class OmniBox extends HTMLElement {
   constructor () {
@@ -106,6 +107,26 @@ class OmniBox extends HTMLElement {
     })
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
+    })
+
+    window.addEventListener("mouseup", (e) => {
+      e.preventDefault()
+
+      if(e.button === 3) {
+        this.dispatchEvent(new CustomEvent('back'))
+      } else if(e.button === 4) {
+        this.dispatchEvent(new CustomEvent('forward'))
+      }
+    })
+
+    app.whenReady().then(() => {
+      document.addEventListener('swipe', (e, direction) => {
+        if (direction === 'right') {
+          this.dispatchEvent(new CustomEvent('forward'))
+        } else if (direction === 'left') {
+          this.dispatchEvent(new CustomEvent('back'))
+        }
+      })
     })
   }
 

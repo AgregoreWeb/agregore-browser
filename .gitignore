@@ -133,3 +133,6 @@ package-lock.json
 
 # This gets generated post install
 app/version.js
+
+# This gets generated when I open in a Container
+.devcontainer
