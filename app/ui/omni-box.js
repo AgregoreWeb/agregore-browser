@@ -113,9 +113,7 @@ class OmniBox extends HTMLElement {
       e.preventDefault()
       const url = e.clipboardData.getData('text')
 
-      if (!isURL(url)) {
-
-      } else {
+      if (isURL(url)) {
         e.preventDefault()
         this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
       }
