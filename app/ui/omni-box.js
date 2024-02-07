@@ -107,6 +107,46 @@ class OmniBox extends HTMLElement {
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
     })
+
+    // mouse side-buttons for navigating
+    window.addEventListener("mouseup", (e) => {
+      e.preventDefault()
+
+      if(e.button === 3) {
+        this.dispatchEvent(new CustomEvent('back'))
+      } else if(e.button === 4) {
+        this.dispatchEvent(new CustomEvent('forward'))
+      }
+    })
+
+    // mouse gestures for navigating
+    let isMouseDown = false
+    let startX = 0
+    let startY = 0
+
+    window.addEventListener('mousedown', (e) => {
+      isMouseDown = true
+      startX = e.clientX
+      startY = e.clientY
+    })
+    window.addEventListener('mousemove', (e) => {
+      if (isMouseDown) {
+        const distX = e.clientX - startX
+        const distY = e.clientY - startY
+
+        if (Math.abs(distX) > Math.abs(distY)) {
+          if (distX > 0) {
+            this.dispatchEvent(new CustomEvent('forward'))
+          } else {
+            this.dispatchEvent(new CustomEvent('back'))
+          }
+        }
+        isMouseDown = false
+      }
+    })
+    window.addEventListener('mouseup', () => {
+        isMouseDown = false
+    })
   }
 
   clearOptions () {
