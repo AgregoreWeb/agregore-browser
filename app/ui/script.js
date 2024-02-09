@@ -84,6 +84,15 @@ currentWindow.on('browser-actions-changed', () => {
   actions.renderLatest()
 })
 
+currentWindow.on('did-start-navigation', () => {
+  search.setAttribute('loading', 'true')
+})
+
+currentWindow.on('did-navigate', () => {
+  search.setAttribute('loading', 'false')
+})
+
+
 find.addEventListener('next', ({ detail }) => {
   const { value, findNext } = detail
 

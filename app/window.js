@@ -272,9 +272,11 @@ export class Window extends EventEmitter {
 
     this.web.on('did-start-navigation', (event, url, isInPlace, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
+      this.emit('did-start-navigation')
     })
     this.web.on('did-navigate', (event, url) => {
       this.emitNavigate(url, true)
+      this.emit('did-navigate')
     })
     this.web.on('did-navigate-in-page', (event, url, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)

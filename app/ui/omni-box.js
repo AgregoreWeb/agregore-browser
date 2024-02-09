@@ -25,7 +25,8 @@ class OmniBox extends HTMLElement {
         <form class="omni-box-form">
           <input class="omni-box-target-input" readonly></input>
           <input class="omni-box-input" title="Enter search params">
-          <button class="omni-box-button" type="submit" title="Load page or Reload">⊚</button>
+          <button class="omni-box-button" type="submit" title="Load page or Reload"> <span id="reloadButton">⊚</span> </button>
+          <button class="omni-box-button" type="submit" title="Loading..."> <div id="loadingButton" class="spinner"></div> </button>
         </form>
       </section>
     `
@@ -34,6 +35,7 @@ class OmniBox extends HTMLElement {
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
     this.targetUrl = this.$('.omni-box-target-input')
+    this.loader = this.$('omni-box-button')
 
     this.input.addEventListener('focus', () => {
       this.input.select()
@@ -242,7 +244,7 @@ class OmniBox extends HTMLElement {
   }
 
   static get observedAttributes () {
-    return ['src', 'back', 'forward']
+    return ['src', 'back', 'forward', 'loading']
   }
 
   attributeChangedCallback (name, oldValue, newValue) {
@@ -260,6 +262,14 @@ class OmniBox extends HTMLElement {
       this.backButton.classList.toggle('hidden', newValue === 'hidden')
     } else if (name === 'forward') {
       this.forwardButton.classList.toggle('hidden', newValue === 'hidden')
+    } else if(name === 'loading') {
+      if (newValue === 'true') {
+        this.loader.getElementById('reloadButton').classList.toggle('hidden', newValue)
+        this.loader.getElementById('loadingButton').classList.toggle('visible', newValue)
+      } else {
+        this.loader.getElementById('loadingButton').classList.toggle('hidden', newValue)
+        this.loader.getElementById('reloadButton').classList.toggle('visible', newValue)
+      }
     }
   }
 
