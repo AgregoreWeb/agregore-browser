@@ -109,6 +109,17 @@ class OmniBox extends HTMLElement {
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
     })
+
+    // middle mouse click paste&go
+    this.input.addEventListener('paste', (e) => {
+      e.preventDefault()
+      const url = e.clipboardData.getData('text')
+
+      if (isURL(url)) {
+        e.preventDefault()
+        this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
+      }
+    })
   }
 
   clearOptions () {
