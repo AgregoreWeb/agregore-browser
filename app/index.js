@@ -27,6 +27,13 @@ if (IS_DEBUG) {
   })
 }
 
+if (!IS_DEBUG) {
+// We shouldn't freeze the process when there's an error. Just ignore it.
+  process.on('uncaughtException', function (error) {
+    console.error(error)
+  })
+}
+
 process.on('SIGINT', () => app.quit())
 
 let extensions = null
