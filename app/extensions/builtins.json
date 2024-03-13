@@ -4,7 +4,7 @@
     "url": "https://github.com/AgregoreWeb/extension-agregore-history/releases/download/v{version}/agregore-history-v{version}.zip"
   },
   "agregore-renderer": {
-    "version": "2.1.1",
+    "version": "2.1.2",
     "url": "https://github.com/AgregoreWeb/extension-agregore-renderer/releases/download/v{version}/agregore-renderer-v{version}.zip"
   },
   "agregore-qr-share": {

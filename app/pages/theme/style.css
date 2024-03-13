@@ -14,8 +14,28 @@ html {
 
 body {
   padding: 1em;
+}
+
+body > p,
+body > a,
+body > pre,
+body > li,
+body > ul,
+body > table,
+body > img,
+body > form,
+body > iframe,
+body > video,
+body > audio,
+body > h1,
+body > h2,
+body > h3,
+body > h4,
+body > h5,
+body > h6 {
   max-width: var(--ag-theme-max-width);
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 input, button, textarea, select, select *, option  {
