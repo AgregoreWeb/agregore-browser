@@ -62,7 +62,7 @@ function init () {
   })
 
   app.on('second-instance', (event, argv, workingDirectory) => {
-    console.log('Got signal from second instance', argv)
+    console.log('Got signal from second instance', [...argv])
     const urls = urlsFromArgs(argv.slice(1), workingDirectory)
     urls.map((url) => windowManager.open({ url }))
   })
