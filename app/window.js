@@ -29,6 +29,14 @@ const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
+// See if we have any stylesheets with rules
+// If not manually inject styles to be like Agregore
+const HAS_SHEET = `
+[...document.styleSheets].filter((sheet) => {
+try {sheet.cssRules; return true} catch {return false}
+}).length
+`
+
 const WINDOW_METHODS = [
   'goBack',
   'goForward',
@@ -323,6 +331,15 @@ export class Window extends EventEmitter {
       this.send('update-target-url', url)
     })
 
+    this.web.on('dom-ready', async () => {
+      const hasStyles = await this.web.executeJavaScript(HAS_SHEET)
+      console.log({ hasStyles })
+      if (!hasStyles) {
+        const style = await getDefaultStylesheet(this.web)
+        await this.web.insertCSS(style)
+      }
+    })
+
     this.web.once('dom-ready', () => {
       showQueue.add(async () => {
         await this.window.show()
@@ -466,4 +483,17 @@ export class Window extends EventEmitter {
   get id () {
     return this.window.webContents.id
   }
+}
+
+async function getDefaultStylesheet (webContents) {
+  const [r1, r2] = await Promise.all([
+    webContents.session.fetch('agregore://theme/vars.css'),
+    webContents.session.fetch('agregore://theme/style.css')
+  ])
+
+  const [vars, style] = await Promise.all([
+    r1.text(),
+    r2.text()
+  ])
+  return vars + style
 }
