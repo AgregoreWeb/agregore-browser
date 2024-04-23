@@ -34,7 +34,7 @@ const DEFAULT_SAVE_INTERVAL = 30 * 1000
 const HAS_SHEET = `
 [...document.styleSheets].filter((sheet) => {
 try {sheet.cssRules; return true} catch {return false}
-}).length
+}).length || !!document.querySelector('[style]')
 `
 
 const WINDOW_METHODS = [
