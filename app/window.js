@@ -418,21 +418,7 @@ export class Window extends EventEmitter {
       rect[key] = Math.floor(rect[key])
     })
 
-    // Fix MacOS setBounds not considering the titlebar height
-    const titleBarHeight = this.getTitleBarHeight()
-    if (titleBarHeight && rect.y) {
-      rect.y += titleBarHeight
-    }
-
     return this.view.setBounds(rect)
-  }
-
-  getTitleBarHeight () {
-    const winHeight = this.window.getSize()[1]
-    const contentHeight = this.window.getContentSize()[1]
-    const titlebarHeight = winHeight - contentHeight
-
-    return process.platform === 'darwin' ? titlebarHeight : 0
   }
 
   async listExtensionActions () {
