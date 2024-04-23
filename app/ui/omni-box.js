@@ -110,7 +110,6 @@ class OmniBox extends HTMLElement {
 
     // middle mouse click paste&go
     this.input.addEventListener('paste', (e) => {
-      e.preventDefault()
       const url = e.clipboardData.getData('text')
 
       if (isURL(url)) {
