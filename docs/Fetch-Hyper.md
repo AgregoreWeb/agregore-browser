@@ -95,7 +95,7 @@ This does not delete data, it only deletes the cached data from disk.
 
 You can use `/` for the path to clear all data for the archive.
 
-### `fetch('hyper://NAME/`, {method: 'TAG', body: 'Tag name here'})`
+### `fetch('hyper://NAME/', {method: 'TAG', body: 'Tag name here'})`
 
 You can add a tag a version of the archive with a human readable name (like SPAGHETTI).
 
