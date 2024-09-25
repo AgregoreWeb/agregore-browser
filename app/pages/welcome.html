@@ -8,9 +8,10 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <style>
-  @import url("agregore://theme/style.css");
+	@import url("agregore://theme/style.css");
 
-	body, html {
+	body,
+	html {
 		display: flex;
 		flex: 1;
 		margin: 0px;
@@ -18,58 +19,60 @@
 		width: 100%;
 		height: 100%;
 		flex-direction: column;
-    justify-content: center;
-    align-items: center;
+		justify-content: center;
+		align-items: center;
 	}
+
 	img {
 		width: 40vmin;
 	}
 
 	h1 {
-	  text-transform: uppercase;
-	  color: var(--ag-theme-primary);
+		text-transform: uppercase;
+		color: var(--ag-theme-primary);
 	}
 
 	p {
-    text-align: center;
-    margin: 1em;
+		text-align: center;
+		margin: 1em;
 	}
 
 	footer {
-    text-align: center;
-    font-size: 0.4em;
+		text-align: center;
+		font-size: 0.4em;
 	}
 </style>
 
-<img src="agregore://icon.svg" title="Agregore Logo. Eight arrows pointing out with an eye in the middle."/>
+<img src="agregore://icon.svg" title="Agregore Logo. Eight arrows pointing out with an eye in the middle." />
 
 <h1>
-Agregore
+	Agregore
 </h1>
 
 <p>
-  <a href="https://agregore.mauve.moe/explore">Explore!</a>
+	<a href="hyper://agregore.mauve.moe/explore">Explore</a>
+	<a href="hyper://agregore.mauve.moe/docs/examples/p2pad/">Build</a>
 </p>
 <p>
-  <a href="https://agregore.mauve.moe/">Agregore Website</a>
+	<a href="hyper://agregore.mauve.moe/">Agregore Website</a>
 	<a href="https://matrix.to/#/#agregore:mauve.moe">Matrix Community</a>
 	<a href="https://hypercore-protocol.org">Hypercore Protocol</a>
 	<a href="ipns://ipfs.io/">IPFS Protocol</a>
-	<a href="gemini://gemini.circumlunar.space/">Gemini Protocol</a>
+	<a href="gemini://geminiprotocol.net/">Gemini Protocol</a>
 </p>
 
 <footer id="version"></footer>
 
 <script>
-async function load() {
-const response = await fetch('agregore://about')
-const about = await response.json()
-const {version} = about
+	async function load() {
+		const response = await fetch('agregore://about')
+		const about = await response.json()
+		const { version } = about
 
-console.log(about)
+		console.log(about)
 
-document.querySelector('#version').innerText = version
-}
+		document.querySelector('#version').innerText = version
+	}
 
-load()
+	load()
 </script>
