@@ -6,7 +6,7 @@ export default async function createHandler (options, session) {
     // This enables webtorrent-hybrid functionality
     // https://github.com/webtorrent/webtorrent-hybrid/blob/v4.1.3/lib/global.js
     const { default: createTorrent } = await import('create-torrent')
-    const { default: wrtc } = await import('wrtc')
+    const { default: wrtc } = await import('@roamhq/wrtc')
     globalThis.WEBTORRENT_ANNOUNCE = createTorrent.announceList
       .map(arr => arr[0])
       .filter(url => url.indexOf('wss://') === 0 || url.indexOf('ws://') === 0)
