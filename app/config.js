@@ -12,6 +12,15 @@ const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 const DEFAULT_PAGE = 'agregore://welcome'
 
 export default RC('agregore', {
+  llm: {
+    enabled: true,
+
+    baseURL: 'http://localhost:11434/v1/',
+    // Uncomment this to use OpenAI instead
+    // baseURL: 'https://api.openai.com/v1/'
+    apiKey: 'ollama',
+    model: 'phi3:3.8b-mini-4k-instruct-q4_0'
+  },
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
     NewWindow: 'CommandOrControl+N',

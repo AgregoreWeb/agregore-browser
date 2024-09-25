@@ -66,9 +66,9 @@ A minimal web browser for the distributed web
 	- Scan a QR code from the browser action window.
 	- Right click a link or image to generate a QR code for it
 - Built-in ad blocker (ublock origin)
+- Use local and cloud LLMs via `window.llm.chat({messages})` and `window.llm.complete("prompt")`
 - Built-in support for creating web archives via [ArchiveWeb.page](https://github.com/webrecorder/archiveweb.page/)
 - Open links in new windows (right click on element)
-- Find text on the page (`ctrl+f` to bring into focus, `esc` to hide)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
 - Persist open windows when quitting
 - Save files from pages (any protocol, right click it)
