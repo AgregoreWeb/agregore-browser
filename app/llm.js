@@ -1,23 +1,27 @@
 import config from './config.js'
-import { ipcMain } from 'electron'
+import { ipcMain, dialog } from 'electron'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
-const { baseURL, apiKey, model, enabled } = config.llm
+const { baseURL, apiKey, model } = config.llm
+let { enabled } = config.llm
 
 let isInitialized = false
 
 ipcMain.handle('llm-supported', async (event) => {
+  if (!enabled) return false
   return isSupported()
 })
 
 ipcMain.handle('llm-chat', async (event, args) => {
+  if (!enabled) return Promise.reject(new Error('LLM API is disabled'))
   return chat(args)
 })
 
 ipcMain.handle('llm-complete', async (event, args) => {
+  if (!enabled) return Promise.reject(new Error('LLM API is disabled'))
   return complete(args)
 })
 
@@ -36,13 +40,15 @@ export function addPreloads (session) {
 }
 
 export async function init () {
-  if (!enabled) throw new Error('LLM API is not enabled')
+  if (!enabled) throw new Error('LLM API is disabled')
   if (isInitialized) return
   // TODO: prompt for download
   if (apiKey === 'ollama') {
     const has = await hasModel()
     if (!has) {
+      await confirmPull()
       await pullModel()
+      await notifyPullDone()
     }
   }
   isInitialized = true
@@ -51,6 +57,31 @@ export async function init () {
 async function listModels () {
   const { data } = await get('./models', 'Unable to list models')
   return data
+}
+
+async function confirmPull () {
+  const { response, checkboxChecked } = await dialog.showMessageBox({
+    title: 'Download AI Model?',
+    message: 'Agregore wants to download a large language model to allow websites to use AI features. This can take a few minutes and can take several gigabytes of internet. Do you want to allow this?',
+    buttons: ['Yes', 'No'],
+    defaultId: 0,
+    cancelId: 1,
+    checkboxLabel: 'Remember this choice'
+  })
+
+  if (response === 1) {
+    if (checkboxChecked) {
+      enabled = false
+    }
+    throw new Error('Cannot use LLM, user denied download')
+  }
+}
+
+async function notifyPullDone () {
+  await dialog.showMessageBox({
+    title: 'AI Model Downloaded',
+    message: `Agregore has finished downloading the large lanfguage model. You can clear it by running 'ollama rm ${model}'`
+  })
 }
 
 async function pullModel () {
@@ -64,7 +95,8 @@ async function hasModel () {
     const models = await listModels()
 
     return !!models.find(({ id }) => id === model)
-  } catch {
+  } catch (e) {
+    console.error(e.stack)
     return false
   }
 }
@@ -84,7 +116,7 @@ export async function chat ({
     stop
   }, 'Unable to generate completion')
 
-  return choices[0].text
+  return choices[0].message
 }
 
 export async function complete ({

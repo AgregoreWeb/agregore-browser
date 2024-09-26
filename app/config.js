@@ -15,7 +15,7 @@ export default RC('agregore', {
   llm: {
     enabled: true,
 
-    baseURL: 'http://localhost:11434/v1/',
+    baseURL: 'http://127.0.0.1:11434/v1/',
     // Uncomment this to use OpenAI instead
     // baseURL: 'https://api.openai.com/v1/'
     apiKey: 'ollama',
