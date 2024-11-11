@@ -44,7 +44,7 @@ input, button, textarea, select, select *, option  {
   font-family: inherit;
   font-size: inherit;
   background: none;
-  padding:0.25em;
+  padding:0.5em;
   border-radius: 0.25em;
 }
 
@@ -59,8 +59,19 @@ select option {
   color: var(--ag-theme-text);
 }
 
-input, button, textarea, select, select *, video {
+input, button, textarea, select, select *, video, dialog {
   border: 1px solid var(--ag-theme-primary);
+}
+
+fieldset {
+  border: 1px solid var(--ag-theme-secondary);
+}
+
+dialog {
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
+  width: 80vw;
+  height: 80vh;
 }
 
 *::selection, option:hover {
