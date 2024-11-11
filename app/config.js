@@ -19,7 +19,7 @@ export default RC('agregore', {
     // Uncomment this to use OpenAI instead
     // baseURL: 'https://api.openai.com/v1/'
     apiKey: 'ollama',
-    model: 'phi3:3.8b-mini-4k-instruct-q4_0'
+    model: 'qwen2.5-coder:7b-instruct-q4_K_M'
   },
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
