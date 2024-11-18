@@ -4079,10 +4079,10 @@ join-async-iterator@^1.1.1:
   resolved "https://registry.yarnpkg.com/join-async-iterator/-/join-async-iterator-1.1.1.tgz#7d2857d7f4066267861888d264769e842110d07e"
   integrity sha512-ATse+nuNeKZ9K1y27LKdvPe/GCe9R/u9dw9vI248e+vILeRK3IcJP4JUPAlSmKRCDK0cKhEwfmiw4Skqx7UnGQ==
 
-js-ipfs-fetch@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-5.0.0.tgz#74e4ee5cc1372924799f84a7e2293cbf70bd7fab"
-  integrity sha512-akR8ux3GEgpjWo8wWRZe2nLQeAwORQIfEUKDMpdaBr5YpsZGXNZNEFLYdDGSADMmSFwFmHiYJhuHLHeTg8mfOA==
+js-ipfs-fetch@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/js-ipfs-fetch/-/js-ipfs-fetch-5.1.0.tgz#a877dc7bc55d167328b69676a6198682859a5e67"
+  integrity sha512-huec6Ip2ykHlPX4W14t+m6C80CmTvN6XrCX0ogfXat/w/CJrf/2FvbEC3T6ib3k8qeoI/+JUD7cnG/2rrt0a/A==
   dependencies:
     "@ipld/dag-cbor" "^7.0.2"
     "@ipld/dag-json" "^8.0.10"
