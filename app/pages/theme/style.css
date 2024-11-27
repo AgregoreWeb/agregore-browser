@@ -19,7 +19,7 @@ body {
 body > p,
 body > a,
 body > pre,
-body > li,
+body > ol,
 body > ul,
 body > table,
 body > img,
@@ -138,7 +138,7 @@ br {
   display: none;
 }
 
-li {
+ul > li {
   list-style-type: " ⟐ ";
 }
 
