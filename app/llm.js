@@ -87,7 +87,7 @@ async function notifyPullDone () {
 async function pullModel () {
   await post('/api/pull', {
     name: model
-  }, `Unable to pull model ${model}`)
+  }, `Unable to pull model ${model}`, false)
 }
 
 async function hasModel () {
@@ -137,7 +137,7 @@ export async function complete ({
   return choices[0].text
 }
 
-async function get (path, errorMessage) {
+async function get (path, errorMessage, parseBody = true) {
   const url = new URL(path, baseURL).href
 
   const response = await fetch(url, {
@@ -151,7 +151,11 @@ async function get (path, errorMessage) {
     throw new Error(`${errorMessage} ${await response.text()}`)
   }
 
-  return await response.json()
+  if (parseBody) {
+    return await response.json()
+  } else {
+    return await response.text()
+  }
 }
 
 async function post (path, data, errorMessage) {
