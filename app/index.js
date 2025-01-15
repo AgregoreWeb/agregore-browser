@@ -11,6 +11,7 @@ import { createExtensions } from './extensions/index.js'
 import * as history from './history.js'
 import { version } from './version.js'
 import * as llm from './llm.js'
+import * as config from './config.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
@@ -144,6 +145,7 @@ async function onready () {
   const webSession = session.fromPartition(WEB_PARTITION)
 
   llm.addPreloads(webSession)
+  config.addPreloads(webSession)
 
   const electronSection = /Electron.+ /i
   const existingAgent = webSession.getUserAgent()

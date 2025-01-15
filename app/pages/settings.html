@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<title>Browser Settings</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<style>
+    @import url("agregore://theme/style.css");
+</style>
+
+<h1>Settings</h1>
+<form id="settingsForm">
+    <fieldset>
+        <label>Default Page: <input name="defaultPage"></label>
+        <label>Auto-Hide Menu Bar: <input name="autoHideMenuBar"></label>
+    </fieldset>
+    <fieldset>
+        <legend>Theme</legend>
+        <label>font-family: <input name="theme.font-family"></label>
+        <label>background: <input name="theme.background"></label>
+        <label>text: <input name="theme.text"></label>
+        <label>primary: <input name="theme.primary"></label>
+        <label>secondary: <input name="theme.secondary"></label>
+        <label>indent: <input name="theme.indent"></label>
+        <label>max-width: <input name="theme.max-width"></label>
+    </fieldset>
+    <fieldset>
+        <legend>Keyboard Shortcuts</legend>
+        <label>OpenDevTools: <input name="accelerators.OpenDevTools"></label>
+        <label>NewWindow: <input name="accelerators.NewWindow"></label>
+        <label>Forward: <input name="accelerators.Forward"></label>
+        <label>Back: <input name="accelerators.Back"></label>
+        <label>FocusURLBar: <input name="accelerators.FocusURLBar"></label>
+        <label>FindInPage: <input name="accelerators.FindInPage"></label>
+        <label>Reload: <input name="accelerators.Reload"></label>
+        <label>HardReload: <input name="accelerators.HardReload"></label>
+        <label>LearnMore: <input name="accelerators.LearnMore"></label>
+        <label>OpenExtensionsFolder: <input name="accelerators.OpenExtensionsFolder"></label>
+        <label>EditConfigFile: <input name="accelerators.EditConfigFile"></label>
+        <label>CreateBookmark: <input name="accelerators.CreateBookmark"></label>
+    </fieldset>
+    <fieldset>
+        <legend>llm</legend>
+        <label>enabled: <input name="llm.enabled"></label>
+        <label>baseURL: <input name="llm.baseURL"></label>
+        <label>apiKey: <input name="llm.apiKey"></label>
+        <label>model: <input name="llm.model"></label>
+    </fieldset>
+    <center>
+        <button>Save</button>
+    </center>
+</form>
+
+<script>
+    window.settingsForm.onsubmit = onSettingsChanged
+    function $(selector) {
+        return document.querySelector(selector)
+    }
+    function $$(selector) {
+        return [...document.querySelectorAll(selector)]
+    }
+    function onSettings(settings) {
+        console.log({ settings })
+        for (const [key, value] of Object.entries(settings)) {
+            if (typeof value === 'object') {
+                for (const [subkey, subvalue] of Object.entries(value)) {
+                    const e = $(`[name="${key}.${subkey}"]`)
+                    if (e) e.value = JSON.stringify(subvalue)
+                }
+            } else {
+                const e = $(`[name="${key}"]`)
+                if (e) e.value = JSON.stringify(value)
+            }
+        }
+    }
+
+    function onSettingsChanged(e) {
+        e.preventDefault()
+        const configMap = {}
+        try {
+            for (const { name, value } of $$('#settingsForm input')) {
+                configMap[name] = JSON.parse(value)
+            }
+            console.log('saving', configMap)
+            settings.save(configMap)
+            alert('Saved! Restart to activate changes.')
+        } catch (e) {
+            alert(e.message)
+        }
+    }
+</script>

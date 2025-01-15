@@ -1,6 +1,5 @@
 import { app, shell, dialog } from 'electron'
 import fs from 'fs-extra'
-import os from 'os'
 import path from 'path'
 import createDesktopShortcut from 'create-desktop-shortcuts'
 import dataUriToBuffer from 'data-uri-to-buffer'
@@ -8,7 +7,6 @@ import sanitize from 'sanitize-filename'
 
 import Config from './config.js'
 const { accelerators, extensions, appPath } = Config
-const { join } = path
 
 const FOCUS_URL_BAR_SCRIPT = `
 document.getElementById('search').showInput()
@@ -18,8 +16,6 @@ document.getElementById('search').focus()
 const OPEN_FIND_BAR_SCRIPT = `
 document.getElementById('find').show()
 `
-
-const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 
 export function createActions ({
   createWindow
@@ -187,13 +183,7 @@ export function createActions ({
   }
 
   async function onEditConfigFile () {
-    const file = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
-
-    const exists = await fs.pathExists(file)
-
-    if (!exists) await fs.writeJson(file, {})
-
-    await shell.openPath(file)
+    await createWindow('agregore://settings')
   }
 
   async function onCreateBookmark (event, focusedWindow) {
