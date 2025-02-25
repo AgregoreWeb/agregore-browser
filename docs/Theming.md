@@ -51,8 +51,21 @@ You can replace the various values with any valid CSS values like Hex codes: `#F
 
 More styles will be added here as needed. If you feel we should standardize on some sort of style, feel free to open an issue talking about what it is and why it should be added.
 
-## Highlight.js
+## Syntax Highlighting Font
 
-For convenience, Agregore bundles [highlight.js](https://highlightjs.org/) and a default theme for it.
+Agregore now uses a custom font for syntax highlighting in code blocks. The font file is located at `agregore://theme/FontWithASyntaxHighlighter-Regular.woff2`.
 
-You can load it up using `agregore://theme/highlight.js` and `agregore://theme/highlight.css`.
+To use this font for `code` elements, you can include the following CSS in your stylesheet:
+
+```css
+@font-face {
+  font-family: 'FontWithASyntaxHighlighter';
+  src: url('agregore://theme/FontWithASyntaxHighlighter-Regular.woff2') format('woff2');
+}
+
+code {
+  font-family: 'FontWithASyntaxHighlighter', monospace;
+}
+```
+
+This font provides built-in syntax highlighting for code blocks, making it easier to read and understand code snippets.
