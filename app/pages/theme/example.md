@@ -14,6 +14,9 @@ https://agregore.mauve.moe
 
 [Custom link text](https://agregore.mauve.moe)
 
+```javascript
+HELLO.world("HI")
+```
 
 ## Forms
 
