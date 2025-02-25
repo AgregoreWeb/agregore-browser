@@ -1,4 +1,3 @@
-
 let getBackgroundPage = null
 
 export function setGetBackgroundPage (backgroundPage) {
