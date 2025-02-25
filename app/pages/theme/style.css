@@ -63,6 +63,7 @@ textarea {
   width: 100%;
   resize: vertical;
   margin: 1em auto;
+  font-family: 'FontWithASyntaxHighlighter', monospace;
 }
 
 select option {
@@ -160,6 +161,8 @@ blockquote>*::before {
 pre>code {
   display: block;
   padding: 0.5em;
+  background: var(--ag-theme-background);
+  color: var(--ag-theme-text);
 }
 
 br {
