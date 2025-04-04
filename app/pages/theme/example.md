@@ -18,14 +18,25 @@ https://agregore.mauve.moe
 HELLO.world("HI")
 ```
 
+<details>
+<summary>Show and hide details</summary>
+Example content hidden in some details.
+</details>
+
 ## Forms
 
 <button>Example</button>
 
-<input>
+<input value="'Hello World'">
 
-<input type="radio">
-<input type="checkbox">
+<label>
+	Radio
+	<input type="radio">
+</label>
+<label>
+	Checkbox
+	<input type="checkbox">
+</label>
 <select>
 	<option selected>Example</option>
 	<option>mple</option>
@@ -51,3 +62,14 @@ HELLO.world("HI")
 ### Iframe
 
 <iframe src="agregore://welcome"></iframe>
+
+### Table
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Example Row 1, Cell 1 | Example Row 1, Cell 2 | Example Row 1, 
+Cell 3 |
+| Example Row 2, Cell 1 | Example Row 2, Cell 2 | Example Row 2, 
+Cell 3 |
+| Example Row 3, Cell 1 | Example Row 3, Cell 2 | Example Row 3, 
+Cell 3 |

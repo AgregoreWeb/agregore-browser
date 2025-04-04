@@ -34,6 +34,7 @@ body>iframe,
 body>video,
 body>audio,
 body>blockquote,
+body>details,
 body>h1,
 body>h2,
 body>h3,
@@ -58,6 +59,10 @@ option {
   background: none;
   padding: 0.5em;
   border-radius: 0.25em;
+}
+
+input {
+  font-family: 'FontWithASyntaxHighlighter', monospace;
 }
 
 textarea {
@@ -96,6 +101,33 @@ dialog {
   color: var(--ag-theme-text);
   width: 80vw;
   height: 80vh;
+}
+
+details summary {
+  cursor: pointer;
+}
+
+details summary>* {
+  display: inline;
+}
+
+details summary::marker,
+details summary::-webkit-details-marker {
+  color: var(--ag-theme-primary)
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid var(--ag-theme-primary);
+  /* Set a common border for all cells */
+  padding: 0.5em;
+  /* Add some padding inside each cell */
+  text-align: left;
+  /* Align text to the left within each cell */
 }
 
 *::selection,
