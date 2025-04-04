@@ -70,6 +70,7 @@ A minimal web browser for the distributed web
 - Built-in support for creating web archives via [ArchiveWeb.page](https://github.com/webrecorder/archiveweb.page/)
 - Open links in new windows (right click on element)
 - Autocomplete URLs from history (type in the URL bar, up/down to navigate, right to autocomplete)
+- Manage history (File > View History)
 - Persist open windows when quitting
 - Save files from pages (any protocol, right click it)
 - Set as default browser (click Set As Default in the menu bar (`ALT`))
