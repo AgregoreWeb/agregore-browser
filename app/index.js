@@ -184,10 +184,19 @@ async function onready () {
   // Register all extensions in the extensions folder from disk
   await extensions.registerAll()
 
+  const historyExtension = await extensions.byName('agregore-history')
+
   // TODO: Better error handling when the extension doesn't exist?
   history.setGetBackgroundPage(() => {
     return extensions.getBackgroundPageByName('agregore-history')
   })
+
+  history.setViewPage(
+    new URL(
+      historyExtension.manifest.options_page,
+      historyExtension.url
+    ).href
+  )
 
   console.log('Opening saved windows')
 

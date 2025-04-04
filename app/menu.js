@@ -5,6 +5,7 @@ const isMac = process.platform === 'darwin'
 export function registerMenu (actions) {
   const {
     OpenDevTools,
+    ViewHistory,
     NewWindow,
     Forward,
     Back,
@@ -45,6 +46,7 @@ export function registerMenu (actions) {
       submenu: [
         isMac ? { role: 'close' } : { role: 'quit' },
         OpenDevTools,
+        ViewHistory,
         NewWindow
       ]
     },

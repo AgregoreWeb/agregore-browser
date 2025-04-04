@@ -1,7 +1,16 @@
 let getBackgroundPage = null
+let viewPage = null
 
 export function setGetBackgroundPage (backgroundPage) {
   getBackgroundPage = backgroundPage
+}
+
+export function setViewPage (page) {
+  viewPage = page
+}
+
+export function getViewPage () {
+  return viewPage
 }
 
 export async function search (query = '') {
