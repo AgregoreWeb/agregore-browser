@@ -1,5 +1,5 @@
 {
-  "name": "agregore-browser",
+  "name": "agregore-browser-dev",
   "version": "2.8.2",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
