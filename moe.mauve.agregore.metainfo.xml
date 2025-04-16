@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<component type="desktop-application">
+  <id>moe.mauve.agregore</id>
+  <name>Agregore Browser</name>
+  <summary>A minimal browser for the distributed web</summary>
+  <description>
+    <p>Features:
+    - Browse the existing (HTTP) web like usual.
+    - Browse the Distributed Web on Hypercore, BitTorrent, and IPFS.
+    - Browse alternate web protocols like Gemini
+    - Tracking free with a built in Ad blocker
+    - Render Markdown documents natively
+    - Archive and save web pages for offline use via ArchiveWeb.page
+    - Customizable color scheme which gets applied to all pages
+    - New web APIs for creating p2p sites and apps
+    - Built in large language model APIs using free to use local models
+</p>
+  </description>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>AGPL-3.0-only</project_license>
+  <url type="homepage">https://agregore.mauve.moe/</url>
+  <url type="bugtracker">https://github.com/AgregoreWeb/agregore-browser/issues/</url>
+  <url type="vcs-browser">https://github.com/AgregoreWeb/agregore-browser</url>
+  <launchable type="desktop-id">moe.mauve.agregore.desktop</launchable>
+  <categories>
+    <category>Network</category>
+    <category>WebBrowser</category>
+  </categories>
+  <developer id="moe.mauve">
+    <name>mauve</name>
+  </developer>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+    <control>touch</control>
+  </supports>
+</component>
