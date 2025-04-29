@@ -337,7 +337,6 @@ export class Window extends EventEmitter {
       }
       const hasStyles = await this.web.executeJavaScript(HAS_SHEET, true)
         .catch(() => false) // If we error out checking styles, try it anyway
-      console.log({ hasStyles })
       if (!hasStyles) {
         const style = await getDefaultStylesheet(this.web)
         await this.web.insertCSS(style, {
