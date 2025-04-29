@@ -120,6 +120,11 @@ table {
   border-collapse: collapse;
 }
 
+body > table,
+body > pre {
+  overflow-x: auto;
+}
+
 th,
 td {
   border: 1px solid var(--ag-theme-primary);
