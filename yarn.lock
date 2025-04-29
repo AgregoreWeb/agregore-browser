@@ -2239,10 +2239,10 @@ electron-builder@^23.6.0:
     simple-update-notifier "^1.0.7"
     yargs "^17.5.1"
 
-electron-extended-webextensions@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.10.tgz#78c530f469221e368869931c2ef3d8c49aef6fa5"
-  integrity sha512-g5aUkLeyO/s2coc2ytPNHUPE5+xiEJIYmvBWpWbX69b4rg1MKqfDExcKwYYA13jdtyzAG8+fpemeXjttYsGfxg==
+electron-extended-webextensions@^0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/electron-extended-webextensions/-/electron-extended-webextensions-0.0.11.tgz#9f56fbc768198c27542c66027f60fc2603702204"
+  integrity sha512-C18hEPQT6Nuz41/ueyyFi1E7UVT0i7i8Ev6JLxk2jeB2Jf+Y72yje7UCWmkrNE/23X8E3mfdG2W35ZZkgY56fg==
 
 electron-fetch@^1.7.2:
   version "1.7.4"

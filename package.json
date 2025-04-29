@@ -195,7 +195,7 @@
     "data-uri-to-buffer": "^3.0.1",
     "decompress": "^4.2.1",
     "delay": "^6.0.0",
-    "electron-extended-webextensions": "0.0.10",
+    "electron-extended-webextensions": "^0.0.11",
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^2.0.0",
     "gemini-to-html": "^1.0.0",
