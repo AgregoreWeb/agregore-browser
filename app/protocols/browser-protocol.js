@@ -84,7 +84,7 @@ export default async function createHandler () {
       const data = intoStream(`
 :root {
   --ag-color-purple: #6e2de5;
-  --ag-color-black: #111;
+  --ag-color-black: #111111;
   --ag-color-white: #F2F2F2;
   --ag-color-green: #2de56e;
 }
