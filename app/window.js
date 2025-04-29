@@ -34,7 +34,7 @@ const DEFAULT_SAVE_INTERVAL = 30 * 1000
 const HAS_SHEET = `
 [...document.styleSheets].filter((sheet) => {
 try {sheet.cssRules; return true} catch {return false}
-}).length || !!document.querySelector('[style]')
+}).length || !!(document.querySelectorAll('[style]').length > 1)
 `
 
 const WINDOW_METHODS = [
@@ -335,11 +335,14 @@ export class Window extends EventEmitter {
       if (this.web.getURL() === 'agregore://settings') {
         this.web.executeJavaScript(`window.onSettings(${JSON.stringify(Config)})`)
       }
-      const hasStyles = await this.web.executeJavaScript(HAS_SHEET)
+      const hasStyles = await this.web.executeJavaScript(HAS_SHEET, true)
+        .catch(() => false) // If we error out checking styles, try it anyway
       console.log({ hasStyles })
       if (!hasStyles) {
         const style = await getDefaultStylesheet(this.web)
-        await this.web.insertCSS(style)
+        await this.web.insertCSS(style, {
+          cssOrigin: 'user'
+        })
       }
     })
 
