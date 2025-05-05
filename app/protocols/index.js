@@ -9,6 +9,7 @@ import createGeminiHandler from './gemini-protocol.js'
 import createBTHandler from './bt-protocol.js'
 import createMagnetHandler from './magnet-protocol.js'
 import createRawHTTPSHandler from './raw-http-protocol.js'
+import { createThemeHandler } from './theme-handler.js'
 
 const P2P_PRIVILEGES = {
   standard: true,
@@ -64,6 +65,7 @@ export function registerPrivileges () {
     { scheme: 'bt', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
+    { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
     { scheme: 'magnet', privileges: LOW_PRIVILEGES }
   ])
 }
@@ -72,6 +74,7 @@ export function setAsDefaultProtocolClient () {
   console.log('Setting as default handlers')
 
   app.setAsDefaultProtocolClient('agregore')
+  app.setAsDefaultProtocolClient('browser')
   app.setAsDefaultProtocolClient('hyper')
   app.setAsDefaultProtocolClient('ssb')
   app.setAsDefaultProtocolClient('gemini')
@@ -89,6 +92,10 @@ export async function setupProtocols (session) {
   const { handler: browserProtocolHandler } = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+
+  const { handler: themeProtocolHandler } = await createThemeHandler()
+  sessionProtocol.registerStreamProtocol('browser', themeProtocolHandler)
+  globalProtocol.registerStreamProtocol('browser', themeProtocolHandler)
 
   console.log('Registering hyper handlers')
 
