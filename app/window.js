@@ -478,8 +478,8 @@ export class Window extends EventEmitter {
 
 async function getDefaultStylesheet (webContents) {
   const [r1, r2] = await Promise.all([
-    webContents.session.fetch('agregore://theme/vars.css'),
-    webContents.session.fetch('agregore://theme/style.css')
+    webContents.session.fetch('browser://theme/vars.css'),
+    webContents.session.fetch('browser://theme/style.css')
   ])
 
   const [vars, style] = await Promise.all([

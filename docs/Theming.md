@@ -1,6 +1,6 @@
 # Theming
 
-Agregore provides CSS variables for themeing the browser at the URL `agregore://theme/vars.css`.
+Agregore provides CSS variables for themeing the browser at the URL `browser://theme/vars.css`.
 
 The contents of this look something like:
 
@@ -25,7 +25,7 @@ These can be imported anywhere you'd like to use browser styling.
 
 Specifically, you should try to use the `--ag-theme-*` variables for the page when possible.
 
-You can also make use of the `agregore://theme/style.css` which adds some default styling to stuff like headers, the background/text colors, and links.
+You can also make use of the `browser://theme/style.css` which adds some default styling to stuff like headers, the background/text colors, and links.
 
 This is useful for styling markdown pages or other pages with basic HTML. You probably shouldn't include this if you're doing something fancy with styling as the styles may change over time.
 
@@ -53,14 +53,14 @@ More styles will be added here as needed. If you feel we should standardize on s
 
 ## Syntax Highlighting Font
 
-Agregore now uses a custom font for syntax highlighting in code blocks. The font file is located at `agregore://theme/FontWithASyntaxHighlighter-Regular.woff2`.
+Agregore now uses a custom font for syntax highlighting in code blocks. The font file is located at `browser://theme/FontWithASyntaxHighlighter-Regular.woff2`.
 
 To use this font for `code` elements, you can include the following CSS in your stylesheet:
 
 ```css
 @font-face {
   font-family: 'FontWithASyntaxHighlighter';
-  src: url('agregore://theme/FontWithASyntaxHighlighter-Regular.woff2') format('woff2');
+  src: url('browser://theme/FontWithASyntaxHighlighter-Regular.woff2') format('woff2');
 }
 
 code {
