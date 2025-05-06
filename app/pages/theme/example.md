@@ -27,7 +27,11 @@ Example content hidden in some details.
 
 <button>Example</button>
 
+<input type="submit">
+
 <input value="'Hello World'">
+<input type="text" value="'Hello World'">
+<input type="password" value="'Hello World'">
 
 <label>
 	Radio
