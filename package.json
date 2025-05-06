@@ -183,7 +183,7 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "^28.0.0",
+    "electron": "28",
     "electron-builder": "^23.6.0",
     "standard": "^17.0.0"
   },
@@ -197,7 +197,7 @@
     "delay": "^6.0.0",
     "electron-extended-webextensions": "^0.0.11",
     "fs-extra": "^9.0.1",
-    "gemini-fetch": "^2.0.0",
+    "gemini-fetch": "^2.1.1",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.17.0",
     "hyper-sdk": "^4.5.1",
