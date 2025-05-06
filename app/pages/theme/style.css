@@ -120,9 +120,17 @@ table {
   border-collapse: collapse;
 }
 
-body > table,
-body > pre {
+body>table,
+body>pre {
   overflow-x: auto;
+}
+
+body>pre:only-child {
+  color: inherit;
+  font-size: inherit;
+  background: none;
+  padding: 0.5em;
+  font-family: 'FontWithASyntaxHighlighter', monospace;
 }
 
 th,
