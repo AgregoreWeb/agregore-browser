@@ -1,11 +1,14 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 import mime from 'mime-types'
+import { Readable } from 'stream'
 import ScopedFS from 'scoped-fs'
+import Config from '../config.js'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 const themePath = path.join(__dirname, '../pages/theme')
 const fs = new ScopedFS(themePath)
+const { theme } = Config
 
 const CHECK_PATHS = [
   (path) => path,
@@ -36,6 +39,15 @@ async function exists (filePath) {
   })
 }
 
+function intoStream (data) {
+  return new Readable({
+    read () {
+      this.push(data)
+      this.push(null)
+    }
+  })
+}
+
 export async function createThemeHandler () {
   return {
     handler: async function protocolHandler ({ url }, sendResponse) {
@@ -44,6 +56,42 @@ export async function createThemeHandler () {
       if (parsedUrl.hostname === 'theme') {
         const fileName = parsedUrl.pathname.slice(1)
         console.log('Attempting to serve:', fileName)
+
+        if (fileName === 'vars.css') {
+          const statusCode = 200
+          const themes = Object
+            .keys(theme)
+            .map((name) => `  --ag-theme-${name}: ${theme[name]};`)
+            .join('\n')
+
+          const data = intoStream(`
+:root {
+  --ag-color-purple: #6e2de5;
+  --ag-color-black: #111111;
+  --ag-color-white: #F2F2F2;
+  --ag-color-green: #2de56e;
+  /* TODO(@RangerMauve): Add Base16 variables (--base00 to --base0F) for cross-browser compatibility */
+}
+
+:root {
+${themes}
+}
+          `)
+
+          const headers = {
+            'Content-Type': 'text/css',
+            'Access-Control-Allow-Origin': '*',
+            'Allow-CSP-From': '*',
+            'Cache-Control': 'no-cache'
+          }
+
+          sendResponse({
+            statusCode,
+            headers,
+            data
+          })
+          return
+        }
 
         try {
           const resolvedPath = await resolveFile(fileName)
