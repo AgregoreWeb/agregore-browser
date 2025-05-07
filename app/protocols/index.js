@@ -4,7 +4,7 @@ import Config from '../config.js'
 import createHyperHandler from './hyper-protocol.js'
 import createSsbHandler from './ssb-protocol.js'
 import createIPFSHandler from './ipfs-protocol.js'
-import createBrowserHandler from './browser-protocol.js'
+import createAgregoreHandler from './agregore-protocol.js'
 import createGeminiHandler from './gemini-protocol.js'
 import createBTHandler from './bt-protocol.js'
 import createMagnetHandler from './magnet-protocol.js'
@@ -89,7 +89,7 @@ export function setAsDefaultProtocolClient () {
 export async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
-  const { handler: agregoreProtocolHandler } = await createBrowserHandler()
+  const { handler: agregoreProtocolHandler } = await createAgregoreHandler()
   sessionProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
 
