@@ -5,8 +5,6 @@ import mime from 'mime'
 import ScopedFS from 'scoped-fs'
 
 import { version, dependencies as packageDependencies } from '../version.js'
-import Config from '../config.js'
-const { theme } = Config
 
 const CHECK_PATHS = [
   (path) => path,
@@ -64,41 +62,6 @@ export default async function createHandler () {
         'Access-Control-Allow-Origin': '*',
         'Allow-CSP-From': '*',
         'Content-Type': 'application/json'
-      }
-
-      sendResponse({
-        statusCode,
-        headers,
-        data
-      })
-
-      return
-    } else if ((hostname === 'theme') && (pathname === '/vars.css')) {
-      const statusCode = 200
-
-      const themes = Object
-        .keys(theme)
-        .map((name) => `  --ag-theme-${name}: ${theme[name]};`)
-        .join('\n')
-
-      const data = intoStream(`
-:root {
-  --ag-color-purple: #6e2de5;
-  --ag-color-black: #111111;
-  --ag-color-white: #F2F2F2;
-  --ag-color-green: #2de56e;
-}
-
-:root {
-${themes}
-}
-      `)
-
-      const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Allow-CSP-From': '*',
-        'Cache-Control': 'no-cache',
-        'Content-Type': 'text/css'
       }
 
       sendResponse({
