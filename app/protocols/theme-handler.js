@@ -2,7 +2,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import fs from 'fs'
 import mime from 'mime-types'
-import { Readable } from 'stream'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
@@ -66,15 +65,25 @@ export async function createThemeHandler () {
           console.log('File not found:', fileName)
           sendResponse({
             statusCode: 404,
-            headers: { 'Content-Type': 'text/plain' },
-            data: Readable.from(['File not found'])
+            headers: {
+              'Content-Type': 'text/html',
+              'Access-Control-Allow-Origin': '*',
+              'Allow-CSP-From': '*',
+              'Cache-Control': 'no-cache'
+            },
+            data: fs.createReadStream(path.join(__dirname, '../pages/404.html'))
           })
         }
       } else {
         sendResponse({
           statusCode: 404,
-          headers: { 'Content-Type': 'text/plain' },
-          data: Readable.from(['Not found'])
+          headers: {
+            'Content-Type': 'text/html',
+            'Access-Control-Allow-Origin': '*',
+            'Allow-CSP-From': '*',
+            'Cache-Control': 'no-cache'
+          },
+          data: fs.createReadStream(path.join(__dirname, '../pages/404.html'))
         })
       }
     }
