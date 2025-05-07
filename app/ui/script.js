@@ -35,6 +35,10 @@ search.addEventListener('forward', () => {
   currentWindow.goForward()
 })
 
+search.addEventListener('up', () => {
+  currentWindow.loadURL(new URL('../', search.src).href)
+})
+
 search.addEventListener('navigate', ({ detail }) => {
   const { url } = detail
 

@@ -21,6 +21,7 @@ class OmniBox extends HTMLElement {
     this.innerHTML = ` 
       <section class="omni-box-header">
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
+        <button class="hidden omni-box-button omni-box-up" title="Go up one directory">⬆</button>
         <button class="hidden omni-box-button omni-box-forward" title="Go forward in history">➡</button>
         <form class="omni-box-form">
           <input class="omni-box-target-input" readonly></input>
@@ -31,6 +32,7 @@ class OmniBox extends HTMLElement {
     `
     this.backButton = this.$('.omni-box-back')
     this.forwardButton = this.$('.omni-box-forward')
+    this.upButton = this.$('.omni-box-up')
     this.form = this.$('.omni-box-form')
     this.input = this.$('.omni-box-input')
     this.targetUrl = this.$('.omni-box-target-input')
@@ -106,6 +108,9 @@ class OmniBox extends HTMLElement {
     })
     this.forwardButton.addEventListener('click', () => {
       this.dispatchEvent(new CustomEvent('forward'))
+    })
+    this.upButton.addEventListener('click', () => {
+      this.dispatchEvent(new CustomEvent('up'))
     })
 
     // middle mouse click paste&go
@@ -247,7 +252,20 @@ class OmniBox extends HTMLElement {
   attributeChangedCallback (name, oldValue, newValue) {
     if (name === 'src') {
       this.input.value = newValue
-      const noFocus = window.searchParams.get('noFocus') === 'true'
+
+      const { pathname, hostname } = new URL(newValue)
+      let slashCount = pathname.split('/').length
+      if (!hostname) {
+        slashCount -= 1
+      }
+      if (pathname.endsWith('/')) {
+        slashCount -= 1
+      }
+
+      const hasUpperFolders = slashCount > 2
+      this.upButton.classList.toggle('hidden', !hasUpperFolders)
+
+      const noFocus = (new URL(window.location.href).searchParams).get('noFocus') === 'true'
       if (noFocus) {
         return
       }
