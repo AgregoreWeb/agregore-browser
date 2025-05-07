@@ -89,9 +89,13 @@ export function setAsDefaultProtocolClient () {
 export async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
+  console.log('Registering agregore handlers')
+
   const { handler: agregoreProtocolHandler } = await createAgregoreHandler()
   sessionProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
+
+  console.log('Registering theme handlers')
 
   const { handler: agregoreThemeHandler } = await createThemeHandler()
   sessionProtocol.registerStreamProtocol('browser', agregoreThemeHandler)
