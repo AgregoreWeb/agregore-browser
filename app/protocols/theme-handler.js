@@ -7,7 +7,9 @@ import Config from '../config.js'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 const themePath = path.join(__dirname, '../pages/theme')
-const fs = new ScopedFS(themePath)
+const pagesPath = path.join(__dirname, '../pages')
+const themeFS = new ScopedFS(themePath)
+const pagesFS = new ScopedFS(pagesPath)
 const { theme } = Config
 
 const CHECK_PATHS = [
@@ -30,7 +32,7 @@ async function resolveFile (filePath) {
 
 async function exists (filePath) {
   return new Promise((resolve, reject) => {
-    fs.stat(filePath, (err, stat) => {
+    themeFS.stat(filePath, (err, stat) => {
       if (err) {
         if (err.code === 'ENOENT') resolve(false)
         else reject(err)
@@ -96,7 +98,7 @@ ${themes}
         try {
           const resolvedPath = await resolveFile(fileName)
           const statusCode = 200
-          const data = fs.createReadStream(resolvedPath)
+          const data = themeFS.createReadStream(resolvedPath)
           const contentType = mime.lookup(resolvedPath) || 'text/plain'
           const headers = {
             'Content-Type': contentType,
@@ -120,7 +122,7 @@ ${themes}
               'Allow-CSP-From': '*',
               'Cache-Control': 'no-cache'
             },
-            data: fs.createReadStream('../404.html')
+            data: pagesFS.createReadStream('404.html')
           })
         }
       } else {
@@ -132,7 +134,7 @@ ${themes}
             'Allow-CSP-From': '*',
             'Cache-Control': 'no-cache'
           },
-          data: fs.createReadStream('../404.html')
+          data: pagesFS.createReadStream('404.html')
         })
       }
     }
