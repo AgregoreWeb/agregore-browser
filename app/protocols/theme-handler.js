@@ -6,42 +6,70 @@ import { Readable } from 'stream'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
+const CHECK_PATHS = [
+  (path) => path,
+  (path) => path + 'index.html',
+  (path) => path + 'index.md',
+  (path) => path + '/index.html',
+  (path) => path + '/index.md',
+  (path) => path + '.html',
+  (path) => path + '.md'
+]
+
+async function resolveFile (filePath) {
+  for (const toTry of CHECK_PATHS) {
+    const tryPath = toTry(filePath)
+    if (await exists(tryPath)) return tryPath
+  }
+  throw new Error('File not found')
+}
+
+async function exists (filePath) {
+  return new Promise((resolve, reject) => {
+    fs.stat(path.join(__dirname, '../pages/theme', filePath), (err, stat) => {
+      if (err) {
+        if (err.code === 'ENOENT') resolve(false)
+        else reject(err)
+      } else resolve(stat.isFile())
+    })
+  })
+}
+
 export async function createThemeHandler () {
   return {
     handler: async function protocolHandler ({ url }, sendResponse) {
       const parsedUrl = new URL(url)
-      let filePath
 
       if (parsedUrl.hostname === 'theme') {
         const fileName = parsedUrl.pathname.slice(1)
-        filePath = path.join(__dirname, '../pages/theme', fileName)
-        console.log('Attempting to serve:', filePath)
+        console.log('Attempting to serve:', fileName)
 
-        if (!fs.existsSync(filePath)) {
-          console.log('File not found:', filePath)
+        try {
+          const resolvedPath = await resolveFile(fileName)
+          const statusCode = 200
+          const fullPath = path.join(__dirname, '../pages/theme', resolvedPath)
+          const data = fs.createReadStream(fullPath)
+          const contentType = mime.lookup(resolvedPath) || 'text/plain'
+          const headers = {
+            'Content-Type': contentType,
+            'Access-Control-Allow-Origin': '*',
+            'Allow-CSP-From': '*',
+            'Cache-Control': 'no-cache'
+          }
+
+          sendResponse({
+            statusCode,
+            headers,
+            data
+          })
+        } catch (e) {
+          console.log('File not found:', fileName)
           sendResponse({
             statusCode: 404,
             headers: { 'Content-Type': 'text/plain' },
             data: Readable.from(['File not found'])
           })
-          return
         }
-
-        const statusCode = 200
-        const data = fs.createReadStream(filePath)
-        const contentType = mime.lookup(filePath) || 'text/plain'
-        const headers = {
-          'Content-Type': contentType,
-          'Access-Control-Allow-Origin': '*',
-          'Allow-CSP-From': '*',
-          'Cache-Control': 'no-cache'
-        }
-
-        sendResponse({
-          statusCode,
-          headers,
-          data
-        })
       } else {
         sendResponse({
           statusCode: 404,
