@@ -89,9 +89,9 @@ export function setAsDefaultProtocolClient () {
 export async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
-  const { handler: browserProtocolHandler } = await createBrowserHandler()
-  sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
-  globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+  const { handler: agregoreProtocolHandler } = await createBrowserHandler()
+  sessionProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
+  globalProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
 
   const { handler: themeProtocolHandler } = await createThemeHandler()
   sessionProtocol.registerStreamProtocol('browser', themeProtocolHandler)
