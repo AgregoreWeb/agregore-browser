@@ -1,9 +1,11 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import fs from 'fs'
 import mime from 'mime-types'
+import ScopedFS from 'scoped-fs'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
+const themePath = path.join(__dirname, '../pages/theme')
+const fs = new ScopedFS(themePath)
 
 const CHECK_PATHS = [
   (path) => path,
@@ -25,7 +27,7 @@ async function resolveFile (filePath) {
 
 async function exists (filePath) {
   return new Promise((resolve, reject) => {
-    fs.stat(path.join(__dirname, '../pages/theme', filePath), (err, stat) => {
+    fs.stat(filePath, (err, stat) => {
       if (err) {
         if (err.code === 'ENOENT') resolve(false)
         else reject(err)
@@ -46,8 +48,7 @@ export async function createThemeHandler () {
         try {
           const resolvedPath = await resolveFile(fileName)
           const statusCode = 200
-          const fullPath = path.join(__dirname, '../pages/theme', resolvedPath)
-          const data = fs.createReadStream(fullPath)
+          const data = fs.createReadStream(resolvedPath)
           const contentType = mime.lookup(resolvedPath) || 'text/plain'
           const headers = {
             'Content-Type': contentType,
@@ -71,7 +72,7 @@ export async function createThemeHandler () {
               'Allow-CSP-From': '*',
               'Cache-Control': 'no-cache'
             },
-            data: fs.createReadStream(path.join(__dirname, '../pages/404.html'))
+            data: fs.createReadStream('../404.html')
           })
         }
       } else {
@@ -83,7 +84,7 @@ export async function createThemeHandler () {
             'Allow-CSP-From': '*',
             'Cache-Control': 'no-cache'
           },
-          data: fs.createReadStream(path.join(__dirname, '../pages/404.html'))
+          data: fs.createReadStream('../404.html')
         })
       }
     }
