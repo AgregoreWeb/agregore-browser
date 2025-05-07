@@ -93,9 +93,9 @@ export async function setupProtocols (session) {
   sessionProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', agregoreProtocolHandler)
 
-  const { handler: themeProtocolHandler } = await createThemeHandler()
-  sessionProtocol.registerStreamProtocol('browser', themeProtocolHandler)
-  globalProtocol.registerStreamProtocol('browser', themeProtocolHandler)
+  const { handler: agregoreThemeHandler } = await createThemeHandler()
+  sessionProtocol.registerStreamProtocol('browser', agregoreThemeHandler)
+  globalProtocol.registerStreamProtocol('browser', agregoreThemeHandler)
 
   console.log('Registering hyper handlers')
 
