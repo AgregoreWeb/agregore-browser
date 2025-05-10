@@ -6,7 +6,6 @@ import ScopedFS from 'scoped-fs'
 
 import { version, dependencies as packageDependencies } from '../version.js'
 import Config from '../config.js'
-const { theme } = Config
 
 const CHECK_PATHS = [
   (path) => path,
@@ -77,8 +76,8 @@ export default async function createHandler () {
       const statusCode = 200
 
       const themes = Object
-        .keys(theme)
-        .map((name) => `  --ag-theme-${name}: ${theme[name]};`)
+        .keys(Config.theme)
+        .map((name) => `  --ag-theme-${name}: ${Config.theme[name]};`)
         .join('\n')
 
       const data = intoStream(`
@@ -92,11 +91,11 @@ export default async function createHandler () {
 :root {
 ${themes}
 
-	--browser-theme-font-family: var(--ag-theme-font-family);
-	--browser-theme-background: var(--ag-theme-background);
-	--browser-theme-text-color: var(--ag-theme-text);
-	--browser-theme-primary-highlight: var(--ag-theme-primary);
-	--browser-theme-secondary-highlight: var(--ag-theme-secondary);
+  --browser-theme-font-family: var(--ag-theme-font-family);
+  --browser-theme-background: var(--ag-theme-background);
+  --browser-theme-text-color: var(--ag-theme-text);
+  --browser-theme-primary-highlight: var(--ag-theme-primary);
+  --browser-theme-secondary-highlight: var(--ag-theme-secondary);
 }
       `)
 

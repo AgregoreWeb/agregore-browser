@@ -5,31 +5,28 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
-const { baseURL, apiKey, model } = config.llm
-let { enabled } = config.llm
-
 let isInitialized = false
 
 ipcMain.handle('llm-supported', async (event) => {
-  if (!enabled) return false
+  if (!config.llm.enabled) return false
   return isSupported()
 })
 
 ipcMain.handle('llm-chat', async (event, args) => {
-  if (!enabled) return Promise.reject(new Error('LLM API is disabled'))
+  if (!config.llm.enabled) return Promise.reject(new Error('LLM API is disabled'))
   return chat(args)
 })
 
 ipcMain.handle('llm-complete', async (event, args) => {
-  if (!enabled) return Promise.reject(new Error('LLM API is disabled'))
+  if (!config.llm.enabled) return Promise.reject(new Error('LLM API is disabled'))
   return complete(args)
 })
 
 export async function isSupported () {
-  if (!enabled) return false
+  if (!config.llm.enabled) return false
   const has = await hasModel()
   if (has) return true
-  return (apiKey === 'ollama')
+  return (config.llm.apiKey === 'ollama')
 }
 
 export function addPreloads (session) {
@@ -40,10 +37,10 @@ export function addPreloads (session) {
 }
 
 export async function init () {
-  if (!enabled) throw new Error('LLM API is disabled')
+  if (!config.llm.enabled) throw new Error('LLM API is disabled')
   if (isInitialized) return
   // TODO: prompt for download
-  if (apiKey === 'ollama') {
+  if (config.llm.apiKey === 'ollama') {
     const has = await hasModel()
     if (!has) {
       await confirmPull()
@@ -71,7 +68,7 @@ async function confirmPull () {
 
   if (response === 1) {
     if (checkboxChecked) {
-      enabled = false
+      config.llm.enabled = false
     }
     throw new Error('Cannot use LLM, user denied download')
   }
@@ -80,21 +77,21 @@ async function confirmPull () {
 async function notifyPullDone () {
   await dialog.showMessageBox({
     title: 'AI Model Downloaded',
-    message: `Agregore has finished downloading the large lanfguage model. You can clear it by running 'ollama rm ${model}'`
+    message: `Agregore has finished downloading the large lanfguage model. You can clear it by running 'ollama rm ${config.llm.model}'`
   })
 }
 
 async function pullModel () {
   await post('/api/pull', {
-    name: model
-  }, `Unable to pull model ${model}`, false)
+    name: config.llm.model
+  }, `Unable to pull model ${config.llm.model}`, false)
 }
 
 async function hasModel () {
   try {
     const models = await listModels()
 
-    return !!models.find(({ id }) => id === model)
+    return !!models.find(({ id }) => id === config.llm.model)
   } catch (e) {
     console.error(e.stack)
     return false
@@ -110,7 +107,7 @@ export async function chat ({
   await init()
   const { choices } = await post('./chat/completions', {
     messages,
-    model,
+    model: config.llm.model,
     temperature,
     max_tokens: maxTokens,
     stop
@@ -128,7 +125,7 @@ export async function complete ({
   await init()
   const { choices } = await post('./completions', {
     prompt,
-    model,
+    model: config.llm.model,
     temperature,
     max_tokens: maxTokens,
     stop
@@ -138,12 +135,12 @@ export async function complete ({
 }
 
 async function get (path, errorMessage, parseBody = true) {
-  const url = new URL(path, baseURL).href
+  const url = new URL(path, config.llm.baseURL).href
 
   const response = await fetch(url, {
     method: 'GET',
     headers: {
-      Authorization: `Bearer ${apiKey}`
+      Authorization: `Bearer ${config.llm.apiKey}`
     }
   })
 
@@ -158,14 +155,14 @@ async function get (path, errorMessage, parseBody = true) {
   }
 }
 
-async function post (path, data, errorMessage) {
-  const url = new URL(path, baseURL).href
+async function post (path, data, errorMessage, shouldParse = true) {
+  const url = new URL(path, config.llm.baseURL).href
 
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json; charset=utf8',
-      Authorization: `Bearer ${apiKey}`
+      Authorization: `Bearer ${config.llm.apiKey}`
     },
     body: JSON.stringify(data)
   })
@@ -174,5 +171,8 @@ async function post (path, data, errorMessage) {
     throw new Error(`${errorMessage} ${await response.text()}`)
   }
 
-  return await response.json()
+  if (shouldParse) {
+    return await response.json()
+  }
+  return await response.text()
 }

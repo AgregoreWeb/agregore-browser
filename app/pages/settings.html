@@ -18,7 +18,7 @@
         <label>Auto-Hide Menu Bar: <input name="autoHideMenuBar"></label>
     </fieldset>
     <fieldset>
-        <legend>Theme</legend>
+        <legend id="theme">Theme</legend>
         <label>font-family: <input name="theme.font-family"></label>
         <label>background: <input name="theme.background"></label>
         <label>text: <input name="theme.text"></label>
@@ -28,7 +28,14 @@
         <label>max-width: <input name="theme.max-width"></label>
     </fieldset>
     <fieldset>
-        <legend>Keyboard Shortcuts</legend>
+        <legend id="llm">llm</legend>
+        <label>model: <input name="llm.model"></label>
+        <label>enabled: <input name="llm.enabled"></label>
+        <label>baseURL: <input name="llm.baseURL"></label>
+        <label>apiKey: <input name="llm.apiKey"></label>
+    </fieldset>
+    <fieldset>
+        <legend id="keybindings">Keyboard Shortcuts</legend>
         <label>OpenDevTools: <input name="accelerators.OpenDevTools"></label>
         <label>NewWindow: <input name="accelerators.NewWindow"></label>
         <label>Forward: <input name="accelerators.Forward"></label>
@@ -41,13 +48,6 @@
         <label>OpenExtensionsFolder: <input name="accelerators.OpenExtensionsFolder"></label>
         <label>EditConfigFile: <input name="accelerators.EditConfigFile"></label>
         <label>CreateBookmark: <input name="accelerators.CreateBookmark"></label>
-    </fieldset>
-    <fieldset>
-        <legend>llm</legend>
-        <label>enabled: <input name="llm.enabled"></label>
-        <label>baseURL: <input name="llm.baseURL"></label>
-        <label>apiKey: <input name="llm.apiKey"></label>
-        <label>model: <input name="llm.model"></label>
     </fieldset>
     <center>
         <button>Save</button>
@@ -86,7 +86,8 @@
             }
             console.log('saving', configMap)
             settings.save(configMap)
-            alert('Saved! Restart to activate changes.')
+            alert('Saved!')
+            location.reload()
         } catch (e) {
             alert(e.message)
         }

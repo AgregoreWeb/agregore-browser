@@ -14,11 +14,6 @@ import delay from 'delay'
 
 import Config from './config.js'
 
-const {
-  defaultPage,
-  autoHideMenuBar: DEFAULT_AUTO_HIDE_MENU_BAR
-} = Config
-
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
@@ -232,7 +227,7 @@ export class WindowManager extends EventEmitter {
 
 export class Window extends EventEmitter {
   constructor ({
-    url = defaultPage,
+    url = Config.defaultPage,
     popup = false,
     rawFrame = false || popup,
     autoResize = false || popup,
@@ -241,7 +236,7 @@ export class Window extends EventEmitter {
     onSearch,
     listActions,
     view,
-    autoHideMenuBar = DEFAULT_AUTO_HIDE_MENU_BAR || popup,
+    autoHideMenuBar = Config.autoHideMenuBar || popup,
     ...opts
   } = {}) {
     super()
