@@ -29,7 +29,7 @@ const Config = RC('agregore', {
     // Uncomment this to use OpenAI instead
     // baseURL: 'https://api.openai.com/v1/'
     apiKey: 'ollama',
-    model: 'qwen2.5-coder:7b-instruct-q4_K_M'
+    model: 'qwen2.5-coder:3b'
   },
   accelerators: {
     OpenDevTools: 'CommandOrControl+Shift+I',
