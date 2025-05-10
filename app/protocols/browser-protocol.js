@@ -91,6 +91,12 @@ export default async function createHandler () {
 
 :root {
 ${themes}
+
+	--browser-theme-font-family: var(--ag-theme-font-family);
+	--browser-theme-background: var(--ag-theme-background);
+	--browser-theme-text-color: var(--ag-theme-text);
+	--browser-theme-primary-highlight: var(--ag-theme-primary);
+	--browser-theme-secondary-highlight: var(--ag-theme-secondary);
 }
       `)
 
@@ -107,6 +113,23 @@ ${themes}
         data
       })
 
+      return
+    } else if ((hostname === 'theme') && (pathname === '/base.css')) {
+      const statusCode = 200
+      const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Allow-CSP-From': '*',
+        'Cache-Control': 'no-cache',
+        'Content-Type': 'text/css'
+      }
+
+      const data = fs.createReadStream('theme/style.css')
+
+      sendResponse({
+        statusCode,
+        headers,
+        data
+      })
       return
     }
 

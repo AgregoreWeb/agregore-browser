@@ -64,6 +64,7 @@ export function registerPrivileges () {
     { scheme: 'bt', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
+    { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
     { scheme: 'magnet', privileges: LOW_PRIVILEGES }
   ])
 }
@@ -89,6 +90,8 @@ export async function setupProtocols (session) {
   const { handler: browserProtocolHandler } = await createBrowserHandler()
   sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
   globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
+  sessionProtocol.registerStreamProtocol('browser', browserProtocolHandler)
+  globalProtocol.registerStreamProtocol('browser', browserProtocolHandler)
 
   console.log('Registering hyper handlers')
 
