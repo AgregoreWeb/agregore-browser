@@ -327,7 +327,7 @@ export class Window extends EventEmitter {
     })
 
     this.web.on('dom-ready', async () => {
-      if (this.web.getURL() === 'agregore://settings') {
+      if (this.web.getURL().startsWith('agregore://settings')) {
         this.web.executeJavaScript(`window.onSettings(${JSON.stringify(Config)})`)
       }
       const hasStyles = await this.web.executeJavaScript(HAS_SHEET, true)

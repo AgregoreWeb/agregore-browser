@@ -6,6 +6,11 @@ import { fileURLToPath } from 'node:url'
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 let isInitialized = false
+let createWindow = null
+
+export function setCreateWindow (create) {
+  createWindow = create
+}
 
 ipcMain.handle('llm-supported', async (event) => {
   if (!config.llm.enabled) return false
@@ -41,6 +46,13 @@ export async function init () {
   if (isInitialized) return
   // TODO: prompt for download
   if (config.llm.apiKey === 'ollama') {
+    try {
+      await listModels()
+    } catch {
+      await showNeedsOllama()
+      throw new Error('LLM API needs system service install')
+    }
+
     const has = await hasModel()
     if (!has) {
       await confirmPull()
@@ -54,6 +66,30 @@ export async function init () {
 async function listModels () {
   const { data } = await get('./models', 'Unable to list models')
   return data
+}
+
+async function showNeedsOllama () {
+  const { response, checkboxChecked } = await dialog.showMessageBox({
+    title: 'Set up Ollama',
+    message: 'Agregore needs a local install of Ollama in order to use AI features. Since it has not been detected, would you like help instaaling it, or would yopu like to go configure the settings to use another endpoint?',
+    buttons: ['Show Help', 'Configure', 'Cancel'],
+    defaultId: 0,
+    cancelId: 2,
+    checkboxLabel: 'Remember this choice'
+  })
+
+  if (response === 2) {
+    if (checkboxChecked) {
+      config.llm.enabled = false
+    }
+    throw new Error('Cannot use LLM, user denied help')
+  }
+  if (response === 0) {
+    await createWindow('hyper://agregore.mauve.moe/docs/ai#setting-up-ollama')
+  }
+  if (response === 1) {
+    await createWindow('agregore://settings#llm')
+  }
 }
 
 async function confirmPull () {

@@ -147,6 +147,8 @@ async function onready () {
   llm.addPreloads(webSession)
   config.addPreloads(webSession)
 
+  llm.setCreateWindow(createWindow)
+
   const electronSection = /Electron.+ /i
   const existingAgent = webSession.getUserAgent()
   const newAgent = existingAgent.replace(electronSection, `AgregoreDesktop/${version} `)
