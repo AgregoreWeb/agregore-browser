@@ -253,7 +253,7 @@ class OmniBox extends HTMLElement {
     if (name === 'src') {
       this.input.value = newValue
 
-      const { pathname, hostname } = new URL(newValue)
+      const { pathname } = new URL(newValue)
       const hasUpperFolders = pathname !== '/'
       this.upButton.classList.toggle('hidden', !hasUpperFolders)
 
