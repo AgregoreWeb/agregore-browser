@@ -36,7 +36,8 @@ search.addEventListener('forward', () => {
 })
 
 search.addEventListener('up', () => {
-  currentWindow.loadURL(new URL('../', search.src).href)
+  const next = search.src.endsWith('/') ? '../' : './'
+  currentWindow.loadURL(new URL(next, search.src).href)
 })
 
 search.addEventListener('navigate', ({ detail }) => {

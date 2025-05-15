@@ -254,15 +254,7 @@ class OmniBox extends HTMLElement {
       this.input.value = newValue
 
       const { pathname, hostname } = new URL(newValue)
-      let slashCount = pathname.split('/').length
-      if (!hostname) {
-        slashCount -= 1
-      }
-      if (pathname.endsWith('/')) {
-        slashCount -= 1
-      }
-
-      const hasUpperFolders = slashCount > 2
+      const hasUpperFolders = pathname !== '/'
       this.upButton.classList.toggle('hidden', !hasUpperFolders)
 
       const noFocus = (new URL(window.location.href).searchParams).get('noFocus') === 'true'
