@@ -200,8 +200,8 @@
     "gemini-fetch": "^2.1.1",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.17.0",
-    "hyper-sdk": "^4.5.1",
-    "hypercore-fetch": "^9.9.1",
+    "hyper-sdk": "^6.0.0",
+    "hypercore-fetch": "^10.0.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^5.1.0",
@@ -212,7 +212,6 @@
     "sanitize-filename": "^1.6.3",
     "scoped-fs": "^1.4.1",
     "semver": "^7.5.2",
-    "ssb-fetch": "^1.5.2",
-    "whatwg-mimetype": "https://github.com/jsdom/whatwg-mimetype#v2.3.0"
+    "ssb-fetch": "^1.5.2"
   }
 }
