@@ -325,6 +325,12 @@ export class Window extends EventEmitter {
     this.web.on('update-target-url', (event, url) => {
       this.send('update-target-url', url)
     })
+    this.window.on('enter-full-screen', () => {
+      this.send('enter-full-screen')
+    })
+    this.window.on('leave-full-screen', () => {
+      this.send('leave-full-screen')
+    })
 
     this.web.on('dom-ready', async () => {
       if (this.web.getURL().startsWith('agregore://settings')) {

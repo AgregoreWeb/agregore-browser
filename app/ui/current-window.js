@@ -10,7 +10,9 @@ window.getCurrentWindow = function getCurrentWindow () {
     'leave-html-full-screen',
     'update-target-url',
     'browser-actions-changed',
-    'close'
+    'close',
+    'enter-full-screen',
+    'leave-full-screen'
   ]
 
   class CurrentWindow extends EventEmitter {
