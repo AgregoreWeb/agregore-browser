@@ -13,6 +13,8 @@ A minimal web browser for the distributed web
 
 [Discord Chat](https://discord.gg/QMthd4Y)
 
+Wanna help out? Try your hand at one of the [open issues](https://github.com/AgregoreWeb/agregore-browser/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)!
+
 ## Videos
 
 [Overview from SpeakeasyJS](https://www.youtube.com/watch?v=ciRWmEhL8e8)
