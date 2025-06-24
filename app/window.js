@@ -263,6 +263,7 @@ export class Window extends EventEmitter {
         partition: 'persist:web-content',
         defaultEncoding: 'utf-8',
         nodeIntegration: false,
+        nodeIntegrationInSubFrames: true,
         sandbox: true,
         webviewTag: false,
         contextIsolation: true,
