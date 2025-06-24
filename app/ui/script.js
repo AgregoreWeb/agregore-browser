@@ -78,15 +78,25 @@ currentWindow.on('page-title-updated', (title) => {
 })
 currentWindow.on('enter-html-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', true)
+  webview.emitResize()
 })
 currentWindow.on('leave-html-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', false)
+  webview.emitResize()
 })
 currentWindow.on('update-target-url', async (url) => {
   search.showTarget(url)
 })
 currentWindow.on('browser-actions-changed', () => {
   actions.renderLatest()
+})
+currentWindow.on('enter-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', true)
+  webview.emitResize()
+})
+currentWindow.on('leave-full-screen', () => {
+  if (!rawFrame) nav.classList.toggle('hidden', false)
+  webview.emitResize()
 })
 
 find.addEventListener('next', ({ detail }) => {
