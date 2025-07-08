@@ -5,6 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { readFile, writeFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
+import { getDefaultChainList } from 'web3protocol/chains'
 const { join } = path
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
@@ -101,6 +102,12 @@ const Config = RC('agregore', {
 
   // All options here: https://github.com/ssbc/ssb-config#configuration
   ssbOptions: {},
+
+  // All options here: https://www.npmjs.com/package/web3protocol
+  web3Options: {
+    chainList: getDefaultChainList(),
+    multipleRpcMode: 'fallback'
+  },
 
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {

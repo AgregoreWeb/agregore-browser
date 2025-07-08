@@ -9,6 +9,7 @@ import createGeminiHandler from './gemini-protocol.js'
 import createBTHandler from './bt-protocol.js'
 import createMagnetHandler from './magnet-protocol.js'
 import createRawHTTPSHandler from './raw-http-protocol.js'
+import createWeb3Handler from './web3-protocol.js'
 
 const P2P_PRIVILEGES = {
   standard: true,
@@ -42,6 +43,7 @@ const {
   ipfsOptions,
   ssbOptions,
   hyperOptions,
+  web3Options,
   btOptions
 } = Config
 
@@ -63,6 +65,7 @@ export function registerPrivileges () {
     { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
     { scheme: 'bt', privileges: P2P_PRIVILEGES },
     { scheme: 'ssb', privileges: P2P_PRIVILEGES },
+    { scheme: 'web3', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
     { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
     { scheme: 'magnet', privileges: LOW_PRIVILEGES }
@@ -82,6 +85,7 @@ export function setAsDefaultProtocolClient () {
   app.setAsDefaultProtocolClient('pubsub')
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
+  app.setAsDefaultProtocolClient('web3')
 }
 
 export async function setupProtocols (session) {
@@ -151,4 +155,9 @@ export async function setupProtocols (session) {
 
   const { handler: rawHTTPSHandler } = await createRawHTTPSHandler()
   sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)
+
+  console.log('Regisyering web3 handlers')
+  const {handler: web3Handler} = await createWeb3Handler(web3Options)
+  sessionProtocol.registerStreamProtocol('web3', web3Handler)
+  globalProtocol.registerStreamProtocol('web3', web3Handler)
 }
