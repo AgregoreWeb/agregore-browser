@@ -16,19 +16,19 @@ export default function fetchToHandler (getFetch, session) {
   let loadingFetch = null
 
   async function load () {
-    try {
-      if (hasFetch) return hasFetch
-      if (loadingFetch) return loadingFetch
+    if (hasFetch) return hasFetch
+    if (loadingFetch) return loadingFetch
 
-      loadingFetch = Promise.resolve(getFetch()).then((fetch) => {
-        hasFetch = fetch
-        return fetch
-      })
-
-      return loadingFetch
-    } finally {
+    loadingFetch = Promise.resolve().then(getFetch).then((fetch) => {
+      hasFetch = fetch
       loadingFetch = null
-    }
+      return fetch
+    }).catch((e) => {
+      loadingFetch = null
+      throw e
+    })
+
+    return loadingFetch
   }
 
   async function * readBody (body) {
