@@ -183,9 +183,9 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
-    "electron": "28",
-    "electron-builder": "^23.6.0",
-    "standard": "^17.0.0"
+    "electron": "^37.2.2",
+    "electron-builder": "^26.0.12",
+    "standard": "^17.1.2"
   },
   "dependencies": {
     "@roamhq/wrtc": "^0.8.0",
