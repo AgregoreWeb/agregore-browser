@@ -1,5 +1,5 @@
+/* global Response, ReadableStream */
 import path from 'node:path'
-import { Readable } from 'node:stream'
 import { fileURLToPath } from 'node:url'
 import mime from 'mime'
 import ScopedFS from 'scoped-fs'
@@ -27,7 +27,7 @@ export default async function createHandler () {
 
   function close () {}
 
-  async function protocolHandler (req, sendResponse) {
+  async function protocolHandler (req) {
     const { url } = req
 
     const parsed = new URL(url)
@@ -35,7 +35,7 @@ export default async function createHandler () {
     const toResolve = path.join(hostname, pathname)
 
     if (hostname === 'about') {
-      const statusCode = 200
+      const status = 200
 
       const packagesToRender = [
         'hypercore-fetch',
@@ -57,7 +57,7 @@ export default async function createHandler () {
         dependencies
       }
 
-      const data = intoStream(JSON.stringify(aboutInfo, null, '\t'))
+      const body = JSON.stringify(aboutInfo, null, '\t')
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -65,22 +65,19 @@ export default async function createHandler () {
         'Content-Type': 'application/json'
       }
 
-      sendResponse({
-        statusCode,
-        headers,
-        data
+      return new Response(body, {
+        status,
+        headers
       })
-
-      return
     } else if ((hostname === 'theme') && (pathname === '/vars.css')) {
-      const statusCode = 200
+      const status = 200
 
       const themes = Object
         .keys(Config.theme)
         .map((name) => `  --ag-theme-${name}: ${Config.theme[name]};`)
         .join('\n')
 
-      const data = intoStream(`
+      const body = `
 :root {
   --ag-color-purple: #6e2de5;
   --ag-color-black: #111111;
@@ -97,7 +94,7 @@ ${themes}
   --browser-theme-primary-highlight: var(--ag-theme-primary);
   --browser-theme-secondary-highlight: var(--ag-theme-secondary);
 }
-      `)
+      `
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -106,15 +103,12 @@ ${themes}
         'Content-Type': 'text/css'
       }
 
-      sendResponse({
-        statusCode,
-        headers,
-        data
+      return new Response(body, {
+        status,
+        headers
       })
-
-      return
     } else if ((hostname === 'theme') && (pathname === '/base.css')) {
-      const statusCode = 200
+      const status = 200
       const headers = {
         'Access-Control-Allow-Origin': '*',
         'Allow-CSP-From': '*',
@@ -123,22 +117,22 @@ ${themes}
       }
 
       const data = fs.createReadStream('theme/style.css')
+      const body = new NodeReadableToWebReadable(data)
 
-      sendResponse({
-        statusCode,
-        headers,
-        data
+      return new Response(body, {
+        status,
+        headers
       })
-      return
     }
 
     try {
       const resolvedPath = await resolveFile(toResolve)
-      const statusCode = 200
+      const status = 200
 
       const contentType = mime.getType(resolvedPath) || 'text/plain'
 
       const data = fs.createReadStream(resolvedPath)
+      const body = new NodeReadableToWebReadable(data)
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -147,15 +141,15 @@ ${themes}
         'Content-Type': contentType
       }
 
-      sendResponse({
-        statusCode,
-        headers,
-        data
+      return new Response(body, {
+        status,
+        headers
       })
     } catch (e) {
-      const statusCode = 404
+      const status = 404
 
       const data = fs.createReadStream('404.html')
+      const body = new NodeReadableToWebReadable(data)
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -164,10 +158,9 @@ ${themes}
         'Content-Type': 'text/html'
       }
 
-      sendResponse({
-        statusCode,
-        headers,
-        data
+      return new Response(body, {
+        status,
+        headers
       })
     }
   }
@@ -192,11 +185,21 @@ function exists (path) {
   })
 }
 
-function intoStream (data) {
-  return new Readable({
-    read () {
-      this.push(data)
-      this.push(null)
-    }
-  })
+class NodeReadableToWebReadable extends ReadableStream {
+  constructor (nodeReadable) {
+    super({
+      start (controller) {
+        console.log('Starting')
+        nodeReadable.on('data', (chunk) => {
+          console.log(chunk)
+          controller.enqueue(chunk)
+        })
+        nodeReadable.on('end', () => {
+          console.log('done')
+          controller.close()
+        })
+        nodeReadable.on('error', (err) => controller.error(err))
+      }
+    })
+  }
 }

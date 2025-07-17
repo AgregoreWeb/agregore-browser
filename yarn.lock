@@ -75,9 +75,9 @@
   optionalDependencies:
     global-agent "^3.0.0"
 
-"@electron/node-gyp@git+https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2":
+"@electron/node-gyp@https://github.com/electron/node-gyp#06b29aafb7708acef8b3669835c8a7857ebc92d2":
   version "10.2.0-electron.1"
-  resolved "git+https://github.com/electron/node-gyp.git#06b29aafb7708acef8b3669835c8a7857ebc92d2"
+  resolved "https://github.com/electron/node-gyp#06b29aafb7708acef8b3669835c8a7857ebc92d2"
   dependencies:
     env-paths "^2.2.0"
     exponential-backoff "^3.1.1"
@@ -5652,6 +5652,11 @@ make-fetch@^3.1.1, make-fetch@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-3.1.2.tgz#84c9b796224e4f8fea6b759ab6560a30b6505dac"
   integrity sha512-DsHTfI/GavTqEZvhSfcl3a2ipNVW+YHahKHG1xZB2sq7WS7iNKnK2oVsPcbUiRtOx0KkllBNgeBv1007i64/JQ==
+
+make-fetch@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/make-fetch/-/make-fetch-3.1.3.tgz#91451bf867c7f17352b148a6f1e67cd127bb7beb"
+  integrity sha512-y30oK+UbwYhDWVSLpHWySjaEIgbw0jSYbMMHL+ax7WKJkm2vHEGD+CLjYOOF/WRS2wPfFsXZJ86ACSzcTqp20Q==
 
 matcher@^3.0.0:
   version "3.0.0"

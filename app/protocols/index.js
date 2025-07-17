@@ -92,10 +92,10 @@ export async function setupProtocols (session) {
   const { protocol: sessionProtocol } = session
 
   const { handler: browserProtocolHandler } = await createBrowserHandler()
-  sessionProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
-  globalProtocol.registerStreamProtocol('agregore', browserProtocolHandler)
-  sessionProtocol.registerStreamProtocol('browser', browserProtocolHandler)
-  globalProtocol.registerStreamProtocol('browser', browserProtocolHandler)
+  sessionProtocol.handle('agregore', browserProtocolHandler)
+  globalProtocol.handle('agregore', browserProtocolHandler)
+  sessionProtocol.handle('browser', browserProtocolHandler)
+  globalProtocol.handle('browser', browserProtocolHandler)
 
   console.log('Registering hyper handlers')
 
@@ -104,20 +104,20 @@ export async function setupProtocols (session) {
     close: closeHyper
   } = await createHyperHandler(hyperOptions, session)
   onCloseHandlers.push(closeHyper)
-  sessionProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
-  globalProtocol.registerStreamProtocol('hyper', hyperProtocolHandler)
+  sessionProtocol.handle('hyper', hyperProtocolHandler)
+  globalProtocol.handle('hyper', hyperProtocolHandler)
 
   console.log('Registering ssb handlers')
 
   const { handler: ssbProtocolHandler } = await createSsbHandler(ssbOptions, session)
-  sessionProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
-  globalProtocol.registerStreamProtocol('ssb', ssbProtocolHandler)
+  sessionProtocol.handle('ssb', ssbProtocolHandler)
+  globalProtocol.handle('ssb', ssbProtocolHandler)
 
   console.log('Registering gemini handlers')
 
   const { handler: geminiProtocolHandler } = await createGeminiHandler()
-  sessionProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
-  globalProtocol.registerStreamProtocol('gemini', geminiProtocolHandler)
+  sessionProtocol.handle('gemini', geminiProtocolHandler)
+  globalProtocol.handle('gemini', geminiProtocolHandler)
 
   console.log('Registering IPFS handlers')
 
@@ -126,14 +126,14 @@ export async function setupProtocols (session) {
     close: closeIPFS
   } = await createIPFSHandler(ipfsOptions, session)
   onCloseHandlers.push(closeIPFS)
-  sessionProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
-  globalProtocol.registerStreamProtocol('ipfs', ipfsProtocolHandler)
-  sessionProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
-  globalProtocol.registerStreamProtocol('ipns', ipfsProtocolHandler)
-  sessionProtocol.registerStreamProtocol('ipld', ipfsProtocolHandler)
-  globalProtocol.registerStreamProtocol('ipld', ipfsProtocolHandler)
-  sessionProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
-  globalProtocol.registerStreamProtocol('pubsub', ipfsProtocolHandler)
+  sessionProtocol.handle('ipfs', ipfsProtocolHandler)
+  globalProtocol.handle('ipfs', ipfsProtocolHandler)
+  sessionProtocol.handle('ipns', ipfsProtocolHandler)
+  globalProtocol.handle('ipns', ipfsProtocolHandler)
+  sessionProtocol.handle('ipld', ipfsProtocolHandler)
+  globalProtocol.handle('ipld', ipfsProtocolHandler)
+  sessionProtocol.handle('pubsub', ipfsProtocolHandler)
+  globalProtocol.handle('pubsub', ipfsProtocolHandler)
 
   console.log('Registering bittorrent handlers')
 
@@ -142,22 +142,22 @@ export async function setupProtocols (session) {
     close: closeBT
   } = await createBTHandler(btOptions, session)
   onCloseHandlers.push(closeBT)
-  sessionProtocol.registerStreamProtocol('bittorrent', btHandler)
-  globalProtocol.registerStreamProtocol('bittorrent', btHandler)
-  sessionProtocol.registerStreamProtocol('bt', btHandler)
-  globalProtocol.registerStreamProtocol('bt', btHandler)
+  sessionProtocol.handle('bittorrent', btHandler)
+  globalProtocol.handle('bittorrent', btHandler)
+  sessionProtocol.handle('bt', btHandler)
+  globalProtocol.handle('bt', btHandler)
 
   const magnetHandler = await createMagnetHandler()
-  sessionProtocol.registerStreamProtocol('magnet', magnetHandler)
-  globalProtocol.registerStreamProtocol('magnet', magnetHandler)
+  sessionProtocol.handle('magnet', magnetHandler)
+  globalProtocol.handle('magnet', magnetHandler)
 
   console.log('Registering raw HTTPS handler')
 
   const { handler: rawHTTPSHandler } = await createRawHTTPSHandler()
-  sessionProtocol.registerStreamProtocol('https+raw', rawHTTPSHandler)
+  sessionProtocol.handle('https+raw', rawHTTPSHandler)
 
   console.log('Regisyering web3 handlers')
-  const {handler: web3Handler} = await createWeb3Handler(web3Options)
-  sessionProtocol.registerStreamProtocol('web3', web3Handler)
-  globalProtocol.registerStreamProtocol('web3', web3Handler)
+  const { handler: web3Handler } = await createWeb3Handler(web3Options)
+  sessionProtocol.handle('web3', web3Handler)
+  globalProtocol.handle('web3', web3Handler)
 }

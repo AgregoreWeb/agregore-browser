@@ -1,10 +1,9 @@
-import { Readable } from 'stream'
-
+/* global Response */
 const INFO_HASH_MATCH = /^urn:btih:([a-f0-9]{40})$/ig
 const PUBLIC_KEY_MATCH = /^urn:btpk:([a-f0-9]{64})$/ig
 
 export default async function createHandler () {
-  return function magnetHandler (req, sendResponse) {
+  return function magnetHandler (req) {
     try {
       const parsed = new URL(req.url)
 
@@ -16,8 +15,7 @@ export default async function createHandler () {
         if (match) {
           const publicKey = match[1]
           const final = `bittorrent://${publicKey}`
-          sendFinal(final)
-          return
+          return sendFinal(final)
         }
       }
       if (xt) {
@@ -27,42 +25,30 @@ export default async function createHandler () {
         }
         const infohash = match[1]
         const final = `bittorrent://${infohash}/`
-        sendFinal(final)
-        return
+        return sendFinal(final)
       }
 
       return sendError('Magnet link has no `xt` or `xs` parameter')
     } catch (e) {
-      sendError(e.stack)
+      return sendError(e.stack)
     }
 
     function sendFinal (Location) {
-      sendResponse({
-        statusCode: 308,
+      return new Response('', {
+        status: 308,
         headers: {
           Location
-        },
-        data: intoStream('')
+        }
       })
     }
 
     function sendError (message) {
-      sendResponse({
+      return new Response(message, {
         statusCode: 400,
         headers: {
           'content-type': 'text/html'
-        },
-        data: intoStream(message)
+        }
       })
     }
   }
-}
-
-function intoStream (data) {
-  return new Readable({
-    read () {
-      this.push(data)
-      this.push(null)
-    }
-  })
 }
