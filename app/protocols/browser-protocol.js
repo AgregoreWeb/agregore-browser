@@ -189,13 +189,10 @@ class NodeReadableToWebReadable extends ReadableStream {
   constructor (nodeReadable) {
     super({
       start (controller) {
-        console.log('Starting')
         nodeReadable.on('data', (chunk) => {
-          console.log(chunk)
           controller.enqueue(chunk)
         })
         nodeReadable.on('end', () => {
-          console.log('done')
           controller.close()
         })
         nodeReadable.on('error', (err) => controller.error(err))
