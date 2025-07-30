@@ -42,7 +42,8 @@ const WINDOW_METHODS = [
   'findInPage',
   'stopFindInPage',
   'setBounds',
-  'searchHistory',
+  'searchHistoryStart',
+  'searchHistoryNext',
   'listExtensionActions',
   'clickExtensionAction'
 ]
@@ -97,7 +98,7 @@ export class WindowManager extends EventEmitter {
       ...opts
     })
 
-    console.log('created window', window.id)
+    if (IS_DEBUG) console.log('created window', window.id)
     this.windows.add(window)
     window.once('close', () => {
       this.windows.delete(window)
@@ -226,6 +227,7 @@ export class WindowManager extends EventEmitter {
 }
 
 export class Window extends EventEmitter {
+  #searchIterator = null
   constructor ({
     url = Config.defaultPage,
     popup = false,
@@ -414,8 +416,20 @@ export class Window extends EventEmitter {
     return this.web.stopFindInPage('clearSelection')
   }
 
-  async searchHistory (...args) {
-    return this.onSearch(...args)
+  async searchHistoryStart (...args) {
+    this.#searchIterator = this.onSearch(...args)
+  }
+
+  async searchHistoryNext () {
+    if (!this.#searchIterator) return { done: true, value: null }
+    try {
+      const { done, value } = await this.#searchIterator.next()
+      if (done) this.#searchIterator = null
+      return { done, value }
+    } catch (e) {
+      console.error('Error getting next history item')
+      throw e
+    }
   }
 
   async setBounds (rect) {

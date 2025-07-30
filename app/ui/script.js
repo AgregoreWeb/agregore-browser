@@ -54,9 +54,11 @@ search.addEventListener('unfocus', async () => {
 search.addEventListener('search', async ({ detail }) => {
   const { query, searchID } = detail
 
-  const results = await currentWindow.searchHistory(query, searchID)
-
-  search.setSearchResults(results, query, searchID)
+  const results = []
+  for await (const result of currentWindow.searchHistory(query)) {
+    results.push(result)
+    search.setSearchResults(results, query, searchID)
+  }
 })
 
 webview.addEventListener('focus', () => {

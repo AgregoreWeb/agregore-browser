@@ -193,7 +193,6 @@ class OmniBox extends HTMLElement {
     if (this.lastSearch !== searchID) {
       return console.debug('Urlbar changed since query finished', this.lastSearch, searchID, query)
     }
-
     const finalItems = []
 
     if (isURL(query)) {
@@ -224,9 +223,7 @@ class OmniBox extends HTMLElement {
       .map(({ title, url }) => this.makeNavItem(url, `${title} - ${url}`))
     )
 
-    for (const item of finalItems) {
-      this.options.appendChild(item)
-    }
+    this.options.replaceChildren(...finalItems)
 
     this.getSelected().setAttribute('data-selected', 'selected')
   }

@@ -60,8 +60,15 @@ window.getCurrentWindow = function getCurrentWindow () {
       return this.invoke('setBounds', rect)
     }
 
-    async searchHistory (query, limit = 8) {
-      return this.invoke('searchHistory', query, limit)
+    async * searchHistory (query, limit = 8) {
+      // Open iterator, get back an id
+      // Invoke next until done
+      await this.invoke('searchHistoryStart', query, limit)
+      while (true) {
+        const { done, value } = await this.invoke('searchHistoryNext')
+        if (done) break
+        yield value
+      }
     }
 
     async listExtensionActions () {
