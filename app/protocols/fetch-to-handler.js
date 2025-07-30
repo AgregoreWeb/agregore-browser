@@ -1,4 +1,4 @@
-/* global Response */
+/* global Response, Headers */
 export const CORS_HEADERS = [
   'Access-Control-Allow-Origin',
   'Allow-CSP-From',
@@ -45,9 +45,18 @@ export default function fetchToHandler (getFetch, session) {
       const fetch = await load()
 
       const response = await fetch(request)
+      try {
+        for (const header of CORS_HEADERS) {
+          response.headers.set(header, '*')
+        }
+      } catch {
+        const newHeaders = new Headers([...response.headers])
 
-      for (const header of CORS_HEADERS) {
-        response.headers.set(header, '*')
+        return new Response(response.body, {
+          headers: newHeaders,
+          statusText: response.statusText,
+          status: response.status
+        })
       }
 
       return response
