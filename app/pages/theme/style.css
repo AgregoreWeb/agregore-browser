@@ -12,7 +12,7 @@
 }
 
 html {
-  background: var(--ag-theme-background);
+  background: var(--ag-theme-page);
   color: var(--ag-theme-text);
   font-family: var(--ag-theme-font-family);
   font-size: inherit;
@@ -56,7 +56,7 @@ option {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  background: none;
+  background: var(--ag-theme-background);
   padding: 0.5em;
   border-radius: 0.25em;
 }

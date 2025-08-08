@@ -90,6 +90,7 @@ ${themes}
 
   --browser-theme-font-family: var(--ag-theme-font-family);
   --browser-theme-background: var(--ag-theme-background);
+  --browser-theme-page: var(--ag-theme-page);
   --browser-theme-text-color: var(--ag-theme-text);
   --browser-theme-primary-highlight: var(--ag-theme-primary);
   --browser-theme-secondary-highlight: var(--ag-theme-secondary);
