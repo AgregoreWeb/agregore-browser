@@ -18,6 +18,7 @@ const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 
 const DEFAULT_PAGE = 'agregore://welcome'
+const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?q=%s'
 
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 export const MAIN_RC_FILE = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
@@ -65,6 +66,7 @@ const Config = RC('agregore', {
 
   defaultPage: DEFAULT_PAGE,
   autoHideMenuBar: false,
+  searchProvider: DEFAULT_SEARCH_PROVIDER,
 
   // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
   ipfsOptions: {
