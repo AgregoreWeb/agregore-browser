@@ -239,6 +239,7 @@ export class Window extends EventEmitter {
     listActions,
     view,
     autoHideMenuBar = Config.autoHideMenuBar || popup,
+    searchProvider = Config.searchProvider,
     ...opts
   } = {}) {
     super()
@@ -366,6 +367,7 @@ export class Window extends EventEmitter {
     if (rawFrame) toLoad.searchParams.set('rawFrame', 'true')
     if (noNav) toLoad.searchParams.set('noNav', 'true')
     if (noFocus) toLoad.searchParams.set('noFocus', 'true')
+    if (searchProvider) toLoad.searchParams.set('searchProvider', searchProvider)
 
     this.toLoad = toLoad.href
   }
