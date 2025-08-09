@@ -320,7 +320,7 @@ function makeHttps (query) {
 }
 
 function makeDuckDuckGo (query) {
-  return `https://duckduckgo.com/?q=${encodeURIComponent(query)}`
+  return `https://duckduckgo.com/?ia=web&q=${encodeURIComponent(query)}`
 }
 
 function isURL (string) {
