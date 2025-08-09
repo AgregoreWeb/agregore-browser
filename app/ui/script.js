@@ -54,10 +54,9 @@ search.addEventListener('unfocus', async () => {
 search.addEventListener('search', async ({ detail }) => {
   const { query, searchID } = detail
 
-  const results = []
+  search.setSearchResults([], query, searchID)
   for await (const result of currentWindow.searchHistory(query)) {
-    results.push(result)
-    search.setSearchResults(results, query, searchID)
+    search.addSearchResult(result)
   }
 })
 
