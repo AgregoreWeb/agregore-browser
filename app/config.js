@@ -10,8 +10,8 @@ const { join } = path
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
-const isWindows = process.platform === 'win32';
-const isMac = process.platform === 'darwin';
+const isWindows = process.platform === 'win32'
+const isMac = process.platform === 'darwin'
 
 const USER_DATA = app.getPath('userData')
 const DEFAULT_EXTENSIONS_DIR = path.join(USER_DATA, 'extensions')
@@ -25,27 +25,34 @@ const DEFAULT_PAGE = 'agregore://welcome'
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 export const MAIN_RC_FILE = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
 
-let DEFAULT_BACKGROUND =  'var(--ag-color-black)'
+let DEFAULT_BACKGROUND = 'var(--ag-color-black)'
 let DEFAULT_TEXT = 'var(--ag-color-white)'
 let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
 
-if(nativeTheme.shouldUseDarkColors == false) {
-	DEFAULT_BACKGROUND =  'var(--ag-color-white)'
-	DEFAULT_TEXT =  'var(--ag-color-black)'
-	DEFAULT_PAGE_THEME = `var(--ag-color-white)`
+if (nativeTheme.shouldUseDarkColors == false) {
+  DEFAULT_BACKGROUND = 'var(--ag-color-white)'
+  DEFAULT_TEXT = 'var(--ag-color-black)'
+  DEFAULT_PAGE_THEME = 'var(--ag-color-white)'
 
-	if(isMac) {
-		DEFAULT_BACKGROUND = '#F5F5F7'
-		DEFAULT_TEXT = '#1D1D1F'
-	}
+  if (isMac) {
+    DEFAULT_BACKGROUND = '#F5F5F7'
+    DEFAULT_TEXT = '#1D1D1F'
+  }
+  if (isWindows) {
+    DEFAULT_BACKGROUND = '#F3F3F3'
+    DEFAULT_TEXT = '#1a1a1a'
+  }
 } else {
-	if(isMac) {
-		DEFAULT_BACKGROUND = '#2C2C2E'
-	}
+  if (isMac) {
+    DEFAULT_BACKGROUND = '#2C2C2E'
+  }
+  if (isWindows) {
+    DEFAULT_BACKGROUND = '#202020'
+  }
 }
 
-if(isMac || isWindows) {
-	DEFAULT_PAGE_THEME = 'none'
+if (isMac || isWindows) {
+  DEFAULT_PAGE_THEME = 'none'
 }
 
 const Config = RC('agregore', {
