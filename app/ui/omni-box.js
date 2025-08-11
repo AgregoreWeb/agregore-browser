@@ -6,6 +6,8 @@ const { CID } = require('multiformats/cid')
 const IPNS_PREFIX = '/ipns/'
 const IPFS_PREFIX = '/ipfs/'
 
+const WEB_SEARCH_QUERY_PARAM = /%s/gi
+
 class OmniBox extends HTMLElement {
   constructor () {
     super()
@@ -18,7 +20,7 @@ class OmniBox extends HTMLElement {
   }
 
   connectedCallback () {
-    this.innerHTML = ` 
+    this.innerHTML = `
       <section class="omni-box-header">
         <button class="hidden omni-box-button omni-box-back" title="Go back in history">⬅</button>
         <button class="hidden omni-box-button omni-box-up" title="Go up one directory">⬆</button>
@@ -69,7 +71,7 @@ class OmniBox extends HTMLElement {
         } else if (looksLikeDomain(rawURL)) {
           url = makeHttps(rawURL)
         } else {
-          url = makeDuckDuckGo(rawURL)
+          url = makeWebSearch(rawURL)
         }
       }
 
@@ -213,8 +215,8 @@ class OmniBox extends HTMLElement {
     } else {
       finalItems.push(
         this.makeNavItem(
-          makeDuckDuckGo(query),
-          `Search for "${query}" on DuckDuckGo`
+          makeWebSearch(query),
+          `Search for "${query}" on Web`
         )
       )
     }
@@ -319,8 +321,9 @@ function makeHttps (query) {
   return `https://${query}`
 }
 
-function makeDuckDuckGo (query) {
-  return `https://duckduckgo.com/?ia=web&q=${encodeURIComponent(query)}`
+function makeWebSearch (query) {
+  const searchProvider = window.searchProvider // Initialized in script.js
+  return searchProvider.replaceAll(WEB_SEARCH_QUERY_PARAM, encodeURIComponent(query))
 }
 
 function isURL (string) {
