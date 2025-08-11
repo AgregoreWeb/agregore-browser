@@ -9,14 +9,13 @@ export default async function createHandler (ipfsOptions, session) {
 
     const Ctl = await import('ipfsd-ctl')
 
-    const { default: GoIPFS } = await import('go-ipfs')
+    const GoIPFS = await import('kubo')
 
     const ipfsBin = GoIPFS
       .path()
       .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
     const ipfsdOpts = {
-
       ipfsOptions,
       type: 'go',
       disposable: false,

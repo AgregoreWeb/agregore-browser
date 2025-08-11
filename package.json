@@ -12,7 +12,7 @@
     "builder-all": "electron-builder build -mwl",
     "lint": "standard --fix",
     "preversion": "npm run test",
-    "postinstall": "npm run postversion && npm run download-extensions && electron-builder install-app-deps",
+    "postinstall": "npm run postversion && npm run download-extensions",
     "download-extensions": "node ./download-extensions.js",
     "postversion": "node ./update-versions.js"
   },
@@ -28,7 +28,7 @@
     ]
   },
   "build": {
-    "npmRebuild": true,
+    "npmRebuild": false,
     "asar": true,
     "asarUnpack": [
       "app/**",
@@ -205,7 +205,6 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^2.1.1",
     "gemini-to-html": "^1.0.0",
-    "go-ipfs": "^0.17.0",
     "hyper-sdk": "^6.0.0",
     "hypercore-fetch": "^10.0.0",
     "ipfs-http-client": "^60.0.0",
