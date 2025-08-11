@@ -18,7 +18,7 @@ const DEFAULT_HYPER_DIR = path.join(USER_DATA, 'hyper')
 const DEFAULT_BT_DIR = path.join(USER_DATA, 'bt')
 
 const DEFAULT_PAGE = 'agregore://welcome'
-const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?q=%s'
+const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?ia=web&q=%s'
 
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 export const MAIN_RC_FILE = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)

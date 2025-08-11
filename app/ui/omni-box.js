@@ -230,6 +230,11 @@ class OmniBox extends HTMLElement {
     this.getSelected().setAttribute('data-selected', 'selected')
   }
 
+  addSearchResult ({ title, url }) {
+    const item = this.makeNavItem(url, `${title} - ${url}`)
+    this.options.appendChild(item)
+  }
+
   makeNavItem (url, text) {
     const element = document.createElement('button')
     element.classList.add('omni-box-nav-item')

@@ -1,5 +1,5 @@
 const DEFAULT_PAGE = 'agregore://welcome'
-const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?q=%s'
+const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?ia=web&q=%s'
 
 const webview = $('#view')
 // Kyran: Using variable name "top" causes issues for some reason? I would assume it's because of another one of the UI scripts but it doesn't seem like that's the case.
@@ -58,10 +58,9 @@ search.addEventListener('unfocus', async () => {
 search.addEventListener('search', async ({ detail }) => {
   const { query, searchID } = detail
 
-  const results = []
+  search.setSearchResults([], query, searchID)
   for await (const result of currentWindow.searchHistory(query)) {
-    results.push(result)
-    search.setSearchResults(results, query, searchID)
+    search.addSearchResult(result)
   }
 })
 
