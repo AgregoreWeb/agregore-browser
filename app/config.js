@@ -30,7 +30,7 @@ let DEFAULT_BACKGROUND = 'var(--ag-color-black)'
 let DEFAULT_TEXT = 'var(--ag-color-white)'
 let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
 
-if (nativeTheme.shouldUseDarkColors == false) {
+if (nativeTheme.shouldUseDarkColors === false) {
   DEFAULT_BACKGROUND = 'var(--ag-color-white)'
   DEFAULT_TEXT = 'var(--ag-color-black)'
   DEFAULT_PAGE_THEME = 'var(--ag-color-white)'

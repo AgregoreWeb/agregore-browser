@@ -6,7 +6,7 @@ export default async function createHandler (options) {
   return fetchToHandler(async () => {
     const { chainList, ...opts } = options
     const web3Client = new Client(chainList, opts)
-    async function fetch ({url, method }) {
+    async function fetch ({ url, method }) {
       if (method !== 'GET') {
         return new Response('Method Not Allowed', {
           status: 405
