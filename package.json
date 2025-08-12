@@ -1,6 +1,6 @@
 {
   "name": "agregore-browser",
-  "version": "2.16.0",
+  "version": "2.17.0",
   "description": "A minimal web browser for the distributed web",
   "main": "app/main.cjs",
   "type": "module",
