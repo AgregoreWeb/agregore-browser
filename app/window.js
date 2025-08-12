@@ -257,6 +257,9 @@ export class Window extends EventEmitter {
         webviewTag: false,
         contextIsolation: false
       },
+      vibrancy: 'dark',
+      backgroundMaterial: 'mica',
+      // transparent: true,
       show: false,
       icon: LOGO_FILE,
       ...opts
@@ -274,6 +277,10 @@ export class Window extends EventEmitter {
         enablePreferredSizeMode: autoResize
       }
     })
+
+    this.window.setVibrancy('fullscreen-ui')
+    this.window.setBackgroundColor('#00000000')
+    this.window.setBackgroundMaterial('mica')
 
     this.window.setBrowserView(this.view)
 

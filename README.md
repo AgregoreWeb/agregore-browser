@@ -92,18 +92,18 @@ This project uses the [StandardJS](https://standardjs.com/) code style. Please f
 
 To build from source do the following:
 
-- Set up node.js (at least Node 18), git, and yarn
+- Set up node.js (at least Node 18) and git
 - Set up [Node-gyp](https://github.com/nodejs/node-gyp) and its dependencies for your OS
 - fork the repo
 - Pull your fork to your computer
 - Load submodules with `git submodule update --init --recursive`
-- Run `yarn` or `npm install` to install dependencies
-- Run `yarn start` or `npm start` to start the browser and test your changes
-- After coding, when ready to submit, run `npm run lint` or `yarn lint` to check code style
+- Run `npm install` to install dependencies
+- Run `npm start` to start the browser and test your changes
+- After coding, when ready to submit, run `npm run lint` to check code style
 - Push to your clone
 - Submit a pull request
 
 Other notes:
-- To debug extensions, run `yarn debug` to have devtools opened for their background pages
+- To debug extensions, run `npm run debug` to have devtools opened for their background pages
 - If you're interested in a CLI for these protocols, check out [curld](https://github.com/Lohn/curld) `cURL for Distributed Web`. That project supports the same protocols as Agregore, but in a terminal way.
-- To download the latest versions of ArchiveWeb.page or Ublock Origin, run `yarn download-extennsions`
+- To download the latest versions of ArchiveWeb.page or Ublock Origin, run `npm run download-extensions`
