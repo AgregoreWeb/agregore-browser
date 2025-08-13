@@ -62,9 +62,8 @@ export default function fetchToHandler (getFetch, session) {
       return response
     } catch (e) {
       console.log(e)
-      return new Response({
-        status: 500,
-        body: e.stack
+      return new Response(e.stack, {
+        status: 500
       })
     }
   }
