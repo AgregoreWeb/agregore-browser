@@ -118,6 +118,7 @@ details summary::-webkit-details-marker {
 
 table {
   border-collapse: collapse;
+  margin: 1em auto;
 }
 
 body>table,
