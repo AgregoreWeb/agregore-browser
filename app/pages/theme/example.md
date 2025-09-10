@@ -67,13 +67,18 @@ Example content hidden in some details.
 
 <iframe src="agregore://welcome"></iframe>
 
-### Table
+### Tables (try sorting)
 
-| Column 1 | Column 2 | Column 3 |
-|----------|----------|----------|
-| Example Row 1, Cell 1 | Example Row 1, Cell 2 | Example Row 1, 
-Cell 3 |
-| Example Row 2, Cell 1 | Example Row 2, Cell 2 | Example Row 2, 
-Cell 3 |
-| Example Row 3, Cell 1 | Example Row 3, Cell 2 | Example Row 3, 
-Cell 3 |
+| ID | Name | Age | Score | Date |
+|----|------|-----|-------|------|
+| 3 | Charlie | 25 | 85 | 2024-01-15 |
+| 1 | Alice | 30 | 92 | 2024-01-10 |
+| 2 | Bob | 28 | 78 | 2024-01-20 |
+| 4 | Diana | 22 | 95 | 2024-01-05 |
+
+| Product | Price | Category | Stock | Rating |
+|---------|-------|----------|-------|--------|
+| Laptop | $999.99 | Electronics | 15 | 4.5 |
+| Book | $19.99 | Books | 42 | 4.2 |
+| Shirt | $45.50 | Clothing | 8 | 3.8 |
+| Phone | $699.00 | Electronics | 23 | 4.7 |
