@@ -58,15 +58,15 @@ search.addEventListener('unfocus', async () => {
 })
 
 search.addEventListener('search', async ({ detail }) => {
-  if(searchAborter) searchAborter.abort()
+  if (searchAborter) searchAborter.abort()
   searchAborter = new AbortController()
-  const {signal} = searchAborter
- 
+  const { signal } = searchAborter
+
   const { query, searchID } = detail
 
   search.setSearchResults([], query, searchID)
   for await (const result of currentWindow.searchHistory(query)) {
-  if(signal.aborted) break
+    if (signal.aborted) break
     search.addSearchResult(result)
   }
 })
@@ -82,7 +82,7 @@ webview.addEventListener('resize', ({ detail: rect }) => {
 currentWindow.on('navigating', (url) => {
   search.src = url
   find.hide()
-  if(searchAborter) searchAborter.abort()
+  if (searchAborter) searchAborter.abort()
 })
 
 currentWindow.on('history-buttons-change', updateButtons)
