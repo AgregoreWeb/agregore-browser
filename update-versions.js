@@ -15,6 +15,6 @@ export const version = '${version}'
 export const dependencies = ${JSON.stringify(dependencies, null, '  ')}
 `
 
-await fs.writeFile('./app/version.js', fileContents)
+await fs.writeFile('./src/version.js', fileContents)
 
 console.log('Done!')
