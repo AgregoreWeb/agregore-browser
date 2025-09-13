@@ -9,7 +9,7 @@ import { pipeline } from 'stream/promises'
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
-const EXTENSION_FOLDER = path.join(__dirname, 'app/extensions')
+const EXTENSION_FOLDER = path.join(__dirname, 'src/extensions')
 const EXTENSIONS_LIST_FILE = path.join(EXTENSION_FOLDER, 'builtins.json')
 const EXTENSIONS_BUILTINS_FOLDER = path.join(EXTENSION_FOLDER, 'builtins/')
 

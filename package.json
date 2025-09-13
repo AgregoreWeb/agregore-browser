@@ -2,7 +2,7 @@
   "name": "agregore-browser",
   "version": "2.18.0",
   "description": "A minimal web browser for the distributed web",
-  "main": "app/main.cjs",
+  "main": "src/main.cjs",
   "type": "module",
   "scripts": {
     "test": "npm run lint",
@@ -31,7 +31,7 @@
     "npmRebuild": false,
     "asar": true,
     "asarUnpack": [
-      "app/**",
+      "src/**",
       "node_modules/**",
       "build/icon.png",
       "build/icon-small.png",
@@ -41,8 +41,8 @@
     "appId": "agregore.mauve.moe",
     "files": [
       "build/*",
-      "app/**/*",
-      "app/*",
+      "src/**/*",
+      "src/*",
       "node_modules/**/*",
       "package.json"
     ],
