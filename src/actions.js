@@ -47,6 +47,29 @@ export function createActions ({
       accelerator: accelerators.Back,
       click: onGoBack
     },
+    Up: {
+      label: 'Up',
+      accelerator: accelerators.Up,
+      click: onGoUp
+    },
+    ForwardAlt: {
+      label: 'Forward',
+      accelerator: 'Alt+Right',
+      click: onGoForward,
+      visible: false
+    },
+    BackAlt: {
+      label: 'Back',
+      accelerator: 'Alt+Left',
+      click: onGoBack,
+      visible: false
+    },
+    UpAlt: {
+      label: 'Up',
+      accelerator: 'Alt+Up',
+      click: onGoUp,
+      visible: false
+    },
     FocusURLBar: {
       label: 'Focus URL Bar',
       click: onFocusURlBar,
@@ -160,6 +183,15 @@ export function createActions ({
   function onGoBack (event, focusedWindow) {
     for (const webContents of getContents(focusedWindow)) {
       webContents.goBack()
+    }
+  }
+
+  function onGoUp (event, focusedWindow) {
+    for (const webContents of getContents(focusedWindow)) {
+      const currentURL = webContents.getURL()
+      const next = currentURL.endsWith('/') ? '../' : './'
+      const toLoad =new URL(next, currentURL).href
+      webContents.loadURL(toLoad)
     }
   }
 
