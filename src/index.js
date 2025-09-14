@@ -119,13 +119,19 @@ app.on('activate', () => {
   }
 })
 
-app.on('before-quit', () => {
-  windowManager.saveOpened()
-  windowManager.close()
-  protocols.close()
+app.on('before-quit', async (e) => {
+  e.preventDefault()
+  try {
+    await windowManager.saveOpened()
+    await windowManager.close()
+    await protocols.close()
+  } finally {
+    app.exit(0)
+  }
 })
 
 app.on('window-all-closed', () => {})
+
 async function onready () {
   console.log('Building tray and context menu')
   const appIcon = new Tray(LOGO_FILE)

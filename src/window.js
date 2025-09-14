@@ -147,7 +147,7 @@ export class WindowManager extends EventEmitter {
     return [...this.windows.values()]
   }
 
-  saveOpened () {
+  async saveOpened () {
     console.log('Saving open windows')
     let urls = []
     for (const window of this.all) {
@@ -156,8 +156,9 @@ export class WindowManager extends EventEmitter {
       const url = window.web.getURL()
       const position = window.window.getPosition()
       const size = window.window.getSize()
+      const scrollOffset = await window.web.executeJavaScript('window.pageYOffset')
 
-      urls.push({ url, position, size })
+      urls.push({ url, position, size, scrollOffset })
     }
 
     if (urls.length === 1) urls = []
@@ -174,7 +175,7 @@ export class WindowManager extends EventEmitter {
         noFocus: true
       }
 
-      const { url, position, size } = info
+      const { url, position, size, scrollOffset } = info
 
       options.url = url
 
@@ -191,6 +192,14 @@ export class WindowManager extends EventEmitter {
       }
 
       const window = this.open(options)
+
+      if (scrollOffset) {
+        window.web.once('dom-ready', () => {
+          // Wait a bit the JS to settle down
+          const scrollCode = `setTimeout(()=>window.scrollTo(0, ${scrollOffset}), 100)`
+          window.web.executeJavaScript(scrollCode)
+        })
+      }
 
       return window
     })

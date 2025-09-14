@@ -190,7 +190,7 @@ export function createActions ({
     for (const webContents of getContents(focusedWindow)) {
       const currentURL = webContents.getURL()
       const next = currentURL.endsWith('/') ? '../' : './'
-      const toLoad =new URL(next, currentURL).href
+      const toLoad = new URL(next, currentURL).href
       webContents.loadURL(toLoad)
     }
   }
