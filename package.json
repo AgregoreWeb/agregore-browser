@@ -205,7 +205,7 @@
     "fs-extra": "^9.0.1",
     "gemini-fetch": "^2.1.1",
     "gemini-to-html": "^1.0.0",
-    "hyper-sdk": "^6.0.0",
+    "hyper-sdk": "^6.1.0",
     "hypercore-fetch": "^10.0.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
