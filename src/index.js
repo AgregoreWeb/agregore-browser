@@ -121,6 +121,8 @@ app.on('activate', () => {
 
 app.on('before-quit', async (e) => {
   e.preventDefault()
+  // Fallback to quit if quitting takes too long
+  setTimeout(() => app.exit(0), 20000)
   try {
     await windowManager.saveOpened()
     await windowManager.close()
