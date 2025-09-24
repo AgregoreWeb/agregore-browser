@@ -150,19 +150,18 @@ export class WindowManager extends EventEmitter {
   async saveOpened () {
     console.log('Saving open windows')
     let urls = []
-    for (const window of this.all) {
+    await Promise.all(this.all.map(async (window) => {
       // We don't need to save popups from extensions
-      if (window.rawFrame) continue
+      if (window.rawFrame) return
       const url = window.web.getURL()
+      if(!url) return
       const position = window.window.getPosition()
       const size = window.window.getSize()
       const scrollOffset = await window.web.executeJavaScript('window.pageYOffset')
-
       urls.push({ url, position, size, scrollOffset })
-    }
+    }))
 
     if (urls.length === 1) urls = []
-
     fs.outputJsonSync(this.persistTo, urls)
   }
 
@@ -217,6 +216,9 @@ export class WindowManager extends EventEmitter {
 
   close () {
     this.clearSaver()
+    for (const window of this.all) {
+      window.window.close()
+    }
   }
 
   restartSaver () {
