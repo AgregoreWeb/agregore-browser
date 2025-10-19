@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<title>Theme Editor</title>
+
+<!DOCTYPE html>
+<title>Theme Editor</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<style>
+  @import url("agregore://theme/style.css");
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5em;
+  }
+  form button {
+    margin: 0.5em auto;
+    display: block;
+  }
+  #aboutOpener {
+    position: fixed;
+    top: 0.5em;
+    right: 0.5em;
+  }
+  #jsonDump {
+    min-height: 18em;
+  }
+</style>
+
+<h1>Theme Editor</h1>
+<form id="settingsForm">
+  <label>page background: <input name="theme.page" type="color"></label>
+  <label>element background: <input name="theme.background" type="color"></label>
+  <label>text color: <input name="theme.text" type="color"></label>
+  <label>primary highlight: <input name="theme.primary" type="color"></label>
+  <label>secondary highlight: <input name="theme.secondary" type="color"></label>
+  <hr/>
+  <label>font-family: <input name="theme.font-family"></label>
+  <label>border-radius: <input name="theme.border-radius"></label>
+  <label>max-width: <input name="theme.max-width"></label>
+  <button>Save</button>
+</form>
+<button id="aboutOpener" title="What is this" onclick="aboutBox.showModal()">❔</button>
+
+<dialog id="aboutBox">
+  <p>
+    This page lets you customize your browser's <a href="hyper://agregore.mauve.moe/docs/theming">color scheme</a>.
+    Fiddle with the values and when you're happy with the look hit <code>Save</code> to apply the style to all pages.
+  </p>
+  <p>
+    You can also copy  this style as JSON,
+    and send it to a friend.
+    They can then paste the result anywhere on the page to have the style applied.
+    If you want to share your style with others, consider <a href="https://github.com/AgregoreWeb/website/blob/main/docs/theming.md">sharing it on the website</a>.
+  </p>
+  <p>
+    <textarea id="jsonDump" readonly></textarea>
+  </p>
+  <form method="dialog">
+    <button>Close</button>
+  </form>
+</dialog>
+
+<script>
+window.settingsForm.onsubmit = onSettingsChanged
+
+document.addEventListener('paste', function(event) {
+  const text = event.clipboardData.getData('text')
+  const parsed = JSON.parse(text)
+
+  if(typeof parsed.theme === 'object') {
+    onSettings(parsed)
+  }
+})
+
+function $(selector) {
+    return document.querySelector(selector)
+}
+function $$(selector) {
+    return [...document.querySelectorAll(selector)]
+}
+
+function onSettings(settings) {
+  console.log({ settings })
+  for (const [subkey, subvalue] of Object.entries(settings.theme)) {
+      const e = $(`[name="theme.${subkey}"]`)
+      if(!e) continue
+      const val = isCssVar(subvalue) ? getCssVariable(subvalue) : subvalue
+      e.value = val
+      setCssVar(`--ag-theme-${subkey}`, e.value)
+
+      e.oninput = () => {
+        setCssVar(`--ag-theme-${subkey}`, e.value)
+        updateThemeBox(subkey, e.value)
+      }
+  }
+  setThemeBox(settings.theme)
+}
+
+function updateThemeBox(name,  value) {
+  const dump = JSON.parse(jsonDump.value)
+  dump.theme[name] = value
+  setThemeBox(dump.theme)
+}
+
+function setThemeBox(theme) {
+  jsonDump.value = JSON.stringify({theme}, null, '  ')
+}
+
+function buildConfigMap() {
+    const configMap = {}
+    for (const { name, value } of $$('#settingsForm input')) {
+        configMap[name] = value
+    }
+    return configMap
+}
+
+function onSettingsChanged(e) {
+    e.preventDefault()
+    try {
+        const configMap = buildConfigMap()
+        console.log('saving', configMap)
+        settings.save(configMap)
+        alert('Saved!')
+        location.reload()
+    } catch (e) {
+        alert(e.message)
+    }
+}
+
+function getCssVariable (varName) {
+  const propertyName = varName
+    .replace(/^var\(/, '').replace(/\)$/, '');
+  return getComputedStyle(document.documentElement)
+    .getPropertyValue(propertyName).trim();
+};
+
+function isCssVar(value) {
+  return (typeof value === 'string') &&
+    value.trim().startsWith('var(')
+}
+
+function setCssVar(name, value) {
+  document.documentElement.style.setProperty(name, value);
+}
+</script>
