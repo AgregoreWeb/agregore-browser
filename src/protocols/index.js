@@ -22,12 +22,13 @@ const P2P_PRIVILEGES = {
 }
 
 const BROWSER_PRIVILEGES = {
-  standard: false,
+  standard: true,
   secure: true,
-  allowServiceWorkers: false,
+  allowServiceWorkers: true,
   supportFetchAPI: true,
   bypassCSP: false,
-  corsEnabled: true
+  corsEnabled: true,
+  stream: true
 }
 
 const LOW_PRIVILEGES = {
