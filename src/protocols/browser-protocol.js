@@ -61,7 +61,7 @@ export default async function createHandler () {
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Allow-CSP-From': '*',
+        'Allow-CSP-From': 'agregore://welcome',
         'Content-Type': 'application/json'
       }
 
@@ -90,12 +90,14 @@ ${themes}
 
   --browser-theme-font-family: var(--ag-theme-font-family);
   --browser-theme-background: var(--ag-theme-background);
-  --browser-theme-page: var(--ag-theme-page);
+  --browser-theme-page-background: var(--ag-theme-page);
   --browser-theme-text-color: var(--ag-theme-text);
   --browser-theme-primary-highlight: var(--ag-theme-primary);
   --browser-theme-secondary-highlight: var(--ag-theme-secondary);
+  --browser-theme-border-radius: var(--ag-theme-border-radius);
+  --browser-theme-border-color: var(--ag-theme-border-color);
 }
-      `
+`
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
@@ -137,7 +139,6 @@ ${themes}
 
       const headers = {
         'Access-Control-Allow-Origin': '*',
-        'Allow-CSP-From': 'agregore://welcome',
         'Cache-Control': 'no-cache',
         'Content-Type': contentType
       }
