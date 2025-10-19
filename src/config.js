@@ -8,6 +8,9 @@ import { fileURLToPath } from 'node:url'
 import { getDefaultChainList } from 'web3protocol/chains'
 const { join } = path
 
+// Called whenever there's a change
+let onChange = () => null
+
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
 const isWindows = process.platform === 'win32'
@@ -29,6 +32,8 @@ export const MAIN_RC_FILE = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
 let DEFAULT_BACKGROUND = 'var(--ag-color-black)'
 let DEFAULT_TEXT = 'var(--ag-color-white)'
 let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
+const DEFAULT_BORDER_RADIUS = '0.25em'
+const DEFAULT_BORDER_COLOR = 'var(--ag-theme-secondary)'
 
 const { shouldUseDarkColors } = nativeTheme
 
@@ -97,7 +102,9 @@ const Config = RC('agregore', {
     primary: 'var(--ag-color-purple)',
     secondary: 'var(--ag-color-green)',
     indent: '16px',
-    'max-width': '666px'
+    'max-width': '666px',
+    'border-radius': DEFAULT_BORDER_RADIUS,
+    'border-color': DEFAULT_BORDER_COLOR
   },
 
   defaultPage: DEFAULT_PAGE,
@@ -179,6 +186,7 @@ export async function save (configMap) {
   }
   if (hasChanged) {
     await writeFile(MAIN_RC_FILE, JSON.stringify(currentRC, null, '\t'))
+    onChange(configMap)
   }
 }
 
@@ -212,4 +220,8 @@ function getFrom (path, object) {
   } else {
     return object[path]
   }
+}
+
+export function setOnChange (newOnChange) {
+  onChange = newOnChange
 }

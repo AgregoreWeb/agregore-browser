@@ -147,6 +147,21 @@ export class WindowManager extends EventEmitter {
     return [...this.windows.values()]
   }
 
+  async updateThemeVars (themeVars) {
+    const setVars = Object.entries(themeVars)
+      .map(([key, value]) => `document
+  .documentElement
+  .style.setProperty('--ag-theme-${key}', '${value}')`)
+      .join('\n')
+
+    console.log({ setVars })
+    await Promise.all(this.all.map((window) => Promise.all([
+      window.web.executeJavaScript(setVars),
+      window.window.webContents.executeJavaScript(setVars)
+    ]))
+    )
+  }
+
   async saveOpened () {
     console.log('Saving open windows')
     let urls = []
@@ -154,7 +169,7 @@ export class WindowManager extends EventEmitter {
       // We don't need to save popups from extensions
       if (window.rawFrame) return
       const url = window.web.getURL()
-      if(!url) return
+      if (!url) return
       const position = window.window.getPosition()
       const size = window.window.getSize()
       const scrollOffset = await window.web.executeJavaScript('window.pageYOffset')

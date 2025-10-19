@@ -208,6 +208,18 @@ async function onready () {
     ).href
   )
 
+  config.setOnChange((configMap) => {
+    const themeVars = {}
+    let hadThemeVars = false
+    for (const key of Object.keys(configMap)) {
+      if (key.startsWith('theme.')) {
+        hadThemeVars = true
+        themeVars[key.slice('theme.'.length)] = configMap[key]
+      }
+    }
+    if (hadThemeVars) windowManager.updateThemeVars(themeVars)
+  })
+
   console.log('Opening saved windows')
 
   const opened = await windowManager.openSaved()
