@@ -12,9 +12,9 @@
 }
 
 html {
-  background: var(--ag-theme-page);
-  color: var(--ag-theme-text);
-  font-family: var(--ag-theme-font-family);
+  background: var(--browser-theme-page-background);
+  color: var(--browser-theme-text-color);
+  font-family: var(--browser-theme-font-family);
   font-size: inherit;
 }
 
@@ -56,9 +56,13 @@ option {
   color: inherit;
   font-family: inherit;
   font-size: inherit;
-  background: var(--ag-theme-background);
-  padding: 0.5em;
-  border-radius: 0.25em;
+  background: var(--browser-theme-background);
+  padding: var(--browser-theme-border-radius);
+  margin: 0.5em;
+  border-radius: var(--browser-theme-border-radius);
+}
+input[type=color] {
+  padding: 0px;
 }
 
 input {
@@ -73,8 +77,8 @@ textarea {
 }
 
 select option {
-  background: var(--ag-theme-background);
-  color: var(--ag-theme-text);
+  background: var(--browser-theme-background);
+  color: var(--browser-theme-text-color);
 }
 
 input,
@@ -84,11 +88,11 @@ select,
 select *,
 video,
 dialog {
-  border: 1px solid var(--ag-theme-primary);
+  border: 1px solid var(--browser-theme-primary-highlight);
 }
 
 fieldset {
-  border: 1px solid var(--ag-theme-secondary);
+  border: 1px solid var(--browser-theme-secondary-highlight);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
@@ -97,8 +101,8 @@ fieldset {
 }
 
 dialog {
-  background: var(--ag-theme-background);
-  color: var(--ag-theme-text);
+  background: var(--browser-theme-background);
+  color: var(--browser-theme-text-color);
   width: 80vw;
   height: 80vh;
 }
@@ -113,7 +117,7 @@ details summary>* {
 
 details summary::marker,
 details summary::-webkit-details-marker {
-  color: var(--ag-theme-primary)
+  color: var(--browser-theme-primary-highlight)
 }
 
 table {
@@ -136,7 +140,7 @@ body>pre:only-child {
 
 th,
 td {
-  border: 1px solid var(--ag-theme-primary);
+  border: 1px solid var(--browser-theme-primary-highlight);
   /* Set a common border for all cells */
   padding: 0.5em;
   /* Add some padding inside each cell */
@@ -146,24 +150,24 @@ td {
 
 *::selection,
 option:hover {
-  background: var(--ag-theme-primary);
-  color: var(--ag-theme-text);
+  background: var(--browser-theme-primary-highlight);
+  color: var(--browser-theme-text-highlight);
 }
 
 a {
-  color: var(--ag-theme-secondary);
+  color: var(--browser-theme-secondary-highlight);
   text-decoration: underline;
-  text-decoration-color: var(--ag-theme-primary);
+  text-decoration-color: var(--browser-theme-primary-highlight);
 }
 
 a:hover {
-  color: var(--ag-theme-background);
-  background-color: var(--ag-theme-secondary);
+  color: var(--browser-theme-background);
+  background-color: var(--browser-theme-secondary-highlight);
   text-decoration: none;
 }
 
 a:visited {
-  color: var(--ag-theme-primary);
+  color: var(--browser-theme-primary-highlight);
 }
 
 img,
@@ -184,32 +188,32 @@ iframe {
 }
 
 pre {
-  background: var(--ag-theme-primary);
+  background: var(--browser-theme-primary-highlight);
 }
 
 code {
-  background: var(--ag-theme-primary);
+  background: var(--browser-theme-primary-highlight);
   font-weight: bold;
   padding: 0.25em;
   font-family: 'FontWithASyntaxHighlighter', monospace;
 }
 
 blockquote {
-  border-left: 1px solid var(--ag-theme-primary);
+  border-left: 1px solid var(--browser-theme-primary-highlight);
   margin: 1em;
   padding-left: 1em;
 }
 
 blockquote>*::before {
   content: "> ";
-  color: var(--ag-theme-secondary);
+  color: var(--browser-theme-secondary-highlight);
 }
 
 pre>code {
   display: block;
   padding: 0.5em;
-  background: var(--ag-theme-background);
-  color: var(--ag-theme-text);
+  background: var(--browser-theme-background);
+  color: var(--browser-theme-text-color);
 }
 
 br {
@@ -221,11 +225,11 @@ ul>li {
 }
 
 hr {
-  border-color: var(--ag-theme-primary);
+  border-color: var(--browser-theme-primary-highlight);
 }
 
 *:focus {
-  outline: 2px solid var(--ag-theme-secondary);
+  outline: 2px solid var(--browser-theme-secondary-highlight);
 }
 
 h1 {
@@ -236,12 +240,12 @@ h1 {
 h2 a,
 h3 a,
 h4 a {
-  color: var(--ag-theme-text);
+  color: var(--browser-theme-text-color);
   text-decoration: none;
 }
 
 h1 a {
-  color: var(--ag-theme-primary);
+  color: var(--browser-theme-primary-highlight);
   text-decoration: none;
 }
 
@@ -254,17 +258,17 @@ h4:hover::after {
 
 h2::before {
   content: "## ";
-  color: var(--ag-theme-secondary)
+  color: var(--browser-theme-secondary-highlight)
 }
 
 h3::before {
   content: "### ";
-  color: var(--ag-theme-secondary)
+  color: var(--browser-theme-secondary-highlight)
 }
 
 h4::before {
   content: "#### ";
-  color: var(--ag-theme-secondary)
+  color: var(--browser-theme-secondary-highlight)
 }
 
 *::-webkit-scrollbar {
@@ -276,7 +280,7 @@ h4::before {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--ag-theme-primary);
+  background-color: var(--browser-theme-primary-highlight);
   border: 2px solid transparent;
   background-clip: content-box;
 }
@@ -305,15 +309,15 @@ audio::-webkit-media-controls-toggle-closed-captions-button {
 }
 
 audio::-webkit-media-controls-timeline {
-  background: var(--ag-theme-primary);
+  background: var(--browser-theme-primary-highlight);
   margin: 0px 1em;
   border-radius: none;
 }
 
 audio::-webkit-media-controls-panel {
-  background: var(--ag-theme-background);
-  color: var(--ag-theme-text);
-  font-family: var(--ag-theme-font-family);
+  background: var(--browser-theme-background);
+  color: var(--browser-theme-text-color);
+  font-family: var(--browser-theme-font-family);
   font-size: inherit;
   border-radius: none;
 }
