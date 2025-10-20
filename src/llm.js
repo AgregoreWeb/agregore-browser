@@ -106,7 +106,7 @@ async function listModels () {
 async function showNeedsOllama () {
   const { response, checkboxChecked } = await dialog.showMessageBox({
     title: 'Set up Ollama',
-    message: 'Agregore needs a local install of Ollama in order to use AI features. Since it has not been detected, would you like help instaaling it, or would yopu like to go configure the settings to use another endpoint?',
+    message: 'Agregore needs a local install of Ollama in order to use AI features. Since it has not been detected, would you like help installing it, or would you like to go configure the settings to use another endpoint?',
     buttons: ['Show Help', 'Configure', 'Cancel'],
     defaultId: 0,
     cancelId: 2,
