@@ -9,7 +9,7 @@ export default async function createHandler (ipfsOptions, session) {
 
     const Ctl = await import('ipfsd-ctl')
 
-    const GoIPFS = await import('kubo')
+    const { default: GoIPFS } = await import('go-ipfs')
 
     const ipfsBin = GoIPFS
       .path()
