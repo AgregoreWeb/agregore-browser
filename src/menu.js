@@ -2,10 +2,14 @@ import { Menu, app } from 'electron'
 
 const isMac = process.platform === 'darwin'
 
+/**
+ * @param {Record<string, import('electron').MenuItemConstructorOptions>} actions
+ */
 export function registerMenu (actions) {
   const {
     OpenDevTools,
     ViewHistory,
+    ViewLocalSites,
     NewWindow,
     Forward,
     Back,
@@ -51,6 +55,7 @@ export function registerMenu (actions) {
         isMac ? { role: 'close' } : { role: 'quit' },
         OpenDevTools,
         ViewHistory,
+        ViewLocalSites,
         NewWindow
       ]
     },

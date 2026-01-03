@@ -215,25 +215,23 @@ async function onready () {
 
   const historyExtension = await extensions.byName('agregore-history')
 
-  if(historyExtension) {
-
-
+  if (historyExtension) {
   // TODO: Better error handling when the extension doesn't exist?
-  history.setGetBackgroundPage(() => {
-    return extensions?.getBackgroundPageByName('agregore-history')
-  })
+    history.setGetBackgroundPage(() => {
+      return extensions?.getBackgroundPageByName('agregore-history')
+    })
 
-  history.setViewPage(
-    new URL(
-      historyExtension.manifest.options_page,
-      historyExtension.url
-    ).href
-  )
-} else {
-  dialog.showMessageBox({
-    message: 'History Extension could not be found. Search will be disabled.'
-  })
-}
+    history.setViewPage(
+      new URL(
+        historyExtension.manifest.options_page,
+        historyExtension.url
+      ).href
+    )
+  } else {
+    dialog.showMessageBox({
+      message: 'History Extension could not be found. Search will be disabled.'
+    })
+  }
 
   config.setOnChange((configMap) => {
     /** @type {{[key: string]: string}} */
@@ -277,7 +275,7 @@ async function onready () {
  */
 function createWindow (url, options = {}) {
   console.log('createWindow', url, options)
-  if(!windowManager) throw new Error('Window manager is not yet initialized')
+  if (!windowManager) throw new Error('Window manager is not yet initialized')
   return windowManager.open({ url, ...options })
 }
 

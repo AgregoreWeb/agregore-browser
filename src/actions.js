@@ -7,6 +7,7 @@ import sanitize from 'sanitize-filename'
 import * as history from './history.js'
 
 import Config from './config.js'
+import { Window } from './window.js'
 const { accelerators, extensions, appPath } = Config
 
 const FOCUS_URL_BAR_SCRIPT = `
@@ -18,6 +19,12 @@ const OPEN_FIND_BAR_SCRIPT = `
 document.getElementById('find').show()
 `
 
+/**
+ *
+ * @param {object} options
+ * @param {import('./window.js').CreateWindowFN} options.createWindow
+ * @returns {Record<string, import('electron').MenuItemConstructorOptions>}
+ */
 export function createActions ({
   createWindow
 }) {
@@ -31,6 +38,11 @@ export function createActions ({
       label: 'View History',
       accelerator: accelerators.ViewHistory,
       click: onViewHistory
+    },
+    ViewLocalSites: {
+      label: 'View Local Sites',
+      accelerator: accelerators.ViewLocalSites,
+      click: onViewLocalSites
     },
     NewWindow: {
       label: 'New Window',
@@ -226,6 +238,10 @@ export function createActions ({
 
   async function onViewHistory () {
     await createWindow(history.getViewPage())
+  }
+
+  async function onViewLocalSites () {
+    await createWindow('agregore://sites')
   }
 
   async function onCreateBookmark (event, focusedWindow) {

@@ -70,6 +70,8 @@ const SHOW_DELAY = 200
 // Used to only show one window at a time
 const showQueue = new PQueue({ concurrency: 1 })
 
+/** @typedef {(url?:string, options?: WindowOptions) => Promise<Window>|Window} CreateWindowFN */
+
 /**
  * @typedef {object} SavedWindowOptions
  * @property {string} url
@@ -595,14 +597,14 @@ export class Window extends EventEmitter {
   }
 
   /**
-   * @param {string} actionId 
+   * @param {string} actionId
    */
   async clickExtensionAction (actionId) {
     await this.focus()
-    if(!this.listActions) return
+    if (!this.listActions) return
     for (const { extensionId, onClick } of await this.listActions(this)) {
       if (actionId !== extensionId) continue
-      if(!onClick) continue
+      if (!onClick) continue
       await onClick(this.web.id)
     }
   }

@@ -38,7 +38,7 @@ const DEFAULT_EXTENSION_LIST_LOCATION = path.join(__dirname, 'builtins.json')
 /**
  * @typedef {object} ExtensionsOptions
  * @property {import('electron').Session} session
- * @property {(url?:string, options?: import('../window.js').WindowOptions) => Promise<Window>|Window} createWindow
+ * @property {import('../window.js').CreateWindowFN} createWindow
  * @property {UpdateBrowserActionsFN} updateBrowserActions
  * @property {string} [builtinsLocation]
  * @property {string} [builtinsListLocation]
