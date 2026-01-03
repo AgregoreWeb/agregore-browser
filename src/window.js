@@ -56,8 +56,8 @@ const BLINK_FLAGS = [
   'CSSModules'
 ].join(',')
 
-async function DEFAULT_SEARCH () {
-  return []
+async function * DEFAULT_SEARCH () {
+
 }
 
 async function DEFAULT_LIST_ACTIONS () {
@@ -70,7 +70,47 @@ const SHOW_DELAY = 200
 // Used to only show one window at a time
 const showQueue = new PQueue({ concurrency: 1 })
 
+/**
+ * @typedef {object} SavedWindowOptions
+ * @property {string} url
+ * @property {[number,number]} position
+ * @property {[number, number]} size
+ * @property {number} scrollOffset
+*/
+
+/**
+ * @typedef {object} WindoManagerOptions
+ * @property {() => AsyncIterable<object>} [onSearch]
+ * @property {(win: Window) => Promise<import('./extensions/index.js').ActionItem[]>} [listActions]
+ * @property {string} [persistTo]
+ * @property {number} [saverInterval]
+ */
+
+/**
+ * @typedef {object} WindowOptions
+ * @property {() => AsyncIterable<object>} [onSearch]
+ * @property {(win: Window) => Promise<import('./extensions/index.js').ActionItem[]>} [listActions]
+ * @property {BrowserView} [view]
+ * @property {number} [width]
+ * @property {number} [height]
+ * @property {number} [x]
+ * @property {number} [y]
+ * @property {string} [url]
+ * @property {boolean} [noFocus]
+ * @property {boolean} [noNav]
+ * @property {boolean} [popup]
+ * @property {boolean} [rawFrame]
+ * @property {boolean} [autoResize]
+ * @property {boolean} [autoHideMenuBar]
+ * @property {string} [searchProvider]
+ * @property {number} [openerTabId]
+ */
+
 export class WindowManager extends EventEmitter {
+  /**
+   *
+   * @param {WindoManagerOptions} options
+   */
   constructor ({
     onSearch = DEFAULT_SEARCH,
     listActions = DEFAULT_LIST_ACTIONS,
@@ -114,6 +154,10 @@ export class WindowManager extends EventEmitter {
     return window
   }
 
+  /**
+   * Relay from IPCMain to window methods
+   * @param {string} name Name of the method to relay
+   */
   relayMethod (name) {
     ipcMain.handle(`agregore-window-${name}`, ({ sender }, ...args) => {
       const { id } = sender
@@ -124,6 +168,9 @@ export class WindowManager extends EventEmitter {
     })
   }
 
+  /**
+   * @param {number?} tabId
+   */
   reloadBrowserActions (tabId) {
     for (const window of this.all) {
       if (tabId) {
@@ -136,6 +183,11 @@ export class WindowManager extends EventEmitter {
     }
   }
 
+  /**
+   * Get window by ID
+   * @param {number} id
+   * @returns
+   */
   get (id) {
     for (const window of this.windows) {
       if (window.id === id) return window
@@ -147,6 +199,9 @@ export class WindowManager extends EventEmitter {
     return [...this.windows.values()]
   }
 
+  /**
+   * @param {object} themeVars
+   */
   async updateThemeVars (themeVars) {
     const setVars = Object.entries(themeVars)
       .map(([key, value]) => `document
@@ -164,6 +219,9 @@ export class WindowManager extends EventEmitter {
 
   async saveOpened () {
     console.log('Saving open windows')
+    /**
+     * @type {SavedWindowOptions[]}
+     */
     let urls = []
     await Promise.all(this.all.map(async (window) => {
       // We don't need to save popups from extensions
@@ -185,6 +243,7 @@ export class WindowManager extends EventEmitter {
 
     return saved.map((info) => {
       console.log('About to open', info)
+      /** @type {WindowOptions} */
       const options = {
         noFocus: true
       }
@@ -219,6 +278,9 @@ export class WindowManager extends EventEmitter {
     })
   }
 
+  /**
+   * @returns {Promise<SavedWindowOptions[]>}
+   */
   async loadSaved () {
     try {
       const infos = await fs.readJson(this.persistTo)
@@ -248,12 +310,20 @@ export class WindowManager extends EventEmitter {
   }
 
   clearSaver () {
-    clearInterval(this.saverTimer)
+    if (this.saverTimer) {
+      clearInterval(this.saverTimer)
+    }
   }
 }
 
 export class Window extends EventEmitter {
+  /** @type {AsyncIterator<object>?} */
   #searchIterator = null
+
+  /**
+   *
+   * @param {WindowOptions} options
+   */
   constructor ({
     url = Config.defaultPage,
     popup = false,
@@ -283,6 +353,7 @@ export class Window extends EventEmitter {
         webviewTag: false,
         contextIsolation: false
       },
+      // @ts-ignore
       vibrancy: 'dark',
       backgroundMaterial: 'mica',
       // transparent: true,
@@ -390,6 +461,7 @@ export class Window extends EventEmitter {
       })
     })
     this.window.on('close', () => {
+      // @ts-ignore It exists! Fixed a memory leak.
       this.web.destroy()
       this.emit('close')
     })
@@ -409,6 +481,12 @@ export class Window extends EventEmitter {
     return this.window.loadURL(this.toLoad)
   }
 
+  /**
+   * Notify the window it has navigated
+   * @param {string} url
+   * @param {boolean} isMainFrame
+   * @returns
+   */
   emitNavigate (url, isMainFrame) {
     if (!isMainFrame) return
     if (IS_DEBUG) console.log('Navigating', url)
@@ -435,6 +513,9 @@ export class Window extends EventEmitter {
     return this.web.focus()
   }
 
+  /**
+   * @param {string} url
+   */
   async loadURL (url) {
     return this.web.loadURL(url)
   }
@@ -443,6 +524,11 @@ export class Window extends EventEmitter {
     return this.web.getURL()
   }
 
+  /**
+   * @param {string} value
+   * @param {import('electron').FindInPageOptions} opts
+   * @returns
+   */
   async findInPage (value, opts) {
     return this.web.findInPage(value, opts)
   }
@@ -452,6 +538,7 @@ export class Window extends EventEmitter {
   }
 
   async searchHistoryStart (...args) {
+    if (!this.onSearch) throw new Error('No Search Configured')
     this.#searchIterator = this.onSearch(...args)
   }
 
@@ -467,10 +554,16 @@ export class Window extends EventEmitter {
     }
   }
 
+  /**
+   *
+   * @param {Electron.Rectangle} rect
+   * @returns
+   */
   async setBounds (rect) {
     // Fix non-integer heights causing draw break.
     // TODO: This should be fixed wherever rect is sent from, not sure where that is.
     Object.keys(rect).forEach(key => {
+      // @ts-ignore Don't worry about it
       rect[key] = Math.floor(rect[key])
     })
 
@@ -478,6 +571,7 @@ export class Window extends EventEmitter {
   }
 
   async listExtensionActions () {
+    if (!this.listActions) return []
     const actions = await this.listActions(this)
     return actions.map(({
       title,
@@ -500,14 +594,24 @@ export class Window extends EventEmitter {
     })
   }
 
+  /**
+   * @param {string} actionId 
+   */
   async clickExtensionAction (actionId) {
     await this.focus()
-    for (const { extensionId, onClick } of await this.listActions()) {
+    if(!this.listActions) return
+    for (const { extensionId, onClick } of await this.listActions(this)) {
       if (actionId !== extensionId) continue
+      if(!onClick) continue
       await onClick(this.web.id)
     }
   }
 
+  /**
+   * Send RPC message to window
+   * @param {string} name Event to send to the window
+   * @param  {...any} args Arguments for event
+   */
   send (name, ...args) {
     this.emit(name, ...args)
     if (IS_DEBUG) console.log('->', this.id, name, '(', args, ')')
@@ -527,6 +631,10 @@ export class Window extends EventEmitter {
   }
 }
 
+/**
+ * @param {import('electron').WebContents} webContents
+ * @returns
+ */
 async function getDefaultStylesheet (webContents) {
   const [r1, r2] = await Promise.all([
     webContents.session.fetch('agregore://theme/vars.css'),

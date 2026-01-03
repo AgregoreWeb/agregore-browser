@@ -1,4 +1,4 @@
-import { app, BrowserWindow, session, Menu, Tray } from 'electron'
+import { app, BrowserWindow, session, Menu, Tray, dialog } from 'electron'
 import path, { sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -7,12 +7,14 @@ import { createActions } from './actions.js'
 import { registerMenu } from './menu.js'
 import { attachContextMenus } from './context-menus.js'
 import { WindowManager } from './window.js'
-import { createExtensions, Extensions } from './extensions/index.js'
+import { createExtensions } from './extensions/index.js'
 import * as history from './history.js'
 import { version } from './version.js'
 import * as llm from './llm.js'
 import * as config from './config.js'
 import { LocalSiteTracker, registerSiteTrackerRPC, addPreloads as addSiteTrackerPreloads } from './localsites.js'
+
+/** @import {Extensions} from "./extensions/index.js" */
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
@@ -79,7 +81,7 @@ function init () {
 
   windowManager = new WindowManager({
     onSearch: (...args) => history.search(...args),
-    listActions: (...args) => extensions?.listActions(...args)
+    listActions: async (...args) => extensions ? extensions.listActions(...args) : []
   })
 
   app.on('second-instance', (event, argv, workingDirectory) => {
@@ -191,7 +193,7 @@ async function onready () {
   await registerMenu(actions)
 
   /**
-   * @param {number} tabId
+   * @param {number?} tabId
    */
   function updateBrowserActions (tabId) {
     windowManager?.reloadBrowserActions(tabId)
@@ -213,6 +215,9 @@ async function onready () {
 
   const historyExtension = await extensions.byName('agregore-history')
 
+  if(historyExtension) {
+
+
   // TODO: Better error handling when the extension doesn't exist?
   history.setGetBackgroundPage(() => {
     return extensions?.getBackgroundPageByName('agregore-history')
@@ -224,6 +229,11 @@ async function onready () {
       historyExtension.url
     ).href
   )
+} else {
+  dialog.showMessageBox({
+    message: 'History Extension could not be found. Search will be disabled.'
+  })
+}
 
   config.setOnChange((configMap) => {
     /** @type {{[key: string]: string}} */
@@ -240,7 +250,8 @@ async function onready () {
 
   console.log('Opening saved windows')
 
-  const opened = await windowManager?.openSaved()
+  // @ts-ignore Trust me, it won't be null
+  const opened = await windowManager.openSaved()
 
   const urls = urlsFromArgs(process.argv.slice(1), process.cwd())
   if (urls.length) {
@@ -261,12 +272,13 @@ async function onready () {
 /**
  *
  * @param {string} [url]
- * @param {object} [options]
+ * @param {import('./window.js').WindowOptions} [options]
  * @returns
  */
 function createWindow (url, options = {}) {
   console.log('createWindow', url, options)
-  return windowManager?.open({ url, ...options })
+  if(!windowManager) throw new Error('Window manager is not yet initialized')
+  return windowManager.open({ url, ...options })
 }
 
 /**
