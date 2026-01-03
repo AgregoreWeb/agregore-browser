@@ -189,14 +189,20 @@
   "homepage": "https://github.com/AgregoreWeb/agregore-browser#readme",
   "devDependencies": {
     "@netless/extension-flat": "^1.0.1",
+    "@tsconfig/node20": "^20.1.8",
+    "@types/compact-encoding": "^2.15.0",
+    "@types/node": "^25.0.3",
+    "@types/rc": "^1.2.4",
     "electron": "^37.2.2",
     "electron-builder": "^26.0.12",
-    "standard": "^17.1.2"
+    "standard": "^17.1.2",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@roamhq/wrtc": "^0.8.0",
     "abort-controller": "^3.0.0",
     "bt-fetch": "^3.1.1",
+    "compact-encoding": "2.18",
     "create-desktop-shortcuts": "^1.7.0",
     "data-uri-to-buffer": "^3.0.1",
     "decompress": "^4.2.1",
@@ -206,8 +212,8 @@
     "gemini-fetch": "^2.1.1",
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.22.0",
-    "hyper-sdk": "^6.1.0",
-    "hypercore-fetch": "^10.0.0",
+    "hyper-sdk": "^6.2.1",
+    "hypercore-fetch": "^10.1.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^5.1.0",
