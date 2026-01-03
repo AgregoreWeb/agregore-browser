@@ -58,8 +58,8 @@ for(const {url, lastUsed, firstUsed, name} of writable) {
     const {protocol, hostname} = new URL(url)
     row.append(linkedColumn(name, url))
     row.append(columnFrom(protocol))
-    row.append(dateColumn(lastUsed))
     row.append(dateColumn(firstUsed))
+    row.append(dateColumn(lastUsed))
     row.append(actionColumn(
         ["📂", () => window.open(viewerURLFor(url)),'Explore files'],
         ["❌", ()=> deleteSite(url, row), 'Purge Data']
