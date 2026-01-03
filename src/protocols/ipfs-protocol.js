@@ -1,8 +1,16 @@
 import fetchToHandler from './fetch-to-handler.js'
 import path from 'node:path'
 import * as fs from 'node:fs/promises'
+import { LocalSiteTracker } from '../localsites.js'
 
-export default async function createHandler (ipfsOptions, session) {
+/**
+ * 
+ * @param {object} ipfsOptions 
+ * @param {import('electron').Session} session 
+ * @param {import('../localsites.js').LocalSiteTracker} tracker 
+ * @returns 
+ */
+export default async function createHandler (ipfsOptions, session, tracker) {
   return fetchToHandler(async () => {
     const { default: makeFetch } = await import('js-ipfs-fetch')
     const ipfsHttpModule = await import('ipfs-http-client')
@@ -56,7 +64,22 @@ export default async function createHandler (ipfsOptions, session) {
     console.log('IPFS ID:', await ipfsd.api.id())
 
     const fetch = await makeFetch({
-      ipfs: ipfsd.api
+      ipfs: ipfsd.api,
+      /**
+       * 
+       * @param {URL} url 
+       * @param {boolean} writable 
+       * @param {string} [name] 
+       */
+      onLoad (url, writable, name) {
+        tracker.onLoad(url, writable, name)
+      },
+      /**
+       * @param {URL} url 
+       */
+      onDelete (url) {
+        tracker.onDelete(url)
+      }
     })
 
     fetch.close = async () => {

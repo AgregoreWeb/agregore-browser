@@ -133,7 +133,7 @@ export async function setupProtocols (session, tracker) {
   const {
     handler: ipfsProtocolHandler,
     close: closeIPFS
-  } = await createIPFSHandler(ipfsOptions, session)
+  } = await createIPFSHandler(ipfsOptions, session, tracker)
   onCloseHandlers.push(closeIPFS)
   sessionProtocol.handle('ipfs', ipfsProtocolHandler)
   globalProtocol.handle('ipfs', ipfsProtocolHandler)
