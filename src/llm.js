@@ -69,11 +69,21 @@ export async function isSupported () {
   return (config.llm.apiKey === 'ollama')
 }
 
+/**
+ * @param {import('electron').Session} session
+ */
 export function addPreloads (session) {
-  const preloadPath = path.join(__dirname, 'llm-preload.js')
-  const preloads = session.getPreloads()
-  preloads.push(preloadPath)
-  session.setPreloads(preloads)
+  const filePath = path.join(__dirname, 'llm-preload.js')
+  session.registerPreloadScript({
+    type: 'frame',
+    id: 'agregore-llm-frame',
+    filePath
+  })
+  session.registerPreloadScript({
+    type: 'service-worker',
+    id: 'agregore-llm-worker',
+    filePath
+  })
 }
 
 export async function init () {
@@ -242,6 +252,12 @@ export async function * completeStream ({
   }
 }
 
+/**
+ *
+ * @param {string} path
+ * @param {Record<string, any>} data
+ * @param {string} [errorMessage]
+ */
 async function * stream (path, data = {}, errorMessage = 'Unable to stream') {
   const url = new URL(path, config.llm.baseURL).href
   if (!data.stream) data.stream = true
@@ -257,6 +273,9 @@ async function * stream (path, data = {}, errorMessage = 'Unable to stream') {
 
   if (!response.ok) {
     throw new Error(`${errorMessage} ${await response.text()}`)
+  }
+  if (!response.body) {
+    throw new Error('No body in response')
   }
 
   const decoder = new TextDecoder('utf-8')
@@ -275,6 +294,12 @@ async function * stream (path, data = {}, errorMessage = 'Unable to stream') {
   }
 }
 
+/**
+ * @param {string} path
+ * @param {string} errorMessage
+ * @param {boolean} [parseBody]
+ * @returns
+ */
 async function get (path, errorMessage, parseBody = true) {
   const url = new URL(path, config.llm.baseURL).href
 
@@ -296,6 +321,14 @@ async function get (path, errorMessage, parseBody = true) {
   }
 }
 
+/**
+ *
+ * @param {string} path
+ * @param {any} data
+ * @param {string} errorMessage
+ * @param {boolean} [shouldParse]
+ * @returns
+ */
 async function post (path, data, errorMessage, shouldParse = true) {
   const url = new URL(path, config.llm.baseURL).href
 
@@ -318,6 +351,10 @@ async function post (path, data, errorMessage, shouldParse = true) {
   return await response.text()
 }
 
+/**
+ * @param {ReadableStreamDefaultReader} reader
+ * @returns
+ */
 async function * iterate (reader) {
   while (true) {
     const { done, value } = await reader.read()

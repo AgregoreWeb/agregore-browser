@@ -11,6 +11,8 @@ import createMagnetHandler from './magnet-protocol.js'
 import createRawHTTPSHandler from './raw-http-protocol.js'
 import createWeb3Handler from './web3-protocol.js'
 
+/** @import { LocalSiteTracker } from '../localsites.js' */
+
 const P2P_PRIVILEGES = {
   standard: true,
   secure: true,
@@ -48,6 +50,7 @@ const {
   btOptions
 } = Config
 
+/** @type {(() => Promise<void>|void)[]} */
 const onCloseHandlers = []
 
 export async function close () {
@@ -89,7 +92,12 @@ export function setAsDefaultProtocolClient () {
   app.setAsDefaultProtocolClient('web3')
 }
 
-export async function setupProtocols (session) {
+/**
+ * Set up protocols on a given session
+ * @param {import('electron').Session} session
+ * @param {LocalSiteTracker} tracker
+ */
+export async function setupProtocols (session, tracker) {
   const { protocol: sessionProtocol } = session
 
   const { handler: browserProtocolHandler } = await createBrowserHandler()
@@ -103,7 +111,7 @@ export async function setupProtocols (session) {
   const {
     handler: hyperProtocolHandler,
     close: closeHyper
-  } = await createHyperHandler(hyperOptions, session)
+  } = await createHyperHandler(hyperOptions, session, tracker)
   onCloseHandlers.push(closeHyper)
   sessionProtocol.handle('hyper', hyperProtocolHandler)
   globalProtocol.handle('hyper', hyperProtocolHandler)

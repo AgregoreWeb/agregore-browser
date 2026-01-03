@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<title>Local Sites</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<h1>Local Sites</h1>
+
+<p>
+    This page lets you see what P2P sites you've loaded locally
+    and allows you to browse their files or purge their data.
+</p>
+
+<h2>Locally Created</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Protocol</th>
+            <th>Created At</th>
+            <th>Last Used</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="localtable">
+    </tbody>
+</table>
+
+<h2>Remotely loaded</h2>
+
+<table>
+<thead>
+    <tr>
+        <th>URL</th>
+        <th>Protocol</th>
+        <th>Last Used</th>
+        <th>Actions</th>
+    </tr>
+</thead>
+<tbody id="remotetable">
+</tbody>
+</table>
+
+
+<script type="module">
+const VIEWER = 'hyper://agregore.mauve.moe/apps/fileviewer.html'
+
+const sites = await window.sites.list()
+
+const writable = sites.filter(({writable}) => writable)
+const remote = sites.filter(({writable}) => !writable)
+
+for(const {url, lastUsed, firstUsed, name} of writable) {
+    const row = document.createElement('tr')
+    const {protocol, hostname} = new URL(url)
+    row.append(linkedColumn(name, url))
+    row.append(columnFrom(protocol))
+    row.append(dateColumn(lastUsed))
+    row.append(dateColumn(firstUsed))
+    row.append(actionColumn(
+        ["📂", () => window.open(viewerURLFor(url)),'Explore files'],
+        ["❌", ()=> deleteSite(url, row), 'Purge Data']
+    ))
+    localtable.append(row)
+}
+
+for(const {url, lastUsed, name} of remote) {
+    const row = document.createElement('tr')
+    const {protocol, hostname} = new URL(url)
+    row.append(linkedColumn(hostnameToName(hostname), viewerURLFor(url)))
+    row.append(columnFrom(protocol))
+    row.append(dateColumn(lastUsed))
+    row.append(actionColumn(
+        ["📂", () => window.open(viewerURLFor(url)),'Explore files'],
+        ["❌", ()=> deleteSite(url, row), 'Purge Data'])
+    )
+    remotetable.append(row)
+}
+
+async function deleteSite(url, row) {
+    const res = await fetch(url, {
+        method: 'DELETE'
+    })
+    await res.text()
+    row.parentElement.removeChild(row)
+}
+
+function viewerURLFor(url) {
+    return VIEWER + '?url=' + url
+}
+
+function hostnameToName(hostname) {
+  if(hostname.includes('.')) {
+    return hostname
+  }
+  return hostname.slice(0, 8) + '...' + hostname.slice(-9, -1)
+}
+
+function actionColumn(...actions) {
+    const td = document.createElement('td')
+    for(const args of actions) {
+        td.append(actionButton(...args))
+    }
+    return td
+}
+
+function actionButton(text, cb, title="") {
+    const button = document.createElement("button")
+    button.innerText = text
+    button.onclick = cb
+    if(title) button.title = title
+    return button
+}
+
+function dateColumn(timestamp) {
+    const date = new Date(timestamp)
+    const year = date.getFullYear()
+    const month = date.getMonth().toString().padStart(2,0)
+    const day = date.getDate().toString().padStart(2,0)
+    const hour = date.getHours().toString().padStart(2,0)
+    const minute = date.getMinutes().toString().padStart(2,0)
+    return columnFrom(`${year}/${month}/${day} ${hour}:${minute}`)
+}
+
+function columnFrom(text) {
+    const td = document.createElement('td')
+    td.innerText = text
+    return td
+}
+
+function linkedColumn(text, url) {
+    const td = document.createElement('td')
+    const a = document.createElement('a')
+    td.append(a)
+    a.innerText = text
+    a.href = url
+    return td
+}
+</script>

@@ -8,8 +8,11 @@ import { fileURLToPath } from 'node:url'
 import { getDefaultChainList } from 'web3protocol/chains'
 const { join } = path
 
+/** @typedef {{[key: string]: any}} ConfigData */
+
 // Called whenever there's a change
-let onChange = () => null
+/** @type {(config: ConfigData) => void} */
+let onChange = () => undefined
 
 const __dirname = fileURLToPath(new URL('./', import.meta.url))
 
@@ -162,17 +165,24 @@ const Config = RC('agregore', {
 
 export default Config
 
+/**
+ * @param {import('electron').Session} session
+ */
 export function addPreloads (session) {
-  const preloadPath = path.join(__dirname, 'settings-preload.js')
-  const preloads = session.getPreloads()
-  preloads.push(preloadPath)
-  session.setPreloads(preloads)
+  session.registerPreloadScript({
+    type: 'frame',
+    id: 'agregore-config',
+    filePath: path.join(__dirname, 'settings-preload.js')
+  })
 }
 
 ipcMain.handle('settings-save', async (event, configMap) => {
   await save(configMap)
 })
 
+/**
+ * @param {ConfigData} configMap
+ */
 export async function save (configMap) {
   const currentRC = await getRCData()
   let hasChanged = false
@@ -199,6 +209,12 @@ async function getRCData () {
   }
 }
 
+/**
+ *
+ * @param {string} path
+ * @param {ConfigData} object
+ * @param {any} value
+ */
 function setOn (path, object, value) {
   if (path.includes('.')) {
     const [key, subkey] = path.split('.')
@@ -212,6 +228,12 @@ function setOn (path, object, value) {
 }
 
 // No support for more than one level
+/**
+ *
+ * @param {string} path
+ * @param {ConfigData} object
+ * @returns
+ */
 function getFrom (path, object) {
   if (path.includes('.')) {
     const [key, subkey] = path.split('.')
@@ -222,6 +244,9 @@ function getFrom (path, object) {
   }
 }
 
+/**
+ * @param {(config: ConfigData) => void} newOnChange
+ */
 export function setOnChange (newOnChange) {
   onChange = newOnChange
 }

@@ -7,11 +7,12 @@ import { createActions } from './actions.js'
 import { registerMenu } from './menu.js'
 import { attachContextMenus } from './context-menus.js'
 import { WindowManager } from './window.js'
-import { createExtensions } from './extensions/index.js'
+import { createExtensions, Extensions } from './extensions/index.js'
 import * as history from './history.js'
 import { version } from './version.js'
 import * as llm from './llm.js'
 import * as config from './config.js'
+import { LocalSiteTracker, registerSiteTrackerRPC, addPreloads as addSiteTrackerPreloads } from './localsites.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
@@ -38,8 +39,19 @@ if (!IS_DEBUG) {
 
 process.on('SIGINT', () => app.quit())
 
+/**
+ * @type {Extensions?}
+ */
 let extensions = null
+/**
+ * @type {WindowManager?}
+ */
 let windowManager = null
+
+const trackerStorage = path.join(app.getPath('userData'), 'local_sites')
+const tracker = new LocalSiteTracker(trackerStorage)
+
+registerSiteTrackerRPC(tracker)
 
 // Enable text to speech.
 // Requires espeak on Linux
@@ -67,20 +79,20 @@ function init () {
 
   windowManager = new WindowManager({
     onSearch: (...args) => history.search(...args),
-    listActions: (...args) => extensions.listActions(...args)
+    listActions: (...args) => extensions?.listActions(...args)
   })
 
   app.on('second-instance', (event, argv, workingDirectory) => {
     console.log('Got signal from second instance', [...argv])
     const urls = urlsFromArgs(argv.slice(1), workingDirectory)
-    urls.map((url) => windowManager.open({ url }))
+    urls.map((url) => windowManager?.open({ url }))
   })
 
   windowManager.on('open', window => {
     attachContextMenus({ window, createWindow, extensions })
     if (!window.rawFrame) {
       const asBrowserView = BrowserWindow.fromBrowserView(window.view)
-      asBrowserView.on('focus', () => {
+      asBrowserView?.on('focus', () => {
         window.web.focus()
       })
     }
@@ -115,7 +127,7 @@ app.on('activate', () => {
   // On macOS it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
-    windowManager.open()
+    windowManager?.open()
   }
 })
 
@@ -124,9 +136,10 @@ app.on('before-quit', async (e) => {
   // Fallback to quit if quitting takes too long
   setTimeout(() => app.exit(0), 20000)
   try {
-    await windowManager.saveOpened()
-    await windowManager.close()
+    await windowManager?.saveOpened()
+    await windowManager?.close()
     await protocols.close()
+    await tracker.close()
   } finally {
     app.exit(0)
   }
@@ -154,6 +167,7 @@ async function onready () {
 
   llm.addPreloads(webSession)
   config.addPreloads(webSession)
+  addSiteTrackerPreloads(webSession)
 
   llm.setCreateWindow(createWindow)
 
@@ -170,14 +184,17 @@ async function onready () {
 
   console.log('Setting up protocol handlers')
 
-  await protocols.setupProtocols(webSession)
+  await protocols.setupProtocols(webSession, tracker)
 
   console.log('Registering context menu')
 
   await registerMenu(actions)
 
-  function updateBrowserActions (tabId, actions) {
-    windowManager.reloadBrowserActions(tabId)
+  /**
+   * @param {number} tabId
+   */
+  function updateBrowserActions (tabId) {
+    windowManager?.reloadBrowserActions(tabId)
   }
 
   console.log('Initializing extensions')
@@ -198,7 +215,7 @@ async function onready () {
 
   // TODO: Better error handling when the extension doesn't exist?
   history.setGetBackgroundPage(() => {
-    return extensions.getBackgroundPageByName('agregore-history')
+    return extensions?.getBackgroundPageByName('agregore-history')
   })
 
   history.setViewPage(
@@ -209,6 +226,7 @@ async function onready () {
   )
 
   config.setOnChange((configMap) => {
+    /** @type {{[key: string]: string}} */
     const themeVars = {}
     let hadThemeVars = false
     for (const key of Object.keys(configMap)) {
@@ -217,19 +235,19 @@ async function onready () {
         themeVars[key.slice('theme.'.length)] = configMap[key]
       }
     }
-    if (hadThemeVars) windowManager.updateThemeVars(themeVars)
+    if (hadThemeVars) windowManager?.updateThemeVars(themeVars)
   })
 
   console.log('Opening saved windows')
 
-  const opened = await windowManager.openSaved()
+  const opened = await windowManager?.openSaved()
 
   const urls = urlsFromArgs(process.argv.slice(1), process.cwd())
   if (urls.length) {
     for (const url of urls) {
-      windowManager.open({ url })
+      windowManager?.open({ url })
     }
-  } else if (!opened.length) windowManager.open()
+  } else if (!opened.length) windowManager?.open()
 
   console.log('Waiting for windows to settle')
 
@@ -240,11 +258,23 @@ async function onready () {
   console.log('Initialization done')
 }
 
+/**
+ *
+ * @param {string} [url]
+ * @param {object} [options]
+ * @returns
+ */
 function createWindow (url, options = {}) {
   console.log('createWindow', url, options)
-  return windowManager.open({ url, ...options })
+  return windowManager?.open({ url, ...options })
 }
 
+/**
+ *
+ * @param {string[]} argv
+ * @param {string} workingDir
+ * @returns {string[]}
+ */
 function urlsFromArgs (argv, workingDir) {
   const rootURL = new URL(workingDir + sep, 'file://')
   return argv
