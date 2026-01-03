@@ -5,9 +5,10 @@ import createDesktopShortcut from 'create-desktop-shortcuts'
 import dataUriToBuffer from 'data-uri-to-buffer'
 import sanitize from 'sanitize-filename'
 import * as history from './history.js'
-
 import Config from './config.js'
-import { Window } from './window.js'
+
+/** @import { Window } from './window.js' */
+
 const { accelerators, extensions, appPath } = Config
 
 const FOCUS_URL_BAR_SCRIPT = `
