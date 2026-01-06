@@ -113,7 +113,7 @@ dist
 release/
 
 # Ignore zip files for downloaded extensions
-app/extensions/builtins/
+src/extensions/builtins/
 
 # Ignore RC file used for testing the config
 .agregorerc
@@ -132,7 +132,7 @@ app/extensions/builtins/
 package-lock.json
 
 # This gets generated post install
-app/version.js
+src/version.js
 
 # This gets generated when I open in a Container
 .devcontainer
