@@ -47,6 +47,14 @@ body>h6 {
   display: block;
 }
 
+/* For markdown paragraphs with images */
+body>p>img,
+body>p>iframe,
+body>p>video,
+body>p>audio {
+  width: 100%;
+}
+
 input,
 button,
 textarea,
