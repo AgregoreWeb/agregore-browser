@@ -219,6 +219,15 @@ export class WindowManager extends EventEmitter {
     )
   }
 
+  /**
+   * @param {string} searchProvider
+   */
+  updateSearchProvider (searchProvider) {
+    for (const window of this.all) {
+      window.updateSearchProvider(searchProvider)
+    }
+  }
+
   async saveOpened () {
     console.log('Saving open windows')
     /**
@@ -630,6 +639,12 @@ export class Window extends EventEmitter {
 
   get id () {
     return this.window.webContents.id
+  }
+  /**
+   * @param {string} searchProvider
+   */
+  updateSearchProvider (searchProvider) {
+    this.send('update-search-provider', searchProvider)
   }
 }
 
