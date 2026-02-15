@@ -10,6 +10,7 @@ import createBTHandler from './bt-protocol.js'
 import createMagnetHandler from './magnet-protocol.js'
 import createRawHTTPSHandler from './raw-http-protocol.js'
 import createWeb3Handler from './web3-protocol.js'
+import createDIDHandler from './did-protocol.js'
 
 /** @import { LocalSiteTracker } from '../localsites.js' */
 
@@ -47,7 +48,8 @@ const {
   ssbOptions,
   hyperOptions,
   web3Options,
-  btOptions
+  btOptions,
+  didOptions
 } = Config
 
 /** @type {(() => Promise<void>|void)[]} */
@@ -72,7 +74,8 @@ export function registerPrivileges () {
     { scheme: 'web3', privileges: P2P_PRIVILEGES },
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
     { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEGES }
+    { scheme: 'magnet', privileges: LOW_PRIVILEGES },
+    { scheme: 'did', privileges: LOW_PRIVILEGES }
   ])
 }
 
@@ -169,4 +172,8 @@ export async function setupProtocols (session, tracker) {
   const { handler: web3Handler } = await createWeb3Handler(web3Options)
   sessionProtocol.handle('web3', web3Handler)
   globalProtocol.handle('web3', web3Handler)
+    
+  const didHandler = await createDIDHandler(didOptions)
+  sessionProtocol.handle('did', didHandler)
+  globalProtocol.handle('did', didHandler)
 }
