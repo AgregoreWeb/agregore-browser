@@ -244,6 +244,10 @@ async function onready () {
       }
     }
     if (hadThemeVars) windowManager?.updateThemeVars(themeVars)
+
+    if (configMap.searchProvider !== undefined) {
+      windowManager?.updateSearchProvider(configMap.searchProvider)
+    }
   })
 
   console.log('Opening saved windows')

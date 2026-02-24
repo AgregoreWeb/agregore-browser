@@ -16,7 +16,21 @@
     <fieldset>
         <label>Default Page: <input name="defaultPage"></label>
         <label>Auto-Hide Menu Bar: <input name="autoHideMenuBar"></label>
-        <label>Search Provider URI Template: <input name="searchProvider"></label>
+        <label>Search Provider URI Template: <input name="searchProvider" list="searchProviders" id="searchProviderInput"></label>
+        <datalist id="searchProviders">
+          <option value="https://noai.duckduckgo.com/?ia=web&q=%s">DuckDuckGo (No AI)</option>
+          <option value="https://duckduckgo.com/?ia=web&q=%s">DuckDuckGo (With AI)</option>
+          <option value="https://search.brave.com/search?q=%s">Brave Search</option>
+          <option value="https://www.startpage.com/do/dsearch?query=%s">Startpage</option>
+          <option value="https://searx.be/?q=%s">SearX (searx.be)</option>
+          <option value="https://search.disroot.org/?q=%s">SearXNG (disroot)</option>
+          <option value="https://www.ecosia.org/search?q=%s">Ecosia</option>
+          <option value="https://www.mojeek.com/search?q=%s">Mojeek</option>
+          <option value="https://www.kagi.com/search?q=%s">Kagi</option>
+          <option value="https://www.gibiru.com/?q=%s">Gibiru</option>
+          <option value="https://www.artadosearch.com/search?Button1=Artado&i=%s">ArtadoSearch</option>
+        </datalist>
+      
     </fieldset>
     <fieldset>
         <legend id="theme">Theme</legend>
@@ -76,7 +90,9 @@
                 }
             } else {
                 const e = $(`[name="${key}"]`)
-                if (e) e.value = JSON.stringify(value)
+                if (e) {
+                    e.value = JSON.stringify(value)
+                }
             }
         }
     }
@@ -96,4 +112,37 @@
             alert(e.message)
         }
     }
+
+    // Handle datalist selection properly with fixes for the identified issues
+    const searchProviderInput = document.getElementById('searchProviderInput')
+
+    searchProviderInput.addEventListener('focus', (e) => {
+        const currentValue = e.target.value
+        if (currentValue && currentValue.startsWith('"') && currentValue.endsWith('"')) {
+            e.target.dataset.originalValue = currentValue
+            e.target.value = ''
+        }
+    })
+
+    // Restore original value if user clicks away without selecting
+    searchProviderInput.addEventListener('blur', (e) => {
+        const currentValue = e.target.value
+        if (!currentValue && e.target.dataset.originalValue) {
+            e.target.value = e.target.dataset.originalValue
+            delete e.target.dataset.originalValue
+        }
+    })
+
+    // Listen for input events to detect datalist selection
+    searchProviderInput.addEventListener('input', (e) => {
+        const value = e.target.value
+        if (value && !value.startsWith('"') && !value.endsWith('"') && value.includes('://')) {
+            const selectedValue = JSON.stringify(value)
+            e.target.value = ''
+            setTimeout(() => {
+                e.target.value = selectedValue
+                e.target.blur()
+            }, 10)
+        }
+    })
 </script>

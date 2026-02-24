@@ -1,5 +1,5 @@
 const DEFAULT_PAGE = 'agregore://welcome'
-const DEFAULT_SEARCH_PROVIDER = 'https://duckduckgo.com/?ia=web&q=%s'
+const DEFAULT_SEARCH_PROVIDER = 'https://noai.duckduckgo.com/?ia=web&q=%s'
 
 const webview = $('#view')
 // Kyran: Using variable name "top" causes issues for some reason? I would assume it's because of another one of the UI scripts but it doesn't seem like that's the case.
@@ -111,6 +111,10 @@ currentWindow.on('enter-full-screen', () => {
 currentWindow.on('leave-full-screen', () => {
   if (!rawFrame) nav.classList.toggle('hidden', false)
   webview.emitResize()
+})
+
+currentWindow.on('update-search-provider', (newSearchProvider) => {
+  window.searchProvider = newSearchProvider
 })
 
 find.addEventListener('next', ({ detail }) => {
