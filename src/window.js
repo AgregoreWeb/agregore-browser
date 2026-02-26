@@ -13,6 +13,7 @@ import PQueue from 'p-queue'
 import delay from 'delay'
 
 import Config from './config.js'
+import { rewritePeerWebURL } from './url-rewrite.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
@@ -392,6 +393,15 @@ export class Window extends EventEmitter {
 
     this.window.setBrowserView(this.view)
 
+    this.web.on('will-navigate', (event, url) => {
+      const rewritten = rewritePeerWebURL(url)
+      if (rewritten === url) return
+      event.preventDefault()
+      this.loadURL(rewritten).catch((e) => {
+        console.error('Error rewriting navigation URL', e.stack)
+      })
+    })
+
     this.web.on('did-start-navigation', (event, url, isInPlace, isMainFrame) => {
       this.emitNavigate(url, isMainFrame)
     })
@@ -528,7 +538,8 @@ export class Window extends EventEmitter {
    * @param {string} url
    */
   async loadURL (url) {
-    return this.web.loadURL(url)
+    const rewritten = rewritePeerWebURL(url)
+    return this.web.loadURL(rewritten)
   }
 
   async getURL () {
@@ -640,6 +651,7 @@ export class Window extends EventEmitter {
   get id () {
     return this.window.webContents.id
   }
+
   /**
    * @param {string} searchProvider
    */
