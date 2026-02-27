@@ -13,6 +13,7 @@ import PQueue from 'p-queue'
 import delay from 'delay'
 
 import Config from './config.js'
+import { search } from './history.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 
@@ -24,13 +25,51 @@ const PERSIST_FILE = path.join(app.getPath('userData'), 'lastOpened.json')
 
 const DEFAULT_SAVE_INTERVAL = 30 * 1000
 
+const BACKGROUND_WHITE = `html {
+  background: #FAFAFA;
+}`
+
 // See if we have any stylesheets with rules
 // If not manually inject styles to be like Agregore
-const HAS_SHEET = `
-[...document.styleSheets].filter((sheet) => {
-try {sheet.cssRules; return true} catch {return false}
-}).length || !!(document.querySelectorAll('[style]').length > 1)
-`
+// If there are styles but no background, set it white
+function SHOULD_INJECT_CSS () {
+  // @ts-ignore
+  const hasSheetWithRules = [...document.styleSheets]
+    .filter((sheet) => {
+      try {
+        // eslint-disable-next-line
+        sheet.cssRules
+        return true
+      } catch {
+        return false
+      }
+    }).length
+  // @ts-ignore
+  const hasInlineStyles = !!(document.querySelector('[style]'))
+
+  const hasStyles = hasSheetWithRules || hasInlineStyles
+
+  if (!hasStyles) return 1
+
+  // @ts-ignore
+  const { backgroundColor, color: rootColor } = window.getComputedStyle(document.documentElement)
+  // They set a background color, keep their styles
+  if (backgroundColor !== 'rgba(0, 0, 0, 0)') return 0
+
+  // @ts-ignore
+  const checkElement = document.querySelector('p,span') || document.body
+  // @ts-ignore
+  const { color } = window.getComputedStyle(checkElement)
+  if (color === rootColor) {
+  // They didn't set a font color at all
+  // Inject the agregore styles into the page
+    return 1
+  } else {
+  // They set a color but assumed a white background
+  // Set the body background to `#F2F2F2`
+    return -1
+  }
+}
 
 const WINDOW_METHODS = [
   'goBack',
@@ -82,7 +121,7 @@ const showQueue = new PQueue({ concurrency: 1 })
 
 /**
  * @typedef {object} WindoManagerOptions
- * @property {() => AsyncIterable<object>} [onSearch]
+ * @property {typeof search} [onSearch]
  * @property {(win: Window) => Promise<import('./extensions/index.js').ActionItem[]>} [listActions]
  * @property {string} [persistTo]
  * @property {number} [saverInterval]
@@ -90,7 +129,7 @@ const showQueue = new PQueue({ concurrency: 1 })
 
 /**
  * @typedef {object} WindowOptions
- * @property {() => AsyncIterable<object>} [onSearch]
+ * @property {typeof search} [onSearch]
  * @property {(win: Window) => Promise<import('./extensions/index.js').ActionItem[]>} [listActions]
  * @property {BrowserView} [view]
  * @property {number} [width]
@@ -455,11 +494,15 @@ export class Window extends EventEmitter {
       if (this.web.getURL().startsWith('agregore://settings')) {
         this.web.executeJavaScript(`window.onSettings(${JSON.stringify(Config)})`)
       }
-      const hasStyles = await this.web.executeJavaScript(HAS_SHEET, true)
-        .catch(() => false) // If we error out checking styles, try it anyway
-      if (!hasStyles) {
+      const shouldInject = await this.web.executeJavaScript(`(${SHOULD_INJECT_CSS.toString()})()`, true)
+        .catch(() => 0) // If we error out checking styles, try it anyway
+      if (shouldInject === 1) {
         const style = await getDefaultStylesheet(this.web)
         await this.web.insertCSS(style, {
+          cssOrigin: 'user'
+        })
+      } else if(shouldInject === -1) {
+        await this.web.insertCSS(BACKGROUND_WHITE, {
           cssOrigin: 'user'
         })
       }
@@ -548,9 +591,13 @@ export class Window extends EventEmitter {
     return this.web.stopFindInPage('clearSelection')
   }
 
-  async searchHistoryStart (...args) {
+  /**
+   * @param {string} query 
+   * @param {number} [maxResults]
+   */
+  async searchHistoryStart (query, maxResults) {
     if (!this.onSearch) throw new Error('No Search Configured')
-    this.#searchIterator = this.onSearch(...args)
+    this.#searchIterator = this.onSearch(query, maxResults)
   }
 
   async searchHistoryNext () {
@@ -640,6 +687,7 @@ export class Window extends EventEmitter {
   get id () {
     return this.window.webContents.id
   }
+
   /**
    * @param {string} searchProvider
    */

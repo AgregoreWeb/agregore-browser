@@ -160,7 +160,7 @@ export class Extensions extends EventEmitter {
   /**
    *
    * @param {string} name
-   * @returns {Promise<string?>}
+   * @returns {Promise<import('electron').WebContents?>}
    */
   async getBackgroundPageByName (name) {
     const extension = await this.byName(name)

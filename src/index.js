@@ -218,7 +218,8 @@ async function onready () {
   if (historyExtension) {
   // TODO: Better error handling when the extension doesn't exist?
     history.setGetBackgroundPage(() => {
-      return extensions?.getBackgroundPageByName('agregore-history')
+      if(!extensions) throw new Error('Extensions not initialized')
+      return extensions.getBackgroundPageByName('agregore-history')
     })
 
     history.setViewPage(
