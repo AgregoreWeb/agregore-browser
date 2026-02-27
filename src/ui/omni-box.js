@@ -7,6 +7,11 @@ const IPNS_PREFIX = '/ipns/'
 const IPFS_PREFIX = '/ipfs/'
 
 const WEB_SEARCH_QUERY_PARAM = /%s/gi
+const INFOHASH_MATCH = /^[a-fA-F0-9]{40}$/
+const PEERWEB_HOSTS = new Set([
+  'peerweb.lol',
+  'www.peerweb.lol'
+])
 
 class OmniBox extends HTMLElement {
   constructor () {
@@ -74,6 +79,7 @@ class OmniBox extends HTMLElement {
           url = makeWebSearch(rawURL)
         }
       }
+      url = rewritePeerWebURL(url)
 
       this.clearOptions()
 
@@ -121,7 +127,8 @@ class OmniBox extends HTMLElement {
 
       if (isURL(url)) {
         e.preventDefault()
-        this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
+        const rewritten = rewritePeerWebURL(url)
+        this.dispatchEvent(new CustomEvent('navigate', { detail: { url: rewritten } }))
       }
     })
   }
@@ -198,7 +205,8 @@ class OmniBox extends HTMLElement {
     const finalItems = []
 
     if (isURL(query)) {
-      finalItems.push(this.makeNavItem(query, `Go to ${query}`))
+      const url = rewritePeerWebURL(query)
+      finalItems.push(this.makeNavItem(url, `Go to ${url}`))
     } else if (looksLikeLegacySSB(query)) {
       const url = makeSSB(query)
       finalItems.push(this.makeNavItem(url, `Go to ${url}`))
@@ -236,15 +244,16 @@ class OmniBox extends HTMLElement {
   }
 
   makeNavItem (url, text) {
+    const rewritten = rewritePeerWebURL(url)
     const element = document.createElement('button')
     element.classList.add('omni-box-nav-item')
     element.classList.add('omni-box-button')
-    element.dataset.url = url
+    element.dataset.url = rewritten
     element.innerText = text
     element.onclick = () => {
       this.clearOptions()
 
-      this.dispatchEvent(new CustomEvent('navigate', { detail: { url } }))
+      this.dispatchEvent(new CustomEvent('navigate', { detail: { url: rewritten } }))
     }
     return element
   }
@@ -365,6 +374,53 @@ function looksLikeIPNS (string) {
 
 function makeIPNS (path) {
   return `ipns://${path.slice(IPNS_PREFIX.length)}`
+}
+
+/**
+ * Rewrite PeerWeb ORC URLs to bittorrent URLs.
+ * @param {string} url
+ * @returns {string}
+ */
+function rewritePeerWebURL (url) {
+  let parsed
+  try {
+    parsed = new URL(url)
+  } catch {
+    return url
+  }
+
+  if (!isHTTP(parsed.protocol)) return url
+  if (!PEERWEB_HOSTS.has(parsed.hostname.toLowerCase())) return url
+
+  const orc = parsed.searchParams.get('orc')
+  if (!orc) return url
+  if (!INFOHASH_MATCH.test(orc)) return url
+
+  const infohash = orc.toLowerCase()
+  const params = new URLSearchParams(parsed.search)
+  params.delete('orc')
+  const pathname = isRootPath(parsed.pathname) ? '/index.html' : parsed.pathname
+  const query = params.toString()
+  const search = query ? `?${query}` : ''
+  const hash = parsed.hash || ''
+
+  return `bittorrent://${infohash}${pathname}${search}${hash}`
+}
+
+/**
+ * @param {string} protocol
+ * @returns {boolean}
+ */
+function isHTTP (protocol) {
+  return protocol === 'http:' || protocol === 'https:'
+}
+
+/**
+ * @param {string} pathname
+ * @returns {boolean}
+ */
+function isRootPath (pathname) {
+  return !pathname || pathname === '/'
 }
 
 customElements.define('omni-box', OmniBox)
