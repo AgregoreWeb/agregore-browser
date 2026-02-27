@@ -15,43 +15,7 @@ export default async function createHandler (options, session) {
     const { default: makeFetch } = await import('bt-fetch')
 
     const fetch = makeFetch(options)
-    const compatFetch = async (request) => {
-      if (!request || typeof request !== 'object') {
-        return fetch(request)
-      }
 
-      if (typeof request.url !== 'string') {
-        return fetch(request)
-      }
-
-      return fetch({
-        url: request.url,
-        method: request.method || 'GET',
-        headers: normalizeHeaders(request.headers),
-        body: request.body,
-        referrer: request.referrer,
-        signal: request.signal
-      })
-    }
-
-    return compatFetch
+    return fetch
   }, session)
-}
-
-/**
- * @param {Headers|Record<string, string>|undefined} headers
- * @returns {Record<string, string>}
- */
-function normalizeHeaders (headers) {
-  if (!headers) return {}
-
-  if (typeof headers.entries === 'function') {
-    const finalHeaders = {}
-    for (const [key, value] of headers.entries()) {
-      finalHeaders[key] = value
-    }
-    return finalHeaders
-  }
-
-  return { ...headers }
 }
