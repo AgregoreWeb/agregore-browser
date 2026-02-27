@@ -160,6 +160,11 @@ const Config = RC('agregore', {
   // All options here: https://github.com/webtorrent/webtorrent/blob/master/docs/api.md
   btOptions: {
     folder: DEFAULT_BT_DIR
+  },
+
+  // DID resolution options (AT Protocol)
+  didOptions: {
+    plcDirectory: 'https://plc.directory'
   }
 })
 
