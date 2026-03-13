@@ -172,7 +172,7 @@ export async function setupProtocols (session, tracker) {
   const { handler: web3Handler } = await createWeb3Handler(web3Options)
   sessionProtocol.handle('web3', web3Handler)
   globalProtocol.handle('web3', web3Handler)
-    
+
   const didHandler = await createDIDHandler(didOptions)
   sessionProtocol.handle('did', didHandler)
   globalProtocol.handle('did', didHandler)

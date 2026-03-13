@@ -21,15 +21,15 @@ let getBackgroundPage = null
 let viewPage = null
 
 /**
- * @param {GetBackgroundPage} backgroundPage 
+ * @param {GetBackgroundPage} backgroundPage
  */
 export function setGetBackgroundPage (backgroundPage) {
   getBackgroundPage = backgroundPage
 }
 
 /**
- * 
- * @param {string} page 
+ *
+ * @param {string} page
  */
 export function setViewPage (page) {
   viewPage = page
@@ -39,21 +39,21 @@ export function setViewPage (page) {
  * @returns {string}
  */
 export function getViewPage () {
-  if(!viewPage) throw new Error('View page not yet configured')
+  if (!viewPage) throw new Error('View page not yet configured')
   return viewPage
 }
 
 /**
- * 
- * @param {string} query 
+ *
+ * @param {string} query
  * @param {number} [maxResults]
  * @returns {AsyncIterator<HistoryItem>}
  */
 export async function * search (query = '', maxResults) {
-  if(!getBackgroundPage) throw new Error('History extension not yet configured')
+  if (!getBackgroundPage) throw new Error('History extension not yet configured')
   const searchArgs = JSON.stringify([query, maxResults]).slice(1, -1)
   const webContents = await getBackgroundPage()
-  if(!webContents) throw new Error('History extension not yet configured')
+  if (!webContents) throw new Error('History extension not yet configured')
   await webContents.executeJavaScript(`
     if(window.lastSearch?.return) {
       window.lastSearch?.return()

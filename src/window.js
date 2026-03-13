@@ -13,7 +13,6 @@ import PQueue from 'p-queue'
 import delay from 'delay'
 
 import Config from './config.js'
-import { search } from './history.js'
 
 const IS_DEBUG = process.env.NODE_ENV === 'debug'
 

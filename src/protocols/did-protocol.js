@@ -71,7 +71,6 @@ export default async function createHandler (options = {}) {
     }
   }
 
-
   /** @param {number} status @param {string} message */
   function sendError (status, message) {
     return new Response(message, {
