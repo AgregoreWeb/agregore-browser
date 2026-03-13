@@ -62,8 +62,7 @@ function SHOULD_INJECT_CSS () {
   const { color } = window.getComputedStyle(checkElement)
   if (color === rootColor) {
   // They didn't set a font color at all
-  // Inject the agregore styles into the page
-    return 1
+    return 0
   } else {
   // They set a color but assumed a white background
   // Set the body background to `#F2F2F2`
@@ -501,7 +500,7 @@ export class Window extends EventEmitter {
         await this.web.insertCSS(style, {
           cssOrigin: 'user'
         })
-      } else if(shouldInject === -1) {
+      } else if (shouldInject === -1) {
         await this.web.insertCSS(BACKGROUND_WHITE, {
           cssOrigin: 'user'
         })
@@ -592,7 +591,7 @@ export class Window extends EventEmitter {
   }
 
   /**
-   * @param {string} query 
+   * @param {string} query
    * @param {number} [maxResults]
    */
   async searchHistoryStart (query, maxResults) {
