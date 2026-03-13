@@ -1,6 +1,7 @@
 import { app, BrowserWindow, session, Menu, Tray, dialog } from 'electron'
 import path, { sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import os from 'node:os'
 
 import * as protocols from './protocols/index.js'
 import { createActions } from './actions.js'
@@ -62,9 +63,20 @@ app.commandLine.appendSwitch('enable-speech-dispatcher')
 // Smooth scrolling
 app.commandLine.appendSwitch('enable-smooth-scrolling')
 
-// Try to use the GPU for video decode on Pinephone
-app.commandLine.appendSwitch('enable-accelerated-video-decode')
-app.commandLine.appendSwitch('ignore-gpu-blacklist')
+// Enable webgpu
+app.commandLine.appendSwitch('enable-unsafe-webgpu')
+
+if (os.platform() === 'linux') {
+  app.commandLine.appendSwitch('ozone-platform', 'wayland')
+  if (os.arch() === 'arm64') {
+    // Try to use the GPU for video decode on Pinephone
+    app.commandLine.appendSwitch('enable-accelerated-video-decode')
+    app.commandLine.appendSwitch('ignore-gpu-blacklist')
+    app.commandLine.appendSwitch('enable-zero-copy')
+    app.commandLine.appendSwitch('enable-features', 'Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,WaylandWindowDecorationsh')
+    app.commandLine.appendSwitch('use-vulkan')
+  }
+}
 
 // Experimental web platform features, such as the FileSystem API
 app.commandLine.appendSwitch('enable-experimental-web-platform-features')
@@ -218,7 +230,7 @@ async function onready () {
   if (historyExtension) {
   // TODO: Better error handling when the extension doesn't exist?
     history.setGetBackgroundPage(() => {
-      if(!extensions) throw new Error('Extensions not initialized')
+      if (!extensions) throw new Error('Extensions not initialized')
       return extensions.getBackgroundPageByName('agregore-history')
     })
 
