@@ -38,6 +38,14 @@ let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
 const DEFAULT_BORDER_RADIUS = '0.25em'
 const DEFAULT_BORDER_COLOR = 'var(--ag-theme-secondary)'
 
+const initialRawConfig = RC('agregore', {
+  theme: { themeSource: 'system' }
+}
+)
+
+// Apply the themeSource from config on startup
+nativeTheme.themeSource = initialRawConfig.theme.themeSource
+
 const { shouldUseDarkColors } = nativeTheme
 
 if (shouldUseDarkColors === false) {
@@ -107,7 +115,8 @@ const Config = RC('agregore', {
     indent: '16px',
     'max-width': '666px',
     'border-radius': DEFAULT_BORDER_RADIUS,
-    'border-color': DEFAULT_BORDER_COLOR
+    'border-color': DEFAULT_BORDER_COLOR,
+    themeSource: 'system'
   },
 
   defaultPage: DEFAULT_PAGE,
@@ -257,5 +266,11 @@ function getFrom (path, object) {
  * @param {(config: ConfigData) => void} newOnChange
  */
 export function setOnChange (newOnChange) {
-  onChange = newOnChange
+  onChange = (configMap) => {
+    // Apply themeSource to nativeTheme if it changed
+    if (configMap.theme?.themeSource !== undefined) {
+      nativeTheme.themeSource = configMap.theme.themeSource
+    }
+    newOnChange(configMap)
+  }
 }

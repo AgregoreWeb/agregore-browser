@@ -37,6 +37,13 @@
         <p>
           <a href="agregore://settings/theme">Visual Theme Editor</a>
         </p>
+        <label>Color Scheme: 
+          <select name="theme.themeSource">
+            <option value="system">System</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
         <label>font-family: <input name="theme.font-family"></label>
         <label>background: <input name="theme.background"></label>
         <label>text: <input name="theme.text"></label>
@@ -86,7 +93,13 @@
             if (typeof value === 'object') {
                 for (const [subkey, subvalue] of Object.entries(value)) {
                     const e = $(`[name="${key}.${subkey}"]`)
-                    if (e) e.value = JSON.stringify(subvalue)
+                    if (e) {
+                        if (e.tagName === 'SELECT') {
+                            e.value = subvalue
+                        } else {
+                            e.value = JSON.stringify(subvalue)
+                        }
+                    }
                 }
             } else {
                 const e = $(`[name="${key}"]`)
@@ -101,8 +114,13 @@
         e.preventDefault()
         const configMap = {}
         try {
-            for (const { name, value } of $$('#settingsForm input')) {
-                configMap[name] = JSON.parse(value)
+            for (const el of $$('#settingsForm input, #settingsForm select')) {
+                const { name, value } = el
+                if (el.tagName === 'SELECT') {
+                    configMap[name] = value
+                } else {
+                    configMap[name] = JSON.parse(value)
+                }
             }
             console.log('saving', configMap)
             settings.save(configMap)
