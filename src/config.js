@@ -32,47 +32,68 @@ const DEFAULT_SEARCH_PROVIDER = 'https://noai.duckduckgo.com/?ia=web&q=%s'
 const DEFAULT_CONFIG_FILE_NAME = '.agregorerc'
 export const MAIN_RC_FILE = join(os.homedir(), DEFAULT_CONFIG_FILE_NAME)
 
-let DEFAULT_BACKGROUND = 'var(--ag-color-black)'
-let DEFAULT_TEXT = 'var(--ag-color-white)'
-let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
 const DEFAULT_BORDER_RADIUS = '0.25em'
 const DEFAULT_BORDER_COLOR = 'var(--ag-theme-secondary)'
 
+/**
+ * Calculate the default theme values based on the current system theme and platform
+ * @param {boolean} shouldUseDarkColors
+ * @returns {{background: string, text: string, page: string}}
+ */
+export function calculateDefaultTheme (shouldUseDarkColors) {
+  let DEFAULT_BACKGROUND = 'var(--ag-color-black)'
+  let DEFAULT_TEXT = 'var(--ag-color-white)'
+  let DEFAULT_PAGE_THEME = 'var(--ag-color-black)'
+
+  if (shouldUseDarkColors === false) {
+    DEFAULT_BACKGROUND = 'var(--ag-color-white)'
+    DEFAULT_TEXT = 'var(--ag-color-black)'
+    DEFAULT_PAGE_THEME = 'var(--ag-color-white)'
+
+    if (isMac) {
+      DEFAULT_BACKGROUND = '#F5F5F7'
+      DEFAULT_TEXT = '#1D1D1F'
+    }
+    if (isWindows) {
+      DEFAULT_BACKGROUND = '#F3F3F3'
+      DEFAULT_TEXT = '#1a1a1a'
+    }
+  } else {
+    if (isMac) {
+      DEFAULT_BACKGROUND = '#2C2C2E'
+    }
+    if (isWindows) {
+      DEFAULT_BACKGROUND = '#202020'
+    }
+  }
+
+  if (isMac || isWindows) {
+    DEFAULT_PAGE_THEME = 'none'
+  }
+
+  return {
+    background: DEFAULT_BACKGROUND,
+    text: DEFAULT_TEXT,
+    page: DEFAULT_PAGE_THEME
+  }
+}
+
 const initialRawConfig = RC('agregore', {
   theme: { themeSource: 'system' }
-}
-)
+})
 
 // Apply the themeSource from config on startup
-nativeTheme.themeSource = initialRawConfig.theme.themeSource
-
-const { shouldUseDarkColors } = nativeTheme
-
-if (shouldUseDarkColors === false) {
-  DEFAULT_BACKGROUND = 'var(--ag-color-white)'
-  DEFAULT_TEXT = 'var(--ag-color-black)'
-  DEFAULT_PAGE_THEME = 'var(--ag-color-white)'
-
-  if (isMac) {
-    DEFAULT_BACKGROUND = '#F5F5F7'
-    DEFAULT_TEXT = '#1D1D1F'
-  }
-  if (isWindows) {
-    DEFAULT_BACKGROUND = '#F3F3F3'
-    DEFAULT_TEXT = '#1a1a1a'
-  }
-} else {
-  if (isMac) {
-    DEFAULT_BACKGROUND = '#2C2C2E'
-  }
-  if (isWindows) {
-    DEFAULT_BACKGROUND = '#202020'
-  }
+if (initialRawConfig.theme.themeSource) {
+  nativeTheme.themeSource = initialRawConfig.theme.themeSource
 }
 
-if (isMac || isWindows) {
-  DEFAULT_PAGE_THEME = 'none'
-}
+// Listen for system theme changes when themeSource is 'system'
+nativeTheme.on('updated', () => {
+  console.log("native theme updated")
+  applyDefaultThemeIfNeeded()
+})
+
+const defaultThemeValues = calculateDefaultTheme(nativeTheme.shouldUseDarkColors)
 
 const Config = RC('agregore', {
   llm: {
@@ -107,9 +128,9 @@ const Config = RC('agregore', {
 
   theme: {
     'font-family': 'system-ui',
-    background: DEFAULT_BACKGROUND,
-    text: DEFAULT_TEXT,
-    page: DEFAULT_PAGE_THEME,
+    background: defaultThemeValues.background,
+    text: defaultThemeValues.text,
+    page: defaultThemeValues.page,
     primary: 'var(--ag-color-purple)',
     secondary: 'var(--ag-color-green)',
     indent: '16px',
@@ -259,6 +280,39 @@ function getFrom (path, object) {
     return object[key][subkey]
   } else {
     return object[path]
+  }
+}
+
+/**
+ * Check if the current theme is using the default values for the given shouldUseDarkColors
+ * @param {boolean} shouldUseDarkColors
+ * @returns {boolean}
+ */
+function isUsingOldDefaultTheme (shouldUseDarkColors) {
+  const defaultTheme = calculateDefaultTheme(shouldUseDarkColors)
+  const currentTheme = Config.theme
+  return (
+    currentTheme.background === defaultTheme.background &&
+    currentTheme.text === defaultTheme.text &&
+    currentTheme.page === defaultTheme.page
+  )
+}
+
+/**
+ * Apply the default theme for the current system theme if using defaults
+ */
+function applyDefaultThemeIfNeeded () {
+const {shouldUseDarkColors} = nativeTheme
+  const shouldChange = isUsingOldDefaultTheme(!shouldUseDarkColors)
+  console.log({shouldChange, shouldUseDarkColors})
+  if (shouldChange) {
+    const newDefaultTheme = calculateDefaultTheme(shouldUseDarkColors)
+    Config.theme.background = newDefaultTheme.background
+    Config.theme.text = newDefaultTheme.text
+    Config.theme.page = newDefaultTheme.page
+    onChange({
+      theme: newDefaultTheme
+    })
   }
 }
 
