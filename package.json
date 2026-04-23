@@ -215,7 +215,7 @@
     "gemini-to-html": "^1.0.0",
     "go-ipfs": "^0.22.0",
     "hyper-sdk": "^6.2.1",
-    "hypercore-fetch": "^10.1.0",
+    "hypercore-fetch": "^10.2.0",
     "ipfs-http-client": "^60.0.0",
     "ipfsd-ctl": "^13.0.0",
     "js-ipfs-fetch": "^5.3.0",
