@@ -84,12 +84,13 @@ const initialRawConfig = RC('agregore', {
 
 // Apply the themeSource from config on startup
 if (initialRawConfig.theme.themeSource) {
+  // @ts-ignore It's okay we can let it error if its wrong
   nativeTheme.themeSource = initialRawConfig.theme.themeSource
 }
 
 // Listen for system theme changes when themeSource is 'system'
 nativeTheme.on('updated', () => {
-  console.log("native theme updated")
+  console.log('native theme updated')
   applyDefaultThemeIfNeeded()
 })
 
@@ -110,12 +111,20 @@ const Config = RC('agregore', {
     NewWindow: 'CommandOrControl+N',
     Forward: 'CommandOrControl+]',
     Back: 'CommandOrControl+[',
+    Up: undefined,
     FocusURLBar: 'CommandOrControl+L',
     FindInPage: 'CommandOrControl+F',
     Reload: 'CommandOrControl+R',
     HardReload: 'CommandOrControl+Shift+R',
-    LearnMore: null,
-    OpenExtensionsFolder: null,
+    LearnMore: undefined,
+    OpenExtensionsFolder: undefined,
+    SetAsDefault: undefined,
+    SetAsDefaultMagnet: undefined,
+    OpenExtensionFolder: undefined,
+    OpenDataFolder: undefined,
+    DownloadPage: undefined,
+    ViewHistory: undefined,
+    ViewLocalSites: undefined,
     EditConfigFile: 'CommandOrControl+.',
     CreateBookmark: 'CommandOrControl+D'
   },
@@ -302,9 +311,9 @@ function isUsingOldDefaultTheme (shouldUseDarkColors) {
  * Apply the default theme for the current system theme if using defaults
  */
 function applyDefaultThemeIfNeeded () {
-const {shouldUseDarkColors} = nativeTheme
+  const { shouldUseDarkColors } = nativeTheme
   const shouldChange = isUsingOldDefaultTheme(!shouldUseDarkColors)
-  console.log({shouldChange, shouldUseDarkColors})
+  console.log({ shouldChange, shouldUseDarkColors })
   if (shouldChange) {
     const newDefaultTheme = calculateDefaultTheme(shouldUseDarkColors)
     Config.theme.background = newDefaultTheme.background

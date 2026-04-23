@@ -22,12 +22,12 @@ export function registerMenu (actions) {
     Reload,
     HardReload,
     LearnMore,
+    DownloadPage,
     SetAsDefault,
     SetAsDefaultMagnet,
     OpenExtensionFolder,
     OpenDataFolder,
-    EditConfigFile,
-    CreateBookmark
+    EditConfigFile
   } = actions
 
   const template = [
@@ -116,11 +116,7 @@ export function registerMenu (actions) {
       submenu: [
         Reload,
         HardReload,
-        ...(isMac
-          ? []
-          : [
-              CreateBookmark
-            ]),
+        DownloadPage,
         { role: 'minimize' },
         { role: 'zoom' },
         ...(isMac
@@ -148,6 +144,7 @@ export function registerMenu (actions) {
     }
   ]
 
+  /// / @ts-ignore
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 }
