@@ -113,6 +113,13 @@
           "ssb"
         ],
         "role": "Viewer"
+      },
+      {
+        "name": "iroh",
+        "schemes": [
+          "iroh"
+        ],
+        "role": "Viewer"
       }
     ],
     "dmg": {
@@ -227,6 +234,7 @@
     "scoped-fs": "^1.4.1",
     "semver": "^7.5.2",
     "ssb-fetch": "^1.5.2",
-    "web3protocol": "^0.6.2"
+    "web3protocol": "^0.6.2",
+    "@number0/iroh": "^0.35.0"
   }
 }
