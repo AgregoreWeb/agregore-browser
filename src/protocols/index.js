@@ -2,6 +2,7 @@ import { app, protocol as globalProtocol } from 'electron'
 import Config from '../config.js'
 
 import createHyperHandler from './hyper-protocol.js'
+import createHyperHttpHandler from './hyper-http-protocol.js'
 import createSsbHandler from './ssb-protocol.js'
 import createIPFSHandler from './ipfs-protocol.js'
 import createBrowserHandler from './browser-protocol.js'
@@ -47,6 +48,7 @@ const {
   ipfsOptions,
   ssbOptions,
   hyperOptions,
+  hyperHttpOptions,
   web3Options,
   btOptions,
   didOptions
@@ -62,6 +64,7 @@ export async function close () {
 export function registerPrivileges () {
   globalProtocol.registerSchemesAsPrivileged([
     { scheme: 'https+raw', privileges: P2P_PRIVILEGES },
+    { scheme: 'hyper+http', privileges: P2P_PRIVILEGES },
     { scheme: 'hyper', privileges: P2P_PRIVILEGES },
     { scheme: 'gemini', privileges: P2P_PRIVILEGES },
     { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
@@ -84,6 +87,7 @@ export function setAsDefaultProtocolClient () {
 
   app.setAsDefaultProtocolClient('agregore')
   app.setAsDefaultProtocolClient('hyper')
+  app.setAsDefaultProtocolClient('hyper+http')
   app.setAsDefaultProtocolClient('ssb')
   app.setAsDefaultProtocolClient('gemini')
   app.setAsDefaultProtocolClient('ipfs')
@@ -118,6 +122,14 @@ export async function setupProtocols (session, tracker) {
   onCloseHandlers.push(closeHyper)
   sessionProtocol.handle('hyper', hyperProtocolHandler)
   globalProtocol.handle('hyper', hyperProtocolHandler)
+
+  const {
+    handler: hyperHttpProtocolHandler,
+    close: closeHyperHttp
+  } = await createHyperHttpHandler(hyperHttpOptions, session)
+  onCloseHandlers.push(closeHyperHttp)
+  sessionProtocol.handle('hyper+http', hyperHttpProtocolHandler)
+  globalProtocol.handle('hyper+http', hyperHttpProtocolHandler)
 
   console.log('Registering ssb handlers')
 
