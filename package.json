@@ -159,6 +159,7 @@
       "executableArgs": [
         "--enable-accelerated-video"
       ],
+      "icon": "build/icon.png",
       "target": [
         "deb",
         "AppImage",

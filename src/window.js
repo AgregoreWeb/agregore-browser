@@ -2,7 +2,8 @@ import {
   BrowserWindow,
   BrowserView,
   ipcMain,
-  app
+  app,
+  nativeImage
 } from 'electron'
 import path from 'node:path'
 import EventEmitter from 'node:events'
@@ -426,6 +427,17 @@ export class Window extends EventEmitter {
     this.window.setVibrancy('fullscreen-ui')
     this.window.setBackgroundColor('#00000000')
     this.window.setBackgroundMaterial('mica')
+
+    // Set window icon explicitly for Linux (GNOME/KDE)
+    // Electron's BrowserWindow 'icon' option only applies to Windows/macOS
+    if (process.platform === 'linux') {
+      try {
+        const icon = nativeImage.createFromPath(LOGO_FILE)
+        this.window.setIcon(icon)
+      } catch (e) {
+        console.warn('Failed to set window icon:', e.message)
+      }
+    }
 
     this.window.setBrowserView(this.view)
 
