@@ -11,6 +11,7 @@ import createMagnetHandler from './magnet-protocol.js'
 import createRawHTTPSHandler from './raw-http-protocol.js'
 import createWeb3Handler from './web3-protocol.js'
 import createDIDHandler from './did-protocol.js'
+import createIrohHandler from './iroh-protocol.js'
 
 /** @import { LocalSiteTracker } from '../localsites.js' */
 
@@ -49,7 +50,8 @@ const {
   hyperOptions,
   web3Options,
   btOptions,
-  didOptions
+  didOptions,
+  irohOptions
 } = Config
 
 /** @type {(() => Promise<void>|void)[]} */
@@ -75,7 +77,8 @@ export function registerPrivileges () {
     { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
     { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
     { scheme: 'magnet', privileges: LOW_PRIVILEGES },
-    { scheme: 'did', privileges: LOW_PRIVILEGES }
+    { scheme: 'did', privileges: LOW_PRIVILEGES },
+    { scheme: 'iroh', privileges: P2P_PRIVILEGES }
   ])
 }
 
@@ -93,6 +96,7 @@ export function setAsDefaultProtocolClient () {
   app.setAsDefaultProtocolClient('bittorrent')
   app.setAsDefaultProtocolClient('bt')
   app.setAsDefaultProtocolClient('web3')
+  app.setAsDefaultProtocolClient('iroh')
 }
 
 /**
@@ -176,4 +180,14 @@ export async function setupProtocols (session, tracker) {
   const didHandler = await createDIDHandler(didOptions)
   sessionProtocol.handle('did', didHandler)
   globalProtocol.handle('did', didHandler)
+
+  console.log('Registering iroh handlers')
+
+  const {
+    handler: irohHandler,
+    close: closeIroh
+  } = await createIrohHandler(irohOptions, session)
+  onCloseHandlers.push(closeIroh)
+  sessionProtocol.handle('iroh', irohHandler)
+  globalProtocol.handle('iroh', irohHandler)
 }

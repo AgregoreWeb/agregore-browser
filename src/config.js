@@ -204,6 +204,11 @@ const Config = RC('agregore', {
   // DID resolution options (AT Protocol)
   didOptions: {
     plcDirectory: 'https://plc.directory'
+  },
+
+  // Iroh options
+  irohOptions: {
+    storage: DEFAULT_HYPER_DIR
   }
 })
 
