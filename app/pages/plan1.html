@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<title>Plan1</title>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<style>
+.plan1-background {
+  padding: 1rem;
+}
+
+.example {
+  border: 1px solid #787878;
+  background: 1px solid #e3e3e3;
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+}
+</style>
+
+<div class="plan1-background">
+  <h1>Plan 1</h1>
+  <p>
+    A love letter to the grateful dead internet hypothesis
+  </p>
+
+  <h2>Elves</h2>
+  <p>
+    Elves are discreet hypertext helpers.
+  </p>
+
+  <h3>Hello World</h3>
+  <p>
+    The first elvish taught to most humans is hello-world.
+  </p>
+
+  <h4>Demo</h4>
+  <div class="example">
+    <hello-world></hello-world>
+  </div>
+
+  <h3>QR Code</h3>
+  <p>
+    qr-code required attributes:
+  </p>
+
+  <ul>
+    <li>src: a url</li>
+  </ul>
+
+  <p>
+    qr-code optional attributes
+  </p>
+
+  <ul>
+    <li>data-bg: custom background color</li>
+    <li>data-fg: custom foreground color</li>
+  </ul>
+
+  <h4>Demo</h4>
+
+  <div class="example">
+    <qr-code src="https://github.com/p2plabsxyz/peersky-browser" data-fg="saddlebrown" data-bg="lemonchiffon"></qr-code>
+  </div>
+
+  <hr>
+
+  <h2>Elvish</h2>
+  <p>
+    "Learn to draw in style and when to teach them" - the mantra of the elves
+  </p>
+
+  <h3>Befriending Elves</h3>
+  <p>
+    The function of an "elf" is to be a hypertext helper. Known elves speak the same universal dialect of elvish.
+  </p>
+
+  <p>
+    The goodbye-world elf is known by the following definition:
+  </p>
+
+  <pre>const $ = elf('goodbye-world', { planet: 'World' })</pre>
+
+  <h4>Learn</h4>
+  <p>
+    Elves tuck information away in what humans have categorized as "JSON", better known as Jason.
+  </p>
+
+  <pre>const data = $.learn()</pre>
+
+  <h4>Draw</h4>
+  <p>
+    When elves draw, they have the full hypertext target to work with. Hypertext returned from the callback will be drawn automatically. The target is available in the draw callback, as well as optional hooks before and after the draw callback is updated, when Jason has new information to learn.
+  </p>
+
+  <pre><xmp>$.draw((target) => {
+    const data = $.learn()
+    return '<button>Hello ${data.planet}!</button>'
+  }, {
+  beforeUpdate: (target) => null,
+  afterUpdate: (target) => null
+})</xmp></pre>
+
+  <h4>Style</h4>
+  <p>
+    Elves style the same way humans do, with cascading style sheets.
+  </p>
+
+  <pre>$.style(`
+  & {
+    color: red;
+  }
+`)</pre>
+
+  <h4>When</h4>
+  <p>
+    When elves have detected a human interaction, they can process the event.
+  </p>
+
+  <pre>$.when('click', 'button', (event) =>  {
+  $.teach({ planet: pluto })
+})</pre>
+
+  <h4>Teach</h4>
+  <p>
+    Elves can teach Jason basic data with a single object. An optional merge function may be passed to teach Jason more specifically.
+  </p>
+
+  <pre>$.teach(
+  { planet: 'pluto'},
+  (state, payload) => {
+    return {
+      ...state,
+      defunctPlanets: [...new Set([...state.defunctPlanets, payload.planet])]
+    }
+})</pre>
+
+  <h4>Demo</h4>
+  <p>
+    The demo below is inspired by the documentation above, but not exact.
+  </p>
+  <div class="example">
+    <goodbye-world></goodbye-world>
+  </div>
+</div>
+
+<script src="agregore://elves/elf.js" type="module"></script>
