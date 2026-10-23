@@ -10,7 +10,7 @@
     "debug": "env NODE_ENV=debug electron --trace-uncaught .",
     "builder": "electron-builder build --publish never",
     "builder-all": "electron-builder build -mwl",
-    "lint": "standard --fix",
+    "lint": "standard",
     "preversion": "npm run test",
     "postinstall": "npm run postversion && npm run download-extensions",
     "download-extensions": "node ./download-extensions.js",
