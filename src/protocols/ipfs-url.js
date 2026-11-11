@@ -7,6 +7,9 @@ import { base58btc } from 'multiformats/bases/base58'
 // Every multibase that shows up in the wild for CID strings in URLs
 const CID_BASES = base32.decoder.or(base36.decoder).or(base58btc.decoder).or(base16.decoder)
 
+// What js-ipld-url-resolve can decode (DEFAULT_CID_BASES)
+const IPLD_BASES = base32.decoder.or(base36.decoder)
+
 const LOCAL_HOSTNAME = 'localhost'
 const READ_ONLY_METHODS = new Set(['GET', 'HEAD'])
 
@@ -32,13 +35,22 @@ function parseHostnameCID (hostname) {
 }
 
 /**
- * Whether js-ipfs-fetch can parse this CID string, given that it calls
- * CID.parse without a multibase decoder (only base32 and CIDv0 work there)
+ * Whether a CID string can be parsed without a multibase decoder
+ * (this is all that js-ipfs-fetch / ipfs-unixfs-exporter supports)
  * @param {string} value
  */
 function isBareParsableCID (value) {
+  return isParsableWithBases(value)
+}
+
+/**
+ * Whether a CID string parses with the given multibase decoder set
+ * @param {string} value
+ * @param {import('multiformats/bases/interface').MultibaseDecoder<any>} [bases]
+ */
+function isParsableWithBases (value, bases) {
   try {
-    CID.parse(value)
+    CID.parse(value, bases)
     return true
   } catch {
     return false
@@ -107,6 +119,20 @@ function canonicalizeCIDHost (url, cid, method) {
 }
 
 /**
+ * Canonicalize the CID in an `ipld://` URL hostname so that
+ * js-ipld-url-resolve's CID.parse (base32/base36 only) can read it
+ * @param {URL} url
+ * @returns {boolean} whether the URL was rewritten
+ */
+function canonicalizeIPLDHost (url) {
+  const cid = parseHostnameCID(url.hostname)
+  if (!cid) return false
+  if (isParsableWithBases(url.hostname, IPLD_BASES)) return false
+  url.hostname = cid.toV1().toString(base32)
+  return true
+}
+
+/**
  * Normalize an `ipfs://` or `ipns://` URL into a form that js-ipfs-fetch can
  * route, or `null` when the URL needs no changes. Handles:
  *
@@ -123,6 +149,9 @@ function canonicalizeCIDHost (url, cid, method) {
  * - DNSLink domain names (e.g. `ipfs://en.wikipedia-on-ipfs.org`) rewritten
  *   to `ipns://` for read-only requests so Kubo resolves them. Writes to
  *   `ipfs://` URLs are left untouched.
+ * - `ipld://` URLs rooted at a CID in any other multibase (e.g. CIDv0 `Qm…`,
+ *   hex, uppercase) rewritten to base32, since js-ipld-url-resolve only
+ *   decodes base32/base36.
  *
  * @param {string|URL} input
  * @param {string} [method] Request method, used to decide whether rerouting names is safe
@@ -130,7 +159,7 @@ function canonicalizeCIDHost (url, cid, method) {
  */
 export function normalizeIPFSURL (input, method = 'GET') {
   const url = new URL(input instanceof URL ? input.href : input)
-  if (url.protocol !== 'ipfs:' && url.protocol !== 'ipns:') return null
+  if (url.protocol !== 'ipfs:' && url.protocol !== 'ipns:' && url.protocol !== 'ipld:') return null
 
   let changed = false
   let iterations = 0
@@ -138,7 +167,9 @@ export function normalizeIPFSURL (input, method = 'GET') {
   while (iterations++ < 8) {
     let progress = false
 
-    if (url.hostname !== LOCAL_HOSTNAME) {
+    if (url.protocol === 'ipld:') {
+      progress = canonicalizeIPLDHost(url)
+    } else if (url.hostname !== LOCAL_HOSTNAME) {
       const cid = parseHostnameCID(url.hostname)
       if (!cid) {
         progress = stripGatewayPrefix(url) || stripGatewaySubdomain(url)
