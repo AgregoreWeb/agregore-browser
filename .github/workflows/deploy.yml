@@ -1,3 +1,10 @@
+# Example consumer workflow for the ipfs-gh-pages reusable action.
+#
+# By default this tracks the action repo's current state: the newest v* tag
+# (currently v2.7.8) is auto-detected at run time, falling back to the
+# default-branch HEAD when no tag exists. Pin a specific ref instead via
+# workflow_dispatch (action_ref) or by setting REF explicitly below.
+
 name: Deploy IPFS site
 
 on:
@@ -6,9 +13,9 @@ on:
   workflow_dispatch:
     inputs:
       action_ref:
-        description: 'Action reference (Pinned SHA, branch, or tag v2.0.1)'
-        required: true
-        default: '8e5ea397b3fa70854b2b2779eb3f2e8ead0691dd'
+        description: 'Action ref (SHA, branch, or tag e.g. v2.7.8). Empty = auto-detect newest v* tag, else default-branch HEAD.'
+        required: false
+        default: ''
         type: string
       node_version:
         description: 'Node.js version to use for the build'
@@ -38,10 +45,17 @@ jobs:
       - name: Determine Action Ref and Node Version
         id: set-inputs
         run: |
-          # Fallback to defaults if triggered via push event instead of workflow_dispatch
+          # Pin explicitly via workflow_dispatch; otherwise auto-detect the
+          # action repo's current state: newest v* tag, else HEAD.
           REF="${{ github.event.inputs.action_ref }}"
           if [ -z "$REF" ]; then
-            REF="8e5ea397b3fa70854b2b2779eb3f2e8ead0691dd"
+            REF=$(git ls-remote --refs --tags --sort=-v:refname https://github.com/RandyMcMillan/ipfs-gh-pages.git 'v*' | head -n 1 | cut -f2 | sed 's|^refs/tags/||')
+            if [ -n "$REF" ]; then
+              echo "Auto-detected newest tag of RandyMcMillan/ipfs-gh-pages: $REF"
+            else
+              REF=$(git ls-remote https://github.com/RandyMcMillan/ipfs-gh-pages.git HEAD | cut -f1)
+              echo "No v* tags found — using default-branch HEAD: $REF"
+            fi
           fi
           echo "action_ref=$REF" >> $GITHUB_OUTPUT
           echo "Using action ref: $REF"
