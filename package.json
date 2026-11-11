@@ -94,7 +94,30 @@
         "schemes": [
           "ipfs",
           "ipns",
-          "ipld"
+          "ipld",
+          "pubsub"
+        ],
+        "role": "Viewer"
+      },
+      {
+        "name": "web3",
+        "schemes": [
+          "web3"
+        ],
+        "role": "Viewer"
+      },
+      {
+        "name": "did",
+        "schemes": [
+          "did"
+        ],
+        "role": "Viewer"
+      },
+      {
+        "name": "agregore",
+        "schemes": [
+          "agregore",
+          "browser"
         ],
         "role": "Viewer"
       },
