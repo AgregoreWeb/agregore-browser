@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       action_ref:
-        description: 'Action ref (SHA, branch, or tag e.g. v2.7.8). Empty = auto-detect newest v* tag, else default-branch HEAD.'
+        description: 'Action ref (SHA, branch, or tag). Empty = use the pinned IPFS_GH_PAGES_REF.'
         required: false
         default: ''
         type: string
@@ -29,11 +29,11 @@ permissions:
   id-token: write
 
 env:
-  # Pin of RandyMcMillan/ipfs-gh-pages used for pushes. v2.8.x currently
-  # misroutes its release script into the consumer repo and hard-fails on a
-  # missing consumer.example.yml there, so auto-detect is not safe until
-  # that is fixed upstream. Override per-run via workflow_dispatch.
-  IPFS_GH_PAGES_REF: v2.7.8
+  # Full-length commit SHA pin of RandyMcMillan/ipfs-gh-pages used for
+  # pushes (SHA-pinned like build.yml's action). Action v2.8.x+ requires
+  # Node 26 and expects consumer.example.yml at the repo root; see that
+  # file for details. Override per-run via workflow_dispatch.
+  IPFS_GH_PAGES_REF: 6ce5e8818afec0cafcad723f216310d4ee4f43f5
 
 concurrency:
   group: pages
