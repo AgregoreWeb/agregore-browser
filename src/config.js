@@ -153,19 +153,21 @@ const Config = RC('agregore', {
   autoHideMenuBar: false,
   searchProvider: DEFAULT_SEARCH_PROVIDER,
 
-  // All options here: https://github.com/ipfs/js-ipfs/blob/master/docs/CONFIG.md
+  // All options here: https://github.com/ipfs/kubo/blob/master/docs/config.md
   ipfsOptions: {
     repo: DEFAULT_IPFS_DIR,
-    silent: true,
-    preload: {
-      enabled: false
-    },
     config: {
       Ipns: {
-        UsePubsub: true
+        UsePubSub: true
       },
       Pubsub: {
         Enabled: true
+      },
+      API: {
+        HTTPHeaders: {
+          'Access-Control-Allow-Origin': ['*'],
+          'Access-Control-Allow-Methods': ['PUT', 'POST', 'GET']
+        }
       },
       Addresses: {
         API: '/ip4/127.0.0.1/tcp/2473',
@@ -173,12 +175,10 @@ const Config = RC('agregore', {
         Swarm: [
           '/ip4/0.0.0.0/tcp/2475',
           '/ip6/::/tcp/2475',
-          '/ip4/0.0.0.0/udp/2475/quic',
-          '/ip6/::/udp/2475/quic'
+          '/ip4/0.0.0.0/udp/2475/quic-v1',
+          '/ip6/::/udp/2475/quic-v1'
         ]
-      },
-      // We don't need a gateway running. 🤷
-      Gateway: null
+      }
     }
   },
 

@@ -13,38 +13,34 @@ import * as fs from 'node:fs/promises'
 export default async function createHandler (ipfsOptions, session, tracker) {
   return fetchToHandler(async () => {
     const { default: makeFetch } = await import('js-ipfs-fetch')
-    const ipfsHttpModule = await import('ipfs-http-client')
+    const { createNode } = await import('ipfsd-ctl')
+    const { create: createRPC } = await import('kubo-rpc-client')
+    const { default: kubo } = await import('kubo')
 
-    const Ctl = await import('ipfsd-ctl')
-
-    const { default: GoIPFS } = await import('go-ipfs')
-
-    const ipfsBin = GoIPFS
-      .path()
+    const bin = kubo.path()
       .replace(`.asar${path.sep}`, `.asar.unpacked${path.sep}`)
 
-    const ipfsdOpts = {
-      ipfsOptions,
-      type: 'go',
+    const { repo, config } = ipfsOptions
+
+    const nodeOptions = {
+      type: 'kubo',
+      rpc: createRPC,
+      bin,
+      repo,
       disposable: false,
-      test: false,
-      remote: false,
-      ipfsHttpModule,
-      ipfsBin
+      init: {
+        config
+      }
     }
 
-    let ipfsd = await Ctl.createController(ipfsdOpts)
-
-    await ipfsd.init({ ipfsOptions })
-    const version = await ipfsd.version()
-    console.log(`IPFS Version: ${version}\nIPFS bin path: ${ipfsBin}`)
+    let node = await createNode(nodeOptions)
 
     try {
-      await ipfsd.start()
-      await ipfsd.api.id()
+      await node.init()
+      await node.start()
+      await node.api.id()
     } catch (e) {
       console.log('IPFS Unable to boot daemon', e.message)
-      const { repo } = ipfsOptions
       const lockFile = path.join(repo, 'repo.lock')
       const apiFile = path.join(repo, 'api')
       try {
@@ -52,19 +48,22 @@ export default async function createHandler (ipfsOptions, session, tracker) {
           fs.rm(lockFile),
           fs.rm(apiFile)
         ])
-        ipfsd = await Ctl.createController(ipfsdOpts)
-        await ipfsd.start()
-        await ipfsd.api.id()
+        node = await createNode(nodeOptions)
+        await node.init()
+        await node.start()
+        await node.api.id()
       } catch (cause) {
         const message = `Unable to start daemon due to extra lockfile. Please clear your ipfs folder at ${repo} and try again.`
         throw new Error(message, { cause })
       }
     }
 
-    console.log('IPFS ID:', await ipfsd.api.id())
+    const { version } = await node.api.version()
+    console.log(`IPFS Version: ${version}\nIPFS bin path: ${bin}`)
+    console.log('IPFS ID:', await node.api.id())
 
     const fetch = await makeFetch({
-      ipfs: ipfsd.api,
+      ipfs: node.api,
       /**
        *
        * @param {URL} url
@@ -83,7 +82,7 @@ export default async function createHandler (ipfsOptions, session, tracker) {
     })
 
     fetch.close = async () => {
-      return ipfsd.stop()
+      return node.stop()
     }
 
     return fetch

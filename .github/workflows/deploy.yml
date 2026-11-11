@@ -1,0 +1,79 @@
+name: Deploy IPFS site
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+    inputs:
+      action_ref:
+        description: 'Action reference (Pinned SHA, branch, or tag v2.0.1)'
+        required: true
+        default: '8e5ea397b3fa70854b2b2779eb3f2e8ead0691dd'
+        type: string
+      node_version:
+        description: 'Node.js version to use for the build'
+        required: true
+        default: '20'
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      - name: Determine Action Ref and Node Version
+        id: set-inputs
+        run: |
+          # Fallback to defaults if triggered via push event instead of workflow_dispatch
+          REF="${{ github.event.inputs.action_ref }}"
+          if [ -z "$REF" ]; then
+            REF="8e5ea397b3fa70854b2b2779eb3f2e8ead0691dd"
+          fi
+          echo "action_ref=$REF" >> $GITHUB_OUTPUT
+          echo "Using action ref: $REF"
+
+          NODE_VER="${{ github.event.inputs.node_version }}"
+          if [ -z "$NODE_VER" ]; then
+            NODE_VER="20"
+          fi
+          echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
+          echo "Using Node version: $NODE_VER"
+
+      - name: Checkout Action Repository and Pull Tags
+        uses: actions/checkout@v4
+        with:
+          repository: RandyMcMillan/ipfs-gh-pages
+          ref: ${{ steps.set-inputs.outputs.action_ref }}
+          path: temp-action-repo
+          fetch-tags: true # Ensures tags are fetched during checkout
+
+      - name: Print Diff (Selected Ref vs Main Branch)
+        run: |
+          echo "=========================================="
+          echo "Comparing selected ref (${{ steps.set-inputs.outputs.action_ref }}) vs main"
+          echo "=========================================="
+          cd temp-action-repo
+          git fetch --tags origin
+          git fetch origin main || git fetch origin master || true
+          git diff ${{ steps.set-inputs.outputs.action_ref }} origin/main || git diff ${{ steps.set-inputs.outputs.action_ref }} origin/master || true
+
+      - name: Build and deploy IPFS site
+        id: drier
+        uses: ./temp-action-repo
+        with:
+          node-version: ${{ steps.set-inputs.outputs.node_version }}
+          deploy: 'true'

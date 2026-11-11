@@ -41,9 +41,9 @@ export default async function createHandler () {
         'hypercore-fetch',
         'hyper-sdk',
         'js-ipfs-fetch',
-        'ipfs-core',
+        'ipfsd-ctl',
+        'kubo',
         'bt-fetch',
-        'gun-fetch',
         'gemini-fetch'
       ]
 
