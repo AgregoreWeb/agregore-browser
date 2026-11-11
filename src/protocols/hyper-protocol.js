@@ -25,8 +25,6 @@ export default async function createHandler (options, session, tracker) {
       }
     })
 
-    console.log({ sdk, fetch })
-
     // @ts-ignore TODO: better way to return close handlers
     fetch.close = () => sdk.close()
 
