@@ -42,6 +42,19 @@ jobs:
       - name: Checkout main repository
         uses: actions/checkout@v4
 
+      - name: Fetch latest tag (release identity)
+        run: |
+          # The build bakes the repo's latest v* tag into the page (the
+          # header "latest release" chip). The default checkout is shallow
+          # and has no tags — fetch just the newest tag, no full history.
+          TAG=$(git ls-remote --refs --tags --sort=-v:refname origin 'v*' | head -n 1 | cut -f2 | sed 's|^refs/tags/||')
+          if [ -n "$TAG" ]; then
+            git fetch --depth 1 origin "refs/tags/$TAG:refs/tags/$TAG"
+            echo "Fetched latest tag for the build identity: $TAG"
+          else
+            echo "No v* tags on origin — the build falls back to the static version"
+          fi
+
       - name: Determine Action Ref and Node Version
         id: set-inputs
         run: |
