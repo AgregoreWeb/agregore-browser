@@ -1,0 +1,113 @@
+# Consumer workflow for the ipfs-gh-pages reusable action.
+#
+# This file serves two purposes:
+# 1. It documents this repository's deploy setup (it mirrors
+#    .github/workflows/deploy.yml, which is the workflow that actually runs).
+# 2. The action's build step (scripts/install-consumer-example.mjs) expects a
+#    consumer.example.yml at the repo root (REPO_ROOT) and installs it into
+#    actions-test/.github/workflows/deploy.yml during the build. Without this
+#    file the build hard-fails, starting with action v2.8.x.
+#
+# The action ref used by .github/workflows/deploy.yml is pinned via the
+# IPFS_GH_PAGES_REF workflow env and can be overridden per-run via
+# workflow_dispatch (action_ref).
+
+name: Deploy IPFS site
+
+on:
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+    inputs:
+      action_ref:
+        description: 'Action ref (SHA, branch, or tag e.g. v2.7.8). Empty = use the pinned IPFS_GH_PAGES_REF.'
+        required: false
+        default: ''
+        type: string
+      node_version:
+        description: 'Node.js version to use for the build'
+        required: true
+        default: '26'
+        type: string
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  # Pin of RandyMcMillan/ipfs-gh-pages used for pushes. v2.8.x and later
+  # require this file to exist and need Node 26. Override per-run via
+  # workflow_dispatch.
+  IPFS_GH_PAGES_REF: 6ce5e8818afec0cafcad723f216310d4ee4f43f5
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      - name: Fetch latest tag (release identity)
+        run: |
+          # The build bakes the repo's latest v* tag into the page (the
+          # header "latest release" chip). The default checkout is shallow
+          # and has no tags — fetch just the newest tag, no full history.
+          TAG=$(git ls-remote --refs --tags --sort=-v:refname origin 'v*' | head -n 1 | cut -f2 | sed 's|^refs/tags/||')
+          if [ -n "$TAG" ]; then
+            git fetch --depth 1 origin "refs/tags/$TAG:refs/tags/$TAG"
+            echo "Fetched latest tag for the build identity: $TAG"
+          else
+            echo "No v* tags on origin — the build falls back to the static version"
+          fi
+
+      - name: Determine Action Ref and Node Version
+        id: set-inputs
+        run: |
+          # Pin explicitly via workflow_dispatch; otherwise use the pinned
+          # ref from the workflow env.
+          REF="${{ github.event.inputs.action_ref }}"
+          if [ -z "$REF" ]; then
+            REF="${{ env.IPFS_GH_PAGES_REF }}"
+          fi
+          echo "action_ref=$REF" >> $GITHUB_OUTPUT
+          echo "Using action ref: $REF"
+
+          NODE_VER="${{ github.event.inputs.node_version }}"
+          if [ -z "$NODE_VER" ]; then
+            NODE_VER="26"
+          fi
+          echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
+          echo "Using Node version: $NODE_VER"
+
+      - name: Checkout Action Repository and Pull Tags
+        uses: actions/checkout@v4
+        with:
+          repository: RandyMcMillan/ipfs-gh-pages
+          ref: ${{ steps.set-inputs.outputs.action_ref }}
+          path: temp-action-repo
+          fetch-tags: true # Ensures tags are fetched during checkout
+
+      - name: Print Diff (Selected Ref vs Main Branch)
+        run: |
+          echo "=========================================="
+          echo "Comparing selected ref (${{ steps.set-inputs.outputs.action_ref }}) vs main"
+          echo "=========================================="
+          cd temp-action-repo
+          git fetch --tags origin
+          git fetch origin main || git fetch origin master || true
+          git diff ${{ steps.set-inputs.outputs.action_ref }} origin/main || git diff ${{ steps.set-inputs.outputs.action_ref }} origin/master || true
+
+      - name: Build and deploy IPFS site
+        id: drier
+        uses: ./temp-action-repo
+        with:
+          node-version: ${{ steps.set-inputs.outputs.node_version }}
+          deploy: 'true'

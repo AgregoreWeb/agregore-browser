@@ -352,8 +352,12 @@ function makeIPFS (path) {
   const sections = path.slice(IPFS_PREFIX.length).split('/')
   const cid = sections[0]
   if (cid.startsWith('Qm')) {
-    const parsed = CID.parse(cid)
-    sections[0] = parsed.toV1().toString()
+    try {
+      const parsed = CID.parse(cid)
+      sections[0] = parsed.toV1().toString()
+    } catch {
+      // Leave malformed CIDs alone, the protocol handler will report them
+    }
   }
   const final = sections.join('/')
   return `ipfs://${final}`

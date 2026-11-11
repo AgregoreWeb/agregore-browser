@@ -36,11 +36,24 @@ export default async function createHandler (options = {}) {
         // did:plc identifiers resolve via plc.directory
         resolveURL = `${plcDirectory}/${did}`
       } else if (method === 'web') {
-        // did:web identifiers resolve via HTTPS
+        // did:web identifiers resolve via HTTPS (W3C did:web spec):
         // did:web:example.com -> https://example.com/.well-known/did.json
-        const domain = parts.slice(2).join(':').replace(/%3A/g, ':')
-        const hostAndPath = domain.replace(/:/g, '/')
-        resolveURL = `https://${hostAndPath}/.well-known/did.json`
+        // did:web:example.com:8080 -> https://example.com:8080/.well-known/did.json
+        // did:web:example.com:u:p -> https://example.com/u/p/.well-known/did.json
+        const segments = parts.slice(2).map((segment) => decodeURIComponent(segment))
+        if (!segments[0]) {
+          return sendError(400, `Invalid DID format: ${did}`)
+        }
+        const host = segments[0]
+        let port = ''
+        let pathSegments = segments.slice(1)
+        // A numeric segment right after the domain is a port, not a path
+        if (/^[0-9]+$/.test(pathSegments[0] || '')) {
+          port = `:${pathSegments[0]}`
+          pathSegments = pathSegments.slice(1)
+        }
+        const path = pathSegments.length ? `/${pathSegments.join('/')}` : ''
+        resolveURL = `https://${host}${port}${path}/.well-known/did.json`
       } else {
         return sendError(400, `Unsupported DID method: ${method}. Supported methods: plc, web`)
       }

@@ -13,12 +13,13 @@ const P2P_PRIVILEGES = {
 }
 
 const BROWSER_PRIVILEGES = {
-  standard: false,
+  standard: true,
   secure: true,
-  allowServiceWorkers: false,
+  allowServiceWorkers: true,
   supportFetchAPI: true,
   bypassCSP: false,
-  corsEnabled: true
+  corsEnabled: true,
+  stream: true
 }
 
 const LOW_PRIVILEGES = {
@@ -41,8 +42,11 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
   { scheme: 'bt', privileges: P2P_PRIVILEGES },
   { scheme: 'ssb', privileges: P2P_PRIVILEGES },
+  { scheme: 'web3', privileges: P2P_PRIVILEGES },
   { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
-  { scheme: 'magnet', privileges: LOW_PRIVILEGES }
+  { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
+  { scheme: 'magnet', privileges: LOW_PRIVILEGES },
+  { scheme: 'did', privileges: LOW_PRIVILEGES }
 ])
 
 const indexFile = path.join(__dirname, 'index.js')

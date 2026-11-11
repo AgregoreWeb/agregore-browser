@@ -13,8 +13,8 @@ const CHECK_PATHS = [
   (path) => path + 'index.md',
   (path) => path + '/index.html',
   (path) => path + '/index.md',
-  (path) => path + '.html',
-  (path) => path + '.md'
+  (path) => path.replace(/\/+$/, '') + '.html',
+  (path) => path.replace(/\/+$/, '') + '.md'
 ]
 
 const pagesURL = new URL('../pages', import.meta.url)
@@ -41,9 +41,9 @@ export default async function createHandler () {
         'hypercore-fetch',
         'hyper-sdk',
         'js-ipfs-fetch',
-        'ipfs-core',
+        'ipfsd-ctl',
+        'kubo',
         'bt-fetch',
-        'gun-fetch',
         'gemini-fetch'
       ]
 

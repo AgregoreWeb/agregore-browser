@@ -14,34 +14,7 @@ import createDIDHandler from './did-protocol.js'
 
 /** @import { LocalSiteTracker } from '../localsites.js' */
 
-const P2P_PRIVILEGES = {
-  standard: true,
-  secure: true,
-  allowServiceWorkers: true,
-  supportFetchAPI: true,
-  bypassCSP: false,
-  corsEnabled: true,
-  stream: true
-}
-
-const BROWSER_PRIVILEGES = {
-  standard: true,
-  secure: true,
-  allowServiceWorkers: true,
-  supportFetchAPI: true,
-  bypassCSP: false,
-  corsEnabled: true,
-  stream: true
-}
-
-const LOW_PRIVILEGES = {
-  standard: false,
-  secure: false,
-  allowServiceWorkers: false,
-  supportFetchAPI: false,
-  bypassCSP: false,
-  corsEnabled: true
-}
+/** @import { LocalSiteTracker } from '../localsites.js' */
 
 const {
   ipfsOptions,
@@ -57,26 +30,6 @@ const onCloseHandlers = []
 
 export async function close () {
   await Promise.all(onCloseHandlers.map((handler) => handler()))
-}
-
-export function registerPrivileges () {
-  globalProtocol.registerSchemesAsPrivileged([
-    { scheme: 'https+raw', privileges: P2P_PRIVILEGES },
-    { scheme: 'hyper', privileges: P2P_PRIVILEGES },
-    { scheme: 'gemini', privileges: P2P_PRIVILEGES },
-    { scheme: 'ipfs', privileges: P2P_PRIVILEGES },
-    { scheme: 'ipns', privileges: P2P_PRIVILEGES },
-    { scheme: 'ipld', privileges: P2P_PRIVILEGES },
-    { scheme: 'pubsub', privileges: P2P_PRIVILEGES },
-    { scheme: 'bittorrent', privileges: P2P_PRIVILEGES },
-    { scheme: 'bt', privileges: P2P_PRIVILEGES },
-    { scheme: 'ssb', privileges: P2P_PRIVILEGES },
-    { scheme: 'web3', privileges: P2P_PRIVILEGES },
-    { scheme: 'agregore', privileges: BROWSER_PRIVILEGES },
-    { scheme: 'browser', privileges: BROWSER_PRIVILEGES },
-    { scheme: 'magnet', privileges: LOW_PRIVILEGES },
-    { scheme: 'did', privileges: LOW_PRIVILEGES }
-  ])
 }
 
 export function setAsDefaultProtocolClient () {

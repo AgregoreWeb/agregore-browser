@@ -8,3 +8,5 @@
 - [Using the fetch API with the `gemini://` protocol](Fetch-Gemini.md)
 - [Using the fetch API with the `ipfs://` protocol](Fetch-IPFS.md)
 - [Configuring the default web search provider](Search-Provider.md)
+- [Troubleshooting](Troubleshooting.md)
+- [Changelog](CHANGELOG.md)
