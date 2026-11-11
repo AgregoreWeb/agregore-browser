@@ -1,4 +1,5 @@
 import fetchToHandler from './fetch-to-handler.js'
+import { normalizeIPFSURL } from './ipfs-url.js'
 import path from 'node:path'
 import * as fs from 'node:fs/promises'
 /** @import { LocalSiteTracker } from '../localsites.js' */
@@ -62,7 +63,7 @@ export default async function createHandler (ipfsOptions, session, tracker) {
     console.log(`IPFS Version: ${version}\nIPFS bin path: ${bin}`)
     console.log('IPFS ID:', await node.api.id())
 
-    const fetch = await makeFetch({
+    const ipfsFetch = await makeFetch({
       ipfs: node.api,
       /**
        *
@@ -80,6 +81,14 @@ export default async function createHandler (ipfsOptions, session, tracker) {
         tracker.onDelete(url)
       }
     })
+
+    // Rewrite URL forms js-ipfs-fetch cannot route (base36/hex CIDs,
+    // gateway-style URLs, DNSLink names in ipfs:// URLs) before fetching
+    const fetch = async (request) => {
+      const normalized = normalizeIPFSURL(request.url, request.method)
+      const finalRequest = normalized ? new Request(normalized.href, request) : request
+      return ipfsFetch(finalRequest)
+    }
 
     fetch.close = async () => {
       return node.stop()

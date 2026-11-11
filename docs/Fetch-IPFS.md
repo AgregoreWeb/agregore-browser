@@ -2,6 +2,17 @@
 
 This API is implemented in [js-ipfs-fetch](https://github.com/RangerMauve/js-ipfs-fetch).
 
+## Accepted URL forms
+
+Besides plain `ipfs://CID/path` and `ipns://name/path` URLs, the browser normalizes these forms before handing them to js-ipfs-fetch:
+
+- CIDs in any multibase: CIDv0 (`Qm…`), base32 (`bafy…`), base36 (`k2jmt…`), or hex (`f0170…`) all work. Non-base32 CIDs get rewritten to their canonical base32 form.
+- Gateway-style URLs pasted from the web, like `ipfs://ipfs.io/ipfs/CID/path` or `ipfs://gateway/ipns/name/path`, which get rewritten to `ipfs://CID/path` / `ipns://name/path`.
+- Subdomain gateway URLs like `CID.ipfs.dweb.link/path` or `name.ipns.dweb.link/path`.
+- DNSLink domain names in `ipfs://` URLs for reading, like `ipfs://en.wikipedia-on-ipfs.org/`, which get rerouted to `ipns://` so Kubo can resolve the DNSLink record.
+
+Uppercase CIDs (e.g. from shouting-case links) are tolerated as well.
+
 ## Example
 
 ```javascript
