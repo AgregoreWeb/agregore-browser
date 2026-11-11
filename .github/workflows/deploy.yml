@@ -20,7 +20,7 @@ on:
       node_version:
         description: 'Node.js version to use for the build'
         required: true
-        default: '20'
+        default: '26'
         type: string
 
 permissions:
@@ -75,7 +75,7 @@ jobs:
 
           NODE_VER="${{ github.event.inputs.node_version }}"
           if [ -z "$NODE_VER" ]; then
-            NODE_VER="20"
+            NODE_VER="26"
           fi
           echo "node_version=$NODE_VER" >> $GITHUB_OUTPUT
           echo "Using Node version: $NODE_VER"
